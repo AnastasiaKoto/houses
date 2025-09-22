@@ -60,6 +60,48 @@ document.addEventListener('DOMContentLoaded', function () {
   splide.mount();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const sliderStyles = document.querySelector('.styles-slider');
+  if (!sliderStyles) return;
+
+  let splide;
+
+  function initSplide() {
+    if (window.innerWidth <= 1500) {
+      if (!splide) {
+        splide = new Splide(sliderStyles, {
+          type: 'slide',
+          autoWidth: true,
+          perMove: 1,
+          pagination: false,
+          arrows: false,
+        });
+        splide.mount();
+      }
+    } else {
+      if (splide) {
+        splide.destroy();
+        splide = null;
+      }
+    }
+  }
+
+  initSplide();
+
+
+  window.addEventListener('resize', initSplide);
+
+
+  const prevArrow = document.querySelector('.styles-arrow__prev');
+  const nextArrow = document.querySelector('.styles-arrow__next');
+
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => splide?.go('<'));
+  }
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => splide?.go('>'));
+  }
+});
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -74,6 +116,11 @@ document.addEventListener('DOMContentLoaded', function () {
     perMove: 1,
     pagination: false,
     arrows: false,
+    breakpoints: {
+      992: {
+        gap: 10,
+      }
+    }
   });
 
   splide.mount();
@@ -92,6 +139,35 @@ document.addEventListener('DOMContentLoaded', function () {
       splide.go('>');
     });
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  function moveElementOnBreakpoint(elementSelector, targetSelector, breakpoint) {
+    const element = document.querySelector(elementSelector);
+    const target = document.querySelector(targetSelector);
+    if (!element || !target) return;
+
+    const originalParent = element.parentNode;
+
+    function move() {
+      if (window.innerWidth <= breakpoint) {
+        if (!target.contains(element)) {
+          target.appendChild(element);
+        }
+      } else {
+        if (!originalParent.contains(element)) {
+          originalParent.appendChild(element);
+        }
+      }
+    }
+
+    move();
+    window.addEventListener("resize", move);
+  }
+
+  // Применение
+  moveElementOnBreakpoint(".uniq-arrows", ".uniq-slider__wrap", 992);
+  moveElementOnBreakpoint(".projects-arrows", ".projects-tabs__content", 992);
 });
 
 

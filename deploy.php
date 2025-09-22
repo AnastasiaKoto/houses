@@ -1,8 +1,8 @@
 <?php
 $secret = '@WowE_(Cj7';
-$log_file = '/var/www/u3265633/data/www/10domov.ru/deploy-webhook.log';
+//$log_file = '/var/www/u3265633/data/www/10domov.ru/deploy-webhook.log';
 $github_signature = $_SERVER['HTTP_X_HUB_SIGNATURE_256'] ?? '';
-file_put_contents($log_file, "GitHub Signature: " . $github_signature . "\n", FILE_APPEND);
+//file_put_contents($log_file, "GitHub Signature: " . $github_signature . "\n", FILE_APPEND);
 
 // Получаем данные от GitHub
 $payload = file_get_contents('php://input');

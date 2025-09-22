@@ -1,36 +1,15 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Компания", 
-		"company/", 
+		"Проекты домов", 
+		"/catalog/proekty-domov/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Новости", 
-		"news/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Продукция", 
-		"products/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Услуги", 
-		"services/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Контакты", 
-		"contacts/", 
+		"Реализованные проекты", 
+		"/catalog/portfolio-proektov/realizovannye-proekty/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -38,6 +17,20 @@ $aMenuLinks = Array(
 	Array(
 		"Ипотека", 
 		"/ipoteka/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"О компании", 
+		"/company/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Индивидуальный проект", 
+		"/", 
 		Array(), 
 		Array(), 
 		"" 

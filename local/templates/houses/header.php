@@ -31,107 +31,22 @@
           <a href="javascript:void(0)" class="nav-logo">
             <img src="<?=SITE_TEMPLATE_PATH?>/assets/img/logo.svg" alt="logo">
           </a>
-          <?/*
-          <?$APPLICATION->IncludeComponent("bitrix:menu","",Array(
-              "ROOT_MENU_TYPE" => "top", 
-              "MAX_LEVEL" => "2", 
-              "CHILD_MENU_TYPE" => "left", 
-              "USE_EXT" => "Y",
-              "DELAY" => "N",
-              "ALLOW_MULTI_SELECT" => "Y",
-              "MENU_CACHE_TYPE" => "N", 
-              "MENU_CACHE_TIME" => "3600", 
-              "MENU_CACHE_USE_GROUPS" => "Y", 
-              "MENU_CACHE_GET_VARS" => "" 
-            )
+          
+          <?$APPLICATION->IncludeComponent("bitrix:menu", "top_multilevel", Array(
+            "ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
+              "MAX_LEVEL" => "2",	// Уровень вложенности меню
+              "CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
+              "USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+              "DELAY" => "N",	// Откладывать выполнение шаблона меню
+              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+              "COMPONENT_TEMPLATE" => "horizontal_multilevel"
+            ),
+            false
           );?>
-          */?>
-          <ul class="nav-menu">
-            <li>
-              <a href="javascript:void(0)">
-                <span>
-                  Проекты домов
-                </span>
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.5 6.5L8.5 10.5L12.5 6.5" stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span>
-                  Реализованные проекты
-                </span>
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.5 6.5L8.5 10.5L12.5 6.5" stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span>
-                  Ипотека
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span>
-                  О компании
-                </span>
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.5 6.5L8.5 10.5L12.5 6.5" stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-              </a>
-              <ul class="nav-submenu">
-                <li>
-                  <a href="javascript:void(0)">
-                    <span>
-                      Компания
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)">
-                    <span>
-                      Вакансии
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)">
-                    <span>
-                      Новости
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)">
-                    <span>
-                      Технологии
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)">
-                    <span>
-                      Документы
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span>
-                  Индивидуальный проект
-                </span>
-              </a>
-            </li>
-          </ul>
           
           <div class="nav-contacts">
             <a href="javascript:void(0)" class="nav-contact icon" target="_blank">

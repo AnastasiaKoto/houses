@@ -1,5 +1,4 @@
 /bitrix/*
 /.osp/
 /upload/
-/deploy.php
 /.htaccess

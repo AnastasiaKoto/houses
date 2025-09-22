@@ -31,6 +31,7 @@
           <a href="javascript:void(0)" class="nav-logo">
             <img src="<?=SITE_TEMPLATE_PATH?>/assets/img/logo.svg" alt="logo">
           </a>
+          <?/*
           <?$APPLICATION->IncludeComponent("bitrix:menu","",Array(
               "ROOT_MENU_TYPE" => "top", 
               "MAX_LEVEL" => "2", 
@@ -44,7 +45,7 @@
               "MENU_CACHE_GET_VARS" => "" 
             )
           );?>
-          <?/*
+          */?>
           <ul class="nav-menu">
             <li>
               <a href="javascript:void(0)">
@@ -131,7 +132,7 @@
               </a>
             </li>
           </ul>
-          */?>
+          
           <div class="nav-contacts">
             <a href="javascript:void(0)" class="nav-contact icon" target="_blank">
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

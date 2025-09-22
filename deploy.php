@@ -18,7 +18,7 @@ if ($_SERVER['HTTP_X_GITHUB_EVENT'] === 'push') {
     $branch = str_replace('refs/heads/', '', $ref);
     
     if ($branch === 'master') {
-        shell_exec('/opt/scripts/deploy.sh > /dev/null 2>&1 &');
+        shell_exec('/var/www/u3265633/data/opt/scripts/deploy.sh > /dev/null 2>&1 &');
         echo "Deploy started for master branch";
     }
 }
@@ -28,7 +28,7 @@ elseif ($_SERVER['HTTP_X_GITHUB_EVENT'] === 'pull_request') {
     $base_branch = $payload['pull_request']['base']['ref'];
     
     if ($action === 'closed' && $merged && $base_branch === 'master') {
-        shell_exec('/opt/scripts/deploy.sh > /dev/null 2>&1 &');
+        shell_exec('/var/www/u3265633/data/opt/scripts/deploy.sh > /dev/null 2>&1 &');
         echo "Deploy started after merge to master";
     }
 }

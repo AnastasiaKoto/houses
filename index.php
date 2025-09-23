@@ -73,4 +73,233 @@ $APPLICATION->SetTitle("Главная");
 	),
 	false
 );?>
+<?$APPLICATION->IncludeComponent("bitrix:news.list", "house_styles", Array(
+	"DISPLAY_DATE" => "N",	// Выводить дату элемента
+		"DISPLAY_NAME" => "Y",	// Выводить название элемента
+		"DISPLAY_PICTURE" => "Y",	// Выводить изображение для анонса
+		"DISPLAY_PREVIEW_TEXT" => "Y",	// Выводить текст анонса
+		"AJAX_MODE" => "N",	// Включить режим AJAX
+		"IBLOCK_TYPE" => "content",	// Тип информационного блока (используется только для проверки)
+		"IBLOCK_ID" => "7",	// Код информационного блока
+		"NEWS_COUNT" => "3",	// Количество новостей на странице
+		"SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+		"SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+		"SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+		"SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+		"FILTER_NAME" => "",	// Фильтр
+		"FIELD_CODE" => array(	// Поля
+			0 => "NAME",
+			1 => "PREVIEW_TEXT",
+			2 => "PREVIEW_PICTURE",
+			3 => "DETAIL_TEXT",
+			4 => "DETAIL_PICTURE",
+			5 => "",
+		),
+		"PROPERTY_CODE" => array(	// Свойства
+			0 => "SMALL_BANNER_TITLE",
+			1 => "FIRST_BANNER_TITLE",
+			2 => "TRANSPARENT_BTN_TXT",
+			3 => "BLACK_BTN_TXT",
+			4 => "",
+		),
+		"CHECK_DATES" => "Y",	// Показывать только активные на данный момент элементы
+		"DETAIL_URL" => "",	// URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+		"PREVIEW_TRUNCATE_LEN" => "",	// Максимальная длина анонса для вывода (только для типа текст)
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+		"SET_TITLE" => "N",	// Устанавливать заголовок страницы
+		"SET_BROWSER_TITLE" => "N",	// Устанавливать заголовок окна браузера
+		"SET_META_KEYWORDS" => "N",	// Устанавливать ключевые слова страницы
+		"SET_META_DESCRIPTION" => "N",	// Устанавливать описание страницы
+		"SET_LAST_MODIFIED" => "N",	// Устанавливать в заголовках ответа время модификации страницы
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",	// Включать инфоблок в цепочку навигации
+		"ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",	// Скрывать ссылку, если нет детального описания
+		"PARENT_SECTION" => "",	// ID раздела
+		"PARENT_SECTION_CODE" => "",	// Код раздела
+		"INCLUDE_SUBSECTIONS" => "Y",	// Показывать элементы подразделов раздела
+		"CACHE_TYPE" => "A",	// Тип кеширования
+		"CACHE_TIME" => "3600",	// Время кеширования (сек.)
+		"CACHE_FILTER" => "N",	// Кешировать при установленном фильтре
+		"CACHE_GROUPS" => "Y",	// Учитывать права доступа
+		"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
+		"DISPLAY_BOTTOM_PAGER" => "N",	// Выводить под списком
+		"PAGER_TITLE" => "",	// Название категорий
+		"PAGER_SHOW_ALWAYS" => "N",	// Выводить всегда
+		"PAGER_TEMPLATE" => "",	// Шаблон постраничной навигации
+		"PAGER_DESC_NUMBERING" => "N",	// Использовать обратную навигацию
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",	// Время кеширования страниц для обратной навигации
+		"PAGER_SHOW_ALL" => "N",	// Показывать ссылку "Все"
+		"PAGER_BASE_LINK_ENABLE" => "N",	// Включить обработку ссылок
+		"SET_STATUS_404" => "Y",	// Устанавливать статус 404
+		"SHOW_404" => "N",	// Показ специальной страницы
+		"MESSAGE_404" => "",	// Сообщение для показа (по умолчанию из компонента)
+		"PAGER_BASE_LINK" => "",
+		"PAGER_PARAMS_NAME" => "arrPager",
+		"AJAX_OPTION_JUMP" => "N",	// Включить прокрутку к началу компонента
+		"AJAX_OPTION_STYLE" => "Y",	// Включить подгрузку стилей
+		"AJAX_OPTION_HISTORY" => "N",	// Включить эмуляцию навигации браузера
+		"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
+		"COMPONENT_TEMPLATE" => ".default",
+		"STRICT_SECTION_CHECK" => "N",	// Строгая проверка раздела для показа списка
+	),
+	false
+);?>
+<?$APPLICATION->IncludeComponent("bitrix:highloadblock.list", "features", Array(
+	"BLOCK_ID" => "1",	// ID highload блока
+		"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
+		"DETAIL_URL" => "",	// Путь к странице просмотра записи
+		"FILTER_NAME" => "",	// Идентификатор фильтра
+		"PAGEN_ID" => "",	// Идентификатор страницы
+		"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
+		"SORT_FIELD" => "",	// Поле сортировки
+		"SORT_ORDER" => "",	// Направление сортировки
+	),
+	false
+);?>
+<?$APPLICATION->IncludeComponent("bitrix:news.list", "uniq", Array(
+	"DISPLAY_DATE" => "N",	// Выводить дату элемента
+		"DISPLAY_NAME" => "Y",	// Выводить название элемента
+		"DISPLAY_PICTURE" => "Y",	// Выводить изображение для анонса
+		"DISPLAY_PREVIEW_TEXT" => "Y",	// Выводить текст анонса
+		"AJAX_MODE" => "N",	// Включить режим AJAX
+		"IBLOCK_TYPE" => "content",	// Тип информационного блока (используется только для проверки)
+		"IBLOCK_ID" => "8",	// Код информационного блока
+		"NEWS_COUNT" => "20",	// Количество новостей на странице
+		"SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
+		"SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
+		"SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
+		"SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+		"FILTER_NAME" => "",	// Фильтр
+		"FIELD_CODE" => array(	// Поля
+			0 => "NAME",
+			1 => "PREVIEW_TEXT",
+			2 => "PREVIEW_PICTURE",
+			3 => "DETAIL_TEXT",
+			4 => "DETAIL_PICTURE",
+			5 => "",
+		),
+		"PROPERTY_CODE" => array(	// Свойства
+			0 => "SMALL_BANNER_TITLE",
+			1 => "FIRST_BANNER_TITLE",
+			2 => "TRANSPARENT_BTN_TXT",
+			3 => "BLACK_BTN_TXT",
+			4 => "",
+		),
+		"CHECK_DATES" => "Y",	// Показывать только активные на данный момент элементы
+		"DETAIL_URL" => "",	// URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+		"PREVIEW_TRUNCATE_LEN" => "",	// Максимальная длина анонса для вывода (только для типа текст)
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
+		"SET_TITLE" => "N",	// Устанавливать заголовок страницы
+		"SET_BROWSER_TITLE" => "N",	// Устанавливать заголовок окна браузера
+		"SET_META_KEYWORDS" => "N",	// Устанавливать ключевые слова страницы
+		"SET_META_DESCRIPTION" => "N",	// Устанавливать описание страницы
+		"SET_LAST_MODIFIED" => "N",	// Устанавливать в заголовках ответа время модификации страницы
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",	// Включать инфоблок в цепочку навигации
+		"ADD_SECTIONS_CHAIN" => "N",	// Включать раздел в цепочку навигации
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",	// Скрывать ссылку, если нет детального описания
+		"PARENT_SECTION" => "",	// ID раздела
+		"PARENT_SECTION_CODE" => "",	// Код раздела
+		"INCLUDE_SUBSECTIONS" => "Y",	// Показывать элементы подразделов раздела
+		"CACHE_TYPE" => "A",	// Тип кеширования
+		"CACHE_TIME" => "3600",	// Время кеширования (сек.)
+		"CACHE_FILTER" => "N",	// Кешировать при установленном фильтре
+		"CACHE_GROUPS" => "Y",	// Учитывать права доступа
+		"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
+		"DISPLAY_BOTTOM_PAGER" => "N",	// Выводить под списком
+		"PAGER_TITLE" => "",	// Название категорий
+		"PAGER_SHOW_ALWAYS" => "N",	// Выводить всегда
+		"PAGER_TEMPLATE" => "",	// Шаблон постраничной навигации
+		"PAGER_DESC_NUMBERING" => "N",	// Использовать обратную навигацию
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",	// Время кеширования страниц для обратной навигации
+		"PAGER_SHOW_ALL" => "N",	// Показывать ссылку "Все"
+		"PAGER_BASE_LINK_ENABLE" => "N",	// Включить обработку ссылок
+		"SET_STATUS_404" => "Y",	// Устанавливать статус 404
+		"SHOW_404" => "N",	// Показ специальной страницы
+		"MESSAGE_404" => "",	// Сообщение для показа (по умолчанию из компонента)
+		"PAGER_BASE_LINK" => "",
+		"PAGER_PARAMS_NAME" => "arrPager",
+		"AJAX_OPTION_JUMP" => "N",	// Включить прокрутку к началу компонента
+		"AJAX_OPTION_STYLE" => "Y",	// Включить подгрузку стилей
+		"AJAX_OPTION_HISTORY" => "N",	// Включить эмуляцию навигации браузера
+		"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
+		"COMPONENT_TEMPLATE" => ".default",
+		"STRICT_SECTION_CHECK" => "N",	// Строгая проверка раздела для показа списка
+	),
+	false
+);?>
+<?$APPLICATION->IncludeComponent(
+	"bitrix:news.list", 
+	"tizers", 
+	array(
+		"DISPLAY_DATE" => "N",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "Y",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"AJAX_MODE" => "N",
+		"IBLOCK_TYPE" => "content",
+		"IBLOCK_ID" => "9",
+		"NEWS_COUNT" => "20",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_ORDER1" => "DESC",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER2" => "ASC",
+		"FILTER_NAME" => "",
+		"FIELD_CODE" => array(
+			0 => "NAME",
+			1 => "PREVIEW_TEXT",
+			2 => "PREVIEW_PICTURE",
+			3 => "DETAIL_TEXT",
+			4 => "DETAIL_PICTURE",
+			5 => "",
+		),
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "SMALL_BANNER_TITLE",
+			2 => "FIRST_BANNER_TITLE",
+			3 => "TRANSPARENT_BTN_TXT",
+			4 => "BLACK_BTN_TXT",
+			5 => "",
+		),
+		"CHECK_DATES" => "Y",
+		"DETAIL_URL" => "",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"SET_TITLE" => "N",
+		"SET_BROWSER_TITLE" => "N",
+		"SET_META_KEYWORDS" => "N",
+		"SET_META_DESCRIPTION" => "N",
+		"SET_LAST_MODIFIED" => "N",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+		"PARENT_SECTION" => "",
+		"PARENT_SECTION_CODE" => "",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "3600",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"PAGER_TITLE" => "",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => "",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SET_STATUS_404" => "Y",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => "",
+		"PAGER_BASE_LINK" => "",
+		"PAGER_PARAMS_NAME" => "arrPager",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"COMPONENT_TEMPLATE" => "tizers",
+		"STRICT_SECTION_CHECK" => "N"
+	),
+	false
+);?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

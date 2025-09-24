@@ -1,9 +1,9 @@
 <?php
 $arUrlRewrite=array (
-  6 => 
+  4 => 
   array (
-    'CONDITION' => '#^SECTION_CODE=$1&ELEMENT_CODE=$2&$3\\??(.*)#',
-    'RULE' => '&$1',
+    'CONDITION' => '#^([^/]+?)\\??(.*)#',
+    'RULE' => 'SECTION_CODE=$1&$2',
     'ID' => 'bitrix:catalog.section',
     'PATH' => '/index.php',
     'SORT' => 100,

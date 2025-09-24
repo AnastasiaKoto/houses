@@ -51,6 +51,9 @@ if ($isFilter || $isSidebar): ?>
 						"SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
 						"PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
 						"INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
+						"SPECIAL_SECTION_ID" => "10",
+						"LINKED_IBLOCK_ID" => "11",
+						"LINK_PROPERTY_CODE" => "HOUSE_VARIABLES"
 					),
 					$component,
 					array('HIDE_ICONS' => 'Y')

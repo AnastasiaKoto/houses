@@ -54,6 +54,9 @@ if(!empty($arResult['ITEMS'])):
 					<? foreach($arResult['ITEMS'] as $arItem): ?>
 					<li class="splide__slide <?= $arItem['PROPERTIES']['TEXT_COLOR']['VALUE'] == 'Темный текст' ? 'dark-text' : '';  ?>">
 						<div class="uniq-slider__image">
+							<? if($arItem['PROPERTIES']['TEXT_COLOR']['VALUE'] !== 'Темный текст'): ?>
+							<div class="uniq-dark__layer"></div>
+							<? endif ?>
 							<img src="<?= $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<?= $arItem['NAME']; ?>">
 						</div>
 						<div class="uniq-slider__name">

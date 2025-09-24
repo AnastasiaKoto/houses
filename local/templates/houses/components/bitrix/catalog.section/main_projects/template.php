@@ -26,9 +26,6 @@ use Bitrix\Catalog\ProductTable;
 $this->setFrameMode(true);
 $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 ?>
-<pre>
-	<? // print_r($arResult['MODIFIED_ITEMS']); ?>
-</pre>
 
 <? if (!empty($arResult['MODIFIED_ITEMS'])): ?>
 	<section class="section projects">
@@ -36,7 +33,13 @@ $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 			<div class="projects-inner">
 				<div class="projects-head">
 					<div class="section-title">
-						Посмотрите на наши работы
+						<?$APPLICATION->IncludeComponent("bitrix:main.include","",Array(
+								"AREA_FILE_SHOW" => "file", 
+								"AREA_FILE_SUFFIX" => "",
+								"EDIT_TEMPLATE" => "standard.php",
+								"PATH" => "/include/mainpage/projects/section_title.php" 
+							)
+						);?>
 					</div>
 				</div>
 
@@ -46,22 +49,23 @@ $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 			<div class="container">
 				<div class="projects-tabs__inner">
 					<div class="projects-tabs__links">
-						<a href="javascript:void(0)" class="projects-tabs__link active">
+						<? 
+						$count = 1;
+						foreach($arResult['MODIFIED_ITEMS'] as $key => $value): ?>
+						<a href="javascript:void(0)" class="projects-tabs__link <?= $count == 1 ? 'active' : ''; ?>">
 							<span>
-								Реализованные проекты
+								<?= $key; ?>
 							</span>
-						</a>
-						<a href="javascript:void(0)" class="projects-tabs__link">
-							<span>
-								Активные стройки
-							</span>
-							<div class="projects-tabs__link-live">
-								<div class="projects-tabs__link-live-round"></div>
-								<div class="projects-tabs__link-live-text">
-									Live
+							<? if($key == 'Активные проекты'): ?>
+								<div class="projects-tabs__link-live">
+									<div class="projects-tabs__link-live-round"></div>
+									<div class="projects-tabs__link-live-text">
+										Live
+									</div>
 								</div>
-							</div>
+							<? endif; ?>
 						</a>
+						<? $count++; endforeach; ?>
 					</div>
 					<div class="projects-arrows">
 						<div class="projects-arrow projects-arrow__prev">
@@ -83,283 +87,53 @@ $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 				</div>
 			</div>
 			<div class="projects-tabs__content">
+				<? foreach($arResult['MODIFIED_ITEMS'] as $key => $arValues): ?>
 				<div class="projects-slider-wrapper">
 					<div class="splide projects-slider">
 						<div class="splide__track">
 							<ul class="splide__list projects-items">
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
+								<? foreach($arValues as $value): ?>
+								<li class="splide__slide projects-item" onclick="window.location='<?= $value['DETAIL_PAGE_URL']; ?>'">
+									<? if(!empty($value['PROPERTIES']['GALLERY']['VALUE'])): ?>
 									<div class="splide projects-slider__images">
 										<div class="splide__track">
 											<ul class="splide__list projects-slider__image-items">
+												<? foreach($value['PROPERTIES']['GALLERY']['VALUE'] as $img): ?>
 												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
+													<img src="<?= CFile::GetPath($img); ?>" alt="img">
 												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
+												<? endforeach; ?>
 											</ul>
 										</div>
 									</div>
+									<? endif; ?>
 									<div class="projects-item__body">
 										<div class="projects-item__name">
-											Классика
+											<?= $value['NAME']; ?>
 										</div>
 										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
+											<?= $value['~PREVIEW_TEXT']; ?>
 										</div>
+										<? if(!empty($value['CARD_CHARACTERISTICS'])) { ?>
 										<div class="projects-item__specs">
+											<? foreach($value['CARD_CHARACTERISTICS'] as $prop) { ?>
 											<div class="projects-item__spec">
 												<div class="projects-item__spec-name">
-													Площадь
+													<?= $prop['UF_DESCRIPTION']; ?>
 												</div>
 												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
+													<?= $prop['UF_NAME']; ?>
 												</div>
 											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
+											<? } ?>
 										</div>
+										<? } ?>
 									</div>
 								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
+								<? endforeach; ?>
+								<li class="splide__slide projects-item" onclick="window.location='/catalog/realizovannye-proekty/'">
 									<div class="projects-item__last-image">
-										<img src="./assets/img/pr6.png" alt="img">
+										<img src="/local/templates/houses/assets/img/pr6.png" alt="img">
 									</div>
 									<div class="project-item__last-text">
 										Посмотреть все выполненные проекты
@@ -383,306 +157,7 @@ $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 						</div>
 					</div>
 				</div>
-				<div class="projects-slider-wrapper">
-					<div class="splide projects-slider">
-						<div class="splide__track">
-							<ul class="splide__list projects-items">
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr1.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr2.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr3.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr4.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="splide projects-slider__images">
-										<div class="splide__track">
-											<ul class="splide__list projects-slider__image-items">
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-												<li class="splide__slide projects-slider__image-item">
-													<img src="./assets/img/pr5.jpg" alt="img">
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="projects-item__body">
-										<div class="projects-item__name">
-											Классика
-										</div>
-										<div class="projects-item__description">
-											Серпуховский р-н, п. Оболенск
-										</div>
-										<div class="projects-item__specs">
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Площадь
-												</div>
-												<div class="projects-item__spec-value">
-													123 м<sup>2</sup>
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Размер
-												</div>
-												<div class="projects-item__spec-value">
-													12х24 м
-												</div>
-											</div>
-											<div class="projects-item__spec">
-												<div class="projects-item__spec-name">
-													Комнаты
-												</div>
-												<div class="projects-item__spec-value">
-													4
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="splide__slide projects-item" onclick="window.location='javascript:void(0)'">
-									<div class="projects-item__last-image">
-										<img src="./assets/img/pr6.png" alt="img">
-									</div>
-									<div class="project-item__last-text">
-										Посмотреть все выполненные проекты
-									</div>
-									<a href="javascript:void(0)" class="arrow-btn__dark">
-										<span>
-											Смотреть
-										</span>
-										<div class="icon">
-											<svg width="13" height="12" viewBox="0 0 13 12" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<path
-													d="M11.9167 6L6.91667 11M1.5 6H11.9167H1.5ZM11.9167 6L6.91667 1L11.9167 6Z"
-													stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round"
-													stroke-linejoin="round" />
-											</svg>
-										</div>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<? endforeach; ?>
 			</div>
 		</div>
 	</section>

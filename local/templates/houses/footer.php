@@ -70,42 +70,85 @@
           </div>
           <ul class="footer-items">
             <li class="footer-item">
-              <ul class="footer-menu">
-                <li><a href="javascript:void(0)">Проекты домов</a></li>
-                <li><a href="javascript:void(0)">Хайтек</a></li>
-                <li><a href="javascript:void(0)">Нео-классик</a></li>
-                <li><a href="javascript:void(0)">Индивидуальный</a></li>
-              </ul>
+              <?$APPLICATION->IncludeComponent("bitrix:menu", "footer_menu", Array(
+                "ROOT_MENU_TYPE" => "bottom_projects",	// Тип меню для первого уровня
+                  "MAX_LEVEL" => "1",	// Уровень вложенности меню
+                  "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+                  "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                  "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                  "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+                  "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+                  "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+                  "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                  "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                  "COMPONENT_TEMPLATE" => "",
+                  "MENU_TITLE" => "Проекты домов"
+                ),
+                false
+              );?>
             </li>
             <li class="footer-item">
-              <ul class="footer-menu">
-                <li><a href="javascript:void(0)">Портфолио проектов</a></li>
-                <li><a href="javascript:void(0)">Реализованные проекты</a></li>
-                <li><a href="javascript:void(0)">Активные проекты</a></li>
-              </ul>
+              <?$APPLICATION->IncludeComponent("bitrix:menu", "footer_menu", Array(
+                "ROOT_MENU_TYPE" => "bottom_portfolio",	// Тип меню для первого уровня
+                  "MAX_LEVEL" => "1",	// Уровень вложенности меню
+                  "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+                  "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                  "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                  "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+                  "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+                  "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+                  "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                  "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                  "COMPONENT_TEMPLATE" => "",
+                  "MENU_TITLE" => "Портфолио проектов"
+                ),
+                false
+              );?>
             </li>
             <li class="footer-item">
-              <ul class="footer-menu">
-                <li><a href="javascript:void(0)">О компании</a></li>
-                <li><a href="javascript:void(0)">Компания</a></li>
-                <li><a href="javascript:void(0)">Вакансии</a></li>
-                <li><a href="javascript:void(0)">Новости</a></li>
-                <li><a href="javascript:void(0)">Технологии</a></li>
-              </ul>
+              <?$APPLICATION->IncludeComponent("bitrix:menu", "footer_menu", Array(
+                "ROOT_MENU_TYPE" => "bottom_company",	// Тип меню для первого уровня
+                  "MAX_LEVEL" => "1",	// Уровень вложенности меню
+                  "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+                  "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                  "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                  "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+                  "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+                  "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+                  "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                  "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                  "COMPONENT_TEMPLATE" => "",
+                  "MENU_TITLE" => "О компании"
+                ),
+                false
+              );?>
             </li>
             <li class="footer-item">
-              <ul class="footer-menu">
-                <li><a href="javascript:void(0)">Дополнительно</a></li>
-                <li><a href="javascript:void(0)">Ипотека</a></li>
-                <li><a href="javascript:void(0)">Документы</a></li>
-              </ul>
+              <?$APPLICATION->IncludeComponent("bitrix:menu", "footer_menu", Array(
+                "ROOT_MENU_TYPE" => "bottom_dop",	// Тип меню для первого уровня
+                  "MAX_LEVEL" => "1",	// Уровень вложенности меню
+                  "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+                  "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+                  "DELAY" => "N",	// Откладывать выполнение шаблона меню
+                  "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+                  "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+                  "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+                  "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+                  "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                  "COMPONENT_TEMPLATE" => "",
+                  "MENU_TITLE" => "Дополнительно"
+                ),
+                false
+              );?>
             </li>
             <li class="footer-item">
-              <ul class="footer-menu">
-                <li><a href="javascript:void(0)">Контакты</a></li>
-                <li><a href="tel:+7999989809">+7 (999) 98-98-09</a></li>
-                <li><a href="mailto:one@gamil.com">one@gamil.com</a></li>
-              </ul>
+              <?$APPLICATION->IncludeComponent("bitrix:main.include","",Array(
+                    "AREA_FILE_SHOW" => "file", 
+                    "AREA_FILE_SUFFIX" => "",
+                    "EDIT_TEMPLATE" => "standard.php",
+                    "PATH" => "/include/general/footer/footer_contacts.php" 
+                  )
+              );?>
             </li>
           </ul>
         </div>

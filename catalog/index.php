@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог");
-
+logMessage("Тест");
 $APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
 	"house_projects", 
@@ -133,6 +133,8 @@ $APPLICATION->IncludeComponent(
 		"LIST_OFFERS_LIMIT" => "0",
 		"SECTION_BACKGROUND_IMAGE" => "-",
 		"DETAIL_DETAIL_PICTURE_MODE" => array(
+			0 => "POPUP",
+			1 => "MAGNIFIER",
 		),
 		"DETAIL_ADD_DETAIL_TO_SLIDER" => "N",
 		"DETAIL_DISPLAY_PREVIEW_TEXT_MODE" => "E",
@@ -195,8 +197,7 @@ $APPLICATION->IncludeComponent(
 			0 => "1",
 		),
 		"USE_MIN_AMOUNT" => "N",
-		"USER_FIELDS" => array(
-		),
+		"USER_FIELDS" => "",
 		"FIELDS" => array(
 			0 => "ADDRESS",
 			1 => "PHONE",
@@ -258,14 +259,13 @@ $APPLICATION->IncludeComponent(
 		"SIDEBAR_DETAIL_SHOW" => "N",
 		"SIDEBAR_PATH" => "",
 		"COMPONENT_TEMPLATE" => "house_projects",
-		"LABEL_PROP_MOBILE" => array(
-		),
+		"LABEL_PROP_MOBILE" => "",
 		"LABEL_PROP_POSITION" => "top-left",
 		"MESS_NOT_AVAILABLE_SERVICE" => "Недоступно",
 		"MESS_BTN_SUBSCRIBE" => "Подписаться",
 		"USER_CONSENT" => "N",
 		"USER_CONSENT_ID" => "0",
-		"USER_CONSENT_IS_CHECKED" => "Y",
+		"USER_CONSENT_IS_CHECKED" => "N",
 		"USER_CONSENT_IS_LOADED" => "N",
 		"INSTANT_RELOAD" => "N",
 		"SEARCH_PAGE_RESULT_COUNT" => "50",
@@ -298,7 +298,7 @@ $APPLICATION->IncludeComponent(
 		"FILE_404" => "",
 		"COMPATIBLE_MODE" => "N",
 		"SEF_URL_TEMPLATES" => array(
-			"sections" => "#SECTION_CODE#/",
+			"sections" => "",
 			"section" => "#SECTION_CODE#/",
 			"element" => "#SECTION_CODE#/#ELEMENT_CODE#/",
 			"compare" => "",

@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог");
-
+logMessage("Тест");
 $APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
 	"house_projects", 

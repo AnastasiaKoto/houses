@@ -5,7 +5,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 function p($data = [])
 {
     echo '<pre>';
-    print_r($data);
+    print_r($data, true);
     echo '</pre>';
 }
 

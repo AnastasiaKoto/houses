@@ -22,7 +22,8 @@
 		}
 
 		this.bigData = params.bigData || {enabled: false};
-		this.container = document.querySelector('[data-entity="' + params.container + '"]');
+		//модифицировано
+		this.container = document.querySelector('[data-entity="items-row"]');
 		this.showMoreButton = null;
 		this.showMoreButtonMessage = null;
 
@@ -51,11 +52,12 @@
 			this.showMoreButtonMessage = this.showMoreButton.innerHTML;
 			BX.bind(this.showMoreButton, 'click', BX.proxy(this.showMore, this));
 		}
-
+		/*
 		if (params.loadOnScroll)
 		{
 			BX.bind(window, 'scroll', BX.proxy(this.loadOnScroll, this));
 		}
+		*/
 	};
 
 	window.JCCatalogSectionComponent.prototype =
@@ -92,7 +94,7 @@
 				this.showMoreButton.innerHTML = BX.message('BTN_MESSAGE_LAZY_LOAD_WAITER');
 			}
 		},
-
+		/*
 		loadOnScroll: function()
 		{
 			var scrollTop = BX.GetWindowScrollPos().scrollTop,
@@ -103,7 +105,7 @@
 				this.showMore();
 			}
 		},
-
+		*/
 		showMore: function()
 		{
 			if (this.navParams.NavPageNomer < this.navParams.NavPageCount)
@@ -153,7 +155,6 @@
 				onsuccess: BX.delegate(function(result){
 					if (!result || !result.JS)
 						return;
-
 					BX.ajax.processScripts(
 						BX.processHTML(result.JS).SCRIPT,
 						false,
@@ -209,18 +210,24 @@
 			if (!itemsHtml)
 				return;
 
+			if (!this.container) {
+				console.error('Container not found');
+				return;
+			}
+
 			var processed = BX.processHTML(itemsHtml, false),
 				temporaryNode = BX.create('DIV');
 
 			var items, k, origRows;
 
 			temporaryNode.innerHTML = processed.HTML;
-			items = temporaryNode.querySelectorAll('[data-entity="items-row"]');
+			items = temporaryNode.querySelectorAll('[data-entity="item"]');
 
 			if (items.length)
 			{
 				this.showHeader(true);
-
+				//модифицировано
+				/*
 				for (k in items)
 				{
 					if (items.hasOwnProperty(k))
@@ -234,11 +241,22 @@
 						}
 						else
 						{
+							console.log(items);
 							this.container.appendChild(items[k]);
+							//this.container.appendChild(items.innerHTML);
 						}
 					}
 				}
-
+				*/
+				for (var k = 0; k < items.length; k++)
+				{
+					if (items[k] && this.container)
+					{
+						items[k].style.opacity = 0;
+						
+						this.container.appendChild(items[k]);
+					}
+				}
 				new BX.easing({
 					duration: 2000,
 					start: {opacity: 0},
@@ -330,3 +348,5 @@
 		}
 	};
 })();
+
+

@@ -77,6 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const accordionItems = document.querySelectorAll('.question-acc__item');
+  if(!accordionItems) return;
+
+  accordionItems.forEach(item => {
+    const title = item.querySelector('.questions-acc__title');
+    title.addEventListener('click', () => {
+      accordionItems.forEach(i => {
+        if (i !== item) i.classList.remove('active');
+      });
+
+      item.classList.toggle('active');
+    });
+  });
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.float-input').forEach(wrapper => {
     const input = wrapper.querySelector('input');
@@ -110,18 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".custom-select").forEach(select => {
+  document.querySelectorAll(".custom-select, .custom-select-cornored").forEach(select => {
     const trigger = select.querySelector(".custom-select__trigger");
     const value = select.querySelector(".custom-select__value");
     const options = select.querySelectorAll(".custom-select__options li");
     const hidden = select.querySelector("input[type=hidden]");
 
-    trigger.addEventListener("click", () => {
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation(); // чтобы клик не "всплывал" на document
       select.classList.toggle("open");
     });
 
     options.forEach(option => {
-      option.addEventListener("click", () => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
         value.textContent = option.textContent;
         hidden.value = option.dataset.value;
         select.classList.add("active");
@@ -130,10 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // клик вне селекта — закрываем
-    document.addEventListener("click", e => {
-      if (!select.contains(e.target)) {
-        select.classList.remove("open");
-      }
+    document.addEventListener("click", () => {
+      select.classList.remove("open");
     });
   });
 });
@@ -203,4 +220,42 @@ document.addEventListener('DOMContentLoaded', function () {
   setTimeout(applyPhoneMask, 100); // дать DOM прогрузиться
 });
 
+// modifiend
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.querySelector(".overlay");
 
+  function openModal(modal) {
+    modal.classList.add("active");
+    overlay.classList.add("active");
+    document.documentElement.classList.add("lock");
+  }
+
+  function closeModal(modal) {
+    modal.classList.remove("active");
+    overlay.classList.remove("active");
+    document.documentElement.classList.remove("lock");
+  }
+
+  document.querySelectorAll("[data-modal-target]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-modal-target");
+      const modal = document.querySelector(target);
+      if (modal) openModal(modal);
+    });
+  });
+
+  document.querySelectorAll(".modal").forEach(modal => {
+    const closeBtn = modal.querySelector(".modal-close");
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => closeModal(modal));
+    }
+
+    overlay.addEventListener("click", () => closeModal(modal));
+
+    modal.addEventListener("click", e => {
+      if (!e.target.closest(".modal-inner")) closeModal(modal);
+    });
+  });
+});
+// modifiend

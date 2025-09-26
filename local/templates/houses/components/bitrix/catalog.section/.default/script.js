@@ -1,10 +1,10 @@
-(function() {
+(function () {
 	'use strict';
 
 	if (!!window.JCCatalogSectionComponent)
 		return;
 
-	window.JCCatalogSectionComponent = function(params) {
+	window.JCCatalogSectionComponent = function (params) {
 		this.formPosting = false;
 		this.siteId = params.siteId || '';
 		this.ajaxId = params.ajaxId || '';
@@ -12,8 +12,7 @@
 		this.componentPath = params.componentPath || '';
 		this.parameters = params.parameters || '';
 
-		if (params.navParams)
-		{
+		if (params.navParams) {
 			this.navParams = {
 				NavNum: params.navParams.NavNum || 1,
 				NavPageNomer: parseInt(params.navParams.NavPageNomer) || 1,
@@ -21,13 +20,21 @@
 			};
 		}
 
-		this.bigData = params.bigData || {enabled: false};
-		this.container = document.querySelector('[data-entity="' + params.container + '"]');
+		this.bigData = params.bigData || { enabled: false };
+		//модифицировано
+		this.container = document.querySelector('[data-entity="items-row"]');
+		this.more_container = document.querySelector('.show-more-container');
 		this.showMoreButton = null;
 		this.showMoreButtonMessage = null;
 
-		if (this.bigData.enabled && BX.util.object_keys(this.bigData.rows).length > 0)
-		{
+		//добавлена инициализация слайдера при загрузке
+		BX.ready(BX.delegate(function() {
+			if (this.container) {
+				this.initSliders(this.container);
+			}
+		}, this));
+
+		if (this.bigData.enabled && BX.util.object_keys(this.bigData.rows).length > 0) {
 			BX.cookie_prefix = this.bigData.js.cookiePrefix || '';
 			BX.cookie_domain = this.bigData.js.cookieDomain || '';
 			BX.current_server_time = this.bigData.js.serverTime;
@@ -35,64 +42,54 @@
 			BX.ready(BX.delegate(this.bigDataLoad, this));
 		}
 
-		if (params.initiallyShowHeader)
-		{
+		if (params.initiallyShowHeader) {
 			BX.ready(BX.delegate(this.showHeader, this));
 		}
 
-		if (params.deferredLoad)
-		{
+		if (params.deferredLoad) {
 			BX.ready(BX.delegate(this.deferredLoad, this));
 		}
 
-		if (params.lazyLoad)
-		{
+		if (params.lazyLoad) {
 			this.showMoreButton = document.querySelector('[data-use="show-more-' + this.navParams.NavNum + '"]');
 			this.showMoreButtonMessage = this.showMoreButton.innerHTML;
 			BX.bind(this.showMoreButton, 'click', BX.proxy(this.showMore, this));
 		}
-
+		/*
 		if (params.loadOnScroll)
 		{
 			BX.bind(window, 'scroll', BX.proxy(this.loadOnScroll, this));
 		}
+		*/
 	};
 
 	window.JCCatalogSectionComponent.prototype =
 	{
-		checkButton: function()
-		{
-			if (this.showMoreButton)
-			{
-				if (this.navParams.NavPageNomer == this.navParams.NavPageCount)
-				{
+		checkButton: function () {
+			if (this.showMoreButton) {
+				if (this.navParams.NavPageNomer == this.navParams.NavPageCount) {
 					BX.remove(this.showMoreButton);
 				}
-				else
-				{
-					this.container.appendChild(this.showMoreButton);
+				else {
+					this.more_container.appendChild(this.showMoreButton);
 				}
 			}
 		},
 
-		enableButton: function()
-		{
-			if (this.showMoreButton)
-			{
+		enableButton: function () {
+			if (this.showMoreButton) {
 				BX.removeClass(this.showMoreButton, 'disabled');
 				this.showMoreButton.innerHTML = this.showMoreButtonMessage;
 			}
 		},
 
-		disableButton: function()
-		{
-			if (this.showMoreButton)
-			{
+		disableButton: function () {
+			if (this.showMoreButton) {
 				BX.addClass(this.showMoreButton, 'disabled');
 				this.showMoreButton.innerHTML = BX.message('BTN_MESSAGE_LAZY_LOAD_WAITER');
 			}
 		},
-
+		/*
 		loadOnScroll: function()
 		{
 			var scrollTop = BX.GetWindowScrollPos().scrollTop,
@@ -103,17 +100,14 @@
 				this.showMore();
 			}
 		},
-
-		showMore: function()
-		{
-			if (this.navParams.NavPageNomer < this.navParams.NavPageCount)
-			{
+		*/
+		showMore: function () {
+			if (this.navParams.NavPageNomer < this.navParams.NavPageCount) {
 				var data = {};
 				data['action'] = 'showMore';
 				data['PAGEN_' + this.navParams.NavNum] = this.navParams.NavPageNomer + 1;
 
-				if (!this.formPosting)
-				{
+				if (!this.formPosting) {
 					this.formPosting = true;
 					this.disableButton();
 					this.sendRequest(data);
@@ -121,26 +115,22 @@
 			}
 		},
 
-		bigDataLoad: function()
-		{
+		bigDataLoad: function () {
 			// need remove all use this method
 		},
 
-		deferredLoad: function()
-		{
-			this.sendRequest({action: 'deferredLoad'});
+		deferredLoad: function () {
+			this.sendRequest({ action: 'deferredLoad' });
 		},
 
-		sendRequest: function(data)
-		{
+		sendRequest: function (data) {
 			var defaultData = {
 				siteId: this.siteId,
 				template: this.template,
 				parameters: this.parameters
 			};
 
-			if (this.ajaxId)
-			{
+			if (this.ajaxId) {
 				defaultData.AJAX_ID = this.ajaxId;
 			}
 
@@ -150,26 +140,23 @@
 				dataType: 'json',
 				timeout: 60,
 				data: BX.merge(defaultData, data),
-				onsuccess: BX.delegate(function(result){
+				onsuccess: BX.delegate(function (result) {
 					if (!result || !result.JS)
 						return;
-
 					BX.ajax.processScripts(
 						BX.processHTML(result.JS).SCRIPT,
 						false,
-						BX.delegate(function(){this.showAction(result, data);}, this)
+						BX.delegate(function () { this.showAction(result, data); }, this)
 					);
 				}, this)
 			});
 		},
 
-		showAction: function(result, data)
-		{
+		showAction: function (result, data) {
 			if (!data)
 				return;
 
-			switch (data.action)
-			{
+			switch (data.action) {
 				case 'showMore':
 					this.processShowMoreAction(result);
 					break;
@@ -179,23 +166,20 @@
 			}
 		},
 
-		processShowMoreAction: function(result)
-		{
+		processShowMoreAction: function (result) {
 			this.formPosting = false;
 			this.enableButton();
 
-			if (result)
-			{
+			if (result) {
 				this.navParams.NavPageNomer++;
 				this.processItems(result.items);
-				this.processPagination(result.pagination);
+				//this.processPagination(result.pagination);
 				this.processEpilogue(result.epilogue);
 				this.checkButton();
 			}
 		},
 
-		processDeferredLoadAction: function(result, bigData)
-		{
+		processDeferredLoadAction: function (result, bigData) {
 			if (!result)
 				return;
 
@@ -204,10 +188,56 @@
 			this.processItems(result.items, BX.util.array_keys(position));
 		},
 
-		processItems: function(itemsHtml, position)
-		{
+		//добавлено для переинициализации слайдеров карточек
+		initSliders: function(container) {
+			const slidersCatalog = container.querySelectorAll('.catalog-item__images');
+			
+			slidersCatalog.forEach(slider => {
+				if (slider.classList.contains('splide-initialized')) {
+					return;
+				}
+
+				const splide = new Splide(slider, {
+					type: 'slide',
+					perPage: 1,
+					gap: 0,
+					pagination: true,
+					arrows: false,
+					drag: false,
+				}).mount();
+
+				const track = slider.querySelector('.splide__track');
+
+				if(track) {
+					track.addEventListener('mousemove', e => {
+						const rect = track.getBoundingClientRect();
+						const x = e.clientX - rect.left;
+						const width = rect.width;
+
+						const slidesCount = splide.length;
+						const hoverZone = 15;
+
+						let index = Math.floor((x / width) * slidesCount);
+
+						if (x < hoverZone) index = 0;
+						if (x > width - hoverZone) index = slidesCount - 1;
+
+						splide.go(index);
+					});
+				}
+
+				slider.classList.add('splide-initialized');
+			});
+		},
+
+		processItems: function (itemsHtml, position) {
 			if (!itemsHtml)
 				return;
+
+			if (!this.container) {
+				console.error('Container not found');
+				return;
+			}
 
 			var processed = BX.processHTML(itemsHtml, false),
 				temporaryNode = BX.create('DIV');
@@ -215,12 +245,12 @@
 			var items, k, origRows;
 
 			temporaryNode.innerHTML = processed.HTML;
-			items = temporaryNode.querySelectorAll('[data-entity="items-row"]');
+			items = temporaryNode.querySelectorAll('[data-entity="item"]');
 
-			if (items.length)
-			{
+			if (items.length) {
 				this.showHeader(true);
-
+				//модифицировано
+				/*
 				for (k in items)
 				{
 					if (items.hasOwnProperty(k))
@@ -234,40 +264,46 @@
 						}
 						else
 						{
+							console.log(items);
 							this.container.appendChild(items[k]);
+							//this.container.appendChild(items.innerHTML);
 						}
 					}
 				}
+				*/
+				for (var k = 0; k < items.length; k++) {
+					if (items[k] && this.container) {
+						items[k].style.opacity = 0;
 
+						this.container.appendChild(items[k]);
+					}
+				}
+				this.initSliders(this.container);
 				new BX.easing({
 					duration: 2000,
-					start: {opacity: 0},
-					finish: {opacity: 100},
+					start: { opacity: 0 },
+					finish: { opacity: 100 },
 					transition: BX.easing.makeEaseOut(BX.easing.transitions.quad),
-					step: function(state){
-						for (var k in items)
-						{
-							if (items.hasOwnProperty(k))
-							{
+					step: function (state) {
+						for (var k in items) {
+							if (items.hasOwnProperty(k)) {
 								items[k].style.opacity = state.opacity / 100;
 							}
 						}
 					},
-					complete: function(){
-						for (var k in items)
-						{
-							if (items.hasOwnProperty(k))
-							{
+					complete: function () {
+						for (var k in items) {
+							if (items.hasOwnProperty(k)) {
 								items[k].removeAttribute('style');
 							}
 						}
 					}
 				}).animate();
 			}
-
+			console.log(processed);
 			BX.ajax.processScripts(processed.SCRIPT);
 		},
-
+		/*
 		processPagination: function(paginationHtml)
 		{
 			if (!paginationHtml)
@@ -282,9 +318,8 @@
 				}
 			}
 		},
-
-		processEpilogue: function(epilogueHtml)
-		{
+		*/
+		processEpilogue: function (epilogueHtml) {
 			if (!epilogueHtml)
 				return;
 
@@ -292,37 +327,32 @@
 			BX.ajax.processScripts(processed.SCRIPT);
 		},
 
-		showHeader: function(animate)
-		{
-			var parentNode = BX.findParent(this.container, {attr: {'data-entity': 'parent-container'}}),
+		showHeader: function (animate) {
+			var parentNode = BX.findParent(this.container, { attr: { 'data-entity': 'parent-container' } }),
 				header;
 
-			if (parentNode && BX.type.isDomNode(parentNode))
-			{
+			if (parentNode && BX.type.isDomNode(parentNode)) {
 				header = parentNode.querySelector('[data-entity="header"]');
 
-				if (header && header.getAttribute('data-showed') != 'true')
-				{
+				if (header && header.getAttribute('data-showed') != 'true') {
 					header.style.display = '';
 
-					if (animate)
-					{
+					if (animate) {
 						new BX.easing({
 							duration: 2000,
-							start: {opacity: 0},
-							finish: {opacity: 100},
+							start: { opacity: 0 },
+							finish: { opacity: 100 },
 							transition: BX.easing.makeEaseOut(BX.easing.transitions.quad),
-							step: function(state){
+							step: function (state) {
 								header.style.opacity = state.opacity / 100;
 							},
-							complete: function(){
+							complete: function () {
 								header.removeAttribute('style');
 								header.setAttribute('data-showed', 'true');
 							}
 						}).animate();
 					}
-					else
-					{
+					else {
 						header.style.opacity = 100;
 					}
 				}
@@ -330,3 +360,38 @@
 		}
 	};
 })();
+/*
+document.addEventListener('DOMContentLoaded', function () {
+	const slidersCatalog = document.querySelectorAll('.catalog-item__images');
+
+	slidersCatalog.forEach(slider => {
+		const splide = new Splide(slider, {
+			type: 'slide',
+			perPage: 1,
+			gap: 0,
+			pagination: true,
+			arrows: false,
+			drag: false,
+		}).mount();
+
+		const track = slider.querySelector('.splide__track');
+
+		track.addEventListener('mousemove', e => {
+			const rect = track.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const width = rect.width;
+
+			const slidesCount = splide.length;
+			const hoverZone = 15;
+
+			let index = Math.floor((x / width) * slidesCount);
+
+			if (x < hoverZone) index = 0;
+			if (x > width - hoverZone) index = slidesCount - 1;
+
+			splide.go(index);
+		});
+
+	});
+});
+*/

@@ -292,7 +292,7 @@ $APPLICATION->IncludeComponent(
 		"DETAIL_SHOW_POPULAR" => "Y",
 		"DETAIL_SHOW_VIEWED" => "Y",
 		"USE_ENHANCED_ECOMMERCE" => "N",
-		"LAZY_LOAD" => "N",
+		"LAZY_LOAD" => "Y",
 		"MESS_BTN_LAZY_LOAD" => "Показать ещё",
 		"LOAD_ON_SCROLL" => "N",
 		"FILE_404" => "",

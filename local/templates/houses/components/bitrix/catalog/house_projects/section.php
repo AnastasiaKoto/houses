@@ -103,9 +103,6 @@ if ($isFilter)
 						"SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
 						"PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
 						"INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
-						//"SPECIAL_SECTION_ID" => "10",
-						//"LINKED_IBLOCK_ID" => "11",
-						//"LINK_PROPERTY_CODE" => "HOUSE_VARIABLES"
 					),
 					$component,
 					array('HIDE_ICONS' => 'Y')
@@ -113,29 +110,6 @@ if ($isFilter)
 				?>
 			</div>
 			<div class="catalog-grid">
-				<a href="javascript:void(0)" class="catalog-filters__mobile-trigger">
-				<span class="btn-name">
-					Фильтры
-				</span>
-				<span class="btn-count">
-					3 фильтра включены
-				</span>
-				</a>
-				<div class="catalog-sort">
-					<div class="custom-select-cornored " data-placeholder="Удобное время">
-						<div class="custom-select__trigger">
-						<span class="custom-select__value"></span>
-						<label>Сортировка</label>
-						<span class="custom-select__arrow"></span>
-						</div>
-						<ul class="custom-select__options">
-						<li data-value="1">По возрастанию цены</li>
-						<li data-value="2">По убыванию цены</li>
-						<li data-value="3">По алфавиту</li>
-						</ul>
-						<input type="hidden" name="my-select">
-					</div>
-				</div>
 				<?
 				$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section",
@@ -143,6 +117,7 @@ if ($isFilter)
 					array(
 						"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 						"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+						//"AJAX_MODE" => "N",
 						"ELEMENT_SORT_FIELD" => $arParams["ELEMENT_SORT_FIELD"],
 						"ELEMENT_SORT_ORDER" => $arParams["ELEMENT_SORT_ORDER"],
 						"ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],

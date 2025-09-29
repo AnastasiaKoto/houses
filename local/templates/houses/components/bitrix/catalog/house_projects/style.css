@@ -230,10 +230,11 @@
         position: fixed;
         bottom: 10px;
         left: 0;
-
+        /*
         @media(min-width: 992px) {
           display: none;
         }
+          */
       }
     }
 

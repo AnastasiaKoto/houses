@@ -83,6 +83,7 @@ JCSmartFilter.prototype.reload = function(input)
 			}
 
 			this.curFilterinput = input;
+			console.log(this.values2post(values));
 			BX.ajax.loadJSON(
 				this.ajaxURL,
 				this.values2post(values),

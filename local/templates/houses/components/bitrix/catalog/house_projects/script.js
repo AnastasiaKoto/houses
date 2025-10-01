@@ -81,8 +81,8 @@ function customSort() {
         hiddenSort.value = this.dataset.sortKey;
         if (window.smartFilter) {
           hiddenSort.setAttribute('data-is-sorting', 'true');
-          //smartFilter.keyup(hiddenSort);
-          smartFilter.click(hiddenSort);
+          smartFilter.keyup(hiddenSort);
+          //smartFilter.click(hiddenSort);
         }
       })
     })

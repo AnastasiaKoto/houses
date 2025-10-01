@@ -80,8 +80,9 @@ function customSort() {
         hiddenSortOrder.value = this.dataset.sortOrder;
         hiddenSort.value = this.dataset.sortKey;
         if (window.smartFilter) {
-          smartFilter.keyup(hiddenSort);
-          // или smartFilter.click(hiddenSort);
+          hiddenSort.setAttribute('data-is-sorting', 'true');
+          //smartFilter.keyup(hiddenSort);
+          smartFilter.click(hiddenSort);
         }
       })
     })

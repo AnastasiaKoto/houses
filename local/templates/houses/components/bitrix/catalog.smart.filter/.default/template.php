@@ -24,6 +24,7 @@ if (isset($templateData['TEMPLATE_THEME']))
 {
 $this->addExternalCss($templateData['TEMPLATE_THEME']);
 }
+if(!empty($arResult["ITEMS"])):
 ?>
 <div class="catalog-filters__inner">
 	<div class="mobile-drag__line">
@@ -40,11 +41,34 @@ $this->addExternalCss($templateData['TEMPLATE_THEME']);
 	<form class="catalog-filters__form smartfilter" name="<?echo $arResult["FILTER_NAME"]."_form"?>" action="<?echo $arResult["FORM_ACTION"]?>" method="get">
 		<?foreach($arResult["HIDDEN"] as $arItem):?>
 			<input type="hidden" name="<?echo $arItem["CONTROL_NAME"]?>" id="<?echo $arItem["CONTROL_ID"]?>" value="<?echo $arItem["HTML_VALUE"]?>" />
-			<?endforeach;?>
+		<?endforeach;?>
 		<div class="catalog-filters__acc">
 			<?foreach($arResult["ITEMS"] as $key=>$arItem) { 
 				if ($key === 'SORT') continue;
-
+				/*
+				if ($key === 'SORT'): ?>
+					<div class="catalog-sort">
+						<div class="custom-select-cornored ">
+							<div class="custom-select__trigger">
+								<span class="custom-select__value"></span>
+								<label>Сортировка</label>
+								<span class="custom-select__arrow"></span>
+							</div>
+							<? if(!empty($arItem)): 
+								$count=1;
+							?>
+							<ul class="custom-select__options">
+								<? foreach($arItem as $key => $value): ?>
+									<li data-value="<?= $count; ?>" data-sort-key="<?= $key ?>" data-sort-field="<?= $value['SORT'] ?>"
+										data-sort-order="<?= $value['ORDER'] ?>"><?= $value['NAME'] ?></li>
+								<? $count++; endforeach; ?>
+							</ul>
+							<? endif; ?>
+							<input type="hidden" name="my-select">
+						</div>
+					</div>
+				<? endif;
+				*/
 				if($arItem['CODE'] === 'HOUSES_PRICES' || $arItem['CODE'] === 'HOUSES_SQUARES'): 
 					if ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"] <= 0)
 						continue;
@@ -273,6 +297,7 @@ $this->addExternalCss($templateData['TEMPLATE_THEME']);
 		<div class="clb"></div>
 	</form>
 </div>
+<? endif; ?>
 <script>
 var smartFilter = new JCSmartFilter('<?echo CUtil::JSEscape($arResult["FORM_ACTION"])?>', '<?=CUtil::JSEscape($arParams["FILTER_VIEW_MODE"])?>', <?=CUtil::PhpToJSObject($arResult["JS_FILTER_PARAMS"])?>);
 </script>

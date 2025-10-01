@@ -2,14 +2,14 @@
 $aMenuLinks = Array(
 	Array(
 		"Проекты домов", 
-		"/catalog/proekty-domov/", 
+		"/proekty-domov/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Реализованные проекты", 
-		"/catalog/portfolio-proektov/realizovannye-proekty/", 
+		"/portfolio-proektov/realizovannye-proekty/", 
 		Array(), 
 		Array(), 
 		"" 

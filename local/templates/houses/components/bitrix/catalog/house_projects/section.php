@@ -14,7 +14,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\ModuleManager;
 
 $this->setFrameMode(true);
-
+p($_REQUEST);
 if (!isset($arParams['FILTER_VIEW_MODE']) || (string)$arParams['FILTER_VIEW_MODE'] == '')
 	$arParams['FILTER_VIEW_MODE'] = 'VERTICAL';
 $arParams['USE_FILTER'] = (isset($arParams['USE_FILTER']) && $arParams['USE_FILTER'] == 'Y' ? 'Y' : 'N');
@@ -74,6 +74,42 @@ if ($isFilter)
 		<h1>
 			<? echo $arResult['SECTION']['NAME']; ?>
 		</h1>
+		<?
+		if($arResult['SECTION']['ID'] == 8 || $arResult['SECTION']['PARENT_SECTION_ID'] == 8):
+			$sectionListParams = array(
+				"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+				"SECTION_ID" => 8,
+				"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+				"CACHE_TYPE" => $arParams["CACHE_TYPE"],
+				"CACHE_TIME" => $arParams["CACHE_TIME"],
+				"CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+				"COUNT_ELEMENTS" => $arParams["SECTION_COUNT_ELEMENTS"],
+				"TOP_DEPTH" => $arParams["SECTION_TOP_DEPTH"],
+				"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+				"VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
+				"SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
+				"HIDE_SECTION_NAME" => ($arParams["SECTIONS_HIDE_SECTION_NAME"] ?? "N"),
+				"ADD_SECTIONS_CHAIN" => ($arParams["ADD_SECTIONS_CHAIN"] ?? ''),
+				"CURRENT_SECTION" => $arResult['SECTION']['ID']
+			);
+			if ($sectionListParams["COUNT_ELEMENTS"] === "Y")
+			{
+				$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
+				if ($arParams["HIDE_NOT_AVAILABLE"] == "Y")
+				{
+					$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
+				}
+			}
+			$APPLICATION->IncludeComponent(
+				"bitrix:catalog.section.list",
+				"",
+				$sectionListParams,
+				$component,
+				($arParams["SHOW_TOP_ELEMENTS"] !== "N" ? array("HIDE_ICONS" => "Y") : array())
+			);
+			unset($sectionListParams);
+		endif;
+		?>
 		<div class="catalog-inner">
 			<div class="catalog-filters">
 				<?
@@ -128,12 +164,17 @@ if ($isFilter)
 						<? if(!empty($arResult['SORT'])): 
 							$count=1;
 						?>
-						<ul class="custom-select__options">
-							<? foreach($arResult['SORT'] as $key => $value): ?>
-								<li data-value="<?= $count; ?>" data-sort-key="<?= $key ?>" data-sort-field="<?= $value['SORT'] ?>"
-									data-sort-order="<?= $value['ORDER'] ?>"><?= $value['NAME'] ?></li>
-							<? $count++; endforeach; ?>
-						</ul>
+						<form action="" method="post" id="sortingForm">
+							<input type="hidden" name="sort_field" id="sort_field" value="<?= $_REQUEST['sort_field'] ?? 'SORT'; ?>">
+							<input type="hidden" name="sort_order" id="sort_order" value="<?= $_REQUEST['sort_order'] ?? 'ASC'; ?>">
+							<input type="hidden" name="sort" id="sort" value="<?= $_REQUEST['sort'] ?? 'default'; ?>">
+							<ul class="custom-select__options">
+								<? foreach($arResult['SORT'] as $key => $value): ?>
+									<li data-value="<?= $count; ?>" data-sort-key="<?= $key ?>" data-sort-field="<?= $value['SORT'] ?>"
+										data-sort-order="<?= $value['ORDER'] ?>"><?= $value['NAME'] ?></li>
+								<? $count++; endforeach; ?>
+							</ul>
+						</form>
 						<? endif; ?>
 						<input type="hidden" name="my-select">
 					</div>

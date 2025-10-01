@@ -7,9 +7,9 @@ function JCSmartFilter(ajaxURL, viewMode, params)
 	this.cache = [];
 	this.popups = [];
 	this.viewMode = viewMode;
+	console.log(params);
 	if (params && params.SEF_SET_FILTER_URL)
 	{
-		console.log(params.SEF_SET_FILTER_URL);
 		this.bindUrlToButton('set_filter', params.SEF_SET_FILTER_URL);
 		this.sef = true;
 	}
@@ -163,6 +163,7 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem)
 
 JCSmartFilter.prototype.postHandler = function (result, fromCache)
 {
+	console.log('AJAX Response:', result);
 	var hrefFILTER, url, curProp;
 	var modef = BX('modef');
 	var modef_num = BX('modef_num');

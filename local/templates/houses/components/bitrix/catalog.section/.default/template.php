@@ -37,7 +37,8 @@ $containerName = 'container-' . $navParams['NavNum'];
 <!-- items-container -->
 <? if (!empty($arResult['ITEMS'])): ?>
 	<div class="catalog-items" data-entity="items-row" id="<?= $containerName ?>">
-		<? foreach ($arResult['ITEMS'] as $item): ?>
+		<? foreach ($arResult['ITEMS'] as $item): 
+		?>
 			<div class="catalog-item" onclick="window.location='<?= $item['DETAIL_PAGE_URL']; ?>'" data-entity="item">
 				<? if (!empty($item['PROPERTIES']['GALLERY']['VALUE'])): ?>
 					<div class="splide catalog-item__images">
@@ -53,7 +54,7 @@ $containerName = 'container-' . $navParams['NavNum'];
 					</div>
 				<? else: ?>
 					<div class="catalog-item__no-images">
-						<img src="/local/templates/houses/assets/img/no-photo.jpeg" alt="not-image">
+						<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/no-photo.jpg" alt="not-image">
 					</div>
 				<? endif; ?>
 				<div class="catalog-item__info">
@@ -61,49 +62,61 @@ $containerName = 'container-' . $navParams['NavNum'];
 						<div class="catalog-item__name">
 							<?= $item['NAME']; ?>
 						</div>
+						<? if(!empty($item['PROPERTIES']['OTDELKA']['VALUE'])): ?>
 						<div class="catalog-item__tag">
-							Whitebox
+							<?= $item['PROPERTIES']['OTDELKA']['VALUE']; ?>
 						</div>
+						<? endif; ?>
 					</div>
 					<div class="catalog-item__body">
 						<div class="catalog-item__spec">
+							<? if(!empty($item['PROPERTIES']['HOUSES_SQUARES']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
-									<img src="./assets/img/sp1.svg" alt="img">
+									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp1.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									123 м<sup>2</sup>
+									<?= $item['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
 								</div>
 							</div>
+							<? endif; ?>
+							<? if(!empty($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
-									<img src="./assets/img/sp2.svg" alt="img">
+									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp2.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									4
+									<?= $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0]; ?>
 								</div>
 							</div>
+							<? endif; ?>
+							<? if(!empty($item['PROPERTIES']['HOUSES_SIZES']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
-									<img src="./assets/img/sp3.svg" alt="img">
+									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp3.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									12x16 м
+									<?= $item['PROPERTIES']['HOUSES_SIZES']['VALUE'][0]; ?> м
 								</div>
 							</div>
+							<? endif; ?>
+							<? if(!empty($item['PROPERTIES']['HOUSES_WC']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
-									<img src="./assets/img/sp4.svg" alt="img">
+									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp4.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									2
+									<?= $item['PROPERTIES']['HOUSES_WC']['VALUE'][0]; ?>
 								</div>
 							</div>
+							<? endif; ?>
 						</div>
-						<a href="javascript:void(0)" class="catalog-item__link">
+						<a href="<?= $item['DETAIL_PAGE_URL']; ?>" class="catalog-item__link">
+							<? if(!empty($item['PROPERTIES']['HOUSES_PRICES']['VALUE'])): ?>
 							<span>
-								2 500 000 ₽
+								<?= number_format($item['PROPERTIES']['HOUSES_PRICES']['VALUE'][0], 0, ".", " "); ?> ₽
 							</span>
+							<? endif; ?>
 							<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M15.7502 10L10.7502 15M5.3335 10H15.7502H5.3335ZM15.7502 10L10.7502 5L15.7502 10Z"
 									stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderMainscreen) return;
 
   const splide = new Splide(sliderMainscreen, {
-    type: 'slide',
+    type: 'loop', // теперь бесконечный
     perPage: 1,
     gap: 0,
     perMove: 1,
     pagination: false,
     arrows: false,
     autoplay: true,
-    interval: 5000,
+    interval: 7000, // медленнее (7 секунд)
     pauseOnHover: false,
   });
 
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   splide.mount();
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
   const sliderStyles = document.querySelector('.styles-slider');
   if (!sliderStyles) return;
@@ -70,11 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.innerWidth <= 1500) {
       if (!splide) {
         splide = new Splide(sliderStyles, {
-          type: 'slide',
+          type: 'loop',
           autoWidth: true,
           perMove: 1,
           pagination: false,
           arrows: false,
+          gap: 20,
+          breakpoints: {
+            700: {
+              gap: 10
+            }
+          }
         });
         splide.mount();
       }
@@ -226,39 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //     }).mount();
 //   });
 // });
-document.addEventListener('DOMContentLoaded', function () {
-  const sliders = document.querySelectorAll('.projects-slider__images');
 
-  sliders.forEach(slider => {
-    const splide = new Splide(slider, {
-      type: 'slide',
-      perPage: 1,
-      gap: 0,
-      pagination: true,
-      arrows: false,
-      drag: false,
-    }).mount();
-
-    const track = slider.querySelector('.splide__track');
-
-    track.addEventListener('mousemove', e => {
-      const rect = track.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const width = rect.width;
-
-      const slidesCount = splide.length;
-      const hoverZone = 15;
-
-      let index = Math.floor((x / width) * slidesCount);
-
-      if (x < hoverZone) index = 0;
-      if (x > width - hoverZone) index = slidesCount - 1;
-
-      splide.go(index);
-    });
-
-  });
-});
 
 
 document.addEventListener('DOMContentLoaded', () => {

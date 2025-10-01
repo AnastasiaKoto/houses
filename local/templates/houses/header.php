@@ -28,7 +28,7 @@
     <nav>
       <div class="container">
         <div class="nav-inner">
-          <a href="javascript:void(0)" class="nav-logo">
+          <a href="/" class="nav-logo">
             <img src="<?=SITE_TEMPLATE_PATH?>/assets/img/logo.svg" alt="logo">
           </a>
           

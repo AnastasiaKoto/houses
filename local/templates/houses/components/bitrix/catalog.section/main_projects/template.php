@@ -55,7 +55,7 @@ $this->setFrameMode(true);
 							<span>
 								<?= $key; ?>
 							</span>
-							<? if($key == 'Активные проекты'): ?>
+							<? if($key == 'Активные проекты' || $key == 'Активные'): ?>
 								<div class="projects-tabs__link-live">
 									<div class="projects-tabs__link-live-round"></div>
 									<div class="projects-tabs__link-live-text">
@@ -105,6 +105,10 @@ $this->setFrameMode(true);
 											</ul>
 										</div>
 									</div>
+									<? else: ?>
+										<div class="catalog-item__no-images">
+											<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/no-photo.jpg" alt="not-image">
+										</div>
 									<? endif; ?>
 									<div class="projects-item__body">
 										<div class="projects-item__name">
@@ -113,20 +117,38 @@ $this->setFrameMode(true);
 										<div class="projects-item__description">
 											<?= $value['~PREVIEW_TEXT']; ?>
 										</div>
-										<? if(!empty($value['CARD_CHARACTERISTICS'])) { ?>
 										<div class="projects-item__specs">
-											<? foreach($value['CARD_CHARACTERISTICS'] as $prop) { ?>
+											<? if(!empty($value['PROPERTIES']['HOUSES_SQUARES']['VALUE'])): ?>
 											<div class="projects-item__spec">
 												<div class="projects-item__spec-name">
-													<?= $prop['UF_DESCRIPTION']; ?>
+													Площадь
 												</div>
 												<div class="projects-item__spec-value">
-													<?= $prop['UF_NAME']; ?>
+													<?= $value['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
 												</div>
 											</div>
-											<? } ?>
+											<? endif; ?>
+											<? if(!empty($value['PROPERTIES']['HOUSES_SIZES']['VALUE'])): ?>
+											<div class="projects-item__spec">
+												<div class="projects-item__spec-name">
+													Размер
+												</div>
+												<div class="projects-item__spec-value">
+													<?= $value['PROPERTIES']['HOUSES_SIZES']['VALUE'][0]; ?> м
+												</div>
+											</div>
+											<? endif; ?>
+											<? if(!empty($value['PROPERTIES']['HOUSES_ROOMS']['VALUE'])): ?>
+											<div class="projects-item__spec">
+												<div class="projects-item__spec-name">
+													Комнаты
+												</div>
+												<div class="projects-item__spec-value">
+													<?= $value['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0]; ?>
+												</div>
+											</div>
+											<? endif; ?>
 										</div>
-										<? } ?>
 									</div>
 								</li>
 								<? endforeach; ?>

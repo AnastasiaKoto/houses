@@ -2600,6 +2600,10 @@
    }
  }
 
+ .catalog-item__no-images img {
+  max-width: 100%;
+ }
+
 
 
  @font-face {

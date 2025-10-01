@@ -45,30 +45,6 @@ if(!empty($arResult["ITEMS"])):
 		<div class="catalog-filters__acc">
 			<?foreach($arResult["ITEMS"] as $key=>$arItem) { 
 				if ($key === 'SORT') continue;
-				/*
-				if ($key === 'SORT'): ?>
-					<div class="catalog-sort">
-						<div class="custom-select-cornored ">
-							<div class="custom-select__trigger">
-								<span class="custom-select__value"></span>
-								<label>Сортировка</label>
-								<span class="custom-select__arrow"></span>
-							</div>
-							<? if(!empty($arItem)): 
-								$count=1;
-							?>
-							<ul class="custom-select__options">
-								<? foreach($arItem as $key => $value): ?>
-									<li data-value="<?= $count; ?>" data-sort-key="<?= $key ?>" data-sort-field="<?= $value['SORT'] ?>"
-										data-sort-order="<?= $value['ORDER'] ?>"><?= $value['NAME'] ?></li>
-								<? $count++; endforeach; ?>
-							</ul>
-							<? endif; ?>
-							<input type="hidden" name="my-select">
-						</div>
-					</div>
-				<? endif;
-				*/
 				if($arItem['CODE'] === 'HOUSES_PRICES' || $arItem['CODE'] === 'HOUSES_SQUARES'): 
 					if ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"] <= 0)
 						continue;

@@ -14,7 +14,6 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\ModuleManager;
 
 $this->setFrameMode(true);
-p($_REQUEST);
 if (!isset($arParams['FILTER_VIEW_MODE']) || (string)$arParams['FILTER_VIEW_MODE'] == '')
 	$arParams['FILTER_VIEW_MODE'] = 'VERTICAL';
 $arParams['USE_FILTER'] = (isset($arParams['USE_FILTER']) && $arParams['USE_FILTER'] == 'Y' ? 'Y' : 'N');
@@ -186,10 +185,10 @@ if ($isFilter)
 					array(
 						"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 						"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-						"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'SORT',
-						"ELEMENT_SORT_ORDER" => $_REQUEST['sort_order'] ?? 'ASC',
-						"ELEMENT_SORT_FIELD2" => 'ID',
-						"ELEMENT_SORT_ORDER2" => 'DESC',
+						"ELEMENT_SORT_FIELD" => $arParams["ELEMENT_SORT_FIELD"],
+						"ELEMENT_SORT_ORDER" => $arParams["ELEMENT_SORT_ORDER"],
+						"ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],
+						"ELEMENT_SORT_ORDER2" => $arParams["ELEMENT_SORT_ORDER2"],
 						"PROPERTY_CODE" => (isset($arParams["LIST_PROPERTY_CODE"]) ? $arParams["LIST_PROPERTY_CODE"] : []),
 						"PROPERTY_CODE_MOBILE" => $arParams["LIST_PROPERTY_CODE_MOBILE"],
 						"META_KEYWORDS" => $arParams["LIST_META_KEYWORDS"],

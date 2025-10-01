@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./assets/css/detail-product.css">
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
+<!-- data-move-target=".events-items" data-move-break="700" -->
 
 <body class="not-home">
   <header>
@@ -184,7 +185,8 @@
                     <div class="detail-product__mainscreen-config__head-title">
                       Конфигурация дома
                     </div>
-                    <button type="button" class="detail-product__mainscreen-config__head-change">
+                    <button type="button" class="detail-product__mainscreen-config__head-change"
+                      data-move-target=".anchor-edit" data-move-break="700">
                       Изменить
                     </button>
                   </div>
@@ -274,6 +276,7 @@
                       </div>
                     </div>
                   </div>
+                  <div class="anchor-edit"></div>
                 </div>
               </div>
               <div class="detail-product__mainscreen-spec-item">
@@ -383,7 +386,7 @@
                     35 дней
                   </div>
                 </div>
-                <a href="javascript:void(0)" class="ask-btn order-house">
+                <a href="javascript:void(0)" data-modal-target="#manager" class="ask-btn order-house">
                   Заказать дом
                 </a>
               </div>
@@ -409,7 +412,7 @@
       <div class="container">
         <div class="detail-product__layout-inner">
           <div class="detail-product__layout-info">
-            <div class="section-title">
+            <div class="section-title" data-move-target=".anchor-title" data-move-break="992">
               Планировка дома
             </div>
             <div class="detail-product__layout-spec">
@@ -446,6 +449,7 @@
               что стремящиеся вытеснить традиционное производство, нанотехнологии являются только методом политического
               участия и объявлены нарушающими общечеловеческие нормы этики и морали.
             </div>
+            <button class="desc-toggle" style="display:none;">Показать больше</button>
             <div class="detail-product__layout-additional-options">
               <div class="detail-product__layout-additional-option">
                 <div class="detail-product__layout-additional-option__title">
@@ -646,7 +650,7 @@
               <a href="#" class="detail-product__layout-tabs__link" data-tab="5">Гостевой дом</a>
             </div>
           </div>
-
+          <div class="anchor-title"></div>
         </div>
       </div>
     </section>
@@ -656,7 +660,8 @@
           <div class="section-title">
             Изображения проекта
           </div>
-          <a href="javascript:void(0)" class="arrow-btn__light">
+          <a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#presentation"
+            data-move-target=".btn-anchor" data-move-break="700">
             <span>
               Получить презентацию дома
             </span>
@@ -692,7 +697,7 @@
                 Гостевой дом
               </a>
             </div>
-            <div class="detail-product__preview-arrows">
+            <div class="detail-product__preview-arrows" data-move-target=".arrows-anchor" data-move-break="992">
               <div class="detail-product__preview-arrow detail-product__preview-arrow__prev">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.4167 10H5H15.4167ZM5 10L10 5L5 10ZM5 10L10 15Z" fill="#8E9293"></path>
@@ -832,6 +837,10 @@
           </div>
         </div>
       </div>
+      <div class="container">
+        <div class="arrows-anchor"></div>
+        <div class="btn-anchor"></div>
+      </div>
     </section>
     <section class="section equipment">
       <div class="container">
@@ -839,7 +848,7 @@
           <div class="section-title">
             Комплектация дома
           </div>
-          <a href="javascript:void(0)" class="arrow-btn__light">
+          <a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#estimate" data-move-target=".eq-ancho-link" data-move-break="700">
             <span>
               Получить подробную смету
             </span>
@@ -956,7 +965,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1041,7 +1050,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1126,7 +1135,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1211,7 +1220,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1296,7 +1305,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1381,7 +1390,7 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
@@ -1466,10 +1475,11 @@
                 </ul>
               </div>
               <div class="equipment-tabs__content-image">
-                <img src="./assets/img/tb.png" alt="img">
+                <img src="./assets/img/acc.jpg" alt="img">
               </div>
             </div>
           </div>
+          <div class="eq-ancho-link"></div>
         </div>
       </div>
     </section>
@@ -1484,189 +1494,190 @@
             фундамента
             до готового дома.
           </div>
-          <div class="splide examples-slider">
-            <div class="splide__track">
-              <ul class="splide__list examples-items projects-items">
-                <div class="splide__slide examples-item projects-item">
-                  <div class="splide projects-slider__images">
-                    <div class="splide__track">
-                      <ul class="splide__list projects-slider__image-items">
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="projects-item__body">
-                    <div class="projects-item__name">
-                      Классика
-                    </div>
-                    <div class="projects-item__description">
-                      Серпуховский р-н, п. Оболенск
-                    </div>
-                    <div class="projects-item__specs">
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Площадь
-                        </div>
-                        <div class="projects-item__spec-value">
-                          123 м<sup>2</sup>
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Размер
-                        </div>
-                        <div class="projects-item__spec-value">
-                          12х24 м
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Комнаты
-                        </div>
-                        <div class="projects-item__spec-value">
-                          4
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
+        </div>
+      </div>
+      <div class="splide examples-slider">
+        <div class="splide__track">
+          <ul class="splide__list examples-items projects-items">
+            <div class="splide__slide examples-item projects-item">
+              <div class="splide projects-slider__images">
+                <div class="splide__track">
+                  <ul class="splide__list projects-slider__image-items">
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                  </ul>
                 </div>
-                <div class="splide__slide examples-item projects-item">
-                  <div class="splide projects-slider__images">
-                    <div class="splide__track">
-                      <ul class="splide__list projects-slider__image-items">
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="projects-item__body">
-                    <div class="projects-item__name">
-                      Классика
-                    </div>
-                    <div class="projects-item__description">
-                      Серпуховский р-н, п. Оболенск
-                    </div>
-                    <div class="projects-item__specs">
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Площадь
-                        </div>
-                        <div class="projects-item__spec-value">
-                          123 м<sup>2</sup>
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Размер
-                        </div>
-                        <div class="projects-item__spec-value">
-                          12х24 м
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Комнаты
-                        </div>
-                        <div class="projects-item__spec-value">
-                          4
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="splide__slide examples-item projects-item">
-                  <div class="splide projects-slider__images">
-                    <div class="splide__track">
-                      <ul class="splide__list projects-slider__image-items">
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                        <li class="splide__slide projects-slider__image-item">
-                          <img src="./assets/img/pr1.jpg" alt="img">
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="projects-item__body">
-                    <div class="projects-item__name">
-                      Классика
-                    </div>
-                    <div class="projects-item__description">
-                      Серпуховский р-н, п. Оболенск
-                    </div>
-                    <div class="projects-item__specs">
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Площадь
-                        </div>
-                        <div class="projects-item__spec-value">
-                          123 м<sup>2</sup>
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Размер
-                        </div>
-                        <div class="projects-item__spec-value">
-                          12х24 м
-                        </div>
-                      </div>
-                      <div class="projects-item__spec">
-                        <div class="projects-item__spec-name">
-                          Комнаты
-                        </div>
-                        <div class="projects-item__spec-value">
-                          4
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ul>
-            </div>
-            <div class="examples-arrows">
-              <div class="examples-arrow examples-arrow__prev">
-                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.4167 6H1H11.4167ZM1 6L6 1L1 6ZM1 6L6 11Z" fill="#8E9293" />
-                  <path d="M1 6L6 11M11.4167 6H1H11.4167ZM1 6L6 1L1 6Z" stroke="#8E9293" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
               </div>
-              <div class="examples-arrow examples-arrow__next">
-                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6ZM11.4167 6L6.41667 11Z" fill="#8E9293" />
-                  <path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="#8E9293"
-                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+              <div class="projects-item__body">
+                <div class="projects-item__name">
+                  Классика
+                </div>
+                <div class="projects-item__description">
+                  Серпуховский р-н, п. Оболенск
+                </div>
+                <div class="projects-item__specs">
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Площадь
+                    </div>
+                    <div class="projects-item__spec-value">
+                      123 м<sup>2</sup>
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Размер
+                    </div>
+                    <div class="projects-item__spec-value">
+                      12х24 м
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Комнаты
+                    </div>
+                    <div class="projects-item__spec-value">
+                      4
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            <div class="splide__slide examples-item projects-item">
+              <div class="splide projects-slider__images">
+                <div class="splide__track">
+                  <ul class="splide__list projects-slider__image-items">
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="projects-item__body">
+                <div class="projects-item__name">
+                  Классика
+                </div>
+                <div class="projects-item__description">
+                  Серпуховский р-н, п. Оболенск
+                </div>
+                <div class="projects-item__specs">
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Площадь
+                    </div>
+                    <div class="projects-item__spec-value">
+                      123 м<sup>2</sup>
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Размер
+                    </div>
+                    <div class="projects-item__spec-value">
+                      12х24 м
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Комнаты
+                    </div>
+                    <div class="projects-item__spec-value">
+                      4
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="splide__slide examples-item projects-item">
+              <div class="splide projects-slider__images">
+                <div class="splide__track">
+                  <ul class="splide__list projects-slider__image-items">
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                    <li class="splide__slide projects-slider__image-item">
+                      <img src="./assets/img/pr1.jpg" alt="img">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="projects-item__body">
+                <div class="projects-item__name">
+                  Классика
+                </div>
+                <div class="projects-item__description">
+                  Серпуховский р-н, п. Оболенск
+                </div>
+                <div class="projects-item__specs">
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Площадь
+                    </div>
+                    <div class="projects-item__spec-value">
+                      123 м<sup>2</sup>
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Размер
+                    </div>
+                    <div class="projects-item__spec-value">
+                      12х24 м
+                    </div>
+                  </div>
+                  <div class="projects-item__spec">
+                    <div class="projects-item__spec-name">
+                      Комнаты
+                    </div>
+                    <div class="projects-item__spec-value">
+                      4
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+        <div class="examples-arrows">
+          <div class="examples-arrow examples-arrow__prev">
+            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.4167 6H1H11.4167ZM1 6L6 1L1 6ZM1 6L6 11Z" fill="#8E9293" />
+              <path d="M1 6L6 11M11.4167 6H1H11.4167ZM1 6L6 1L1 6Z" stroke="#8E9293" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="examples-arrow examples-arrow__next">
+            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6ZM11.4167 6L6.41667 11Z" fill="#8E9293" />
+              <path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="#8E9293"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </div>
       </div>
@@ -1732,6 +1743,262 @@
   </main>
   <footer>
     <div class="overlay"></div>
+    <!-- detail page modals -->
+    <div class="modal" id="presentation">
+      <div class="modal-inner">
+        <div class="modal-content form-content">
+          <div class="modal-title">
+            Заявка на презентацию дома
+          </div>
+          <div class="modal-subtitle">
+            Оставьте свои контакты — и мы отправим вам презентацию этого дома
+          </div>
+          <div class="modal-form">
+            <form>
+              <div class="float-input">
+                <input id="name-present" type="text" autocomplete="name" />
+                <label for="name-present">Как вас зовут?</label>
+              </div>
+              <div class="float-input">
+                <input type="tel" id="tel-present" name="tel-present" autocomplete="tel">
+                <label for="tel-present">Ваш номер телефона</label>
+              </div>
+              <div class="float-input">
+                <input type="email" id="email-present" name="email-present" autocomplete="email">
+                <label for="email-present">Ваш адрес электронной почты</label>
+              </div>
+              <label class="custom-checkbox-black">
+                <input type="checkbox" name="classic" checked>
+                <span class="checkmark">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="checkbox-text">Я согласен на обработку персональных данных и ознакомлен с <a
+                    href="javascript:void(0)" target="_blank">политикой конфиденциальности</a></span>
+              </label>
+              <button type="submit" class="arrow-btn__dark modal-submit">
+                <span>
+                  Отправить
+                </span>
+                <div class="icon">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.4167 6.5L6.41667 11.5M1 6.5H11.4167H1ZM11.4167 6.5L6.41667 1.5L11.4167 6.5Z"
+                      stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </button>
+            </form>
+            <div class="modal-social__links-title">
+              Или свяжитесь с нами в удобном месенджере
+            </div>
+            <div class="modal-social__links">
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M24 12.5C24 15.6826 22.7357 18.7348 20.4853 20.9853C18.2348 23.2357 15.1826 24.5 12 24.5C8.8174 24.5 5.76516 23.2357 3.51472 20.9853C1.26428 18.7348 0 15.6826 0 12.5C0 9.3174 1.26428 6.26516 3.51472 4.01472C5.76516 1.76428 8.8174 0.5 12 0.5C15.1826 0.5 18.2348 1.76428 20.4853 4.01472C22.7357 6.26516 24 9.3174 24 12.5V12.5ZM12.4305 9.359C11.2635 9.845 8.9295 10.85 5.4315 12.374C4.8645 12.599 4.566 12.821 4.539 13.037C4.494 13.4015 4.9515 13.5455 5.574 13.742L5.8365 13.8245C6.4485 14.024 7.2735 14.2565 7.701 14.2655C8.091 14.2745 8.5245 14.1155 9.003 13.7855C12.2715 11.579 13.959 10.4645 14.064 10.4405C14.139 10.4225 14.244 10.4015 14.313 10.4645C14.3835 10.526 14.376 10.6445 14.3685 10.676C14.3235 10.8695 12.528 12.5375 11.5995 13.4015C11.31 13.6715 11.1045 13.862 11.0625 13.9055C10.97 14 10.876 14.093 10.7805 14.1845C10.2105 14.7335 9.7845 15.1445 10.803 15.8165C11.2935 16.1405 11.6865 16.406 12.078 16.673C12.504 16.964 12.93 17.2535 13.482 17.6165C13.6215 17.7065 13.7565 17.804 13.887 17.897C14.3835 18.251 14.832 18.569 15.3825 18.518C15.7035 18.488 16.035 18.188 16.203 17.288C16.6005 15.1625 17.382 10.559 17.562 8.6615C17.573 8.50376 17.5664 8.3453 17.5425 8.189C17.5284 8.06288 17.4673 7.94669 17.3715 7.8635C17.235 7.76928 17.0723 7.72047 16.9065 7.724C16.4565 7.7315 15.762 7.973 12.4305 9.359V9.359Z"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M15.4139 4.51509C9.02271 4.8157 3.9808 10.0944 4.00005 16.4397C4.00322 18.3075 4.45083 20.1477 5.30597 21.8087L4.03255 27.9423C4.01701 28.019 4.02108 28.0984 4.04438 28.1731C4.06768 28.2478 4.10945 28.3154 4.16584 28.3697C4.22223 28.424 4.29142 28.4632 4.367 28.4837C4.44258 28.5042 4.52211 28.5054 4.59825 28.487L10.6572 27.0633C12.262 27.8556 14.0236 28.2796 15.8135 28.3043C22.3454 28.4041 27.7906 23.26 27.994 16.7848C28.213 9.84072 22.4369 4.18202 15.4139 4.51389V4.51509ZM22.6439 22.9931C21.7707 23.8623 20.7343 24.5509 19.5942 25.0193C18.4542 25.4877 17.2327 25.7267 16 25.7226C14.5497 25.7271 13.1182 25.3944 11.8187 24.751L10.975 24.3338L7.25942 25.2068L8.04177 21.4419L7.62532 20.6339C6.95022 19.3265 6.60013 17.876 6.60466 16.4049C6.60466 13.9158 7.58199 11.5746 9.35611 9.81547C11.1244 8.06676 13.5119 7.08549 16 7.08472C18.5107 7.08472 20.8698 8.05389 22.6439 9.81427C23.518 10.6748 24.2116 11.7007 24.6843 12.8321C25.1569 13.9635 25.399 15.1777 25.3966 16.4037C25.3966 18.8711 24.4036 21.2495 22.6439 22.9943V22.9931Z"
+                    fill="#2E2F33" />
+                  <path
+                    d="M21.824 18.9826L19.4998 18.3213C19.3498 18.2783 19.191 18.2763 19.0401 18.3157C18.8891 18.355 18.7515 18.4342 18.6416 18.5449L18.0735 19.1197C17.956 19.2387 17.8059 19.3203 17.6422 19.3546C17.4784 19.3888 17.3082 19.374 17.1528 19.3121C16.0539 18.8708 13.7405 16.8315 13.1496 15.8106C13.0667 15.6664 13.0289 15.5008 13.0409 15.3349C13.0529 15.1691 13.1142 15.0107 13.217 14.8799L13.7129 14.2426C13.8083 14.1205 13.8687 13.9747 13.8876 13.8209C13.9065 13.6672 13.8831 13.5111 13.82 13.3696L12.8427 11.1764C12.7874 11.0538 12.7044 10.9457 12.6002 10.8605C12.4961 10.7754 12.3735 10.7156 12.2423 10.6857C12.1111 10.6559 11.9747 10.6569 11.8439 10.6886C11.7132 10.7203 11.5915 10.7819 11.4886 10.8685C10.8399 11.4132 10.0695 12.2393 9.97687 13.1568C9.81197 14.7717 10.5101 16.8074 13.1508 19.2532C16.2019 22.0777 18.6464 22.4517 20.2364 22.0681C21.1391 21.8517 21.8613 20.9823 22.315 20.2717C22.3876 20.1588 22.4327 20.0305 22.4465 19.897C22.4604 19.7636 22.4428 19.6288 22.395 19.5034C22.3473 19.378 22.2707 19.2656 22.1715 19.1751C22.0723 19.0847 21.9533 19.0187 21.824 18.9826Z"
+                    fill="#21272A" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="30" height="19" viewBox="0 0 30 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M29.2938 1.75C29.5163 1.045 29.2938 0.5325 28.3094 0.5325H25.0362C24.2106 0.5325 23.8294 0.98125 23.6069 1.46125C23.6069 1.46125 21.9231 5.56125 19.5719 8.21937C18.8094 8.98812 18.46 9.24438 18.0469 9.24438C17.8244 9.24438 17.5381 8.98812 17.5381 8.28375V1.71688C17.5381 0.884375 17.2844 0.5 16.585 0.5H11.4375C10.9287 0.5 10.6112 0.884375 10.6112 1.26875C10.6112 2.06938 11.7869 2.26187 11.9137 4.50375V9.375C11.9137 10.4319 11.7263 10.625 11.31 10.625C10.1981 10.625 7.4975 6.49312 5.8775 1.785C5.5625 0.8525 5.2425 0.5 4.41625 0.5H1.11188C0.15875 0.5 0 0.948125 0 1.42875C0 2.29375 1.11188 6.64938 5.17875 12.4144C7.87937 16.3519 11.7237 18.4681 15.1869 18.4681C17.2844 18.4681 17.5381 17.9875 17.5381 17.1869V14.2081C17.5381 13.2475 17.7287 13.0875 18.3962 13.0875C18.8725 13.0875 19.7306 13.3431 21.6688 15.2331C23.8925 17.475 24.2737 18.5 25.5131 18.5H28.7856C29.7388 18.5 30.1837 18.0194 29.9294 17.0906C29.6437 16.1619 28.5631 14.8169 27.165 13.2156C26.4025 12.3194 25.2587 11.3262 24.9094 10.8456C24.4331 10.205 24.56 9.94875 24.9094 9.3725C24.8775 9.3725 28.8813 3.67125 29.2938 1.7475"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="estimate">
+      <div class="modal-inner">
+        <div class="modal-content form-content">
+          <div class="modal-title">
+            Заявка на получение сметы дома
+          </div>
+          <div class="modal-subtitle">
+            Оставьте свои контакты — и мы отправим вам полную смету дома.
+          </div>
+          <div class="modal-form">
+            <form>
+              <div class="float-input">
+                <input id="name-present" type="text" autocomplete="name" />
+                <label for="name-present">Как вас зовут?</label>
+              </div>
+              <div class="float-input">
+                <input type="tel" id="tel-present" name="tel-present" autocomplete="tel">
+                <label for="tel-present">Ваш номер телефона</label>
+              </div>
+              <div class="float-input">
+                <input type="email" id="email-present" name="email-present" autocomplete="email">
+                <label for="email-present">Ваш адрес электронной почты</label>
+              </div>
+              <label class="custom-checkbox-black">
+                <input type="checkbox" name="classic" checked>
+                <span class="checkmark">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="checkbox-text">Я согласен на обработку персональных данных и ознакомлен с <a
+                    href="javascript:void(0)" target="_blank">политикой конфиденциальности</a></span>
+              </label>
+              <button type="submit" class="arrow-btn__dark modal-submit">
+                <span>
+                  Отправить
+                </span>
+                <div class="icon">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.4167 6.5L6.41667 11.5M1 6.5H11.4167H1ZM11.4167 6.5L6.41667 1.5L11.4167 6.5Z"
+                      stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </button>
+            </form>
+            <div class="modal-social__links-title">
+              Или свяжитесь с нами в удобном месенджере
+            </div>
+            <div class="modal-social__links">
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M24 12.5C24 15.6826 22.7357 18.7348 20.4853 20.9853C18.2348 23.2357 15.1826 24.5 12 24.5C8.8174 24.5 5.76516 23.2357 3.51472 20.9853C1.26428 18.7348 0 15.6826 0 12.5C0 9.3174 1.26428 6.26516 3.51472 4.01472C5.76516 1.76428 8.8174 0.5 12 0.5C15.1826 0.5 18.2348 1.76428 20.4853 4.01472C22.7357 6.26516 24 9.3174 24 12.5V12.5ZM12.4305 9.359C11.2635 9.845 8.9295 10.85 5.4315 12.374C4.8645 12.599 4.566 12.821 4.539 13.037C4.494 13.4015 4.9515 13.5455 5.574 13.742L5.8365 13.8245C6.4485 14.024 7.2735 14.2565 7.701 14.2655C8.091 14.2745 8.5245 14.1155 9.003 13.7855C12.2715 11.579 13.959 10.4645 14.064 10.4405C14.139 10.4225 14.244 10.4015 14.313 10.4645C14.3835 10.526 14.376 10.6445 14.3685 10.676C14.3235 10.8695 12.528 12.5375 11.5995 13.4015C11.31 13.6715 11.1045 13.862 11.0625 13.9055C10.97 14 10.876 14.093 10.7805 14.1845C10.2105 14.7335 9.7845 15.1445 10.803 15.8165C11.2935 16.1405 11.6865 16.406 12.078 16.673C12.504 16.964 12.93 17.2535 13.482 17.6165C13.6215 17.7065 13.7565 17.804 13.887 17.897C14.3835 18.251 14.832 18.569 15.3825 18.518C15.7035 18.488 16.035 18.188 16.203 17.288C16.6005 15.1625 17.382 10.559 17.562 8.6615C17.573 8.50376 17.5664 8.3453 17.5425 8.189C17.5284 8.06288 17.4673 7.94669 17.3715 7.8635C17.235 7.76928 17.0723 7.72047 16.9065 7.724C16.4565 7.7315 15.762 7.973 12.4305 9.359V9.359Z"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M15.4139 4.51509C9.02271 4.8157 3.9808 10.0944 4.00005 16.4397C4.00322 18.3075 4.45083 20.1477 5.30597 21.8087L4.03255 27.9423C4.01701 28.019 4.02108 28.0984 4.04438 28.1731C4.06768 28.2478 4.10945 28.3154 4.16584 28.3697C4.22223 28.424 4.29142 28.4632 4.367 28.4837C4.44258 28.5042 4.52211 28.5054 4.59825 28.487L10.6572 27.0633C12.262 27.8556 14.0236 28.2796 15.8135 28.3043C22.3454 28.4041 27.7906 23.26 27.994 16.7848C28.213 9.84072 22.4369 4.18202 15.4139 4.51389V4.51509ZM22.6439 22.9931C21.7707 23.8623 20.7343 24.5509 19.5942 25.0193C18.4542 25.4877 17.2327 25.7267 16 25.7226C14.5497 25.7271 13.1182 25.3944 11.8187 24.751L10.975 24.3338L7.25942 25.2068L8.04177 21.4419L7.62532 20.6339C6.95022 19.3265 6.60013 17.876 6.60466 16.4049C6.60466 13.9158 7.58199 11.5746 9.35611 9.81547C11.1244 8.06676 13.5119 7.08549 16 7.08472C18.5107 7.08472 20.8698 8.05389 22.6439 9.81427C23.518 10.6748 24.2116 11.7007 24.6843 12.8321C25.1569 13.9635 25.399 15.1777 25.3966 16.4037C25.3966 18.8711 24.4036 21.2495 22.6439 22.9943V22.9931Z"
+                    fill="#2E2F33" />
+                  <path
+                    d="M21.824 18.9826L19.4998 18.3213C19.3498 18.2783 19.191 18.2763 19.0401 18.3157C18.8891 18.355 18.7515 18.4342 18.6416 18.5449L18.0735 19.1197C17.956 19.2387 17.8059 19.3203 17.6422 19.3546C17.4784 19.3888 17.3082 19.374 17.1528 19.3121C16.0539 18.8708 13.7405 16.8315 13.1496 15.8106C13.0667 15.6664 13.0289 15.5008 13.0409 15.3349C13.0529 15.1691 13.1142 15.0107 13.217 14.8799L13.7129 14.2426C13.8083 14.1205 13.8687 13.9747 13.8876 13.8209C13.9065 13.6672 13.8831 13.5111 13.82 13.3696L12.8427 11.1764C12.7874 11.0538 12.7044 10.9457 12.6002 10.8605C12.4961 10.7754 12.3735 10.7156 12.2423 10.6857C12.1111 10.6559 11.9747 10.6569 11.8439 10.6886C11.7132 10.7203 11.5915 10.7819 11.4886 10.8685C10.8399 11.4132 10.0695 12.2393 9.97687 13.1568C9.81197 14.7717 10.5101 16.8074 13.1508 19.2532C16.2019 22.0777 18.6464 22.4517 20.2364 22.0681C21.1391 21.8517 21.8613 20.9823 22.315 20.2717C22.3876 20.1588 22.4327 20.0305 22.4465 19.897C22.4604 19.7636 22.4428 19.6288 22.395 19.5034C22.3473 19.378 22.2707 19.2656 22.1715 19.1751C22.0723 19.0847 21.9533 19.0187 21.824 18.9826Z"
+                    fill="#21272A" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="30" height="19" viewBox="0 0 30 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M29.2938 1.75C29.5163 1.045 29.2938 0.5325 28.3094 0.5325H25.0362C24.2106 0.5325 23.8294 0.98125 23.6069 1.46125C23.6069 1.46125 21.9231 5.56125 19.5719 8.21937C18.8094 8.98812 18.46 9.24438 18.0469 9.24438C17.8244 9.24438 17.5381 8.98812 17.5381 8.28375V1.71688C17.5381 0.884375 17.2844 0.5 16.585 0.5H11.4375C10.9287 0.5 10.6112 0.884375 10.6112 1.26875C10.6112 2.06938 11.7869 2.26187 11.9137 4.50375V9.375C11.9137 10.4319 11.7263 10.625 11.31 10.625C10.1981 10.625 7.4975 6.49312 5.8775 1.785C5.5625 0.8525 5.2425 0.5 4.41625 0.5H1.11188C0.15875 0.5 0 0.948125 0 1.42875C0 2.29375 1.11188 6.64938 5.17875 12.4144C7.87937 16.3519 11.7237 18.4681 15.1869 18.4681C17.2844 18.4681 17.5381 17.9875 17.5381 17.1869V14.2081C17.5381 13.2475 17.7287 13.0875 18.3962 13.0875C18.8725 13.0875 19.7306 13.3431 21.6688 15.2331C23.8925 17.475 24.2737 18.5 25.5131 18.5H28.7856C29.7388 18.5 30.1837 18.0194 29.9294 17.0906C29.6437 16.1619 28.5631 14.8169 27.165 13.2156C26.4025 12.3194 25.2587 11.3262 24.9094 10.8456C24.4331 10.205 24.56 9.94875 24.9094 9.3725C24.8775 9.3725 28.8813 3.67125 29.2938 1.7475"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="manager">
+      <div class="modal-inner">
+        <div class="modal-content form-content">
+          <div class="modal-title">
+            Заявка на звонок менеджеру
+          </div>
+          <div class="modal-subtitle">
+           Оставьте свои контакты — и наш менеджер перезвонит вам, чтобы подробно ответить на любые вопросы.
+          </div>
+          <div class="modal-form">
+            <form>
+              <div class="float-input">
+                <input id="name-present" type="text" autocomplete="name" />
+                <label for="name-present">Как вас зовут?</label>
+              </div>
+              <div class="float-input">
+                <input type="tel" id="tel-present" name="tel-present" autocomplete="tel">
+                <label for="tel-present">Ваш номер телефона</label>
+              </div>
+              <div class="float-input">
+                <input type="email" id="email-present" name="email-present" autocomplete="email">
+                <label for="email-present">Ваш адрес электронной почты</label>
+              </div>
+              <label class="custom-checkbox-black">
+                <input type="checkbox" name="classic" checked>
+                <span class="checkmark">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="checkbox-text">Я согласен на обработку персональных данных и ознакомлен с <a
+                    href="javascript:void(0)" target="_blank">политикой конфиденциальности</a></span>
+              </label>
+              <button type="submit" class="arrow-btn__dark modal-submit">
+                <span>
+                  Заказать звонок
+                </span>
+                <div class="icon">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.4167 6.5L6.41667 11.5M1 6.5H11.4167H1ZM11.4167 6.5L6.41667 1.5L11.4167 6.5Z"
+                      stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </button>
+            </form>
+            <div class="modal-social__links-title">
+              Или свяжитесь с нами в удобном месенджере
+            </div>
+            <div class="modal-social__links">
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M24 12.5C24 15.6826 22.7357 18.7348 20.4853 20.9853C18.2348 23.2357 15.1826 24.5 12 24.5C8.8174 24.5 5.76516 23.2357 3.51472 20.9853C1.26428 18.7348 0 15.6826 0 12.5C0 9.3174 1.26428 6.26516 3.51472 4.01472C5.76516 1.76428 8.8174 0.5 12 0.5C15.1826 0.5 18.2348 1.76428 20.4853 4.01472C22.7357 6.26516 24 9.3174 24 12.5V12.5ZM12.4305 9.359C11.2635 9.845 8.9295 10.85 5.4315 12.374C4.8645 12.599 4.566 12.821 4.539 13.037C4.494 13.4015 4.9515 13.5455 5.574 13.742L5.8365 13.8245C6.4485 14.024 7.2735 14.2565 7.701 14.2655C8.091 14.2745 8.5245 14.1155 9.003 13.7855C12.2715 11.579 13.959 10.4645 14.064 10.4405C14.139 10.4225 14.244 10.4015 14.313 10.4645C14.3835 10.526 14.376 10.6445 14.3685 10.676C14.3235 10.8695 12.528 12.5375 11.5995 13.4015C11.31 13.6715 11.1045 13.862 11.0625 13.9055C10.97 14 10.876 14.093 10.7805 14.1845C10.2105 14.7335 9.7845 15.1445 10.803 15.8165C11.2935 16.1405 11.6865 16.406 12.078 16.673C12.504 16.964 12.93 17.2535 13.482 17.6165C13.6215 17.7065 13.7565 17.804 13.887 17.897C14.3835 18.251 14.832 18.569 15.3825 18.518C15.7035 18.488 16.035 18.188 16.203 17.288C16.6005 15.1625 17.382 10.559 17.562 8.6615C17.573 8.50376 17.5664 8.3453 17.5425 8.189C17.5284 8.06288 17.4673 7.94669 17.3715 7.8635C17.235 7.76928 17.0723 7.72047 16.9065 7.724C16.4565 7.7315 15.762 7.973 12.4305 9.359V9.359Z"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M15.4139 4.51509C9.02271 4.8157 3.9808 10.0944 4.00005 16.4397C4.00322 18.3075 4.45083 20.1477 5.30597 21.8087L4.03255 27.9423C4.01701 28.019 4.02108 28.0984 4.04438 28.1731C4.06768 28.2478 4.10945 28.3154 4.16584 28.3697C4.22223 28.424 4.29142 28.4632 4.367 28.4837C4.44258 28.5042 4.52211 28.5054 4.59825 28.487L10.6572 27.0633C12.262 27.8556 14.0236 28.2796 15.8135 28.3043C22.3454 28.4041 27.7906 23.26 27.994 16.7848C28.213 9.84072 22.4369 4.18202 15.4139 4.51389V4.51509ZM22.6439 22.9931C21.7707 23.8623 20.7343 24.5509 19.5942 25.0193C18.4542 25.4877 17.2327 25.7267 16 25.7226C14.5497 25.7271 13.1182 25.3944 11.8187 24.751L10.975 24.3338L7.25942 25.2068L8.04177 21.4419L7.62532 20.6339C6.95022 19.3265 6.60013 17.876 6.60466 16.4049C6.60466 13.9158 7.58199 11.5746 9.35611 9.81547C11.1244 8.06676 13.5119 7.08549 16 7.08472C18.5107 7.08472 20.8698 8.05389 22.6439 9.81427C23.518 10.6748 24.2116 11.7007 24.6843 12.8321C25.1569 13.9635 25.399 15.1777 25.3966 16.4037C25.3966 18.8711 24.4036 21.2495 22.6439 22.9943V22.9931Z"
+                    fill="#2E2F33" />
+                  <path
+                    d="M21.824 18.9826L19.4998 18.3213C19.3498 18.2783 19.191 18.2763 19.0401 18.3157C18.8891 18.355 18.7515 18.4342 18.6416 18.5449L18.0735 19.1197C17.956 19.2387 17.8059 19.3203 17.6422 19.3546C17.4784 19.3888 17.3082 19.374 17.1528 19.3121C16.0539 18.8708 13.7405 16.8315 13.1496 15.8106C13.0667 15.6664 13.0289 15.5008 13.0409 15.3349C13.0529 15.1691 13.1142 15.0107 13.217 14.8799L13.7129 14.2426C13.8083 14.1205 13.8687 13.9747 13.8876 13.8209C13.9065 13.6672 13.8831 13.5111 13.82 13.3696L12.8427 11.1764C12.7874 11.0538 12.7044 10.9457 12.6002 10.8605C12.4961 10.7754 12.3735 10.7156 12.2423 10.6857C12.1111 10.6559 11.9747 10.6569 11.8439 10.6886C11.7132 10.7203 11.5915 10.7819 11.4886 10.8685C10.8399 11.4132 10.0695 12.2393 9.97687 13.1568C9.81197 14.7717 10.5101 16.8074 13.1508 19.2532C16.2019 22.0777 18.6464 22.4517 20.2364 22.0681C21.1391 21.8517 21.8613 20.9823 22.315 20.2717C22.3876 20.1588 22.4327 20.0305 22.4465 19.897C22.4604 19.7636 22.4428 19.6288 22.395 19.5034C22.3473 19.378 22.2707 19.2656 22.1715 19.1751C22.0723 19.0847 21.9533 19.0187 21.824 18.9826Z"
+                    fill="#21272A" />
+                </svg>
+              </a>
+              <a href="javascript:void()0" target="_blank" class="modal-social__link">
+                <svg width="30" height="19" viewBox="0 0 30 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M29.2938 1.75C29.5163 1.045 29.2938 0.5325 28.3094 0.5325H25.0362C24.2106 0.5325 23.8294 0.98125 23.6069 1.46125C23.6069 1.46125 21.9231 5.56125 19.5719 8.21937C18.8094 8.98812 18.46 9.24438 18.0469 9.24438C17.8244 9.24438 17.5381 8.98812 17.5381 8.28375V1.71688C17.5381 0.884375 17.2844 0.5 16.585 0.5H11.4375C10.9287 0.5 10.6112 0.884375 10.6112 1.26875C10.6112 2.06938 11.7869 2.26187 11.9137 4.50375V9.375C11.9137 10.4319 11.7263 10.625 11.31 10.625C10.1981 10.625 7.4975 6.49312 5.8775 1.785C5.5625 0.8525 5.2425 0.5 4.41625 0.5H1.11188C0.15875 0.5 0 0.948125 0 1.42875C0 2.29375 1.11188 6.64938 5.17875 12.4144C7.87937 16.3519 11.7237 18.4681 15.1869 18.4681C17.2844 18.4681 17.5381 17.9875 17.5381 17.1869V14.2081C17.5381 13.2475 17.7287 13.0875 18.3962 13.0875C18.8725 13.0875 19.7306 13.3431 21.6688 15.2331C23.8925 17.475 24.2737 18.5 25.5131 18.5H28.7856C29.7388 18.5 30.1837 18.0194 29.9294 17.0906C29.6437 16.1619 28.5631 14.8169 27.165 13.2156C26.4025 12.3194 25.2587 11.3262 24.9094 10.8456C24.4331 10.205 24.56 9.94875 24.9094 9.3725C24.8775 9.3725 28.8813 3.67125 29.2938 1.7475"
+                    fill="#2E2F33" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="thx">
+      <div class="modal-inner">
+        <div class="modal-content thx-content">
+          <div class="modal-title">
+            Ваша заявка успешно отправлена!
+          </div>
+          <div class="modal-subtitle">
+           Наш менеджер свяжется с вами по номеру:
+          </div>
+          <a href="tel:+79999879898" target="_blank" class="modal-thx__phone">
+            +7 (999) 987-98-98
+          </a>
+          <button class="modal-close">
+          Закрыть окно
+        </button>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="footer-inner">
         <div class="footer-top">

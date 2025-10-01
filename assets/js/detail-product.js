@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       toggleBtn.textContent = "Сохранить";
     }
   });
-  
+
 });
 
 
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
-                  || links[0].dataset.tab;
+      || links[0].dataset.tab;
 
 
     contents.forEach(c => {
@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function activateTab(tabName) {
- 
+
       links.forEach(l => l.classList.remove("active"));
       contents.forEach(c => {
         c.classList.remove("active");
@@ -352,19 +352,13 @@ document.addEventListener('DOMContentLoaded', function () {
   accordions.forEach(acc => {
     const items = acc.querySelectorAll('li');
 
-    items.forEach((item, index) => {
+    items.forEach(item => {
       const dt = item.querySelector('dt');
       const dd = item.querySelector('dd');
-
       if (!dt || !dd) return;
 
-      // По умолчанию первый открыт
-      if (index === 0) {
-        item.classList.add('active');
-        dd.style.maxHeight = dd.scrollHeight + 'px';
-      } else {
-        dd.style.maxHeight = null;
-      }
+      // по умолчанию все закрыты
+      dd.style.maxHeight = null;
 
       dt.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
@@ -379,7 +373,19 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
+
+  // функция для пересчёта открытых блоков
+  function refreshAccordions() {
+    document.querySelectorAll('.equipment-tabs__content-acc li.active dd')
+      .forEach(dd => {
+        dd.style.maxHeight = dd.scrollHeight + 'px';
+      });
+  }
+
+  window.addEventListener('resize', refreshAccordions);
+  document.addEventListener('tab-switched', refreshAccordions);
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -428,6 +434,27 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (nextArrow) {
     nextArrow.addEventListener('click', () => splide?.go('>'));
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const desc = document.querySelector(".detail-product__layout-description");
+  const toggleBtn = document.querySelector(".desc-toggle");
+
+  if (desc && toggleBtn) {
+    // Показываем кнопку только на мобилке
+    if (window.innerWidth <= 700) {
+      toggleBtn.style.display = "inline-block";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      desc.classList.toggle("expanded");
+      if (desc.classList.contains("expanded")) {
+        toggleBtn.textContent = "Скрыть";
+      } else {
+        toggleBtn.textContent = "Показать больше";
+      }
+    });
   }
 });
 

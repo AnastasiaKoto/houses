@@ -1,14 +1,6 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-// Обработка сортировки из POST-запроса
-if (isset($_POST['sort_field'])) {
-    
-    $_REQUEST['sort_field'] = $_POST['sort_field'];
-    $_REQUEST['sort_order'] = $_POST['sort_order']; 
-    $_REQUEST['sort'] = $_POST['sort'];
-}
-
 $sectionCode = $arResult['VARIABLES']['SECTION_CODE'];
 if ($sectionCode) {
     // Получаем раздел по символьному коду

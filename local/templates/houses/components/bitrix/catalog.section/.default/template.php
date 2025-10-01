@@ -33,6 +33,7 @@ if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1) {
 
 $obName = 'ob' . preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-' . $navParams['NavNum'];
+//p($arParams);
 ?>
 <!-- items-container -->
 <? if (!empty($arResult['ITEMS'])): ?>

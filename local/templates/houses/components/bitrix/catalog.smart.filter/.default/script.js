@@ -7,7 +7,6 @@ function JCSmartFilter(ajaxURL, viewMode, params)
 	this.cache = [];
 	this.popups = [];
 	this.viewMode = viewMode;
-	console.log(params);
 	if (params && params.SEF_SET_FILTER_URL)
 	{
 		this.bindUrlToButton('set_filter', params.SEF_SET_FILTER_URL);
@@ -83,7 +82,6 @@ JCSmartFilter.prototype.reload = function(input)
 			}
 
 			this.curFilterinput = input;
-			console.log(this.values2post(values));
 			BX.ajax.loadJSON(
 				this.ajaxURL,
 				this.values2post(values),
@@ -163,7 +161,6 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem)
 
 JCSmartFilter.prototype.postHandler = function (result, fromCache)
 {
-	console.log('AJAX Response:', result);
 	var hrefFILTER, url, curProp;
 	var modef = BX('modef');
 	var modef_num = BX('modef_num');
@@ -208,9 +205,32 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache)
 				});
 			}
 
+			//модифицирована для сортировки
 			if (result.INSTANT_RELOAD && result.COMPONENT_CONTAINER_ID)
 			{
 				url = BX.util.htmlspecialcharsback(result.FILTER_AJAX_URL);
+				
+				// Добавляем параметры из result.HIDDEN
+				if (result.HIDDEN && result.HIDDEN.length > 0) {
+					var urlParams = new URLSearchParams();
+					var baseUrl = new URL(url, window.location.origin);
+					var existingParams = new URLSearchParams(baseUrl.search);
+
+					existingParams.forEach(function(value, key) {
+						urlParams.set(key, value);
+					});
+					
+					result.HIDDEN.forEach(function(hiddenParam) {
+						if (hiddenParam.HTML_VALUE) {
+							if(hiddenParam.CONTROL_NAME == 'sort_field' || hiddenParam.CONTROL_NAME == 'sort_order' || hiddenParam.CONTROL_NAME == 'sort') {
+								urlParams.set(hiddenParam.CONTROL_NAME, hiddenParam.HTML_VALUE);
+							}
+						}
+					});
+					
+					url = baseUrl.origin + baseUrl.pathname + '?' + urlParams.toString();
+				}
+				
 				BX.ajax.insertToNode(url, result.COMPONENT_CONTAINER_ID);
 			}
 			else

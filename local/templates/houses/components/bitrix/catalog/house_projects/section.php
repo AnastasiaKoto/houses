@@ -164,17 +164,17 @@ if ($isFilter)
 						<? if(!empty($arResult['SORT'])): 
 							$count=1;
 						?>
-						<form action="" method="post" id="sortingForm">
+						<?/*<form action="" method="post" id="sortingForm">
 							<input type="hidden" name="sort_field" id="sort_field" value="<?= $_REQUEST['sort_field'] ?? 'SORT'; ?>">
 							<input type="hidden" name="sort_order" id="sort_order" value="<?= $_REQUEST['sort_order'] ?? 'ASC'; ?>">
-							<input type="hidden" name="sort" id="sort" value="<?= $_REQUEST['sort'] ?? 'default'; ?>">
+							<input type="hidden" name="sort" id="sort" value="<?= $_REQUEST['sort'] ?? 'default'; ?>">*/?>
 							<ul class="custom-select__options">
 								<? foreach($arResult['SORT'] as $key => $value): ?>
 									<li data-value="<?= $count; ?>" data-sort-key="<?= $key ?>" data-sort-field="<?= $value['SORT'] ?>"
 										data-sort-order="<?= $value['ORDER'] ?>"><?= $value['NAME'] ?></li>
 								<? $count++; endforeach; ?>
 							</ul>
-						</form>
+						<?/*</form>*/?>
 						<? endif; ?>
 						<input type="hidden" name="my-select">
 					</div>
@@ -186,7 +186,6 @@ if ($isFilter)
 					array(
 						"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 						"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-						//"AJAX_MODE" => "N",
 						"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'SORT',
 						"ELEMENT_SORT_ORDER" => $_REQUEST['sort_order'] ?? 'ASC',
 						"ELEMENT_SORT_FIELD2" => 'ID',

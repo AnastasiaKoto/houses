@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ".detail-product__mainscreen-config__items.edit"
   );
 
+  if(!editBlock || viewBlock || toggleBtn) return;
+
   const updateViewData = () => {
     // === 1. Стиль постройки ===
     const styleValue = editBlock.querySelector(
@@ -441,6 +443,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const desc = document.querySelector(".detail-product__layout-description");
   const toggleBtn = document.querySelector(".desc-toggle");
 
+  if(!desc || desc) return;
+
   if (desc && toggleBtn) {
     // Показываем кнопку только на мобилке
     if (window.innerWidth <= 700) {
@@ -458,3 +462,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+  document.querySelectorAll('.player-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('click', () => {
+      const videoId = wrapper.dataset.videoId;
+      wrapper.innerHTML = `
+        <iframe 
+          width="100%" 
+          height="100%" 
+          src="https://rutube.ru/play/embed/${videoId}" 
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" 
+          allow="clipboard-write" 
+          allowfullscreen>
+        </iframe>
+      `;
+    });
+  });

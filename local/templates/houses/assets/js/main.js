@@ -76,22 +76,90 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   const accordions = document.querySelectorAll('.questions-acc');
+//   if (!accordions.length) return;
+
+//   accordions.forEach(accordion => {
+//     const items = accordion.querySelectorAll('.question-acc__item');
+
+//     items.forEach(item => {
+//       const title = item.querySelector('.questions-acc__title');
+//       const content = item.querySelector('.question-acc__content');
+//       if (!title || !content) return;
+
+//       const style = window.getComputedStyle(content);
+//       const paddingBottom = parseFloat(style.paddingBottom) || 20;
+
+//       if (item.classList.contains('active')) {
+//         content.style.maxHeight = content.scrollHeight + paddingBottom + "px";
+//       } else {
+//         content.style.maxHeight = "0px";
+//       }
+
+//       title.addEventListener('click', () => {
+//         const isActive = item.classList.contains('active');
+
+//         // Закрываем все элементы в этом аккордеоне
+//         items.forEach(i => {
+//           const c = i.querySelector('.question-acc__content');
+//           if (i !== item) {
+//             i.classList.remove('active');
+//             c.style.maxHeight = "0px";
+//           }
+//         });
+
+//         // Переключаем текущий элемент
+//         if (isActive) {
+//           item.classList.remove('active');
+//           content.style.maxHeight = "0px";
+//         } else {
+//           item.classList.add('active');
+//           content.style.maxHeight = content.scrollHeight + paddingBottom + "px";
+//         }
+//       });
+//     });
+//   });
+// });
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  const accordionItems = document.querySelectorAll('.question-acc__item');
-  if(!accordionItems) return;
+  const accordions = document.querySelectorAll('.questions-acc');
+  if (!accordions.length) return;
 
-  accordionItems.forEach(item => {
-    const title = item.querySelector('.questions-acc__title');
-    title.addEventListener('click', () => {
-      accordionItems.forEach(i => {
-        if (i !== item) i.classList.remove('active');
+  accordions.forEach(accordion => {
+    const items = accordion.querySelectorAll('.question-acc__item');
+
+    items.forEach(item => {
+      const title = item.querySelector('.questions-acc__title');
+      const content = item.querySelector('.question-acc__content');
+      if (!title || !content) return;
+
+      const style = window.getComputedStyle(content);
+      const paddingBottom = parseFloat(style.paddingBottom) || 20;
+
+      if (item.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + paddingBottom + "px";
+      } else {
+        content.style.maxHeight = "0px";
+      }
+
+      title.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        if (isActive) {
+          item.classList.remove('active');
+          content.style.maxHeight = "0px";
+        } else {
+          item.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + paddingBottom + "px";
+        }
       });
-
-      item.classList.toggle('active');
     });
   });
 });
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -125,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function customSelectTrigger() {
+
+document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".custom-select, .custom-select-cornored").forEach(select => {
     const trigger = select.querySelector(".custom-select__trigger");
     const value = select.querySelector(".custom-select__value");
@@ -152,14 +221,150 @@ function customSelectTrigger() {
       select.classList.remove("open");
     });
   });
-}
+});
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {
+//     const trigger = select.querySelector(".selected");
+//     const options = select.querySelectorAll(".options li");
+//     const bubblesContainer = select.querySelector(".selected-bubbles");
+
+//     let selectedValues = [];
+
+//     function updatePlaceholder() {
+//       if (selectedValues.length === 0) {
+//         trigger.textContent = "Выберите вариант";
+//       } else {
+//         trigger.textContent = `Выбрано ${selectedValues.length} ${getPluralForm(selectedValues.length, ['постройка', 'постройки', 'построек'])}`;
+//       }
+//     }
+
+//     function getPluralForm(n, forms) {
+//       // forms = ['постройка', 'постройки', 'построек']
+//       const n10 = n % 10, n100 = n % 100;
+//       if (n10 === 1 && n100 !== 11) return forms[0];
+//       if (n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return forms[1];
+//       return forms[2];
+//     }
+
+//     trigger.addEventListener("click", (e) => {
+//       e.stopPropagation();
+//       select.classList.toggle("open");
+//     });
+
+//     options.forEach(option => {
+//       option.addEventListener("click", (e) => {
+//         e.stopPropagation();
+//         const value = option.dataset.value;
+
+//         if (option.classList.contains("active")) {
+//           // снять выбор
+//           option.classList.remove("active");
+//           selectedValues = selectedValues.filter(v => v.value !== value);
+//           const bubble = bubblesContainer.querySelector(`[data-value="${value}"]`);
+//           if (bubble) bubble.remove();
+//         } else {
+//           // добавить выбор
+//           option.classList.add("active");
+//           const optionText = option.innerHTML;
+//           selectedValues.push({ value, text: optionText });
+
+//           const bubble = document.createElement("div");
+//           bubble.className = "bubble";
+//           bubble.dataset.value = value;
+//           bubble.innerHTML = optionText;
+//           bubblesContainer.appendChild(bubble);
+//         }
+
+//         updatePlaceholder();
+//       });
+//     });
+
+//     document.addEventListener("click", () => {
+//       select.classList.remove("open");
+//     });
+//   });
+// });
 
 document.addEventListener("DOMContentLoaded", () => {
-  customSelectTrigger();
-});
-BX.addCustomEvent('OnAjaxSuccess', function(){
-  customSelectTrigger();
+  document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {
+    const trigger = select.querySelector(".selected");
+    const options = select.querySelectorAll(".options li");
+    const bubblesContainer = select.querySelector(".selected-bubbles");
+
+    let selectedValues = [];
+
+    function updatePlaceholder() {
+      if (selectedValues.length === 0) {
+        trigger.textContent = "Выберите вариант";
+      } else {
+        trigger.textContent = `Выбрано ${selectedValues.length} ${getPluralForm(selectedValues.length, ['постройка', 'постройки', 'построек'])}`;
+      }
+    }
+
+    function getPluralForm(n, forms) {
+      const n10 = n % 10, n100 = n % 100;
+      if (n10 === 1 && n100 !== 11) return forms[0];
+      if (n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return forms[1];
+      return forms[2];
+    }
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      select.classList.toggle("open");
+    });
+
+    options.forEach(option => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const value = option.dataset.value;
+
+        if (option.classList.contains("active")) {
+          // снять выбор
+          removeValue(value);
+        } else {
+          // добавить выбор
+          option.classList.add("active");
+          const optionText = option.innerHTML;
+          selectedValues.push({ value, text: optionText });
+
+          const bubble = document.createElement("div");
+          bubble.className = "bubble";
+          bubble.dataset.value = value;
+          bubble.innerHTML = `
+            <span class="bubble-text">${optionText}</span>
+            <button class="bubble-remove" type="button"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.00058 5.00291L8.49565 8.49797M1.50549 8.49797L5.00058 5.00291L1.50549 8.49797ZM8.49565 1.50781L5.00058 5.00291L8.49565 1.50781ZM5.00058 5.00291L1.50549 1.50781L5.00058 5.00291Z" stroke="#8E9293" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </button>
+          `;
+          bubblesContainer.appendChild(bubble);
+
+          bubble.querySelector(".bubble-remove").addEventListener("click", () => {
+            removeValue(value);
+          });
+        }
+
+        updatePlaceholder();
+      });
+    });
+
+    function removeValue(value) {
+      const option = select.querySelector(`.options li[data-value="${value}"]`);
+      if (option) option.classList.remove("active");
+
+      selectedValues = selectedValues.filter(v => v.value !== value);
+
+      const bubble = bubblesContainer.querySelector(`.bubble[data-value="${value}"]`);
+      if (bubble) bubble.remove();
+
+      updatePlaceholder();
+    }
+
+    document.addEventListener("click", () => {
+      select.classList.remove("open");
+    });
+  });
 });
 
 
@@ -265,4 +470,110 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-// modifiend
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selects = document.querySelectorAll('.custom-select-js');
+
+  selects.forEach(select => {
+    const selected = select.querySelector('.selected');
+    const options = select.querySelector('.options');
+
+    selected.addEventListener('click', () => {
+      const isOpen = select.classList.contains('open');
+      document.querySelectorAll('.custom-select-js.open').forEach(s => s.classList.remove('open'));
+      if (!isOpen) select.classList.add('open');
+    });
+
+    options.querySelectorAll('li').forEach(option => {
+      option.addEventListener('click', () => {
+        options.querySelectorAll('li').forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+
+        selected.innerHTML = option.innerHTML;
+
+        // Закрываем селект
+        select.classList.remove('open');
+
+        console.log('Selected value:', option.dataset.value);
+      });
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-select-js')) {
+      document.querySelectorAll('.custom-select-js.open').forEach(s => s.classList.remove('open'));
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const sliders = document.querySelectorAll('.projects-slider__images');
+
+  sliders.forEach(slider => {
+    const splide = new Splide(slider, {
+      type: 'slide',
+      perPage: 1,
+      gap: 0,
+      pagination: true,
+      arrows: false,
+      drag: false,
+    }).mount();
+
+    const track = slider.querySelector('.splide__track');
+
+    track.addEventListener('mousemove', e => {
+      const rect = track.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const width = rect.width;
+
+      const slidesCount = splide.length;
+      const hoverZone = 15;
+
+      let index = Math.floor((x / width) * slidesCount);
+
+      if (x < hoverZone) index = 0;
+      if (x > width - hoverZone) index = slidesCount - 1;
+
+      splide.go(index);
+    });
+
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const movableItems = document.querySelectorAll("[data-move-target]");
+
+  if (!movableItems.length) return;
+
+  const moveElements = () => {
+    movableItems.forEach(item => {
+      const targetSelector = item.dataset.moveTarget;
+      const breakpoint = parseInt(item.dataset.moveBreak) || 700; 
+      const target = document.querySelector(targetSelector);
+      const originalParent = item.parentNode;
+      const originalNext = item.nextElementSibling;
+
+      if (!target || !originalParent) return;
+
+      if (window.innerWidth <= breakpoint) {
+        if (!item.classList.contains("moved")) {
+          target.insertAdjacentElement("afterend", item); 
+          item.classList.add("moved");
+        }
+      } else {
+        if (item.classList.contains("moved")) {
+          if (originalNext) {
+            originalParent.insertBefore(item, originalNext);
+          } else {
+            originalParent.appendChild(item);
+          }
+          item.classList.remove("moved");
+        }
+      }
+    });
+  };
+
+  moveElements();
+  window.addEventListener("resize", moveElements);
+});

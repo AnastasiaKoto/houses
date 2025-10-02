@@ -16,7 +16,6 @@ use Bitrix\Main\Localization\Loc;
  */
 
 $this->setFrameMode(true);
-$this->addExternalCss('/bitrix/css/main/bootstrap.css');
 
 $haveOffers = isset($arResult['JS_OFFERS']) && !empty($arResult['JS_OFFERS']) ? true : false;
 
@@ -78,46 +77,76 @@ if($haveOffers) {
 								</button>
 							</div>
 							<div class="detail-product__mainscreen-config__items">
+								<? if(!empty($arResult['PROPS']['HOUSES_STYLE'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										Стиль постройки
+										<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
 									</div>
 									<div class="detail-product__mainscreen-config__item-devider"></div>
+									<? foreach($arResult['PROPS']['HOUSES_STYLE'] as $value): 
+										if(in_array('HOUSES_STYLE:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION'])):
+									?>
 									<div class="detail-product__mainscreen-config__item-prop">
-										Хайтек
+										<?= $value['VALUE']; ?>
 									</div>
+									<?
+									endif;
+									break; 
+									endforeach; ?>
 								</div>
+								<? endif; ?>
+
+								<? if(!empty($arResult['PROPS']['HOUSES_FLOORS'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										Этажность
+										<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
 									</div>
 									<div class="detail-product__mainscreen-config__item-devider"></div>
+									<? foreach($arResult['PROPS']['HOUSES_FLOORS'] as $value): 
+										if(in_array('HOUSES_FLOORS:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION'])):
+									?>
 									<div class="detail-product__mainscreen-config__item-prop">
-										2 этажа
+										<?= $value['VALUE']; ?>
 									</div>
+									<?
+									endif;
+									break; 
+									endforeach; ?>
 								</div>
+								<? endif; ?>
+
+								<? if(!empty($arResult['PROPS']['HOUSES_SQUARES'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										Площадь дома
+										<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
 									</div>
 									<div class="detail-product__mainscreen-config__item-devider"></div>
+									<? foreach($arResult['PROPS']['HOUSES_SQUARES'] as $value): 
+										if(in_array('HOUSES_SQUARES:'.$value['VALUE'], $currentOffer['COMBINATION'])):
+									?>
 									<div class="detail-product__mainscreen-config__item-prop">
-										125 м<sup>2</sup>
+										<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>
 									</div>
+									<?
+									endif;
+									break; 
+									endforeach; ?>
 								</div>
+								<? endif; ?>
+
 							</div>
 							<div class="detail-product__mainscreen-config__items edit">
 								<? if(!empty($arResult['PROPS']['HOUSES_STYLE'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										<?= $arResult['PROPS']['HOUSES_STYLE']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
 									</div>
 									<div class="custom-radio">
 										<? foreach($arResult['PROPS']['HOUSES_STYLE'] as $value): 
 											$checked = in_array('HOUSES_STYLE:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : '';
 										?>
 										<label class="radio">
-											<input type="radio" name="HOUSES_STYLE:<?= $value['VALUE_ENUM_ID']; ?>" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
+											<input type="radio" id="HOUSES_STYLE:<?= $value['VALUE_ENUM_ID']; ?>" name="HOUSES_STYLE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 											<span class="radio__text"><?= $value['VALUE']; ?></span>
 										</label>
 										<? endforeach; ?>
@@ -127,13 +156,13 @@ if($haveOffers) {
 								<? if(!empty($arResult['PROPS']['HOUSES_FLOORS'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										<?= $arResult['PROPS']['HOUSES_FLOORS']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
 									</div>
 									<div class="custom-radio">
 										<? foreach($arResult['PROPS']['HOUSES_FLOORS'] as $value): 
 											$checked = in_array('HOUSES_FLOORS:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
 										<label class="radio">
-											<input type="radio" name="HOUSES_FLOORS:<?= $value['VALUE_ENUM_ID']; ?>" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
+											<input type="radio" id="HOUSES_FLOORS:<?= $value['VALUE_ENUM_ID']; ?>" name="HOUSES_FLOORS" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 											<span class="radio__text"><?= $value['VALUE']; ?></span>
 										</label>
 										<? endforeach; ?>
@@ -143,10 +172,14 @@ if($haveOffers) {
 								<? if(!empty($arResult['PROPS']['HOUSES_SQUARES'])): ?>
 								<div class="detail-product__mainscreen-config__item">
 									<div class="detail-product__mainscreen-config__item-name">
-										<?= $arResult['PROPS']['HOUSES_SQUARES']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
 									</div>
 									<div class="custom-select-js">
-										<div class="selected"></div>
+										<? foreach($arResult['PROPS']['HOUSES_SQUARES'] as $value):  ?>
+										<? if(in_array('HOUSES_SQUARES:'.$value['VALUE'], $currentOffer['COMBINATION'])): ?>
+										<div class="selected"><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></div>
+										<? endif; ?>
+										<? endforeach; ?>
 										<ul class="options">
 											<? foreach($arResult['PROPS']['HOUSES_SQUARES'] as $value): 
 											$checked = in_array('HOUSES_SQUARES:'.$value['VALUE'], $currentOffer['COMBINATION']) ? 'active' : ''; ?>
@@ -173,13 +206,13 @@ if($haveOffers) {
 								<? if(!empty($arResult['PROPS']['HOUSES_FACADE'])): ?>
 								<div class="detail-product__mainscreen-view__item">
 									<div class="detail-product__mainscreen-view__item-name">
-										<?= $arResult['PROPS']['HOUSES_FACADE']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_FACADE'][0]['NAME']; ?>
 									</div>
 									<div class="custom-radio">
 										<? foreach($arResult['PROPS']['HOUSES_FACADE'] as $value): 
 											$checked = in_array('HOUSES_FACADE:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
 										<label class="radio">
-											<input type="radio" name="HOUSES_FACADE:<?= $value['VALUE_ENUM_ID']; ?>" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
+											<input type="radio" id="HOUSES_FACADE:<?= $value['VALUE_ENUM_ID']; ?>" name="HOUSES_FACADE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 											<span class="radio__text"><?= $value['VALUE']; ?></span>
 										</label>
 										<? endforeach; ?>
@@ -189,13 +222,13 @@ if($haveOffers) {
 								<? if(!empty($arResult['PROPS']['HOUSES_OTDELKA'])): ?>
 								<div class="detail-product__mainscreen-view__item">
 									<div class="detail-product__mainscreen-view__item-name">
-										<?= $arResult['PROPS']['HOUSES_OTDELKA']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_OTDELKA'][0]['NAME']; ?>
 									</div>
 									<div class="custom-radio">
 										<? foreach($arResult['PROPS']['HOUSES_OTDELKA'] as $value): 
 											$checked = in_array('HOUSES_OTDELKA:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
 										<label class="radio">
-											<input type="radio" name="HOUSES_OTDELKA:<?= $value['VALUE_ENUM_ID']; ?>" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
+											<input type="radio" id="HOUSES_OTDELKA:<?= $value['VALUE_ENUM_ID']; ?>" name="HOUSES_OTDELKA" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 											<span class="radio__text"><?= $value['VALUE']; ?></span>
 										</label>
 										<? endforeach; ?>
@@ -205,13 +238,13 @@ if($haveOffers) {
 								<? if(!empty($arResult['PROPS']['HOUSES_OTDELKA_STYLE'])): ?>
 								<div class="detail-product__mainscreen-view__item">
 									<div class="detail-product__mainscreen-view__item-name">
-										<?= $arResult['PROPS']['HOUSES_OTDELKA_STYLE']['NAME']; ?>
+										<?= $arResult['PROPS']['HOUSES_OTDELKA_STYLE'][0]['NAME']; ?>
 									</div>
 									<div class="custom-radio">
 										<? foreach($arResult['PROPS']['HOUSES_OTDELKA_STYLE'] as $value): 
 											$checked = in_array('HOUSES_OTDELKA_STYLE:'.$value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
 										<label class="radio">
-											<input type="radio" name="HOUSES_OTDELKA_STYLE:<?= $value['VALUE_ENUM_ID']; ?>" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
+											<input type="radio" id="HOUSES_OTDELKA_STYLE:<?= $value['VALUE_ENUM_ID']; ?>" name="HOUSES_OTDELKA_STYLE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 											<span class="radio__text"><?= $value['VALUE']; ?></span>
 										</label>
 										<? endforeach; ?>

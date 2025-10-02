@@ -30,9 +30,6 @@
  svg {
    pointer-events: none;
  }
- img {
-  max-width: 100%;
- }
 
  body {
    padding-top: 133px;

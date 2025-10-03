@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const updateViewData = () => {
 		// === 1. Стиль постройки ===
 		const styleValue = editBlock.querySelector(
-			'input[name="style-building"]:checked'
+			'input[name="HOUSES_STYLE"]:checked'
 		)?.nextElementSibling?.textContent;
 
 		if (styleValue) {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// === 2. Этажность ===
 		const floorValue = editBlock.querySelector(
-			'input[name="floor"]:checked'
+			'input[name="HOUSES_FLOORS"]:checked'
 		)?.nextElementSibling?.textContent;
 
 		if (floorValue) {
@@ -66,7 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
+//забрала
+/*
 document.addEventListener('DOMContentLoaded', function () {
 	const sliders = document.querySelectorAll('.detail__page-slider__images');
 
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	});
 });
-
+*/
 
 Fancybox.bind("[data-fancybox]", {
 });

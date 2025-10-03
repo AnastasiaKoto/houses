@@ -166,7 +166,7 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
         sort($offer['COMBINATION']);
         $combinationKey = implode('|', $offer['COMBINATION']);
         $offer['COMBINATION_KEY'] = $combinationKey;
-        $arResult['JS_OFFERS'][$combinationKey][] = $offer;
+        $arResult['JS_OFFERS'][$combinationKey] = $offer;
     }
 }
 

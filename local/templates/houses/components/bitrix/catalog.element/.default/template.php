@@ -4,6 +4,8 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 
 use Bitrix\Main\Localization\Loc;
 
+$APPLICATION->AddHeadScript('/local/templates/houses/components/bitrix/catalog.element/.default/ajax.js');
+
 /**
  * @global CMain $APPLICATION
  * @var array $arParams
@@ -22,20 +24,29 @@ $haveOffers = isset($arResult['JS_OFFERS']) && !empty($arResult['JS_OFFERS']) ? 
 if($haveOffers) {
 	$currentOffer = [];
 	foreach($arResult['JS_OFFERS'] as $offer) {
-		$currentOffer = $offer[0];
+		$currentOffer = $offer;
 		break;
 	}
 
 	$gallery = $currentOffer['PROPERTIES']['GALLERY']['VALUE'];
 	$title = $currentOffer['NAME'];
 	$price = $currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
+	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
 } else {
 	$title = $arResult['NAME'];
-	$price = !empty($arResult['PROPERTIES']['HOUSES_PRICES']['VALUE']) ? number_format($arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'][0], 0, ',', ' ') . ' ₽' : '';
+	$price = $arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'];
+	$formatted_price = !empty($price) ? number_format($price, 0, ',', ' ') . ' ₽' : '';
 	$deadline = $arResult['PROPERTIES']['DEADLINE']['VALUE'];
 }
 ?>
+<style>
+	.noactive {
+		opacity: 0.4;
+		pointer-events: none;
+		cursor: default;
+	}
+</style>
 <section class="section detail-product__mainscreen" <? if($haveOffers) { echo 'id="' . $currentOffer['COMBINATION_KEY'] . '"'; } ?>>
 	<div class="container">
 		<div class="detail-product__mainscreen-inner">
@@ -90,8 +101,8 @@ if($haveOffers) {
 										<?= $value['VALUE']; ?>
 									</div>
 									<?
-									endif;
-									break; 
+									break;
+									endif; 
 									endforeach; ?>
 								</div>
 								<? endif; ?>
@@ -109,8 +120,8 @@ if($haveOffers) {
 										<?= $value['VALUE']; ?>
 									</div>
 									<?
+									break;
 									endif;
-									break; 
 									endforeach; ?>
 								</div>
 								<? endif; ?>
@@ -128,8 +139,8 @@ if($haveOffers) {
 										<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>
 									</div>
 									<?
+									break;
 									endif;
-									break; 
 									endforeach; ?>
 								</div>
 								<? endif; ?>
@@ -178,12 +189,15 @@ if($haveOffers) {
 										<? foreach($arResult['PROPS']['HOUSES_SQUARES'] as $value):  ?>
 										<? if(in_array('HOUSES_SQUARES:'.$value['VALUE'], $currentOffer['COMBINATION'])): ?>
 										<div class="selected"><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></div>
-										<? endif; ?>
+										<input type="hidden" name="HOUSES_SQUARES" value="<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>">
+										<? 
+										break;
+										endif; ?>
 										<? endforeach; ?>
 										<ul class="options">
 											<? foreach($arResult['PROPS']['HOUSES_SQUARES'] as $value): 
 											$checked = in_array('HOUSES_SQUARES:'.$value['VALUE'], $currentOffer['COMBINATION']) ? 'active' : ''; ?>
-											<li data-value="<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>" class="<?= $checked; ?>">
+											<li id="HOUSES_SQUARES:<?= $value['VALUE'] ?>" class="HOUSES_OPTION <?= $checked; ?>" data-value="<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>" class="<?= $checked; ?>">
 												<strong><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></strong> <?= $value['VALUE_ELEMENT']['UF_FULL_DESCRIPTION']; ?>
 											</li>
 											<? endforeach; ?>
@@ -267,7 +281,7 @@ if($haveOffers) {
 								<div class="selected">Выберите вариант</div>
 								<ul class="options">
 									<? foreach($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'] as $arItem): ?>
-									<li data-value="<?= $arItem['UF_XML_ID']; ?>"><span><?= $arItem['UF_NAME']; ?></span> <span class="price"><?= '+' . number_format($arItem['UF_PRICE'], 0, ',', ' ') . '₽'; ?></span>
+									<li data-price="<?= $arItem['UF_PRICE']; ?>" data-deadline="<?= $arItem['UF_DEADLINE']; ?>" data-value="<?= $arItem['UF_XML_ID']; ?>"><span><?= $arItem['UF_NAME']; ?></span> <span class="price"><?= '+' . number_format($arItem['UF_PRICE'], 0, ',', ' ') . '₽'; ?></span>
 									</li>
 									<? endforeach; ?>
 								</ul>
@@ -285,16 +299,16 @@ if($haveOffers) {
 							<div class="detail-product__mainscreen-total__item-title">
 								Итоговая стоимость
 							</div>
-							<div class="detail-product__mainscreen-total__item-value">
-								<?= $price; ?>
+							<div data-final-price="<?= $price; ?>" class="detail-product__mainscreen-total__item-value detail-product__mainscreen-total__item-price">
+								<?= $formatted_price; ?>
 							</div>
 						</div>
 						<div class="detail-product__mainscreen-total__item">
 							<div class="detail-product__mainscreen-total__item-title">
 								Срок строительства
 							</div>
-							<div class="detail-product__mainscreen-total__item-value">
-								<?= $deadline; ?>
+							<div data-deadline="<?=$deadline?>" class="detail-product__mainscreen-total__item-value detail-product__mainscreen-total__item-date">
+								<?= $deadline ? $deadline . 'дней' : ''; ?>
 							</div>
 						</div>
 						<a href="javascript:void(0)" data-modal-target="#manager" class="ask-btn order-house">
@@ -323,7 +337,7 @@ if($haveOffers) {
 			</div>
 		</div>
 </section>
-<?/*
+
 <section class="section detail-product__layout">
 	<div class="container">
 		<div class="detail-product__layout-inner">
@@ -589,6 +603,7 @@ if($haveOffers) {
 		</div>
 	</div>
 </section>
+<?/*
 <section class="section detail-product__preview">
 	<div class="container">
 		<div class="detail-product__preview-head">
@@ -1770,3 +1785,11 @@ if($haveOffers) {
 	</div>
 </section>
 */?>
+<script>
+    window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
+	window.houseManager = new HouseVariationManager();
+	if (window.houseManager) {
+		console.log('offersMap:', window.houseManager.offersMap);
+		console.log('propertyGroups:', window.houseManager.propertyGroups);
+	}
+</script>

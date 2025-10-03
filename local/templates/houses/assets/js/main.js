@@ -286,6 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
 //   });
 // });
 
+//забрала в класс
+/*
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {
     const trigger = select.querySelector(".selected");
@@ -366,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
+*/
 
 
 
@@ -477,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   selects.forEach(select => {
     const selected = select.querySelector('.selected');
+    const inpHidden = select.querySelector('input[name="HOUSES_SQUARES"]');
     const options = select.querySelector('.options');
 
     selected.addEventListener('click', () => {
@@ -491,6 +494,9 @@ document.addEventListener('DOMContentLoaded', () => {
         option.classList.add('active');
 
         selected.innerHTML = option.innerHTML;
+        if(inpHidden) {
+          inpHidden.value = option.textContent;
+        }
 
         // Закрываем селект
         select.classList.remove('open');

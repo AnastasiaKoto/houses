@@ -106,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
 Fancybox.bind("[data-fancybox]", {
 });
 
-
+/*
+Забрала
 document.addEventListener("DOMContentLoaded", function () {
 	const tabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
 	const tabPanes = document.querySelectorAll(".tab-pane");
@@ -126,7 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 });
-
+*/
+/*
+забрала
 document.addEventListener('DOMContentLoaded', function () {
 	const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
 	if (!tabHeads.length) return;
@@ -243,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			splides[tabName] = instance;
 			setTimeout(() => {
-				try { instance.refresh(); } catch (e) { /* ignore */ }
+				try { instance.refresh(); } catch (e) { /* ignore *//* }
 			}, 50);
 
 			return instance;
@@ -298,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (nextArrow) nextArrow.addEventListener('click', () => { splides[activeTab]?.go('>'); });
 	});
 });
-
+*/
 
 document.addEventListener("DOMContentLoaded", () => {
 	const tabWidgets = document.querySelectorAll(".equipment-tabs");

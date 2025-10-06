@@ -78,11 +78,13 @@ if(isset($arResult['PROPERTIES']['HOUSE_VARIABLES']['VALUE']) && !empty($arResul
                 if(!empty($item['UF_PLANE'])) {
                     $item['UF_PLANE'] = CFile::GetPath($item['UF_PLANE']);
                 }
-                $arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'][] = $item;
+                $arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'][$building] = $item;
             }
         }
     }
 }
+
+//p($arResult['PROPERTIES']['BUILDINGS']);
 
 //формируем и уникализируем массив из свойств для вывода
 if(isset($arResult['VARIATIONS']) && !empty($arResult['VARIATIONS'])) {
@@ -148,12 +150,21 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
                     $value['VALUE'] = $images_data;
                 }
             }
+
             if($value['USER_TYPE'] == 'directory') {
-                $valueId = $value['VALUE'];
                 $tableName = $value['USER_TYPE_SETTINGS']['TABLE_NAME'];
-                if($valueId && $tableName) {
-                    $item = getHlData($valueId, $tableName);
-                    $value['VALUE_ELEMENT'] = $item;
+                if($value['MULTIPLE'] == 'Y' && !empty($value['VALUE'])) {
+                    foreach($value['VALUE'] as $el) {
+                        $valueId = $el;
+                        $item = getHlData($valueId, $tableName);
+                        $value['VALUE_ELEMENT'][] = $item;
+                    }
+                } else {
+                    $valueId = $value['VALUE'];
+                    if($valueId && $tableName) {
+                        $item = getHlData($valueId, $tableName);
+                        $value['VALUE_ELEMENT'] = $item;
+                    }
                 }
             }
             $offer['PROPERTIES'][$key] = $value;

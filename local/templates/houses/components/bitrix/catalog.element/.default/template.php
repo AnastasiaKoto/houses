@@ -33,6 +33,15 @@ if($haveOffers) {
 	$price = $currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
 	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
+	//планировка дома
+	$square =  $currentOffer['PROPERTIES']['HOUSES_SQUARES']['VALUE_ELEMENT']['UF_DESCRIPTION'] ?? 0;
+	$sizes = $currentOffer['PROPERTIES']['SIZES']['VALUE'] ?? 0;
+	$height = $currentOffer['PROPERTIES']['HEIGHT']['VALUE'] ?? 0;
+	$detail_descr = $currentOffer['PREVIEW_TEXT'] ?? '';
+	$rooms = $currentOffer['PROPERTIES']['ROOMS']['VALUE'] ?? '';
+	$storages = $currentOffer['PROPERTIES']['STORAGE']['VALUE'] ?? '';
+	$wcs = $currentOffer['PROPERTIES']['WCS']['VALUE'] ?? '';
+	$planes = $currentOffer['PROPERTIES']['PLANE']['VALUE_ELEMENT'] ?? [];
 } else {
 	$title = $arResult['NAME'];
 	$price = $arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'];
@@ -307,7 +316,7 @@ if($haveOffers) {
 							<div class="detail-product__mainscreen-total__item-title">
 								Срок строительства
 							</div>
-							<div data-deadline="<?=$deadline?>" class="detail-product__mainscreen-total__item-value detail-product__mainscreen-total__item-date">
+							<div data-final-deadline="<?=$deadline?>" class="detail-product__mainscreen-total__item-value detail-product__mainscreen-total__item-date">
 								<?= $deadline ? $deadline . 'дней' : ''; ?>
 							</div>
 						</div>
@@ -346,42 +355,39 @@ if($haveOffers) {
 					Планировка дома
 				</div>
 				<div class="detail-product__layout-spec">
+					<? if($square): ?>
 					<div class="detail-product__layout-spec__item">
 						<div class="detail-product__layout-spec__item-name">
 							Площадь дома
 						</div>
-						<div class="detail-product__layout-spec__item-value">
-							123 м<sup>2</sup>
+						<div class="detail-product__layout-spec__item-value square-value">
+							<?= $square; ?>
 						</div>
 					</div>
+					<? endif; ?>
+					<? if($sizes): ?>
 					<div class="detail-product__layout-spec__item">
 						<div class="detail-product__layout-spec__item-name">
 							Габариты
 						</div>
-						<div class="detail-product__layout-spec__item-value">
-							12 х 24 м
+						<div class="detail-product__layout-spec__item-value size-value">
+							<?= $sizes; ?>
 						</div>
 					</div>
+					<? endif; ?>
+					<? if($height): ?>
 					<div class="detail-product__layout-spec__item">
 						<div class="detail-product__layout-spec__item-name">
 							Высота потолков
 						</div>
-						<div class="detail-product__layout-spec__item-value">
-							3 м
+						<div class="detail-product__layout-spec__item-value height-value">
+							<?= $height; ?>
 						</div>
 					</div>
+					<? endif; ?>
 				</div>
 				<div class="detail-product__layout-description">
-					Противоположная точка зрения подразумевает, что многие известные личности, инициированные
-					исключительно
-					синтетически, смешаны с не уникальными данными до степени совершенной неузнаваемости, из-за чего
-					возрастает их статус бесполезности. Господа, понимание сути ресурсосберегающих технологий
-					обеспечивает
-					актуальность поставленных обществом задач. В своём стремлении улучшить пользовательский опыт мы
-					упускаем,
-					что стремящиеся вытеснить традиционное производство, нанотехнологии являются только методом
-					политического
-					участия и объявлены нарушающими общечеловеческие нормы этики и морали.
+					<?= $detail_descr; ?>
 				</div>
 				<button class="desc-toggle" style="display:none;">Показать больше</button>
 				<div class="detail-product__layout-additional-options">
@@ -393,90 +399,62 @@ if($haveOffers) {
 							<div class="detail-product__layout-additional-option__component">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
-										<img src="./assets/img/bed.svg" alt="img">
+										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/bed.svg" alt="img">
 									</div>
 									<span>
 										Комнаты
 									</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									4 шт
+								<div class="detail-product__layout-additional-option__component-value rooms-value">
+									<?= $rooms; ?> шт
 								</div>
 							</div>
 							<div class="detail-product__layout-additional-option__component">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
-										<img src="./assets/img/box.svg" alt="img">
+										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/box.svg" alt="img">
 									</div>
 									<span>
 										Кладовки
 									</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									4 шт
+								<div class="detail-product__layout-additional-option__component-value storages-value">
+									<?= $storages; ?> шт
 								</div>
 							</div>
 							<div class="detail-product__layout-additional-option__component">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
-										<img src="./assets/img/bath.svg" alt="img">
+										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/bath.svg" alt="img">
 									</div>
 									<span> Кладовки</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									2 шт
+								<div class="detail-product__layout-additional-option__component-value wcs-value">
+									<?= $wcs; ?> шт
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="detail-product__layout-additional-option">
+					<div class="detail-product__layout-additional-option detail-product__layout-additional-option-buildings hidden">
 						<div class="detail-product__layout-additional-option__title">
 							Дополнительные постройки
 						</div>
-						<div class="detail-product__layout-additional-option__components">
-							<div class="detail-product__layout-additional-option__component">
-								<div class="detail-product__layout-additional-option__component-name">
-									<span>
-										Гараж на два автомобиля
-									</span>
-								</div>
-								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									30 м<sup>2</sup>
-								</div>
-							</div>
-							<div class="detail-product__layout-additional-option__component">
-								<div class="detail-product__layout-additional-option__component-name">
-									<span>
-										Баня
-									</span>
-								</div>
-								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									25 м<sup>2</sup>
-								</div>
-							</div>
-							<div class="detail-product__layout-additional-option__component">
-								<div class="detail-product__layout-additional-option__component-name">
-									<span> Гостевой дом с баней </span>
-								</div>
-								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value">
-									12 м<sup>2</sup>
-								</div>
-							</div>
-						</div>
+						<div class="detail-product__layout-additional-option__components"></div>
 					</div>
 				</div>
 			</div>
+			<? if(!empty($planes)): ?>
 			<div class="detail-product__layout-tabs">
 				<div class="detail-product__layout-tabs__content">
-					<div class="tab-pane active" data-tab="1">
-						<a class="detail-product__layout-tabs__image" data-fancybox href="./assets/img/lay.jpg">
-							<img src="./assets/img/lay.jpg" alt="Превью 1">
+					<? 
+					$count = 1;
+					foreach($planes as $plane): ?>
+					<div class="tab-pane <?= $count == 1 ? 'active' : ''; ?>" data-tab="<?= $count; ?>" data-type="house">
+						<a class="detail-product__layout-tabs__image" data-fancybox href="<?= $plane['UF_FILE']; ?>">
+							<img src="<?= $plane['UF_FILE']; ?>" alt="<?= $plane['UF_NAME']; ?>">
 							<div class="detail-product__layout-tabs__image-view__icon">
 								<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -497,113 +475,23 @@ if($haveOffers) {
 							</div>
 						</a>
 					</div>
-					<div class="tab-pane" data-tab="2">
-						<a class="detail-product__layout-tabs__image" data-fancybox href="./assets/img/lay.jpg">
-							<img src="./assets/img/lay.jpg" alt="Превью 3">
-							<div class="detail-product__layout-tabs__image-view__icon">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667ZM9.16667 9.16667V10.8333Z"
-										fill="#8E9293" />
-									<path
-										d="M9.16667 9.16667V10.8333M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-									<path d="M13.3333 13.3359L16.6667 16.6693" stroke="#8E9293" stroke-width="1.5"
-										stroke-linecap="round" stroke-linejoin="round" />
-									<path
-										d="M3.33334 9.16927C3.33334 12.3909 5.94502 15.0026 9.16668 15.0026C10.7803 15.0026 12.2409 14.3474 13.2969 13.2886C14.3493 12.2334 15 10.7773 15 9.16927C15 5.94761 12.3883 3.33594 9.16668 3.33594C5.94502 3.33594 3.33334 5.94761 3.33334 9.16927Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
-							</div>
-						</a>
-					</div>
-					<div class="tab-pane" data-tab="3">
-						<a class="detail-product__layout-tabs__image" data-fancybox href="./assets/img/lay.jpg">
-							<img src="./assets/img/lay.jpg" alt="Превью 4">
-							<div class="detail-product__layout-tabs__image-view__icon">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667ZM9.16667 9.16667V10.8333Z"
-										fill="#8E9293" />
-									<path
-										d="M9.16667 9.16667V10.8333M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-									<path d="M13.3333 13.3359L16.6667 16.6693" stroke="#8E9293" stroke-width="1.5"
-										stroke-linecap="round" stroke-linejoin="round" />
-									<path
-										d="M3.33334 9.16927C3.33334 12.3909 5.94502 15.0026 9.16668 15.0026C10.7803 15.0026 12.2409 14.3474 13.2969 13.2886C14.3493 12.2334 15 10.7773 15 9.16927C15 5.94761 12.3883 3.33594 9.16668 3.33594C5.94502 3.33594 3.33334 5.94761 3.33334 9.16927Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
-							</div>
-						</a>
-					</div>
-					<div class="tab-pane" data-tab="4">
-						<a class="detail-product__layout-tabs__image" data-fancybox href="./assets/img/lay.jpg">
-							<img src="./assets/img/lay.jpg" alt="Превью 4">
-							<div class="detail-product__layout-tabs__image-view__icon">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667ZM9.16667 9.16667V10.8333Z"
-										fill="#8E9293" />
-									<path
-										d="M9.16667 9.16667V10.8333M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-									<path d="M13.3333 13.3359L16.6667 16.6693" stroke="#8E9293" stroke-width="1.5"
-										stroke-linecap="round" stroke-linejoin="round" />
-									<path
-										d="M3.33334 9.16927C3.33334 12.3909 5.94502 15.0026 9.16668 15.0026C10.7803 15.0026 12.2409 14.3474 13.2969 13.2886C14.3493 12.2334 15 10.7773 15 9.16927C15 5.94761 12.3883 3.33594 9.16668 3.33594C5.94502 3.33594 3.33334 5.94761 3.33334 9.16927Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
-							</div>
-						</a>
-					</div>
-					<div class="tab-pane" data-tab="5">
-						<a class="detail-product__layout-tabs__image" data-fancybox href="./assets/img/lay.jpg">
-							<img src="./assets/img/lay.jpg" alt="Превью 4">
-							<div class="detail-product__layout-tabs__image-view__icon">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667ZM9.16667 9.16667V10.8333Z"
-										fill="#8E9293" />
-									<path
-										d="M9.16667 9.16667V10.8333M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-									<path d="M13.3333 13.3359L16.6667 16.6693" stroke="#8E9293" stroke-width="1.5"
-										stroke-linecap="round" stroke-linejoin="round" />
-									<path
-										d="M3.33334 9.16927C3.33334 12.3909 5.94502 15.0026 9.16668 15.0026C10.7803 15.0026 12.2409 14.3474 13.2969 13.2886C14.3493 12.2334 15 10.7773 15 9.16927C15 5.94761 12.3883 3.33594 9.16668 3.33594C5.94502 3.33594 3.33334 5.94761 3.33334 9.16927Z"
-										stroke="#8E9293" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
-							</div>
-						</a>
-					</div>
+					<? $count++; endforeach; ?>
 				</div>
 
 				<div class="detail-product__layout-tabs__links">
-					<a href="#" class="detail-product__layout-tabs__link active" data-tab="1">1 этаж</a>
-					<a href="#" class="detail-product__layout-tabs__link" data-tab="2">2 этаж</a>
-					<a href="#" class="detail-product__layout-tabs__link" data-tab="3">Баня</a>
-					<a href="#" class="detail-product__layout-tabs__link" data-tab="4">Гараж</a>
-					<a href="#" class="detail-product__layout-tabs__link" data-tab="5">Гостевой дом</a>
+					<? 
+					$count = 1;
+					foreach($planes as $plane): ?>
+					<a href="#" data-type="house" class="detail-product__layout-tabs__link <?= $count == 1 ? 'active' : ''; ?>" data-tab="<?= $count; ?>"><?= $plane['UF_DESCRIPTION']; ?></a>
+					<? $count++; endforeach; ?>
 				</div>
 			</div>
+			<? endif ?>
 			<div class="anchor-title"></div>
 		</div>
 	</div>
 </section>
-<?/*
+<? if($haveOffers): ?>
 <section class="section detail-product__preview">
 	<div class="container">
 		<div class="detail-product__preview-head">
@@ -628,24 +516,21 @@ if($haveOffers) {
 		<div class="detail-product__preview-tabs">
 			<div class="detail-product__preview-tabs__head">
 				<div class="detail-product__preview-tabs__links">
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link active" data-tab="Фундамент">
-						Фундамент
+					<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
+					<a href="javascript:void(0)" class="detail-product__preview-tabs__link active" data-type="house" data-tab="1">
+						<?= $currentOffer['PROPERTIES']['FACADE_IMAGES']['NAME']; ?>
 					</a>
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Интерьер">
-						Интерьер
+					<? endif; ?>
+					<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
+					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house" data-tab="2">
+						<?= $currentOffer['PROPERTIES']['INTERJER_IMAGES']['NAME']; ?>
 					</a>
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Разрезы">
-						Разрезы
+					<? endif; ?>
+					<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
+					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house" data-tab="3">
+						<?= $currentOffer['PROPERTIES']['CUT_IMAGES']['NAME']; ?>
 					</a>
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Гараж">
-						Гараж
-					</a>
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Баня">
-						Баня
-					</a>
-					<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Гостевой дом">
-						Гостевой дом
-					</a>
+					<? endif; ?>
 				</div>
 				<div class="detail-product__preview-arrows" data-move-target=".arrows-anchor" data-move-break="992">
 					<div class="detail-product__preview-arrow detail-product__preview-arrow__prev">
@@ -669,131 +554,64 @@ if($haveOffers) {
 			</div>
 		</div>
 	</div>
-	<div class="detail-product__preview-tabs__content active" data-tab="Фундамент">
+	<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
+	<div class="detail-product__preview-tabs__content active" data-type="house" data-tab="1">
 		<div class="splide detail-product__preview-tabs__slider">
 			<div class="splide__track">
+				<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
 				<ul class="splide__list">
+					<? foreach($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'] as $img): ?>
 					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
+						<img src="<?= $img['PATH']; ?>" alt="img">
 					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
+					<? endforeach; ?>
 				</ul>
+				<? endif; ?>
 			</div>
 		</div>
 	</div>
-	<div class="detail-product__preview-tabs__content" data-tab="Интерьер">
+	<? endif; ?>
+	<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
+	<div class="detail-product__preview-tabs__content" data-type="house" data-tab="2">
 		<div class="splide detail-product__preview-tabs__slider">
 			<div class="splide__track">
+				<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
 				<ul class="splide__list">
+					<? foreach($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'] as $img): ?>
 					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
+						<img src="<?= $img['PATH']; ?>" alt="img">
 					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
+					<? endforeach; ?>
 				</ul>
+				<? endif; ?>
 			</div>
 		</div>
 	</div>
-	<div class="detail-product__preview-tabs__content" data-tab="Разрезы">
+	<? endif; ?>
+	<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
+	<div class="detail-product__preview-tabs__content" data-type="house" data-tab="3">
 		<div class="splide detail-product__preview-tabs__slider">
 			<div class="splide__track">
+				<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
 				<ul class="splide__list">
+					<? foreach($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'] as $img): ?>
 					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
+						<img src="<?= $img['PATH']; ?>" alt="img">
 					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
+					<? endforeach; ?>
 				</ul>
+				<? endif; ?>
 			</div>
 		</div>
 	</div>
-	<div class="detail-product__preview-tabs__content" data-tab="Гараж">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<ul class="splide__list">
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="detail-product__preview-tabs__content" data-tab="Баня">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<ul class="splide__list">
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="detail-product__preview-tabs__content" data-tab="Гостевой дом">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<ul class="splide__list">
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre2.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre3.jpg" alt="img">
-					</li>
-					<li class="splide__slide">
-						<img src="./assets/img/pre1.jpg" alt="img">
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<? endif; ?>
 	<div class="container">
 		<div class="arrows-anchor"></div>
 		<div class="btn-anchor"></div>
 	</div>
 </section>
+<? endif; ?>
+<?/*
 <section class="section equipment">
 	<div class="container">
 		<div class="equipment__head">
@@ -1784,12 +1602,14 @@ if($haveOffers) {
 		</div>
 	</div>
 </section>
-*/?>
+*/
+?>
 <script>
     window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
+	window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
 	window.houseManager = new HouseVariationManager();
 	if (window.houseManager) {
 		console.log('offersMap:', window.houseManager.offersMap);
-		console.log('propertyGroups:', window.houseManager.propertyGroups);
+		console.log('Buildings:', window.houseManager.buildingsMap)
 	}
 </script>

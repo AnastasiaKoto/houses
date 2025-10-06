@@ -1,12 +1,22 @@
 class HouseVariationManager {
     constructor() {
         this.offersMap = window.OFFERS_DATA || {};
+        this.buildingsMap = window.BUILDINGS_DATA || {};
         this.selectedValues = {};
         this.propertyGroups = {};
         this.toggleBtn = null;
         this.editBlock = null;
         this.slider = null;
         this.price = null;
+        this.planeTabs = null;
+        this.planeLinks = null;
+        this.planeTabLinks = null;
+        this.planeTabPanes = null;
+
+        // Добавляем хранилища для экземпляров
+        this.splideInstances = {};
+        this.tabInstances = {};
+
         
         this.init();
     }
@@ -21,6 +31,10 @@ class HouseVariationManager {
         this.deadline = document.querySelector('.detail-product__mainscreen-total__item-date');
         this.bubblesSelect = document.querySelector(".custom-select-bubbles-js");
         this.options = this.bubblesSelect.querySelectorAll(".options li");
+        this.planeTabs = document.querySelector('.detail-product__layout-tabs__content');
+        this.planeLinks = document.querySelector('.detail-product__layout-tabs__links');
+        this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
+        this.planeTabPanes = document.querySelectorAll(".tab-pane");
         this.bindEvents();
     }
 
@@ -39,12 +53,226 @@ class HouseVariationManager {
         document.addEventListener('DOMContentLoaded', () => {
             this.mainGalleryInit();
             this.selectBubbles();
+            this.renderPlaneTabs();
+            this.initTabsAndSliders();
         });
 
     }
 
 
     /*  FRONT START */
+    // Инициализация табов и слайдеров
+    initTabsAndSliders() {
+        const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
+        if (!tabHeads.length) return;
+
+        tabHeads.forEach(head => {
+            const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
+
+            // Собираем панели контента (сначала внутри root, иначе — последовательные siblings)
+            let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
+            if (!contents.length) {
+                let node = root.nextElementSibling;
+                while (node) {
+                    if (node.classList && node.classList.contains('detail-product__preview-tabs__content')) {
+                        contents.push(node);
+                        node = node.nextElementSibling;
+                        continue;
+                    }
+                    if (node.querySelector && node.querySelector('.detail-product__preview-tabs')) break;
+                    node = node.nextElementSibling;
+                }
+            }
+
+            const links = Array.from(head.querySelectorAll('.detail-product__preview-tabs__link'));
+            const prevArrow = head.querySelector('.detail-product__preview-arrow__prev');
+            const nextArrow = head.querySelector('.detail-product__preview-arrow__next');
+
+            if (!links.length || !contents.length) {
+                console.warn('Tabs: missing links or contents for widget', head);
+                return;
+            }
+
+            const maxLen = Math.max(links.length, contents.length);
+            for (let i = 0; i < maxLen; i++) {
+                const l = links[i];
+                const c = contents[i];
+
+                if (l && c) {
+                    if (!l.dataset.tab && c.dataset.tab) l.dataset.tab = c.dataset.tab;
+                    else if (l.dataset.tab && !c.dataset.tab) c.dataset.tab = l.dataset.tab;
+                    else if (!l.dataset.tab && !c.dataset.tab) {
+                        const gen = `tab-${Date.now().toString(36)}-${i}`;
+                        l.dataset.tab = gen;
+                        c.dataset.tab = gen;
+                    }
+                } else if (l && !c) {
+                    // есть ссылка без контента (создаём namespace)
+                    if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+                } else if (c && !l) {
+                    if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+                }
+            }
+
+            const contentMap = new Map();
+            contents.forEach(c => {
+                if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
+            });
+            const linkMap = new Map();
+            links.forEach(l => {
+                if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
+            });
+
+            // Сохраняем конфигурацию для этого экземпляра табов
+            const tabInstanceId = `tabs-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            this.tabInstances[tabInstanceId] = {
+                head,
+                root,
+                contents,
+                links,
+                contentMap,
+                linkMap,
+                prevArrow,
+                nextArrow,
+                splides: {},
+                activeTab: head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab || links[0]?.dataset.tab
+            };
+
+            this.initTabInstance(this.tabInstances[tabInstanceId]);
+        });
+    }
+
+    // Инициализация конкретного экземпляра табов
+    initTabInstance(instance) {
+        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+
+        // Функция для инициализации Splide
+        const mountSplideFor = (tabName) => {
+            if (!tabName) return null;
+            if (splides[tabName]) return splides[tabName];
+
+            const content = contentMap.get(tabName);
+            if (!content) return null;
+
+            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+            if (!el) return null;
+
+            const computed = window.getComputedStyle(content);
+            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+            const prev = {};
+            if (wasHidden) {
+                prev.display = content.style.display;
+                prev.visibility = content.style.visibility;
+                prev.position = content.style.position;
+                prev.left = content.style.left;
+
+                content.style.display = 'block';
+                content.style.visibility = 'hidden';
+                content.style.position = 'absolute';
+                content.style.left = '-9999px';
+            }
+
+            const splideOptions = {
+                type: 'loop',
+                autoWidth: true,
+                gap: 20,
+                perMove: 1,
+                pagination: false,
+                arrows: false,
+                breakpoints: { 992: { gap: 10 } }
+            };
+
+            const splideInstance = new Splide(el, splideOptions);
+            splideInstance.mount();
+
+            if (wasHidden) {
+                content.style.display = prev.display || '';
+                content.style.visibility = prev.visibility || '';
+                content.style.position = prev.position || '';
+                content.style.left = prev.left || '';
+            }
+
+            splides[tabName] = splideInstance;
+            setTimeout(() => {
+                try { splideInstance.refresh(); } catch (e) { /* ignore */ }
+            }, 50);
+
+            return splideInstance;
+        };
+
+        // Инициализация активного таба
+        contents.forEach(c => {
+            if (c.dataset.tab === activeTab) {
+                c.classList.add('active');
+                c.style.display = '';
+                mountSplideFor(activeTab);
+            } else {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            }
+        });
+
+        // Навешиваем обработчики на ссылки
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const tabName = this.dataset.tab;
+                if (!tabName || tabName === instance.activeTab) return;
+
+                // Снимаем active у ссылок и контентов
+                links.forEach(l => l.classList.remove('active'));
+                contents.forEach(c => {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                });
+
+                // Активируем выбранные
+                this.classList.add('active');
+                const newContent = contentMap.get(tabName);
+                if (newContent) {
+                    newContent.classList.add('active');
+                    newContent.style.display = '';
+                    // Инициализируем / обновляем слайдер для этого таба
+                    mountSplideFor(tabName);
+                }
+
+                instance.activeTab = tabName;
+            });
+        });
+
+        // Стрелки управляют текущим активным слайдером
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => { 
+                splides[instance.activeTab]?.go('<'); 
+            });
+        }
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => { 
+                splides[instance.activeTab]?.go('>'); 
+            });
+        }
+
+        instance.mountSplideFor = mountSplideFor;
+    }
+
+    // Переинициализация всех табов и слайдеров
+    reinitTabsAndSliders() {
+        Object.values(this.tabInstances).forEach(instance => {
+            Object.values(instance.splides || {}).forEach(splide => {
+                try {
+                    splide.destroy();
+                } catch (e) {
+                    console.warn('Error destroying splide instance:', e);
+                }
+            });
+        });
+
+        this.splideInstances = {};
+        this.tabInstances = {};
+
+        this.initTabsAndSliders();
+    }
+
     //инициализация и переинициализация слайдера
     mainGalleryInit() {
         //this.slider.forEach(slider => {
@@ -116,13 +344,18 @@ class HouseVariationManager {
                 const value = option.dataset.value;
                 const price = option.dataset.price;
                 const deadline = option.dataset.deadline;
-
+                const buildingObject = this.buildingsMap[option.dataset.value];
                 if (option.classList.contains("active")) {
                 // снять выбор
                 removeValue(value);
                 } else {
                 // добавить выбор
-                //this.changePriceWithBuildings(price, 'plus');
+                this.changePropertyWithBuildings('price', price, 'plus');
+                this.changePropertyWithBuildings('deadline', deadline, 'plus');
+                if(buildingObject) {
+                    this.insertPlaneTabs(buildingObject, 'plus');
+                    this.changeParametersForBuildings(buildingObject, 'plus');
+                }
                 option.classList.add("active");
                 const optionText = option.innerHTML;
                 selectedValues.push({ value, text: optionText });
@@ -158,7 +391,11 @@ class HouseVariationManager {
 
                 const bubble = bubblesContainer.querySelector(`.bubble[data-value="${value}"]`);
                 const optionPrice = bubble.dataset.price;
-                //this.changePriceWithBuildings(optionPrice, 'min');
+                const optionDeadline = bubble.dataset.deadline;
+                this.changePropertyWithBuildings('price', optionPrice, 'min');
+                this.changePropertyWithBuildings('deadline', optionDeadline, 'min');
+                this.insertPlaneTabs(this.buildingsMap[bubble.dataset.value], 'min');
+                this.changeParametersForBuildings(this.buildingsMap[bubble.dataset.value], 'min');
                 if (bubble) bubble.remove();
                 
                 updatePlaceholder();
@@ -170,8 +407,32 @@ class HouseVariationManager {
         //});
     }
 
+    //plane tabs
+    renderPlaneTabs() {
+        this.planeTabLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // убираем active у всех
+                this.planeTabLinks.forEach(l => l.classList.remove("active"));
+                this.planeTabPanes.forEach(p => p.classList.remove("active"));
+
+                // активируем выбранный таб
+                link.classList.add("active");
+                const tabId = link.getAttribute("data-tab");
+                const targetPane = document.querySelector(`.tab-pane[data-tab="${tabId}"]`);
+                if (targetPane) {
+                    targetPane.classList.add("active");
+                }
+            });
+        });
+    }
+
 
     /*  FRONT END */
+
+
+    /*  MAIN BLOCK  */
 
     //достает доступные комбинации
     updateAvailability(clickedElement) {
@@ -195,6 +456,8 @@ class HouseVariationManager {
                 this.changeProperty(combination,'price');
                 this.changeProperty(combination,'deadline');
                 this.toggleBtnBlock(available);
+                this.changePlaneTabs(combination);
+                this.changeParameters(combination);
             }
         }
     }
@@ -297,6 +560,119 @@ class HouseVariationManager {
         }
     }
 
+    /* MAIN BLOCK END   */
+
+    /*  PRICE & DEADLINE    */
+
+    //меняет срок и цену от доп.постройки
+    changePropertyWithBuildings(type, property, action) {
+        const properties = {
+            price: {
+                property: 'FORMATTED_PRICE',
+                dataAttr: 'price',
+                dataBuildings: 'buildings',
+                finalDataAttr: 'finalPrice',
+                suffix: ' ₽'
+            },
+            deadline: {
+                property: 'DEADLINE',
+                dataAttr: 'deadline',
+                dataBuildings: 'buildingsdeadline',
+                finalDataAttr: 'finalDeadline',
+                suffix: ' дней'
+            }
+        };
+        const config = properties[type];
+        if (!config) {
+            console.log('Неизвестный тип свойства:', type);
+            return;
+        }
+
+        property = property === '' ? 0 : property;
+        const element = type === 'price' ? this.price : this.deadline;
+
+        let finalNumber = 0;
+        if(action === 'plus') {
+            finalNumber = Number(element.dataset[config.finalDataAttr]) + Number(property);
+        } else if(action === 'min') {
+            finalNumber = Number(element.dataset[config.finalDataAttr]) - Number(property);
+        }
+
+        element.textContent = finalNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + config.suffix;
+        element.dataset[config.finalDataAttr] = finalNumber;
+        if(!element.dataset[config.dataBuildings]) {
+            //element.setAttribute([config.dataBuildings], property);
+            element.dataset[config.dataBuildings] = property;
+        } else {
+            element.dataset[config.dataBuildings] = action === 'plus' ? Number(element.dataset[config.dataBuildings]) + Number(property) : Number(element.dataset[config.dataBuildings]) - Number(property);
+        }
+    }
+
+    //меняет cрок и цену от вариации
+    changeProperty(combination, type) {
+        const properties = {
+            price: {
+                property: 'FORMATTED_PRICE',
+                dataAttr: 'buildings',
+                finalDataAttr: 'finalPrice',
+                suffix: ' ₽',
+                fallbackMessage: 'Цена не найдена в комбинации'
+            },
+            deadline: {
+                property: 'DEADLINE',
+                dataAttr: 'buildingsDeadline',
+                finalDataAttr: 'deadline',
+                suffix: ' дней',
+                fallbackMessage: 'Срок не найден в комбинации'
+            }
+        };
+
+        const config = properties[type];
+        if (!config) {
+            console.log('Неизвестный тип свойства:', type);
+            return;
+        }
+
+        const element = type === 'price' ? this.price : this.deadline;
+        console.log('Price element:', this.price);
+
+        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES[config.property] || 
+            !combination.PROPERTIES[config.property].VALUE) {
+            console.log(config.fallbackMessage);
+            return;
+        }
+
+        const newValue = combination.PROPERTIES[config.property].VALUE;
+        console.log('newValue' + newValue);
+        console.log(config);
+        console.log(config.dataAttr);
+        console.log('Price element:', element);
+        if (!element.dataset[config.dataAttr] || element.dataset[config.dataAttr] === "0") {
+            console.log('Нет дата атрибута' + element.dataset[config.dataAttr]);
+            if (type === 'price') {
+                const formattedValue = newValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+                element.textContent = formattedValue + config.suffix;
+            } else {
+                element.textContent = newValue + config.suffix;
+            }
+            element.dataset[config.finalDataAttr] = newValue;
+        } else {
+            console.log('Найден дата атрибут' + element.dataset[config.dataAttr]);
+            const totalValue = Number(newValue) + Number(element.dataset[config.dataAttr]);
+            element.dataset[config.finalDataAttr] = totalValue;
+            
+            if (type === 'price') {
+                const formattedValue = totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+                element.textContent = formattedValue + config.suffix;
+            } else {
+                element.textContent = totalValue + config.suffix;
+            }
+        }
+    }
+
+    /*  PRICE & DEADLINE END    */
+
+
     //заменяет контент галереи
     changeGallery(combination) {
         if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.GALLERY || 
@@ -335,99 +711,235 @@ class HouseVariationManager {
         this.mainGalleryInit();
     }
 
-    /*
-    //добавляет к цене стоимость постройки
-    changePriceWithBuildings(buildingPrice, action) {
-        let finalPrice = 0;
-        if(action === 'plus') {
-            finalPrice = Number(this.price.dataset.finalPrice) + Number(buildingPrice);
-        } else if(action === 'min') {
-            finalPrice = Number(this.price.dataset.finalPrice) - Number(buildingPrice);
-        }
+    //удаляет предыдущие табы
+    resetPlaneTabs() {
+        const links = document.querySelectorAll('.detail-product__layout-tabs__link[data-type="house"]');
+        const tabs = document.querySelectorAll('.tab-pane[data-type="house"]');
 
-        this.price.textContent = finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
-        this.price.dataset.finalPrice = finalPrice;
-        if(!this.price.dataset.buildings) {
-            this.price.setAttribute('data-buildings', buildingPrice);
-        } else {
-            this.price.dataset.buildings = action === 'plus' ? Number(this.price.dataset.buildings) + Number(buildingPrice) : Number(this.price.dataset.buildings) - Number(buildingPrice);
-        }
-    }
-    */
-
-    //меняет срок и цену от доп.постройки
-    changePropertyWithBuildings(property, action) {
-        const properties = {
-            price: {
-                property: 'FORMATTED_PRICE',
-                dataAttr: 'buildings',
-                finalDataAttr: 'finalPrice',
-                suffix: ' ₽',
-                fallbackMessage: 'Цена не найдена в комбинации'
-            },
-            deadline: {
-                property: 'DEADLINE',
-                dataAttr: 'buildingsDeadline',
-                finalDataAttr: 'deadline',
-                suffix: ' дней',
-                fallbackMessage: 'Срок не найден в комбинации'
-            }
-        };
-    }
-
-    //меняет cрок и цену от вариации
-    changeProperty(combination, type) {
-        const properties = {
-            price: {
-                property: 'FORMATTED_PRICE',
-                dataAttr: 'buildings',
-                finalDataAttr: 'finalPrice',
-                suffix: ' ₽',
-                fallbackMessage: 'Цена не найдена в комбинации'
-            },
-            deadline: {
-                property: 'DEADLINE',
-                dataAttr: 'buildingsDeadline',
-                finalDataAttr: 'deadline',
-                suffix: ' дней',
-                fallbackMessage: 'Срок не найден в комбинации'
-            }
-        };
-
-        const config = properties[type];
-        if (!config) {
-            console.log('❌ Неизвестный тип свойства:', type);
+        if(links.length === 0 && tabs.length === 0) {
             return;
         }
 
-        const element = type === 'price' ? this.price : this.deadline;
+        links.forEach(item => {
+            item.remove();
+        })
+        tabs.forEach(item => {
+            item.remove();
+        })
+    }
 
-        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES[config.property] || 
-            !combination.PROPERTIES[config.property].VALUE) {
-            console.log('❌', config.fallbackMessage);
+    //собирает блок плана постройки
+    changePlaneTabs(combination) {
+        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.PLANE || 
+            !combination.PROPERTIES.PLANE.VALUE_ELEMENT || !Array.isArray(combination.PROPERTIES.PLANE.VALUE_ELEMENT)) {
+            console.log('Планировки не найдены в комбинации');
             return;
         }
 
-        const newValue = combination.PROPERTIES[config.property].VALUE;
+        this.resetPlaneTabs();
+        const planes = combination.PROPERTIES.PLANE.VALUE_ELEMENT;
+        let counter = 1;
         
-        if (!element.dataset[config.dataAttr] || element.dataset[config.dataAttr] === "0") {
-            if (type === 'price') {
-                const formattedValue = newValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-                element.textContent = formattedValue + config.suffix;
-            } else {
-                element.textContent = newValue + config.suffix;
-            }
-            element.dataset[config.finalDataAttr] = newValue;
+        planes.forEach((element, index) => {
+
+            this.createTab(element, counter, 'house');
+
+            counter ++;
+        })
+
+        this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
+        this.planeTabPanes = document.querySelectorAll(".tab-pane");
+        this.renderPlaneTabs();
+    }
+
+    //добавляет табы к текущим в плане постройки
+    insertPlaneTabs(building, action) {
+        let counter = 1;
+        if(this.planeTabLinks) {
+            this.planeTabLinks.forEach(link => { counter ++; });
+        }
+        
+        if(action === 'plus') {
+            this.createTab(building, counter, 'building', building.UF_XML_ID);
+
+            this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
+            this.planeTabPanes = document.querySelectorAll(".tab-pane");
+            this.renderPlaneTabs();
         } else {
-            const totalValue = Number(newValue) + Number(element.dataset[config.dataAttr]);
-            element.dataset[config.finalDataAttr] = totalValue;
+            document.querySelector(`.detail-product__layout-tabs__link[data-building-id="${building.UF_XML_ID}"`).remove();
+            document.querySelector(`.tab-pane[data-building-id="${building.UF_XML_ID}"`).remove();
+            this.sortTabsByDataTab();
+        }
+    }
+    
+    //добавляет таб
+    createTab(element, counter, type, buildingId = false) {
+        //ссылка
+        let link = document.createElement('a');
+        let active = counter === 1 ? 'active' : '';
+        let description = type === 'house' ? element.UF_DESCRIPTION : element.UF_NAME;
+        let file = type === 'house' ? element.UF_FILE : element.UF_PLANE;
+
+        link.classList.add('detail-product__layout-tabs__link');
+        if (active) link.classList.add(active);
+        link.textContent =  description;
+        link.setAttribute('data-type', type);
+        link.setAttribute('data-tab', counter.toString());
+        if(buildingId) link.setAttribute('data-building-id', buildingId.toString());
+
+        //таб
+        let img = document.createElement('img');
+        img.setAttribute('src', file);
+
+        //fancy link
+        let imgLink = document.createElement('a');
+        imgLink.classList.add('detail-product__layout-tabs__image');
+        imgLink.setAttribute('href', file);
+        imgLink.setAttribute('data-fancybox','');
+
+        let viewIcon = document.createElement('div');
+        viewIcon.classList.add('detail-product__layout-tabs__image-view__icon');
+        viewIcon.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667ZM9.16667 9.16667V10.8333Z" fill="#8E9293"></path>
+                <path d="M9.16667 9.16667V10.8333M7.5 9.16667H9.16667H7.5ZM10.8333 9.16667H9.16667H10.8333ZM9.16667 9.16667V7.5V9.16667Z" stroke="#8E9293" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M13.3333 13.3359L16.6667 16.6693" stroke="#8E9293" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M3.33334 9.16927C3.33334 12.3909 5.94502 15.0026 9.16668 15.0026C10.7803 15.0026 12.2409 14.3474 13.2969 13.2886C14.3493 12.2334 15 10.7773 15 9.16927C15 5.94761 12.3883 3.33594 9.16668 3.33594C5.94502 3.33594 3.33334 5.94761 3.33334 9.16927Z" stroke="#8E9293" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        `;
+
+        //tab
+        let panel = document.createElement('div');
+        panel.classList.add('tab-pane');
+        if (active) panel.classList.add(active);
+        panel.setAttribute('data-tab', counter.toString());
+        if(buildingId) panel.setAttribute('data-building-id', buildingId.toString());
+
+        imgLink.appendChild(img);
+        imgLink.appendChild(viewIcon);
+        panel.appendChild(imgLink);
+
+        // Добавляем в DOM
+        this.planeTabs.appendChild(panel);
+        this.planeLinks.appendChild(link);
+        this.sortTabsByDataTab();
+    }
+
+    //сортирует табы
+    sortTabsByDataTab() {
+        const linksArray = Array.from(this.planeLinks.querySelectorAll('.detail-product__layout-tabs__link'));
+        const sortedLinks = linksArray.sort((a, b) => {
+            return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
+        });
+        
+        sortedLinks.forEach(link => {
+            this.planeLinks.appendChild(link);
+        });
+        
+        const tabsArray = Array.from(this.planeTabs.querySelectorAll('.tab-pane'));
+        const sortedTabs = tabsArray.sort((a, b) => {
+            return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
+        });
+        
+        sortedTabs.forEach(tab => {
+            this.planeTabs.appendChild(tab);
+        });
+
+        this.updateActiveTab();
+    }
+
+    //сбрасываем активность
+    updateActiveTab() {
+        this.planeTabLinks.forEach(link => link.classList.remove('active'));
+        this.planeTabPanes.forEach(pane => pane.classList.remove('active'));
+        
+        const firstLink = this.planeLinks.querySelector('.detail-product__layout-tabs__link[data-tab="1"]');
+        if (firstLink) {
+            firstLink.classList.add('active');
             
-            if (type === 'price') {
-                const formattedValue = totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-                element.textContent = formattedValue + config.suffix;
-            } else {
-                element.textContent = totalValue + config.suffix;
+            const correspondingTab = this.planeTabs.querySelector('.tab-pane[data-tab="1"]');
+            if (correspondingTab) {
+                correspondingTab.classList.add('active');
             }
         }
     }
+
+    //меняет мелочь по типу площади размеров итп
+    changeParameters(combination) {
+        if (!combination || !combination.PROPERTIES) {
+            return;
+        }
+
+        let parameters = document.querySelectorAll('.detail-product__layout-spec__item-value');
+        parameters.forEach(parameter => {
+            parameter.textContent = '-';
+
+            if(parameter.classList.contains('square-value') && combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
+                parameter.textContent = combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION;
+            }
+            if(parameter.classList.contains('size-value') && combination.PROPERTIES?.SIZES?.VALUE) {
+                parameter.textContent = combination.PROPERTIES?.SIZES?.VALUE;
+            }
+            if(parameter.classList.contains('height-value') && combination.PROPERTIES?.HEIGHT?.VALUE) {
+                parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
+            }
+        })
+        let rooms = document.querySelectorAll('.detail-product__layout-additional-option__component-value');
+        rooms.forEach(room => {
+            room.textContent = '-';
+
+            if(room.classList.contains('rooms-value') && combination.PROPERTIES?.ROOMS?.VALUE) {
+                room.textContent = combination.PROPERTIES?.ROOMS?.VALUE;
+            }
+            if(room.classList.contains('storages-value') && combination.PROPERTIES?.STORAGE?.VALUE) {
+                room.textContent = combination.PROPERTIES?.STORAGE?.VALUE;
+            }
+            if(room.classList.contains('wcs-value') && combination.PROPERTIES?.WCS?.VALUE) {
+                room.textContent = combination.PROPERTIES?.WCS?.VALUE;
+            }
+        })
+    }
+
+    changeParametersForBuildings(building, action) {
+        const buildingParametersWrapper = document.querySelector('.detail-product__layout-additional-option-buildings');
+
+        if(buildingParametersWrapper) {
+            let componentsInner = buildingParametersWrapper.querySelector('.detail-product__layout-additional-option__components');
+            if(action === 'plus') {
+                let buildingComponent = document.createElement('div');
+                buildingComponent.classList.add('detail-product__layout-additional-option__component');
+                buildingComponent.dataset.building = building.UF_XML_ID;
+
+                let title = document.createElement('div');
+                title.classList.add('detail-product__layout-additional-option__component-name');
+                title.innerHTML = `<span>${building.UF_NAME}</span>`;
+
+                let separator = document.createElement('div');
+                separator.classList.add('detail-product__layout-additional-option__component-devider');
+
+                let value = document.createElement('div');
+                value.classList.add('detail-product__layout-additional-option__component-value');
+                value.innerHTML = `${building.UF_SQUARE} м<sup>2</sup>`;
+
+                buildingComponent.appendChild(title);
+                buildingComponent.appendChild(separator);
+                buildingComponent.appendChild(value);
+
+                componentsInner.appendChild(buildingComponent);
+
+                if(buildingParametersWrapper.classList.contains('hidden')) buildingParametersWrapper.classList.remove('hidden');
+            } else {
+                buildingParametersWrapper.querySelector(`.detail-product__layout-additional-option__component[data-building="${building.UF_XML_ID}"]`).remove();
+                
+                if(buildingParametersWrapper.querySelectorAll('.detail-product__layout-additional-option__component').length <= 0) {
+                    buildingParametersWrapper.classList.add('hidden');
+                }
+            }
+        }
+    }
+
+    changeProjectImagesTabs() {
+
+    }
+
 }

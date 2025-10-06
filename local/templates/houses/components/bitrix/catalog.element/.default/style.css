@@ -1532,3 +1532,13 @@
 .anchor-edit {
   display: none;
 }
+
+.hidden {
+	opacity: 0;
+	pointer-events: none;
+	max-width: 0;
+	max-height: 0;
+	font-size: 0;
+	padding: 0;
+	margin: 0;
+}

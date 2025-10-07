@@ -406,7 +406,7 @@ if($haveOffers) {
 									</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value rooms-value">
+								<div class="detail-product__layout-additional-option__component-value detail-product__layout-additional-option__component-value-house rooms-value">
 									<?= $rooms; ?> шт
 								</div>
 							</div>
@@ -420,7 +420,7 @@ if($haveOffers) {
 									</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value storages-value">
+								<div class="detail-product__layout-additional-option__component-value detail-product__layout-additional-option__component-value-house storages-value">
 									<?= $storages; ?> шт
 								</div>
 							</div>
@@ -432,7 +432,7 @@ if($haveOffers) {
 									<span> Кладовки</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
-								<div class="detail-product__layout-additional-option__component-value wcs-value">
+								<div class="detail-product__layout-additional-option__component-value detail-product__layout-additional-option__component-value-house wcs-value">
 									<?= $wcs; ?> шт
 								</div>
 							</div>
@@ -554,64 +554,66 @@ if($haveOffers) {
 			</div>
 		</div>
 	</div>
-	<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
-	<div class="detail-product__preview-tabs__content active" data-type="house" data-tab="1">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
-				<ul class="splide__list">
-					<? foreach($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'] as $img): ?>
-					<li class="splide__slide">
-						<img src="<?= $img['PATH']; ?>" alt="img">
-					</li>
-					<? endforeach; ?>
-				</ul>
-				<? endif; ?>
+	<!--<div class="detail-product__preview-tabs__tabs">-->
+		<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
+		<div class="detail-product__preview-tabs__content active" data-property="<?= $currentOffer['PROPERTIES']['FACADE_IMAGES']['CODE']; ?>" data-type="house" data-tab="1">
+			<div class="splide detail-product__preview-tabs__slider">
+				<div class="splide__track">
+					<? if(!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
+					<ul class="splide__list">
+						<? foreach($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'] as $img): ?>
+						<li class="splide__slide">
+							<img src="<?= $img['PATH']; ?>" alt="img">
+						</li>
+						<? endforeach; ?>
+					</ul>
+					<? endif; ?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<? endif; ?>
-	<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
-	<div class="detail-product__preview-tabs__content" data-type="house" data-tab="2">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
-				<ul class="splide__list">
-					<? foreach($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'] as $img): ?>
-					<li class="splide__slide">
-						<img src="<?= $img['PATH']; ?>" alt="img">
-					</li>
-					<? endforeach; ?>
-				</ul>
-				<? endif; ?>
+		<? endif; ?>
+		<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
+		<div class="detail-product__preview-tabs__content" data-property="<?= $currentOffer['PROPERTIES']['INTERJER_IMAGES']['CODE']; ?>" data-type="house" data-tab="2">
+			<div class="splide detail-product__preview-tabs__slider">
+				<div class="splide__track">
+					<? if(!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
+					<ul class="splide__list">
+						<? foreach($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'] as $img): ?>
+						<li class="splide__slide">
+							<img src="<?= $img['PATH']; ?>" alt="img">
+						</li>
+						<? endforeach; ?>
+					</ul>
+					<? endif; ?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<? endif; ?>
-	<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
-	<div class="detail-product__preview-tabs__content" data-type="house" data-tab="3">
-		<div class="splide detail-product__preview-tabs__slider">
-			<div class="splide__track">
-				<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
-				<ul class="splide__list">
-					<? foreach($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'] as $img): ?>
-					<li class="splide__slide">
-						<img src="<?= $img['PATH']; ?>" alt="img">
-					</li>
-					<? endforeach; ?>
-				</ul>
-				<? endif; ?>
+		<? endif; ?>
+		<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
+		<div class="detail-product__preview-tabs__content" data-property="<?= $currentOffer['PROPERTIES']['CUT_IMAGES']['CODE']; ?>" data-type="house" data-tab="3">
+			<div class="splide detail-product__preview-tabs__slider">
+				<div class="splide__track">
+					<? if(!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
+					<ul class="splide__list">
+						<? foreach($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'] as $img): ?>
+						<li class="splide__slide">
+							<img src="<?= $img['PATH']; ?>" alt="img">
+						</li>
+						<? endforeach; ?>
+					</ul>
+					<? endif; ?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<? endif; ?>
-	<div class="container">
-		<div class="arrows-anchor"></div>
-		<div class="btn-anchor"></div>
-	</div>
+		<? endif; ?>
+		<div class="container">
+			<div class="arrows-anchor"></div>
+			<div class="btn-anchor"></div>
+		</div>
+	<!--</div>-->
 </section>
-<? endif; ?>
-<?/*
+
+
 <section class="section equipment">
 	<div class="container">
 		<div class="equipment__head">
@@ -633,718 +635,146 @@ if($haveOffers) {
 		</div>
 		<div class="equipment-tabs">
 			<div class="equipment-tabs__links">
-				<a href="javascript:void(0)" class="equipment-tabs__link active" data-tab="foundation">
-					Фундамент
+				<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link active" data-type="house" data-tab="1">
+					<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="walls">
-					Стены
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="2">
+					<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="roof">
-					Кровля
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="3">
+					<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="uteplenie">
-					Утепление
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="4">
+					<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="naruzhka">
-					Наружняя отделка
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="5">
+					<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="window">
-					Окна и двери
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="6">
+					<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['NAME']; ?>
 				</a>
-				<a href="javascript:void(0)" class="equipment-tabs__link" data-tab="more">
-					Другое
+				<? endif; ?>
+				<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG'])): ?>
+				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="7">
+					<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['NAME']; ?>
 				</a>
+				<? endif; ?>
 			</div>
-			<div class="equipment-tabs__content active" data-tab="foundation">
+			<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['CODE']; ?>" data-tab="1">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['FUNDAMENT_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="walls">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['CODE']; ?>" data-tab="2">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['WALLS_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['WALLS_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="roof">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['CODE']; ?>" data-tab="3">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['ROOF_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['ROOF_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="uteplenie">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['CODE']; ?>" data-tab="4">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['INSULATION_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['INSULATION_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="naruzhka">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['CODE']; ?>" data-tab="5">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['OUTER_FINISH_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="window">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['CODE']; ?>" data-tab="6">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['DOORS_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['DOORS_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
-			<div class="equipment-tabs__content" data-tab="more">
+			<? endif; ?>
+			<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG'])): ?>
+			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['CODE']; ?>" data-tab="7">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
-						<ul>
-							<li>
-								<dl>
-									<dt>
-										Выезд специалиста
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Привязка дома на участке
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Пробное бурение почвы
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Монтаж ж/б свай
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обустройство закладных
-									</dt>
-									<dd>
-										Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке
-										с засыпкой.
-										Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10
-										мм/м на песчаной
-										подушке с засыпкой
-										Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее
-										600 мм от
-										поверхности грунта с сигнальной лентой
-									</dd>
-								</dl>
-							</li>
-							<li>
-								<dl>
-									<dt>
-										Обвязка фундамента антисептированным составным ростверком
-									</dt>
-									<dd>
-										На этом этапе мы определяем финальное расположение дома на участке. При работе
-										мы учитываем
-										требования плана застройки, топографические особенности, характер
-										растительности, расположение
-										дорог, улицы, а также природное окружение и солнечную инсоляцию.
-									</dd>
-								</dl>
-							</li>
-						</ul>
+						<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE']); ?>
 					</div>
+					<? if(!empty($currentOffer['PROPERTIES']['OTHER_IMG']['VALUE'])): ?>
 					<div class="equipment-tabs__content-image">
-						<img src="./assets/img/acc.jpg" alt="img">
+						<img src="<?= $currentOffer['PROPERTIES']['OTHER_IMG']['VALUE']; ?>" alt="img">
 					</div>
+					<? endif; ?>
 				</div>
 			</div>
+			<? endif; ?>
 			<div class="eq-ancho-link"></div>
 		</div>
 	</div>
 </section>
+<? endif; ?>
+<? /*
 <section class="section examples">
 	<div class="container">
 		<div class="examples-inner">

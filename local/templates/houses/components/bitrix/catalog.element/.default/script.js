@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 */
 
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
 	const tabWidgets = document.querySelectorAll(".equipment-tabs");
 
 	tabWidgets.forEach(widget => {
@@ -352,7 +352,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
-
+*/
+/*
+забрала
 document.addEventListener('DOMContentLoaded', function () {
 	const accordions = document.querySelectorAll('.equipment-tabs__content-acc');
 
@@ -393,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.addEventListener('tab-switched', refreshAccordions);
 });
 
-
+*/
 
 document.addEventListener('DOMContentLoaded', function () {
 	const sliderExamples = document.querySelector('.examples-slider');

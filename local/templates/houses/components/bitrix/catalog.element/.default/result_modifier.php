@@ -135,7 +135,10 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
         ];
 
         foreach($variation['PROPERTIES'] as $key => $value) {
-            if($key === 'GALLERY' || strpos($key, '_IMAGES') !== false) {
+            if ($value['USER_TYPE'] == 'HTML' && isset($value['VALUE']['TEXT'])) {
+                $value['VALUE'] = $value['VALUE']['TEXT'];
+            }
+            if($key === 'GALLERY' || strpos($key, '_IMAGES') !== false || strpos($key, '_IMG') !== false) {
                 if(is_array($value['VALUE'])) {
                     $images_data = [];
                     foreach($value['VALUE'] as $index => $img_id) {
@@ -148,6 +151,8 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
                         ];
                     }
                     $value['VALUE'] = $images_data;
+                } else {
+                    $value['VALUE'] = CFile::GetPath($value['VALUE']);
                 }
             }
 

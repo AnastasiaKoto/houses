@@ -1342,7 +1342,7 @@
                     left: 0;
                     top: 0;
                     /* transform: translateY(-50%); */
-                    background-image: url('../img/acc-arr.svg');
+                    background-image: url('/local/templates/houses/assets/img/acc-arr.svg');
                     width: 28px;
                     height: 28px;
                     transition: all .3s;

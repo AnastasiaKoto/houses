@@ -41,11 +41,13 @@ class HouseVariationManager {
     //вешает обработчики
     bindEvents() {
         document.addEventListener('change', (e) => {
+            console.log('change');
             if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
                 this.updateAvailability(e.target);
             }
         });
         document.addEventListener('click', (e) => {
+            console.log('click');
             if (e.target.className.includes('HOUSES_')) {
                 this.updateAvailability(e.target);
             }
@@ -55,13 +57,17 @@ class HouseVariationManager {
             this.selectBubbles();
             this.renderPlaneTabs();
             this.initTabsAndSliders();
+            this.accInit();
+            this.initEquipmentTabs();
         });
+        window.addEventListener('resize', this.refreshAccordions());
+        document.addEventListener('tab-switched', this.refreshAccordions());
 
     }
 
 
     /*  FRONT START */
-    // Инициализация табов и слайдеров
+    // Инициализация табов и слайдеров галереи
     initTabsAndSliders() {
         const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
         if (!tabHeads.length) return;
@@ -255,6 +261,58 @@ class HouseVariationManager {
         instance.mountSplideFor = mountSplideFor;
     }
 
+    //инициализация табов комплектации
+
+    initEquipmentTabs() {
+        const tabWidgets = document.querySelectorAll(".equipment-tabs");
+
+        tabWidgets.forEach(widget => {
+            const links = widget.querySelectorAll(".equipment-tabs__link");
+            const contents = widget.querySelectorAll(".equipment-tabs__content");
+
+            if (!links.length || !contents.length) return;
+
+
+            const activateTab = (tabName) => {
+
+                links.forEach(l => l.classList.remove("active"));
+                contents.forEach(c => {
+                    c.classList.remove("active");
+                    c.style.display = "none";
+                });
+
+
+                const activeLink = widget.querySelector(`.equipment-tabs__link[data-tab="${tabName}"]`);
+                const activeContent = widget.querySelector(`.equipment-tabs__content[data-tab="${tabName}"]`);
+
+                if (activeLink) activeLink.classList.add("active");
+                if (activeContent) {
+                    activeContent.classList.add("active");
+                    activeContent.style.display = "";
+                }
+            }
+
+
+            links.forEach(link => {
+                link.addEventListener("click", e => {
+                    e.preventDefault();
+                    const tabName = link.dataset.tab;
+                    if (tabName) activateTab(tabName);
+                });
+            });
+
+            // При загрузке активный таб берём из верстки
+            const defaultActive = widget.querySelector(".equipment-tabs__link.active");
+            if (defaultActive && defaultActive.dataset.tab) {
+                activateTab(defaultActive.dataset.tab);
+            } else {
+                // если в разметке active не проставлен — открыть первый
+                const first = links[0];
+                if (first && first.dataset.tab) activateTab(first.dataset.tab);
+            }
+        });
+    }
+
     // Переинициализация всех табов и слайдеров
     reinitTabsAndSliders() {
         Object.values(this.tabInstances).forEach(instance => {
@@ -355,6 +413,7 @@ class HouseVariationManager {
                 if(buildingObject) {
                     this.insertPlaneTabs(buildingObject, 'plus');
                     this.changeParametersForBuildings(buildingObject, 'plus');
+                    this.insertBuildingsImagesTab(buildingObject, 'plus');
                 }
                 option.classList.add("active");
                 const optionText = option.innerHTML;
@@ -396,6 +455,7 @@ class HouseVariationManager {
                 this.changePropertyWithBuildings('deadline', optionDeadline, 'min');
                 this.insertPlaneTabs(this.buildingsMap[bubble.dataset.value], 'min');
                 this.changeParametersForBuildings(this.buildingsMap[bubble.dataset.value], 'min');
+                this.insertBuildingsImagesTab(this.buildingsMap[bubble.dataset.value], 'min');
                 if (bubble) bubble.remove();
                 
                 updatePlaceholder();
@@ -409,23 +469,62 @@ class HouseVariationManager {
 
     //plane tabs
     renderPlaneTabs() {
-        this.planeTabLinks.forEach(link => {
-            link.addEventListener("click", (e) => {
+        this.planeLinks.addEventListener("click", (e) => {
+            if (e.target.classList.contains("detail-product__layout-tabs__link")) {
                 e.preventDefault();
 
                 // убираем active у всех
-                this.planeTabLinks.forEach(l => l.classList.remove("active"));
-                this.planeTabPanes.forEach(p => p.classList.remove("active"));
+                const allLinks = this.planeLinks.querySelectorAll(".detail-product__layout-tabs__link");
+                const allPanes = this.planeTabs.querySelectorAll(".tab-pane");
+                
+                allLinks.forEach(l => l.classList.remove("active"));
+                allPanes.forEach(p => p.classList.remove("active"));
 
                 // активируем выбранный таб
-                link.classList.add("active");
-                const tabId = link.getAttribute("data-tab");
-                const targetPane = document.querySelector(`.tab-pane[data-tab="${tabId}"]`);
+                e.target.classList.add("active");
+                const tabId = e.target.getAttribute("data-tab");
+                const targetPane = this.planeTabs.querySelector(`.tab-pane[data-tab="${tabId}"]`);
                 if (targetPane) {
                     targetPane.classList.add("active");
                 }
-            });
+            }
         });
+
+        // Инициализируем активный таб
+        this.updateActiveTab(
+            this.planeLinks.querySelectorAll(".detail-product__layout-tabs__link"),
+            this.planeTabs.querySelectorAll(".tab-pane")
+        );
+    }
+
+    //инициализация блока аккордеонов (модифицирована для переинициализации)
+    accInit() {
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.equipment-tabs__content-acc dt')) {
+                const dt = e.target;
+                const item = dt.closest('li');
+                const dd = item.querySelector('dd');
+                
+                if (!item || !dd) return;
+                
+                const isActive = item.classList.contains('active');
+                
+                if (isActive) {
+                    item.classList.remove('active');
+                    dd.style.maxHeight = null;
+                } else {
+                    item.classList.add('active');
+                    dd.style.maxHeight = dd.scrollHeight + 'px';
+                }
+            }
+        });
+    }
+
+    refreshAccordions() {
+        document.querySelectorAll('.equipment-tabs__content-acc li.active dd')
+            .forEach(dd => {
+                dd.style.maxHeight = dd.scrollHeight + 'px';
+            });
     }
 
 
@@ -437,6 +536,7 @@ class HouseVariationManager {
     //достает доступные комбинации
     updateAvailability(clickedElement) {
         const clickedId = clickedElement.id;
+        //console.log(clickedId);
         const combination = this.findMatchingOffer();
         
         if(clickedId) {
@@ -458,6 +558,8 @@ class HouseVariationManager {
                 this.toggleBtnBlock(available);
                 this.changePlaneTabs(combination);
                 this.changeParameters(combination);
+                this.changeProjectImagesTabs(combination);
+                this.changeComplectationTabs(combination);
             }
         }
     }
@@ -477,7 +579,7 @@ class HouseVariationManager {
         });
         
         const combinationKey = selectedElements.sort().join('|');
-        
+        //console.log(combinationKey);
         // Ищем в offersMap
         const matchingOffer = this.offersMap[combinationKey];
         
@@ -536,7 +638,7 @@ class HouseVariationManager {
         
         if(!allPropertiesSelected) {
             this.showMainConfig();
-            console.log(allPropertiesSelected);
+            //console.log(allPropertiesSelected);
             this.toggleBtnBlock(allPropertiesSelected);
         }
     }
@@ -544,7 +646,7 @@ class HouseVariationManager {
     // блокирует кнопку "сохранить"
     toggleBtnBlock(available) {
         if (this.toggleBtn) {
-            console.log(available);
+           // console.log(available);
             this.toggleBtn.classList.toggle('noactive', !available);
         }
     }
@@ -620,7 +722,7 @@ class HouseVariationManager {
             },
             deadline: {
                 property: 'DEADLINE',
-                dataAttr: 'buildingsDeadline',
+                dataAttr: 'buildingsdeadline',
                 finalDataAttr: 'deadline',
                 suffix: ' дней',
                 fallbackMessage: 'Срок не найден в комбинации'
@@ -634,7 +736,7 @@ class HouseVariationManager {
         }
 
         const element = type === 'price' ? this.price : this.deadline;
-        console.log('Price element:', this.price);
+        //console.log('Price element:', this.price);
 
         if (!combination || !combination.PROPERTIES || !combination.PROPERTIES[config.property] || 
             !combination.PROPERTIES[config.property].VALUE) {
@@ -643,12 +745,7 @@ class HouseVariationManager {
         }
 
         const newValue = combination.PROPERTIES[config.property].VALUE;
-        console.log('newValue' + newValue);
-        console.log(config);
-        console.log(config.dataAttr);
-        console.log('Price element:', element);
         if (!element.dataset[config.dataAttr] || element.dataset[config.dataAttr] === "0") {
-            console.log('Нет дата атрибута' + element.dataset[config.dataAttr]);
             if (type === 'price') {
                 const formattedValue = newValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
                 element.textContent = formattedValue + config.suffix;
@@ -657,7 +754,6 @@ class HouseVariationManager {
             }
             element.dataset[config.finalDataAttr] = newValue;
         } else {
-            console.log('Найден дата атрибут' + element.dataset[config.dataAttr]);
             const totalValue = Number(newValue) + Number(element.dataset[config.dataAttr]);
             element.dataset[config.finalDataAttr] = totalValue;
             
@@ -752,19 +848,30 @@ class HouseVariationManager {
         this.renderPlaneTabs();
     }
 
+    //считает табы
+    countTabs(links) {
+        let counter = 1;
+        if(links) {
+            links.forEach(link => { counter ++; });
+        }
+        return counter;
+    }
+
     //добавляет табы к текущим в плане постройки
     insertPlaneTabs(building, action) {
-        let counter = 1;
-        if(this.planeTabLinks) {
-            this.planeTabLinks.forEach(link => { counter ++; });
+        if(building.UF_GALLERY.length <= 0) {
+            return;
         }
+        let counter = this.countTabs(this.planeTabLinks);
         
         if(action === 'plus') {
             this.createTab(building, counter, 'building', building.UF_XML_ID);
 
             this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
             this.planeTabPanes = document.querySelectorAll(".tab-pane");
-            this.renderPlaneTabs();
+            
+            // Используем общий метод
+            this.updateActiveTab(this.planeTabLinks, this.planeTabPanes);
         } else {
             document.querySelector(`.detail-product__layout-tabs__link[data-building-id="${building.UF_XML_ID}"`).remove();
             document.querySelector(`.tab-pane[data-building-id="${building.UF_XML_ID}"`).remove();
@@ -828,40 +935,86 @@ class HouseVariationManager {
     //сортирует табы
     sortTabsByDataTab() {
         const linksArray = Array.from(this.planeLinks.querySelectorAll('.detail-product__layout-tabs__link'));
+        const tabsArray = Array.from(this.planeTabs.querySelectorAll('.tab-pane'));
+        
         const sortedLinks = linksArray.sort((a, b) => {
             return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
         });
+        
+        const sortedTabs = tabsArray.sort((a, b) => {
+            return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
+        });
+        
+        this.planeLinks.innerHTML = '';
+        this.planeTabs.innerHTML = '';
         
         sortedLinks.forEach(link => {
             this.planeLinks.appendChild(link);
         });
         
-        const tabsArray = Array.from(this.planeTabs.querySelectorAll('.tab-pane'));
-        const sortedTabs = tabsArray.sort((a, b) => {
-            return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
-        });
-        
         sortedTabs.forEach(tab => {
             this.planeTabs.appendChild(tab);
         });
-
-        this.updateActiveTab();
+        
+        // Обновляем активный таб
+        this.updateActiveTab(
+            this.planeLinks.querySelectorAll('.detail-product__layout-tabs__link'),
+            this.planeTabs.querySelectorAll('.tab-pane'),
+            true
+        );
     }
 
-    //сбрасываем активность
-    updateActiveTab() {
-        this.planeTabLinks.forEach(link => link.classList.remove('active'));
-        this.planeTabPanes.forEach(pane => pane.classList.remove('active'));
+    //сбрасывает активность
+    updateActiveTab(links, contents, forceFirstActive = false) {
+        if (!links || !contents || links.length === 0 || contents.length === 0) return;
         
-        const firstLink = this.planeLinks.querySelector('.detail-product__layout-tabs__link[data-tab="1"]');
-        if (firstLink) {
-            firstLink.classList.add('active');
+        const linksArray = Array.from(links);
+        const contentsArray = Array.from(contents);
+        
+        // Убираем active у всех
+        linksArray.forEach(link => link.classList.remove('active'));
+        contentsArray.forEach(content => content.classList.remove('active'));
+        
+        let activeLink = null;
+        let activeContent = null;
+        
+        if (!forceFirstActive) {
+            // Пытаемся сохранить текущий активный таб, если он не скрыт
+            activeLink = linksArray.find(link => 
+                link.classList.contains('active') && !link.classList.contains('hidden')
+            );
             
-            const correspondingTab = this.planeTabs.querySelector('.tab-pane[data-tab="1"]');
-            if (correspondingTab) {
-                correspondingTab.classList.add('active');
+            if (activeLink) {
+                const tabId = activeLink.dataset.tab;
+                activeContent = contentsArray.find(content => 
+                    content.dataset.tab === tabId && !content.classList.contains('hidden')
+                );
             }
         }
+        
+        // Если активный таб не найден или невалиден, ищем первый не скрытый
+        if (!activeLink || !activeContent) {
+            // Находим первую не скрытую ссылку
+            activeLink = linksArray.find(link => !link.classList.contains('hidden'));
+            
+            if (activeLink) {
+                const tabId = activeLink.dataset.tab;
+                activeContent = contentsArray.find(content => 
+                    content.dataset.tab === tabId && !content.classList.contains('hidden')
+                );
+            }
+        }
+        
+        if (activeLink && activeContent) {
+            activeLink.classList.add('active');
+            activeContent.classList.add('active');
+            if(activeContent.style.display === 'none') activeContent.style.display = '';
+            if(activeLink.style.display === 'none') activeLink.style.display = '';
+        } else {
+            console.warn('No suitable active tab found');
+        }
+        
+        return { activeLink, activeContent };
     }
 
     //меняет мелочь по типу площади размеров итп
@@ -884,7 +1037,7 @@ class HouseVariationManager {
                 parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
             }
         })
-        let rooms = document.querySelectorAll('.detail-product__layout-additional-option__component-value');
+        let rooms = document.querySelectorAll('.detail-product__layout-additional-option__component-value-house');
         rooms.forEach(room => {
             room.textContent = '-';
 
@@ -900,6 +1053,7 @@ class HouseVariationManager {
         })
     }
 
+    //меняет параметры построек
     changeParametersForBuildings(building, action) {
         const buildingParametersWrapper = document.querySelector('.detail-product__layout-additional-option-buildings');
 
@@ -919,6 +1073,7 @@ class HouseVariationManager {
 
                 let value = document.createElement('div');
                 value.classList.add('detail-product__layout-additional-option__component-value');
+                value.classList.add('detail-product__layout-additional-option__component-value-building');
                 value.innerHTML = `${building.UF_SQUARE} м<sup>2</sup>`;
 
                 buildingComponent.appendChild(title);
@@ -938,8 +1093,186 @@ class HouseVariationManager {
         }
     }
 
-    changeProjectImagesTabs() {
+    //меняет контент табов с галереей и аккордеонами
+    changeTabsContent(combination, config) {
+        const properties = combination.PROPERTIES;
+        if (!properties) return;
 
+        const {
+            tabLinksSelector,
+            tabContentsSelector,
+            contentPropertyFilter,
+            getContentData,
+            updateContent
+        } = config;
+
+        const allTabLinks = document.querySelectorAll(tabLinksSelector);
+        const allTabContents = document.querySelectorAll(tabContentsSelector);
+
+        Object.values(properties).forEach(property => {
+            const code = property.CODE;
+            if (!code || !contentPropertyFilter(code)) return;
+
+            const propertyTabWrapper = document.querySelector(`${tabContentsSelector}[data-property="${code}"]`);
+            if (!propertyTabWrapper) return;
+
+            const tabLink = document.querySelector(`${tabLinksSelector}[data-tab="${propertyTabWrapper.dataset.tab}"]`);
+            const contentData = getContentData(property, properties);
+
+            if (!contentData.hasContent) {
+                propertyTabWrapper.classList.add('hidden');
+                if (tabLink) tabLink.classList.add('hidden');
+            } else {
+                propertyTabWrapper.classList.remove('hidden');
+                if (tabLink) tabLink.classList.remove('hidden');
+                
+                // Обновляем содержимое таба
+                updateContent(propertyTabWrapper, contentData);
+            }
+        });
+
+        // Обновляем активный таб
+        this.updateActiveTab(allTabLinks, allTabContents);
+        
+        this.reinitTabsAndSliders();
+    }
+
+    // обертка для табов с галереей
+    changeProjectImagesTabs(combination) {
+        this.changeTabsContent(combination, {
+            tabLinksSelector: '.detail-product__preview-tabs__link',
+            tabContentsSelector: '.detail-product__preview-tabs__content',
+            contentPropertyFilter: (code) => code.includes("_IMAGES"),
+            getContentData: (property) => ({
+                hasContent: property.VALUE && Array.isArray(property.VALUE),
+                gallery: property.VALUE,
+                code: property.CODE
+            }),
+            updateContent: (tabWrapper, contentData) => {
+                this.updateGalleryContent(tabWrapper, contentData.gallery, contentData.code);
+            }
+        });
+    }
+
+    //обертка для табов с аккордеоном
+    changeComplectationTabs(combination) {
+        this.changeTabsContent(combination, {
+            tabLinksSelector: '.equipment-tabs__link',
+            tabContentsSelector: '.equipment-tabs__content',
+            contentPropertyFilter: (code) => code.includes("_CONFIG"),
+            getContentData: (property, allProperties) => {
+                const imagePropertyCode = property.CODE.replace('_CONFIG', '_IMG');
+                const imageProperty = allProperties[imagePropertyCode];
+                const content = this.decodeHTML(property.VALUE);
+                
+                return {
+                    hasContent: !!content,
+                    content: content,
+                    imageProperty: imageProperty
+                };
+            },
+            updateContent: (tabWrapper, contentData) => {
+                console.log(tabWrapper);
+                tabWrapper.querySelector('.equipment-tabs__content-inner .equipment-tabs__content-acc').innerHTML = contentData.content;
+                if (contentData.imageProperty && contentData.imageProperty?.VALUE) {
+                    let tabsImg = tabWrapper.querySelector('.equipment-tabs__content-image img');
+                    if(!tabsImg) {
+                        let tabsImgEl = document.createElement('div');
+                        tabsImgEl.classList.add('equipment-tabs__content-image');
+                        tabsImgEl.innerHTML = `<img src="${contentData.imageProperty.VALUE}" alt="img">`;
+                        tabWrapper.querySelector('.equipment-tabs__content-inner').appendChild(tabsImgEl);
+                        console.log(tabsImgEl);
+                    } else {
+                        tabWrapper.querySelector('.equipment-tabs__content-image img').src = contentData.imageProperty.VALUE;
+                    }
+                }
+                this.accInit();
+            }
+        });
+        this.initEquipmentTabs();
+    }
+
+    decodeHTML(htmlString) {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = htmlString;
+        return textarea.value;
+    }
+
+    //обновляет контент галереи
+    updateGalleryContent(tabWrapper, gallery, code) {
+        const track = tabWrapper.querySelector('.splide__track');
+        const list = track?.querySelector('.splide__list');
+        if (!list) return;
+
+        list.innerHTML = '';
+        
+        gallery.forEach((image, index) => {
+            let image_path = '';
+            if(code) {
+                image_path = image.PATH;
+            } else {
+                image_path = image;
+            }
+            const slide = document.createElement('li');
+            slide.className = 'splide__slide';
+            
+            slide.innerHTML = `
+                <img src="${image_path}" alt="img ${index + 1}">
+            `;
+            
+            list.appendChild(slide);
+        });
+    }
+    
+    //добавляет галереи доп построек
+    insertBuildingsImagesTab(building, action) {
+        const buildingGallery = building.UF_GALLERY;
+        if(buildingGallery.length > 0) {
+            let counter = this.countTabs(document.querySelectorAll('.detail-product__preview-tabs__link'));
+
+            if(action === 'plus') {
+                const linksWrapper = document.querySelector('.detail-product__preview-tabs__links');
+                const allTabs = document.querySelectorAll('.detail-product__preview-tabs__content');
+                const lastElement = allTabs[allTabs.length - 1];
+
+                //ссылка
+                let link = document.createElement('a');
+                link.setAttribute('href', 'javascript:void(0)');
+                link.classList.add('detail-product__preview-tabs__link');
+                link.dataset.type = 'building';
+                link.dataset.tab = counter;
+                link.textContent = building.UF_NAME;
+
+                let tab = document.createElement('div');
+                tab.classList.add('detail-product__preview-tabs__content');
+                tab.dataset.type = 'building';
+                tab.dataset.tab = counter;
+                tab.dataset.property = building.UF_XML_ID;
+                tab.innerHTML = `<div class="splide detail-product__preview-tabs__slider">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                        </ul>
+                                    </div>
+                                </div>`;
+                this.updateGalleryContent(tab, buildingGallery, false);
+                
+                linksWrapper.appendChild(link);
+                lastElement.parentNode.insertBefore(tab, lastElement.nextSibling);
+            } else {
+                let tab = document.querySelector(`.detail-product__preview-tabs__content[data-property="${building.UF_XML_ID}"]`);
+                let link = document.querySelector(`.detail-product__preview-tabs__link[data-tab="${tab.dataset.tab}"]`);
+
+                if(tab && link) {
+                    tab.remove();
+                    link.remove();
+                }
+                this.updateActiveTab(
+                    document.querySelectorAll(".detail-product__preview-tabs__link"),
+                    document.querySelectorAll(".detail-product__preview-tabs__content")
+                );
+            }
+        }
+        this.reinitTabsAndSliders();
     }
 
 }

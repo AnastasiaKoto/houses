@@ -636,43 +636,43 @@ if($haveOffers) {
 		</div>
 		<div class="equipment-tabs">
 			<div class="equipment-tabs__links">
-				<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link active" data-type="house" data-tab="1">
 					<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="2">
 					<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="3">
 					<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="4">
 					<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="5">
 					<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="6">
 					<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
-				<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG'])): ?>
+				<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE'])): ?>
 				<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="7">
 					<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['NAME']; ?>
 				</a>
 				<? endif; ?>
 			</div>
-			<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['CODE']; ?>" data-tab="1">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -686,7 +686,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['CODE']; ?>" data-tab="2">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -700,7 +700,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['CODE']; ?>" data-tab="3">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -714,7 +714,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['CODE']; ?>" data-tab="4">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -728,7 +728,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['CODE']; ?>" data-tab="5">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -742,7 +742,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['CODE']; ?>" data-tab="6">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">
@@ -756,7 +756,7 @@ if($haveOffers) {
 				</div>
 			</div>
 			<? endif; ?>
-			<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG'])): ?>
+			<? if(!empty($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE'])): ?>
 			<div class="equipment-tabs__content active" data-type="house" data-property="<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['CODE']; ?>" data-tab="7">
 				<div class="equipment-tabs__content-inner">
 					<div class="equipment-tabs__content-acc">

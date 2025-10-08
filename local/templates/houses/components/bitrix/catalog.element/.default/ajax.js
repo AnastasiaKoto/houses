@@ -611,9 +611,7 @@ class HouseVariationManager {
                     comb.includes(clickedId)
                 );
                 const available = false;
-                if(this.bubblesSelect) {
-                    this.blockAnavaibleBubles(available);
-                }
+                this.blockAnavaibleBubles(available);
                 this.disableUnavailableElements(availableCombinations);
             } else {
                 console.log('Вариация найдена!');
@@ -721,6 +719,7 @@ class HouseVariationManager {
 
     //блокирует блок доп.построек
     blockAnavaibleBubles(available) {
+        if(!this.bubblesSelect) return;
         const select = document.querySelector(".custom-select-bubbles-js");
         const options = select.querySelectorAll(".options li");
         if(options) {

@@ -429,11 +429,11 @@ $arrFilter = array(
 		"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
-			"section" => "catalog/#SECTION_CODE#/",
-			"element" => "catalog/#SECTION_CODE#/#ELEMENT_CODE#/",
+			"section" => "#SECTION_CODE#/",
+			"element" => "#SECTION_CODE#/#ELEMENT_CODE#/",
 		),
-		"SECTION_URL" => "catalog/#SECTION_CODE#/",	// URL, ведущий на страницу с содержимым раздела
-		"DETAIL_URL" => "catalog/#SECTION_CODE#/#ELEMENT_CODE#/",	// URL, ведущий на страницу с содержимым элемента раздела
+		"SECTION_URL" => "#SECTION_CODE#/",	// URL, ведущий на страницу с содержимым раздела
+		"DETAIL_URL" => "#SECTION_CODE#/#ELEMENT_CODE#/",	// URL, ведущий на страницу с содержимым элемента раздела
 		"SET_BROWSER_TITLE" => "N",	// Устанавливать заголовок окна браузера
 		"SET_LAST_MODIFIED" => "N",	// Устанавливать в заголовках ответа время модификации страницы
 		"SET_META_DESCRIPTION" => "N",	// Устанавливать описание страницы

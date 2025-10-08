@@ -1,3 +1,61 @@
+class ProjectsSlider {
+  constructor(selector) {
+    this.selector = selector;
+    this.sliders = [];
+    this.init();
+  }
+
+  init() {
+    const sliderElements = document.querySelectorAll(this.selector);
+
+    if(!sliderElements) return;
+    sliderElements.forEach(sliderEl => {
+      const splide = new Splide(sliderEl, {
+        type: 'slide',
+        perPage: 1,
+        gap: 0,
+        pagination: true,
+        arrows: false,
+        drag: false,
+      }).mount();
+
+      const track = sliderEl.querySelector('.splide__track');
+      if (track) {
+        const handleMouseMove = e => {
+          const rect = track.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const width = rect.width;
+          const slidesCount = splide.length;
+          const hoverZone = 15;
+
+          let index = Math.floor((x / width) * slidesCount);
+          if (x < hoverZone) index = 0;
+          if (x > width - hoverZone) index = slidesCount - 1;
+
+          splide.go(index);
+        };
+
+        track.addEventListener('mousemove', handleMouseMove);
+
+        this.sliders.push({ splide, track, handleMouseMove });
+      }
+    });
+  }
+
+  destroy() {
+    this.sliders.forEach(({ splide, track, handleMouseMove }) => {
+      track.removeEventListener('mousemove', handleMouseMove);
+      splide.destroy();
+    });
+    this.sliders = [];
+  }
+
+  reinit() {
+    this.destroy();
+    this.init();
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const menuItems = document.querySelectorAll(".nav-menu > li");
 
@@ -494,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option.classList.add('active');
 
         selected.innerHTML = option.innerHTML;
-        if(inpHidden) {
+        if (inpHidden) {
           inpHidden.value = option.textContent;
         }
 
@@ -514,37 +572,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  const sliders = document.querySelectorAll('.projects-slider__images');
 
-  sliders.forEach(slider => {
-    const splide = new Splide(slider, {
-      type: 'slide',
-      perPage: 1,
-      gap: 0,
-      pagination: true,
-      arrows: false,
-      drag: false,
-    }).mount();
+  const projectsSlider = new ProjectsSlider('.projects-slider__images');
 
-    const track = slider.querySelector('.splide__track');
-
-    track.addEventListener('mousemove', e => {
-      const rect = track.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const width = rect.width;
-
-      const slidesCount = splide.length;
-      const hoverZone = 15;
-
-      let index = Math.floor((x / width) * slidesCount);
-
-      if (x < hoverZone) index = 0;
-      if (x > width - hoverZone) index = slidesCount - 1;
-
-      splide.go(index);
-    });
-
-  });
+  projectsSlider.reinit();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -555,7 +586,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const moveElements = () => {
     movableItems.forEach(item => {
       const targetSelector = item.dataset.moveTarget;
-      const breakpoint = parseInt(item.dataset.moveBreak) || 700; 
+      const breakpoint = parseInt(item.dataset.moveBreak) || 700;
       const target = document.querySelector(targetSelector);
       const originalParent = item.parentNode;
       const originalNext = item.nextElementSibling;
@@ -564,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (window.innerWidth <= breakpoint) {
         if (!item.classList.contains("moved")) {
-          target.insertAdjacentElement("afterend", item); 
+          target.insertAdjacentElement("afterend", item);
           item.classList.add("moved");
         }
       } else {

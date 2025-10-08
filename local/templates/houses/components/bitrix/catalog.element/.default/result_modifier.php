@@ -91,6 +91,35 @@ if(isset($arResult['PROPERTIES']['HOUSE_VARIABLES']['VALUE']) && !empty($arResul
             }
         }
     }
+} else {
+    if(!empty($arResult['PROPERTIES']['GALLERY']['VALUE'])) {
+        foreach($arResult['PROPERTIES']['GALLERY']['VALUE'] as $key => $image) {
+            $arImage = [];
+            $arImage['DESCRIPTION'] = $arResult['PROPERTIES']['GALLERY']['DESCRIPTION'][$key];
+            $arImage['PATH'] = CFile::GetPath($image);
+
+            $arResult['PROPERTIES']['GALLERY']['VALUE'][$key] = $arImage;
+        }
+    }
+}
+
+foreach($arResult['PROPERTIES'] as $key => $value) {
+    if($value['USER_TYPE'] == 'directory') {
+        $tableName = $value['USER_TYPE_SETTINGS']['TABLE_NAME'];
+        if($value['MULTIPLE'] == 'Y' && !empty($value['VALUE'])) {
+            foreach($value['VALUE'] as $el) {
+                $valueId = $el;
+                $item = getHlData($valueId, $tableName);
+                $value['VALUE_ELEMENT'][] = $item;
+            }
+        } else {
+            $valueId = $value['VALUE'];
+            if($valueId && $tableName) {
+                $item = getHlData($valueId, $tableName);
+                $value['VALUE_ELEMENT'] = $item;
+            }
+        }
+    }
 }
 
 //p($arResult['PROPERTIES']['BUILDINGS']);

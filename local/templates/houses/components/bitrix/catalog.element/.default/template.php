@@ -823,8 +823,7 @@ if($haveOffers) {
 	</div>
 </section>
 <? endif; ?>
-<? if(!empty($recomendations)): ?>
-<section class="section examples">
+<section class="<?= empty($recomendations) ? 'hidden' : ''; ?> section examples">
 	<div class="container">
 		<div class="examples-inner">
 			<div class="section-title">
@@ -841,6 +840,7 @@ if($haveOffers) {
 	<div class="splide examples-slider">
 		<div class="splide__track">
 			<ul class="splide__list examples-items projects-items">
+				<? if(!empty($recomendations)): ?>
 				<? foreach($recomendations as $recomendation): ?>
 				<div class="splide__slide examples-item projects-item">
 					<? if(!empty($recomendation['PROPERTY_GALLERY_VALUE'])): ?>
@@ -902,6 +902,7 @@ if($haveOffers) {
 					</div>
 				</div>
 				<? endforeach; ?>
+				<? endif; ?>
 			</ul>
 		</div>
 		<div class="examples-arrows">
@@ -922,7 +923,6 @@ if($haveOffers) {
 		</div>
 	</div>
 </section>
-<? endif; ?>
 <?/*
 <section class="section question-form">
 	<div class="container">

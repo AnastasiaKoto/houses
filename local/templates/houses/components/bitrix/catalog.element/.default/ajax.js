@@ -1354,6 +1354,7 @@ class HouseVariationManager {
         const projects = combination.PROPERTIES.PROJECTS.VALUE_ELEMENTS;
 
         if(projects) {
+            if(recomendationsSection.classList.contains('hidden')) recomendationsSection.classList.remove('hidden');
             const track = this.sliderRecomendations.querySelector('.splide__track');
             const list = track?.querySelector('.splide__list');
             if (!list) return;

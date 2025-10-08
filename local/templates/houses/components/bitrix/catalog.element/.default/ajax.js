@@ -719,6 +719,7 @@ class HouseVariationManager {
 
     //блокирует блок доп.построек
     blockAnavaibleBubles(available) {
+        if(!this.bubblesSelect) return;
         const select = document.querySelector(".custom-select-bubbles-js");
         const options = select.querySelectorAll(".options li");
         if(options) {

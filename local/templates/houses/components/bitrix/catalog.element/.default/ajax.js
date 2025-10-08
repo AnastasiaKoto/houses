@@ -611,7 +611,9 @@ class HouseVariationManager {
                     comb.includes(clickedId)
                 );
                 const available = false;
-                this.blockAnavaibleBubles(available);
+                if(this.bubblesSelect) {
+                    this.blockAnavaibleBubles(available);
+                }
                 this.disableUnavailableElements(availableCombinations);
             } else {
                 console.log('Вариация найдена!');

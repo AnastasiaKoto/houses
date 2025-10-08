@@ -541,5 +541,42 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const movableItems = document.querySelectorAll("[data-move-target]");
+
+  if (!movableItems.length) return;
+
+  const moveElements = () => {
+    movableItems.forEach(item => {
+      const targetSelector = item.dataset.moveTarget;
+      const breakpoint = parseInt(item.dataset.moveBreak) || 700; 
+      const target = document.querySelector(targetSelector);
+      const originalParent = item.parentNode;
+      const originalNext = item.nextElementSibling;
+
+      if (!target || !originalParent) return;
+
+      if (window.innerWidth <= breakpoint) {
+        if (!item.classList.contains("moved")) {
+          target.insertAdjacentElement("afterend", item); 
+          item.classList.add("moved");
+        }
+      } else {
+        if (item.classList.contains("moved")) {
+          if (originalNext) {
+            originalParent.insertBefore(item, originalNext);
+          } else {
+            originalParent.appendChild(item);
+          }
+          item.classList.remove("moved");
+        }
+      }
+    });
+  };
+
+  moveElements();
+  window.addEventListener("resize", moveElements);
+});
+
 
 

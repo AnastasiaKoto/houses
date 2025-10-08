@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="./assets/css/detail-product.css">
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
-<!-- data-move-target=".events-items" data-move-break="700" -->
 
 <body class="not-home">
   <header>
@@ -135,236 +134,61 @@
     </nav>
   </header>
   <main>
-    <section class="section detail-product__mainscreen">
+    <section class="section detail-product__mainscreen finished-detail">
       <div class="container">
         <div class="detail-product__mainscreen-inner">
           <div class="detail-product__mainscreen-images">
-            <div class="splide detail__page-slider__images">
-              <div class="splide__track">
-                <ul class="splide__list detail__page-slider__image-items">
-                  <li class="splide__slide detail__page-slider__image-item">
-                    <div class="detail__page-slider__image-layer"></div>
-                    <div class="detail__page-slider__image-description">
-                      Внешняя отделка
-                    </div>
-                    <img src="./assets/img/detail.jpg" alt="img">
-                  </li>
-                  <li class="splide__slide detail__page-slider__image-item">
-                    <div class="detail__page-slider__image-layer"></div>
-                    <div class="detail__page-slider__image-description">
-                      Внешняя отделка
-                    </div>
-                    <img src="./assets/img/detail.jpg" alt="img">
-                  </li>
-                  <li class="splide__slide detail__page-slider__image-item">
-                    <div class="detail__page-slider__image-layer"></div>
-                    <div class="detail__page-slider__image-description">
-                      Внешняя отделка
-                    </div>
-                    <img src="./assets/img/detail.jpg" alt="img">
-                  </li>
-                  <li class="splide__slide detail__page-slider__image-item">
-                    <div class="detail__page-slider__image-layer"></div>
-                    <div class="detail__page-slider__image-description">
-                      Внешняя отделка
-                    </div>
-                    <img src="./assets/img/detail.jpg" alt="img">
-                  </li>
-                </ul>
+            <a href="javascript:void(0)" class="detail-product__mainscreen-video__link">
+              <div class="detail-product__mainscreen-video__link-layer"></div>
+              <div class="detail-product__mainscreen-video__link-play">
+                <svg width="48" height="54" viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M47 26.134C47.6667 26.5189 47.6667 27.4811 47 27.866L2 53.8468C1.33333 54.2317 0.5 53.7506 0.5 52.9808V1.01924C0.5 0.249438 1.33333 -0.231687 2 0.153213L47 26.134Z"
+                    fill="white" />
+                </svg>
+                <div class="detail-product__mainscreen-video__link-text">
+                  Смотреть стройку в прямом эфире
+                </div>
               </div>
-            </div>
+              <img src="./assets/img/detail.jpg" alt="img">
+            </a>
           </div>
           <div class="detail-product__mainscreen-info">
-            <h1>
+            <h1 class="detail-product__finished-h1">
               Мейсон классик
             </h1>
-            <div class="detail-product__mainscreen-spec-items">
-              <div class="detail-product__mainscreen-spec-item">
-                <div class="detail-product__mainscreen-config">
-                  <div class="detail-product__mainscreen-config__head">
-                    <div class="detail-product__mainscreen-config__head-title">
-                      Конфигурация дома
-                    </div>
-                    <button type="button" class="detail-product__mainscreen-config__head-change"
-                      data-move-target=".anchor-edit" data-move-break="700">
-                      Изменить
-                    </button>
-                  </div>
-                  <div class="detail-product__mainscreen-config__items">
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Стиль постройки
-                      </div>
-                      <div class="detail-product__mainscreen-config__item-devider"></div>
-                      <div class="detail-product__mainscreen-config__item-prop">
-                        Хайтек
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Этажность
-                      </div>
-                      <div class="detail-product__mainscreen-config__item-devider"></div>
-                      <div class="detail-product__mainscreen-config__item-prop">
-                        2 этажа
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Площадь дома
-                      </div>
-                      <div class="detail-product__mainscreen-config__item-devider"></div>
-                      <div class="detail-product__mainscreen-config__item-prop">
-                        125 м<sup>2</sup>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="detail-product__mainscreen-config__items edit">
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Стиль постройки
-                      </div>
-                      <div class="custom-radio">
-                        <label class="radio">
-                          <input type="radio" name="style-building" value="1" checked>
-                          <span class="radio__text">Хайтек</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-building" value="2">
-                          <span class="radio__text">Нео-классика</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-building" value="3">
-                          <span class="radio__text">Классика</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Этажность
-                      </div>
-                      <div class="custom-radio">
-                        <label class="radio">
-                          <input type="radio" name="floor" value="1-floor" checked>
-                          <span class="radio__text">1 этаж</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="floor" value="2-floor">
-                          <span class="radio__text">2 этажа</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-config__item">
-                      <div class="detail-product__mainscreen-config__item-name">
-                        Площадь дома
-                      </div>
-                      <div class="custom-select-js">
-                        <div class="selected">
-                          <strong>125 м²</strong> 3 спальни, 2 санузла, кухня-гостиная
-                        </div>
-                        <ul class="options">
-                          <li data-value="125" class="active">
-                            <strong>125 м²</strong> 3 спальни, 2 санузла, кухня-гостиная
-                          </li>
-                          <li data-value="100">
-                            <strong>100 м²</strong> 2 спальни, 1 санузел, кухня-гостиная
-                          </li>
-                          <li data-value="80">
-                            <strong>80 м²</strong> 2 спальни, 1 санузел
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="anchor-edit"></div>
-                </div>
+            <div class="detail-product__mainscreen-description">
+              Компактный и уютный дом в классическом стиле. Продуманная планировка и светлая гостиная с выходом на
+              террасу — идеально для семьи и отдыха.
+            </div>
+            <div class="detail-product__finished-config">
+              <div class="detail-product__finished-config__title">
+                Конфигурация дома
               </div>
-              <div class="detail-product__mainscreen-spec-item">
-                <div class="detail-product__mainscreen-view">
-                  <div class="detail-product__mainscreen-view__head">
-                    <div class="detail-product__mainscreen-view__head-title">
-                      Отделка дома
-                    </div>
+              <div class="detail-product__finished-config__items">
+                <div class="detail-product__finished-config__item">
+                  <div class="detail-product__finished-config__item-label">
+                    Стиль
                   </div>
-                  <div class="detail-product__mainscreen-view__items">
-                    <div class="detail-product__mainscreen-view__item">
-                      <div class="detail-product__mainscreen-view__item-name">
-                        Стиль фасадов
-                      </div>
-                      <div class="custom-radio">
-                        <label class="radio">
-                          <input type="radio" name="style-fasad" value="svetliy-fasad">
-                          <span class="radio__text">Светлый</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-fasad" value="temniy-fasad">
-                          <span class="radio__text">Темный </span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-fasad" value="pesochniy-fasad" checked>
-                          <span class="radio__text">Песочный</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-view__item">
-                      <div class="detail-product__mainscreen-view__item-name">
-                        Отделка
-                      </div>
-                      <div class="custom-radio">
-                        <label class="radio">
-                          <input type="radio" name="otdelka" value="whitebox">
-                          <span class="radio__text">Whitebox</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="otdelka" value="finalnaya" checked>
-                          <span class="radio__text">Финальная</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="detail-product__mainscreen-view__item">
-                      <div class="detail-product__mainscreen-view__item-name">
-                        Стиль отделки
-                      </div>
-                      <div class="custom-radio">
-                        <label class="radio">
-                          <input type="radio" name="style-otdelka" value="svetliy">
-                          <span class="radio__text">Светлый</span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-otdelka" value="temniy">
-                          <span class="radio__text">Темный </span>
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="style-otdelka" value="pesochniy" checked>
-                          <span class="radio__text">Песочный</span>
-                        </label>
-                      </div>
-                    </div>
+                  <div class="detail-product__finished-config__item-value">
+                    Нео-классика
                   </div>
                 </div>
-              </div>
-              <div class="detail-product__mainscreen-spec-item">
-                <div class="detail-product__mainscreen-addidional">
-                  <div class="detail-product__mainscreen-addidional__head">
-                    <div class="detail-product__mainscreen-addidional__head-title">
-                      Дополнительные постройки
-                    </div>
+                <div class="detail-product__finished-config__item">
+                  <div class="detail-product__finished-config__item-label">
+                    Площадь дома
                   </div>
-                  <div class="custom-select-bubbles-js">
-                    <div class="selected">Выберите вариант</div>
-                    <ul class="options">
-                      <li data-value="house1"><span>Гостевой дом с баней</span> <span class="price">+ 2 490 000₽</span>
-                      </li>
-                      <li data-value="house2"><span>Гостевой дом</span> <span class="price">+ 2 490 000₽</span></li>
-                      <li data-value="house3"><span>Гараж на две машины с кладовкой</span> <span class="price">+ 2 490
-                          000₽</span></li>
-                      <li data-value="house4"><span>Гараж на одну машину с кладовкой</span> <span class="price">+ 2 490
-                          000₽</span></li>
-                      <li data-value="house5"><span>Баня</span> <span class="price">+ 2 490 000₽</span></li>
-                    </ul>
-                    <div class="selected-bubbles"></div>
+                  <div class="detail-product__finished-config__item-value">
+                    123 м<sup>2</sup>
                   </div>
-
+                </div>
+                <div class="detail-product__finished-config__item">
+                  <div class="detail-product__finished-config__item-label">
+                    Адрес
+                  </div>
+                  <div class="detail-product__finished-config__item-value">
+                    Московская область, с. Новосаратовка
+                  </div>
                 </div>
               </div>
             </div>
@@ -387,21 +211,7 @@
                   </div>
                 </div>
                 <a href="javascript:void(0)" data-modal-target="#manager" class="ask-btn order-house">
-                  Заказать дом
-                </a>
-              </div>
-              <div class="detail-product__mainscreen-total__credit">
-                <div class="detail-product__mainscreen-total__credit-info">
-                  <span>Семейная ипотека </span> от 22 500₽ / месяц
-                </div>
-                <a href="javascript:void(0)" class="detail-product__mainscreen-total__credit-link">
-                  <span>
-                    Выбрать условия
-                  </span>
-                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.33333 5.5L5.33333 9.5M1 5.5H9.33333H1ZM9.33333 5.5L5.33333 1.5L9.33333 5.5Z"
-                      stroke="#54B8F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
+                  Заказать этот дом
                 </a>
               </div>
             </div>
@@ -658,20 +468,8 @@
       <div class="container">
         <div class="detail-product__preview-head">
           <div class="section-title">
-            Изображения проекта
+            Отчет по стройке
           </div>
-          <a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#presentation"
-            data-move-target=".btn-anchor" data-move-break="700">
-            <span>
-              Получить презентацию дома
-            </span>
-            <div class="icon">
-              <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="white"
-                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-          </a>
         </div>
       </div>
       <div class="container">
@@ -679,22 +477,16 @@
           <div class="detail-product__preview-tabs__head">
             <div class="detail-product__preview-tabs__links">
               <a href="javascript:void(0)" class="detail-product__preview-tabs__link active" data-tab="Фундамент">
-                Фундамент
+                Видео
               </a>
               <a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Интерьер">
-                Интерьер
+                Этап строительства
               </a>
               <a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Разрезы">
-                Разрезы
+                Этап отделки
               </a>
               <a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Гараж">
-                Гараж
-              </a>
-              <a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Баня">
-                Баня
-              </a>
-              <a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-tab="Гостевой дом">
-                Гостевой дом
+                Завершенный проект
               </a>
             </div>
             <div class="detail-product__preview-arrows" data-move-target=".arrows-anchor" data-move-break="992">
@@ -722,7 +514,20 @@
           <div class="splide__track">
             <ul class="splide__list">
               <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
+                <div class="player-wrapper" data-video-id="0e69b45e4ee399c38af30d6be2f87ab5">
+                  <img src="./assets/img/pre1.jpg" alt="Видео превью">
+                  <div class="player-play-btn">
+                    <svg width="47" height="55" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M46.5 26.634C47.1667 27.0189 47.1667 27.9811 46.5 28.366L1.5 54.3468C0.833332 54.7317 0 54.2506 0 53.4808V1.51924C0 0.749438 0.833332 0.268313 1.5 0.653213L46.5 26.634Z"
+                        fill="white" />
+                    </svg>
+                    <span>
+                      Смотреть в прямом эфире
+                    </span>
+                  </div>
+                  <div class="player-wrapper__layer"></div>
+                </div>
               </li>
               <li class="splide__slide">
                 <img src="./assets/img/pre2.jpg" alt="img">
@@ -742,7 +547,20 @@
           <div class="splide__track">
             <ul class="splide__list">
               <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
+                <div class="player-wrapper" data-video-id="0e69b45e4ee399c38af30d6be2f87ab5">
+                  <img src="./assets/img/pre1.jpg" alt="Видео превью">
+                  <div class="player-play-btn">
+                    <svg width="47" height="55" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M46.5 26.634C47.1667 27.0189 47.1667 27.9811 46.5 28.366L1.5 54.3468C0.833332 54.7317 0 54.2506 0 53.4808V1.51924C0 0.749438 0.833332 0.268313 1.5 0.653213L46.5 26.634Z"
+                        fill="white" />
+                    </svg>
+                    <span>
+                      Смотреть в прямом эфире
+                    </span>
+                  </div>
+                  <div class="player-wrapper__layer"></div>
+                </div>
               </li>
               <li class="splide__slide">
                 <img src="./assets/img/pre2.jpg" alt="img">
@@ -762,7 +580,20 @@
           <div class="splide__track">
             <ul class="splide__list">
               <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
+                <div class="player-wrapper" data-video-id="0e69b45e4ee399c38af30d6be2f87ab5">
+                  <img src="./assets/img/pre1.jpg" alt="Видео превью">
+                  <div class="player-play-btn">
+                    <svg width="47" height="55" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M46.5 26.634C47.1667 27.0189 47.1667 27.9811 46.5 28.366L1.5 54.3468C0.833332 54.7317 0 54.2506 0 53.4808V1.51924C0 0.749438 0.833332 0.268313 1.5 0.653213L46.5 26.634Z"
+                        fill="white" />
+                    </svg>
+                    <span>
+                      Смотреть в прямом эфире
+                    </span>
+                  </div>
+                  <div class="player-wrapper__layer"></div>
+                </div>
               </li>
               <li class="splide__slide">
                 <img src="./assets/img/pre2.jpg" alt="img">
@@ -782,47 +613,20 @@
           <div class="splide__track">
             <ul class="splide__list">
               <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre2.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre3.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="detail-product__preview-tabs__content" data-tab="Баня">
-        <div class="splide detail-product__preview-tabs__slider">
-          <div class="splide__track">
-            <ul class="splide__list">
-              <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre2.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre3.jpg" alt="img">
-              </li>
-              <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="detail-product__preview-tabs__content" data-tab="Гостевой дом">
-        <div class="splide detail-product__preview-tabs__slider">
-          <div class="splide__track">
-            <ul class="splide__list">
-              <li class="splide__slide">
-                <img src="./assets/img/pre1.jpg" alt="img">
+                <div class="player-wrapper" data-video-id="0e69b45e4ee399c38af30d6be2f87ab5">
+                  <img src="./assets/img/pre1.jpg" alt="Видео превью">
+                  <div class="player-play-btn">
+                    <svg width="47" height="55" viewBox="0 0 47 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M46.5 26.634C47.1667 27.0189 47.1667 27.9811 46.5 28.366L1.5 54.3468C0.833332 54.7317 0 54.2506 0 53.4808V1.51924C0 0.749438 0.833332 0.268313 1.5 0.653213L46.5 26.634Z"
+                        fill="white" />
+                    </svg>
+                    <span>
+                      Смотреть в прямом эфире
+                    </span>
+                  </div>
+                  <div class="player-wrapper__layer"></div>
+                </div>
               </li>
               <li class="splide__slide">
                 <img src="./assets/img/pre2.jpg" alt="img">
@@ -842,659 +646,12 @@
         <div class="btn-anchor"></div>
       </div>
     </section>
-    <section class="section equipment">
-      <div class="container">
-        <div class="equipment__head">
-          <div class="section-title">
-            Комплектация дома
-          </div>
-          <a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#estimate" data-move-target=".eq-ancho-link" data-move-break="700">
-            <span>
-              Получить подробную смету
-            </span>
-            <div class="icon">
-              <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="white"
-                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-          </a>
-        </div>
-        <div class="equipment-tabs">
-          <div class="equipment-tabs__links">
-            <a href="javascript:void(0)" class="equipment-tabs__link active" data-tab="foundation">
-              Фундамент
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="walls">
-              Стены
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="roof">
-              Кровля
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="uteplenie">
-              Утепление
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="naruzhka">
-              Наружняя отделка
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="window">
-              Окна и двери
-            </a>
-            <a href="javascript:void(0)" class="equipment-tabs__link" data-tab="more">
-              Другое
-            </a>
-          </div>
-          <div class="equipment-tabs__content active" data-tab="foundation">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="walls">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="roof">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="uteplenie">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="naruzhka">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="window">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="equipment-tabs__content" data-tab="more">
-            <div class="equipment-tabs__content-inner">
-              <div class="equipment-tabs__content-acc">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>
-                        Выезд специалиста
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Привязка дома на участке
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Пробное бурение почвы
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Монтаж ж/б свай
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обустройство закладных
-                      </dt>
-                      <dd>
-                        Ввод воды 1 шт: гильза с уклоном не менее 10 мм/м на песчаной подушке с засыпкой.
-                        Ввод канализации 1 шт: выпускная канализационная труба с уклоном не менее 10 мм/м на песчаной
-                        подушке с засыпкой
-                        Ввод эл-ва: труба ПНД 63 мм под ввод электричества, 10 м.п. на глубине не менее 600 мм от
-                        поверхности грунта с сигнальной лентой
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>
-                        Обвязка фундамента антисептированным составным ростверком
-                      </dt>
-                      <dd>
-                        На этом этапе мы определяем финальное расположение дома на участке. При работе мы учитываем
-                        требования плана застройки, топографические особенности, характер растительности, расположение
-                        дорог, улицы, а также природное окружение и солнечную инсоляцию.
-                      </dd>
-                    </dl>
-                  </li>
-                </ul>
-              </div>
-              <div class="equipment-tabs__content-image">
-                <img src="./assets/img/acc.jpg" alt="img">
-              </div>
-            </div>
-          </div>
-          <div class="eq-ancho-link"></div>
-        </div>
-      </div>
-    </section>
     <section class="section examples">
       <div class="container">
         <div class="examples-inner">
           <div class="section-title">
-            Примеры реализованных проектов
+            Примеры похожих проектов
           </div>
-          <div class="section-subtitle">
-            Посмотрите реальные фотографии проекта «Мейсон Классик» на разных этапах строительства — от заливки
-            фундамента
-            до готового дома.
-          </div>
-
         </div>
       </div>
       <div class="splide examples-slider">
@@ -1909,7 +1066,7 @@
             Заявка на звонок менеджеру
           </div>
           <div class="modal-subtitle">
-           Оставьте свои контакты — и наш менеджер перезвонит вам, чтобы подробно ответить на любые вопросы.
+            Оставьте свои контакты — и наш менеджер перезвонит вам, чтобы подробно ответить на любые вопросы.
           </div>
           <div class="modal-form">
             <form>
@@ -1988,14 +1145,14 @@
             Ваша заявка успешно отправлена!
           </div>
           <div class="modal-subtitle">
-           Наш менеджер свяжется с вами по номеру:
+            Наш менеджер свяжется с вами по номеру:
           </div>
           <a href="tel:+79999879898" target="_blank" class="modal-thx__phone">
             +7 (999) 987-98-98
           </a>
           <button class="modal-close">
-          Закрыть окно
-        </button>
+            Закрыть окно
+          </button>
         </div>
       </div>
     </div>

@@ -1,44 +1,45 @@
 class ProjectsSlider {
-  constructor(selector) {
-    this.selector = selector;
+  constructor(selectorOrElement) {
+    if (typeof selectorOrElement === 'string') {
+      this.selector = selectorOrElement;
+      this.elements = document.querySelectorAll(this.selector);
+    } else if (selectorOrElement instanceof HTMLElement) {
+      this.selector = null;
+      this.elements = [selectorOrElement];
+    } else {
+      this.elements = [];
+    }
     this.sliders = [];
     this.init();
   }
 
   init() {
-    const sliderElements = document.querySelectorAll(this.selector);
-
-    if(!sliderElements) return;
-    sliderElements.forEach(sliderEl => {
+    this.elements.forEach(sliderEl => {
       const splide = new Splide(sliderEl, {
         type: 'slide',
         perPage: 1,
-        gap: 0,
         pagination: true,
         arrows: false,
         drag: false,
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');
-      if (track) {
-        const handleMouseMove = e => {
-          const rect = track.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const width = rect.width;
-          const slidesCount = splide.length;
-          const hoverZone = 15;
+      const handleMouseMove = e => {
+        const rect = track.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const width = rect.width;
+        const slidesCount = splide.length;
+        const hoverZone = 15;
 
-          let index = Math.floor((x / width) * slidesCount);
-          if (x < hoverZone) index = 0;
-          if (x > width - hoverZone) index = slidesCount - 1;
+        let index = Math.floor((x / width) * slidesCount);
+        if (x < hoverZone) index = 0;
+        if (x > width - hoverZone) index = slidesCount - 1;
 
-          splide.go(index);
-        };
+        splide.go(index);
+      };
 
-        track.addEventListener('mousemove', handleMouseMove);
-
-        this.sliders.push({ splide, track, handleMouseMove });
-      }
+      track.addEventListener('mousemove', handleMouseMove);
+      this.sliders.push({ splide, track, handleMouseMove });
     });
   }
 

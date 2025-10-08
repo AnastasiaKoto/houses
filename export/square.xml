@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>9</id>
+		<name>Ploshchad</name>
+		<table_name>b_hlbd_ploshchad</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>9</id>
+			<lid>ru</lid>
+			<name>Площадь</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>60</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_ROOMS</field_name>
+			<user_type_id>integer</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<min_value>0</min_value>
+				<max_value>0</max_value>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Количество спален</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Количество спален</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Количество спален</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>int</base_type>
+		</field>
+		<field>
+			<id>61</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_KLAD</field_name>
+			<user_type_id>integer</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<min_value>0</min_value>
+				<max_value>0</max_value>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Количество кладовок</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Количество кладовок</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Количество кладовок</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>int</base_type>
+		</field>
+		<field>
+			<id>62</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_WC</field_name>
+			<user_type_id>integer</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<min_value>0</min_value>
+				<max_value>0</max_value>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Количество санузлов</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Количество санузлов</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Количество санузлов</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>int</base_type>
+		</field>
+		<field>
+			<id>44</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_NAME</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>200</sort>
+			<multiple>N</multiple>
+			<mandatory>Y</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Название</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Название</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Название</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>45</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_SORT</field_name>
+			<user_type_id>integer</user_type_id>
+			<xml_id />
+			<sort>300</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<min_value>0</min_value>
+				<max_value>0</max_value>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Сортировка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Сортировка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Сортировка</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>int</base_type>
+		</field>
+		<field>
+			<id>46</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_XML_ID</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>400</sort>
+			<multiple>N</multiple>
+			<mandatory>Y</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Внешний код</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Внешний код</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Внешний код</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>47</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_LINK</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>500</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Ссылка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Ссылка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Ссылка</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>48</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_DESCRIPTION</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>600</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Описание</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>49</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_FULL_DESCRIPTION</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>700</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<ru>Полное описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Полное описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Полное описание</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>50</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_DEF</field_name>
+			<user_type_id>boolean</user_type_id>
+			<xml_id />
+			<sort>800</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<default_value>0</default_value>
+				<display>CHECKBOX</display>
+				<label>
+					<0 />
+					<1 />
+				</label>
+				<label_checkbox />
+			</settings>
+			<edit_form_label>
+				<ru>По умолчанию</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>По умолчанию</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>По умолчанию</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>int</base_type>
+		</field>
+		<field>
+			<id>51</id>
+			<entity_id>HLBLOCK_9</entity_id>
+			<field_name>UF_FILE</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>900</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>Y</target_blank>
+			</settings>
+			<edit_form_label>
+				<ru>Изображение</ru>
+			</edit_form_label>
+			<list_column_label>
+				<ru>Изображение</ru>
+			</list_column_label>
+			<list_filter_label>
+				<ru>Изображение</ru>
+			</list_filter_label>
+			<error_message>
+				<ru />
+			</error_message>
+			<help_message>
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_rooms />
+			<uf_klad />
+			<uf_wc />
+			<uf_name>123 м2 (3 спальни, 2 санузла, кухня-гостинная)</uf_name>
+			<uf_sort>100</uf_sort>
+			<uf_xml_id>yHjVYzGI</uf_xml_id>
+			<uf_link />
+			<uf_description>123 м2</uf_description>
+			<uf_full_description>3 спальни, 2 санузла, кухня-гостинная</uf_full_description>
+			<uf_def>0</uf_def>
+			<uf_file>0</uf_file>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_rooms />
+			<uf_klad />
+			<uf_wc />
+			<uf_name>125 м2 (3 спальни, 2 санузла, кухня-гостинная)</uf_name>
+			<uf_sort>100</uf_sort>
+			<uf_xml_id>Z4SQvwy7</uf_xml_id>
+			<uf_link />
+			<uf_description>125 м2</uf_description>
+			<uf_full_description>3 спальни, 2 санузла, кухня-гостинная</uf_full_description>
+			<uf_def>0</uf_def>
+			<uf_file>0</uf_file>
+		</item>
+	</items>
+</hiblock>

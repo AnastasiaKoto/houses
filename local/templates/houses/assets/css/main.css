@@ -1113,6 +1113,9 @@
          height: 284px;
          border-radius: 26px;
        }
+       & .splide__track {
+        height: 100%;
+       }
 
        & .splide__pagination {
          display: flex;

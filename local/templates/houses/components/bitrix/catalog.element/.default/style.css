@@ -1500,6 +1500,15 @@
         max-width: 454px;
         width: 100%;
 
+        & .catalog-item__no-images {
+          border-radius: 36px;
+
+          @media(max-width: 992px) {
+            border-radius: 26px;
+
+          }
+        }
+
         &:last-child {
           margin-right: 10px;
         }
@@ -1508,9 +1517,10 @@
           max-width: 300px;
 
         }
+
         @media(max-width: 700px) {
           border-radius: 30px;
-          
+
         }
       }
     }
@@ -1534,11 +1544,11 @@
 }
 
 .hidden {
-	opacity: 0;
-	pointer-events: none;
-	max-width: 0;
-	max-height: 0;
-	font-size: 0;
-	padding: 0;
-	margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-width: 0;
+  max-height: 0;
+  font-size: 0;
+  padding: 0;
+  margin: 0;
 }

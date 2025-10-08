@@ -44,10 +44,20 @@ if($haveOffers) {
 	$planes = $currentOffer['PROPERTIES']['PLANE']['VALUE_ELEMENT'] ?? [];
 	$recomendations = $currentOffer['PROPERTIES']['PROJECTS']['VALUE_ELEMENTS'];
 } else {
+	p($arResult['PROPERTIES']);
+	$gallery = $arResult['PROPERTIES']['GALLERY']['VALUE'];
 	$title = $arResult['NAME'];
-	$price = $arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'];
+	$price = $arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'][0];
 	$formatted_price = !empty($price) ? number_format($price, 0, ',', ' ') . ' ₽' : '';
 	$deadline = $arResult['PROPERTIES']['DEADLINE']['VALUE'];
+	$square =  $arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE_ELEMENT']['UF_DESCRIPTION'] ?? 0;
+	$sizes = $arResult['PROPERTIES']['SIZES']['VALUE'] ?? 0;
+	$height = $arResult['PROPERTIES']['HEIGHT']['VALUE'] ?? 0;
+	$detail_descr = $arResult['DETAIL_TEXT'] ?? '';
+	$rooms = $arResult['PROPERTIES']['ROOMS']['VALUE'] ?? '';
+	$storages = $arResult['PROPERTIES']['STORAGE']['VALUE'] ?? '';
+	$wcs = $arResult['PROPERTIES']['WCS']['VALUE'] ?? '';
+	$planes = $arResult['PROPERTIES']['PLANES']['VALUE_ELEMENT'] ?? [];
 }
 ?>
 <style>
@@ -80,7 +90,7 @@ if($haveOffers) {
 				<? endif; ?>
 			</div>
 			<div class="detail-product__mainscreen-info">
-				<h1>
+				<h1 <? !$haveOffers ? 'class="detail-product__finished-h1"' : ''; ?>>
 					<?= $title; ?>
 				</h1>
 				<? if($haveOffers): ?>
@@ -302,6 +312,44 @@ if($haveOffers) {
 					</div>
 					<? endif; ?>
 				</div>
+				<? else: ?>
+				<div class="detail-product__finished-config">
+					<div class="detail-product__finished-config__title">
+						Конфигурация дома
+					</div>
+					<div class="detail-product__finished-config__items">
+						<? if(!empty($arResult['PROPERTIES']['HOUSES_STYLE']['VALUE'])): ?>
+						<div class="detail-product__finished-config__item">
+						<div class="detail-product__finished-config__item-label">
+							Стиль
+						</div>
+						<div class="detail-product__finished-config__item-value">
+							<?= $arResult['PROPERTIES']['HOUSES_STYLE']['VALUE'][0]; ?>
+						</div>
+						</div>
+						<? endif; ?>
+						<? if(!empty($arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE'])): ?>
+						<div class="detail-product__finished-config__item">
+						<div class="detail-product__finished-config__item-label">
+							Площадь дома
+						</div>
+						<div class="detail-product__finished-config__item-value">
+							<?= $arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
+						</div>
+						</div>
+						<? endif; ?>
+						<? if(!empty($arResult['PREVIEW_TEXT'])): ?>
+						<div class="detail-product__finished-config__item">
+						<div class="detail-product__finished-config__item-label">
+							Адрес
+						</div>
+						<div class="detail-product__finished-config__item-value">
+							<?= $arResult['PREVIEW_TEXT']; ?>
+						</div>
+						</div>
+						<? endif; ?>
+					</div>
+				</div>
 				<? endif; ?>
 				<div class="detail-product__mainscreen-total">
 					<div class="detail-product__mainscreen-total__head">
@@ -318,7 +366,7 @@ if($haveOffers) {
 								Срок строительства
 							</div>
 							<div data-final-deadline="<?=$deadline?>" class="detail-product__mainscreen-total__item-value detail-product__mainscreen-total__item-date">
-								<?= $deadline ? $deadline . 'дней' : ''; ?>
+								<?= $deadline ? $deadline . ' дней' : ''; ?>
 							</div>
 						</div>
 						<a href="javascript:void(0)" data-modal-target="#manager" class="ask-btn order-house">
@@ -935,6 +983,7 @@ if($haveOffers) {
 	</div>
 </section>
 */
+if($haveOffers):
 ?>
 <script>
     window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
@@ -945,3 +994,40 @@ if($haveOffers) {
 		console.log('Buildings:', window.houseManager.buildingsMap)
 	}
 </script>
+<? else: ?>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const sliders = document.querySelectorAll('.detail__page-slider__images');
+
+			sliders.forEach(slider => {
+				const splide = new Splide(slider, {
+				type: 'slide',
+				perPage: 1,
+				gap: 0,
+				pagination: true,
+				arrows: false,
+				drag: false,
+				}).mount();
+
+				const track = slider.querySelector('.splide__track');
+
+				track.addEventListener('mousemove', e => {
+				const rect = track.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const width = rect.width;
+
+				const slidesCount = splide.length;
+				const hoverZone = 15;
+
+				let index = Math.floor((x / width) * slidesCount);
+
+				if (x < hoverZone) index = 0;
+				if (x > width - hoverZone) index = slidesCount - 1;
+
+				splide.go(index);
+				});
+
+			});
+		});
+	</script>
+<?endif;?>

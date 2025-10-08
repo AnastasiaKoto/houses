@@ -1389,9 +1389,13 @@ class HouseVariationManager {
                         listItem.appendChild(img);
                         list.appendChild(listItem);
                     })
+
                     track.append(list);
                     projectImages.append(track);
                     projectCard.appendChild(projectImages);
+
+                    const projectsSlider = new ProjectsSlider(projectImages);
+                    projectsSlider.reinit();
                 } else {
                     let noimageEl = document.createElement('div');
                     noimageEl.classList.add('catalog-item__no-images');

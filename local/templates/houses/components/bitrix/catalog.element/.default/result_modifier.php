@@ -72,22 +72,54 @@ if(isset($arResult['PROPERTIES']['HOUSE_VARIABLES']['VALUE']) && !empty($arResul
         }
     }
 
-    //получаем дополнительные постройки
-    if(!empty($arResult['PROPERTIES']['BUILDINGS']['VALUE'])) {
-        $tableName = $arResult['PROPERTIES']['BUILDINGS']['USER_TYPE_SETTINGS']['TABLE_NAME'];
+} else {
+    if(!empty($arResult['PROPERTIES']['GALLERY']['VALUE'])) {
+        foreach($arResult['PROPERTIES']['GALLERY']['VALUE'] as $key => $image) {
+            $arImage = [];
+            $arImage['DESCRIPTION'] = $arResult['PROPERTIES']['GALLERY']['DESCRIPTION'][$key];
+            $arImage['PATH'] = CFile::GetPath($image);
 
-        foreach($arResult['PROPERTIES']['BUILDINGS']['VALUE'] as $building) {
-            $item = getHlData($building, $tableName);
-            if($item !== null) {
-                if(!empty($item['UF_GALLERY'])) {
-                    foreach($item['UF_GALLERY'] as $key => $img) {
-                        $item['UF_GALLERY'][$key] = CFile::GetPath($img);
-                    }
+            $arResult['PROPERTIES']['GALLERY']['VALUE'][$key] = $arImage;
+        }
+    }
+}
+
+//получаем дополнительные постройки
+if(!empty($arResult['PROPERTIES']['BUILDINGS']['VALUE'])) {
+    $tableName = $arResult['PROPERTIES']['BUILDINGS']['USER_TYPE_SETTINGS']['TABLE_NAME'];
+
+    foreach($arResult['PROPERTIES']['BUILDINGS']['VALUE'] as $building) {
+        $item = getHlData($building, $tableName);
+        if($item !== null) {
+            if(!empty($item['UF_GALLERY'])) {
+                foreach($item['UF_GALLERY'] as $key => $img) {
+                    $item['UF_GALLERY'][$key] = CFile::GetPath($img);
                 }
-                if(!empty($item['UF_PLANE'])) {
-                    $item['UF_PLANE'] = CFile::GetPath($item['UF_PLANE']);
+            }
+            if(!empty($item['UF_PLANE'])) {
+                $item['UF_PLANE'] = CFile::GetPath($item['UF_PLANE']);
+            }
+            $arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'][$building] = $item;
+        }
+    }
+}
+foreach($arResult['PROPERTIES'] as $key => $value) {
+    if($value['USER_TYPE'] == 'directory') {
+        $tableName = $value['USER_TYPE_SETTINGS']['TABLE_NAME'];
+        if($value['MULTIPLE'] == 'Y' && !empty($value['VALUE'])) {
+            foreach($value['VALUE'] as $el) {
+                $valueId = $el;
+                $item = getHlData($valueId, $tableName);
+                if(isset($item['UF_GALLERY']) && !empty($item['UF_GALLERY'])) {
+                    $item['UF_GALLERY'][$key] = CFile::GetPath($img);
                 }
-                $arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'][$building] = $item;
+                $value['VALUE_ELEMENT'][] = $item;
+            }
+        } else {
+            $valueId = $value['VALUE'];
+            if($valueId && $tableName) {
+                $item = getHlData($valueId, $tableName);
+                $value['VALUE_ELEMENT'] = $item;
             }
         }
     }

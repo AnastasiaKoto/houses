@@ -7,6 +7,7 @@ class HouseVariationManager {
         this.toggleBtn = null;
         this.editBlock = null;
         this.slider = null;
+        this.sliderRecomendations = null;
         this.price = null;
         this.planeTabs = null;
         this.planeLinks = null;
@@ -27,6 +28,7 @@ class HouseVariationManager {
             ".detail-product__mainscreen-config__items.edit"
         );
         this.slider = document.querySelector('.detail__page-slider__images');
+        this.sliderRecomendations = document.querySelector('.examples-slider');
         this.price = document.querySelector('.detail-product__mainscreen-total__item-price');
         this.deadline = document.querySelector('.detail-product__mainscreen-total__item-date');
         this.bubblesSelect = document.querySelector(".custom-select-bubbles-js");
@@ -59,6 +61,7 @@ class HouseVariationManager {
             this.initTabsAndSliders();
             this.accInit();
             this.initEquipmentTabs();
+            this.recomendationsSliderInit();
         });
         window.addEventListener('resize', this.refreshAccordions());
         document.addEventListener('tab-switched', this.refreshAccordions());
@@ -331,7 +334,7 @@ class HouseVariationManager {
         this.initTabsAndSliders();
     }
 
-    //инициализация и переинициализация слайдера
+    //инициализация и переинициализация главного слайдера
     mainGalleryInit() {
         //this.slider.forEach(slider => {
             const splide = new Splide(this.slider, {
@@ -364,6 +367,56 @@ class HouseVariationManager {
             });
 
         //});
+    }
+
+    //инициализация слайдера рекомендаций
+    recomendationsSliderInit() {
+        if (!this.sliderRecomendations) return;
+
+        let splide;
+
+        const initSplide = () => {
+            if (window.innerWidth <= 1500) {
+                if (!splide) {
+                    splide = new Splide(this.sliderRecomendations, {
+                        type: 'loop',
+                        autoWidth: true,
+                        perMove: 1,
+                        pagination: false,
+                        arrows: false,
+                        gap: 20,
+                        breakpoints: {
+                            700: {
+                                gap: 10
+                            }
+                        }
+                    });
+                    splide.mount();
+                    this.sliderRecomendations._splide = splide;
+                }
+            } else {
+                if (splide) {
+                    splide.destroy();
+                    splide = null;
+                }
+            }
+        }
+
+        initSplide();
+
+
+        window.addEventListener('resize', initSplide);
+
+
+        const prevArrow = document.querySelector('.examples-arrow__prev');
+        const nextArrow = document.querySelector('.examples-arrow__next');
+
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => splide?.go('<'));
+        }
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => splide?.go('>'));
+        }
     }
 
     //дополнительные постройки
@@ -560,6 +613,7 @@ class HouseVariationManager {
                 this.changeParameters(combination);
                 this.changeProjectImagesTabs(combination);
                 this.changeComplectationTabs(combination);
+                this.changeRecomendationBlock(combination);
             }
         }
     }
@@ -769,7 +823,7 @@ class HouseVariationManager {
     /*  PRICE & DEADLINE END    */
 
 
-    //заменяет контент галереи
+    //заменяет контент главной галереи
     changeGallery(combination) {
         if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.GALLERY || 
             !combination.PROPERTIES.GALLERY.VALUE || !Array.isArray(combination.PROPERTIES.GALLERY.VALUE)) {
@@ -1273,6 +1327,111 @@ class HouseVariationManager {
             }
         }
         this.reinitTabsAndSliders();
+    }
+
+    //меняет блок рекомендаций
+    changeRecomendationBlock(combination) {
+
+        const recomendationsSection = document.querySelector('.examples');
+        if(!combination?.PROPERTIES || !combination?.PROPERTIES?.PROJECTS || !combination?.PROPERTIES?.PROJECTS?.VALUE_ELEMENTS) {
+            recomendationsSection.classList.add('hidden');
+            return;
+        }
+
+        const projects = combination.PROPERTIES.PROJECTS.VALUE_ELEMENTS;
+
+        if(projects) {
+            const track = this.sliderRecomendations.querySelector('.splide__track');
+            const list = track?.querySelector('.splide__list');
+            if (!list) return;
+            
+            if (this.sliderRecomendations._splide) {
+                this.sliderRecomendations._splide.destroy();
+                this.sliderRecomendations._splide = null;
+            }
+            list.innerHTML = '';
+            projects.forEach(project => {
+                let projectCard = document.createElement('div');
+                projectCard.classList.add('splide__slide', 'examples-item', 'projects-item');
+
+                let gallery = project.PROPERTY_GALLERY_VALUE;
+                if(gallery && gallery.length > 0) {
+                    let projectImages = document.createElement('div');
+                    projectImages.classList.add('splide', 'projects-slider__images');
+
+                    let track = document.createElement('div');
+                    track.classList.add('splide__track');
+
+                    let list = document.createElement('ul');
+                    list.classList.add('splide__list', 'projects-slider__image-items');
+
+                    gallery.forEach((imgSrc, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'splide__slide projects-slider__image-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = imgSrc;
+                        img.alt = `project-image-${index + 1}`;
+                        
+                        listItem.appendChild(img);
+                        list.appendChild(listItem);
+                    })
+                    track.append(list);
+                    projectImages.append(track);
+                    projectCard.appendChild(projectImages);
+                } else {
+                    let noimageEl = document.createElement('div');
+                    noimageEl.classList.add('catalog-item__no-images');
+                    noimageEl.innerHTML = `<img src="/local/templates/houses/assets/img/no-photo.jpg" alt="not-image">`;
+                    projectCard.appendChild(noimageEl);
+                }
+
+                let projectBody = document.createElement('div');
+                projectBody.classList.add('projects-item__body');
+                projectBody.innerHTML = `<div class="projects-item__name">
+                                            ${project.NAME}
+                                        </div>
+                                        <div class="projects-item__description">
+                                            ${project.PREVIEW_TEXT}
+                                        </div>
+                                        <div class="projects-item__specs">
+                                            ${project.PROPERTY_HOUSES_SQUARES_VALUE?.length > 0 ? `
+                                                <div class="projects-item__spec">
+                                                    <div class="projects-item__spec-name">
+                                                        Площадь
+                                                    </div>
+                                                    <div class="projects-item__spec-value">
+                                                        ${project.PROPERTY_HOUSES_SQUARES_VALUE[0]} м<sup>2</sup>
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                            ${project.PROPERTY_HOUSES_SIZES_VALUE?.length > 0 ? `
+                                                <div class="projects-item__spec">
+                                                    <div class="projects-item__spec-name">
+                                                        Размер
+                                                    </div>
+                                                    <div class="projects-item__spec-value">
+                                                        ${project.PROPERTY_HOUSES_SIZES_VALUE[0]} м
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                            ${project.PROPERTY_HOUSES_ROOMS_VALUE?.length > 0 ? `
+                                                <div class="projects-item__spec">
+                                                    <div class="projects-item__spec-name">
+                                                        Комнаты
+                                                    </div>
+                                                    <div class="projects-item__spec-value">
+                                                        ${project.PROPERTY_HOUSES_ROOMS_VALUE[0]}
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    `;
+                projectCard.appendChild(projectBody);
+                list.appendChild(projectCard);
+            })
+            this.recomendationsSliderInit();
+        }
     }
 
 }

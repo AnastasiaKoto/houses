@@ -42,6 +42,7 @@ if($haveOffers) {
 	$storages = $currentOffer['PROPERTIES']['STORAGE']['VALUE'] ?? '';
 	$wcs = $currentOffer['PROPERTIES']['WCS']['VALUE'] ?? '';
 	$planes = $currentOffer['PROPERTIES']['PLANE']['VALUE_ELEMENT'] ?? [];
+	$recomendations = $currentOffer['PROPERTIES']['PROJECTS']['VALUE_ELEMENTS'];
 } else {
 	$title = $arResult['NAME'];
 	$price = $arResult['PROPERTIES']['HOUSES_PRICES']['VALUE'];
@@ -774,7 +775,7 @@ if($haveOffers) {
 	</div>
 </section>
 <? endif; ?>
-<? /*
+<? if(!empty($recomendations)): ?>
 <section class="section examples">
 	<div class="container">
 		<div class="examples-inner">
@@ -792,168 +793,67 @@ if($haveOffers) {
 	<div class="splide examples-slider">
 		<div class="splide__track">
 			<ul class="splide__list examples-items projects-items">
+				<? foreach($recomendations as $recomendation): ?>
 				<div class="splide__slide examples-item projects-item">
+					<? if(!empty($recomendation['PROPERTY_GALLERY_VALUE'])): ?>
 					<div class="splide projects-slider__images">
 						<div class="splide__track">
 							<ul class="splide__list projects-slider__image-items">
+								<? foreach($recomendation['PROPERTY_GALLERY_VALUE'] as $img): ?>
 								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
+									<img src="<?= $img; ?>" alt="img">
 								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
+								<? endforeach; ?>
 							</ul>
 						</div>
 					</div>
+					<? else: ?>
+					<div class="catalog-item__no-images">
+						<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/no-photo.jpg" alt="not-image">
+					</div>
+					<? endif; ?>
 					<div class="projects-item__body">
 						<div class="projects-item__name">
-							Классика
+							<?= $recomendation['NAME'] ?>
 						</div>
 						<div class="projects-item__description">
-							Серпуховский р-н, п. Оболенск
+							<?= $recomendation['PREVIEW_TEXT'] ?>
 						</div>
 						<div class="projects-item__specs">
+							<? if(!empty($recomendation['PROPERTY_HOUSES_SQUARES_VALUE'])): ?>
 							<div class="projects-item__spec">
 								<div class="projects-item__spec-name">
 									Площадь
 								</div>
 								<div class="projects-item__spec-value">
-									123 м<sup>2</sup>
+									<?= $recomendation['PROPERTY_HOUSES_SQUARES_VALUE'][0]; ?> м<sup>2</sup>
 								</div>
 							</div>
+							<?endif;?>
+							<? if(!empty($recomendation['PROPERTY_HOUSES_SIZES_VALUE'])): ?>
 							<div class="projects-item__spec">
 								<div class="projects-item__spec-name">
 									Размер
 								</div>
 								<div class="projects-item__spec-value">
-									12х24 м
+									<?= $recomendation['PROPERTY_HOUSES_SIZES_VALUE'][0]; ?> м
 								</div>
 							</div>
+							<?endif;?>
+							<? if(!empty($recomendation['PROPERTY_HOUSES_ROOMS_VALUE'])): ?>
 							<div class="projects-item__spec">
 								<div class="projects-item__spec-name">
 									Комнаты
 								</div>
 								<div class="projects-item__spec-value">
-									4
+									<?= $recomendation['PROPERTY_HOUSES_ROOMS_VALUE'][0]; ?>
 								</div>
 							</div>
+							<?endif;?>
 						</div>
 					</div>
 				</div>
-				<div class="splide__slide examples-item projects-item">
-					<div class="splide projects-slider__images">
-						<div class="splide__track">
-							<ul class="splide__list projects-slider__image-items">
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="projects-item__body">
-						<div class="projects-item__name">
-							Классика
-						</div>
-						<div class="projects-item__description">
-							Серпуховский р-н, п. Оболенск
-						</div>
-						<div class="projects-item__specs">
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Площадь
-								</div>
-								<div class="projects-item__spec-value">
-									123 м<sup>2</sup>
-								</div>
-							</div>
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Размер
-								</div>
-								<div class="projects-item__spec-value">
-									12х24 м
-								</div>
-							</div>
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Комнаты
-								</div>
-								<div class="projects-item__spec-value">
-									4
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="splide__slide examples-item projects-item">
-					<div class="splide projects-slider__images">
-						<div class="splide__track">
-							<ul class="splide__list projects-slider__image-items">
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-								<li class="splide__slide projects-slider__image-item">
-									<img src="./assets/img/pr1.jpg" alt="img">
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="projects-item__body">
-						<div class="projects-item__name">
-							Классика
-						</div>
-						<div class="projects-item__description">
-							Серпуховский р-н, п. Оболенск
-						</div>
-						<div class="projects-item__specs">
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Площадь
-								</div>
-								<div class="projects-item__spec-value">
-									123 м<sup>2</sup>
-								</div>
-							</div>
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Размер
-								</div>
-								<div class="projects-item__spec-value">
-									12х24 м
-								</div>
-							</div>
-							<div class="projects-item__spec">
-								<div class="projects-item__spec-name">
-									Комнаты
-								</div>
-								<div class="projects-item__spec-value">
-									4
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<? endforeach; ?>
 			</ul>
 		</div>
 		<div class="examples-arrows">
@@ -974,6 +874,8 @@ if($haveOffers) {
 		</div>
 	</div>
 </section>
+<? endif; ?>
+<?/*
 <section class="section question-form">
 	<div class="container">
 		<div class="question-form__inner">

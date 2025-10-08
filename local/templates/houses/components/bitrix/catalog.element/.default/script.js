@@ -396,7 +396,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 */
-
+/*
+забрала
 document.addEventListener('DOMContentLoaded', function () {
 	const sliderExamples = document.querySelector('.examples-slider');
 	if (!sliderExamples) return;
@@ -445,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		nextArrow.addEventListener('click', () => splide?.go('>'));
 	}
 });
-
+*/
 document.addEventListener("DOMContentLoaded", () => {
 	const desc = document.querySelector(".detail-product__layout-description");
 	const toggleBtn = document.querySelector(".desc-toggle");

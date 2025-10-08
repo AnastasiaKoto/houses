@@ -13,6 +13,15 @@ if (!Bitrix\Main\Loader::includeModule('highloadblock')) {
     throw new Exception('Модуль Highloadblock не установлен');
 }
 
+$roomsForJsOffers = [];
+$rsEnum = CIBlockPropertyEnum::GetList(
+    ["SORT" => "ASC", "ID" => "ASC"],
+    ["IBLOCK_ID" => 6, "CODE" => "HOUSES_ROOMS"]
+);
+while ($enum = $rsEnum->GetNext()) {
+    $roomsForJsOffers[$enum['ID']] = $enum['VALUE'];
+}
+
 function getHlData($valueId, $tableName) {
     $hlblock = Bitrix\Highloadblock\HighloadBlockTable::getList(array(
         'filter' => array('=TABLE_NAME' => $tableName)
@@ -156,6 +165,55 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
                 }
             }
 
+            if ($key === 'PROJECTS' && !empty($value['VALUE'])) {
+                $projectIds = is_array($value['VALUE']) ? $value['VALUE'] : [$value['VALUE']];
+                $projectIds = array_unique($projectIds);
+
+                $value['VALUE_ELEMENTS'] = [];
+
+                //foreach ($projectIds as $projectId) {
+                    $arSelect = ["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "DETAIL_PAGE_URL"];
+                    $arFilter = ["ID" => $projectIds, "ACTIVE" => "Y"];
+
+                    $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
+                    while($element = $res->fetch()) {
+                        if (!empty($element['DETAIL_PAGE_URL'])) {
+                            $element['DETAIL_PAGE_URL'] = CIBlock::ReplaceDetailUrl(
+                                $element['DETAIL_PAGE_URL'],
+                                $element,
+                                false,
+                                "E"
+                            );
+                        }
+
+                        $propsToLoad = ['HOUSES_SQUARES', 'HOUSES_SIZES', 'HOUSES_ROOMS', 'GALLERY'];
+                        foreach ($propsToLoad as $propCode) {
+                            $propRes = CIBlockElement::GetProperty(
+                                $element["IBLOCK_ID"],
+                                $element["ID"],
+                                ["sort" => "asc"],
+                                ["CODE" => $propCode]
+                            );
+                            $propValues = [];
+                            while ($prop = $propRes->fetch()) {
+                                if($prop['CODE'] == 'HOUSES_ROOMS') {
+                                    $prop['VALUE'] = $roomsForJsOffers[$prop['VALUE']];
+                                }
+                                if($prop['CODE'] == 'GALLERY') {
+                                    $prop['VALUE'] = CFile::GetPath($prop['VALUE']);
+                                }
+                                if(!empty($prop['VALUE'])) {
+                                    $propValues[] = $prop['VALUE'];
+                                }
+                            }
+                            $element["PROPERTY_{$propCode}_VALUE"] = $propValues ?? null;
+                        }
+
+                        $value['VALUE_ELEMENTS'][] = $element;
+                    }
+                //}
+            }
+
             if($value['USER_TYPE'] == 'directory') {
                 $tableName = $value['USER_TYPE_SETTINGS']['TABLE_NAME'];
                 if($value['MULTIPLE'] == 'Y' && !empty($value['VALUE'])) {
@@ -178,6 +236,35 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
                 $offer['COMBINATION'][] = $key . ':' . $value_id; 
             }
         }
+        /*
+        if(!empty($variation['PROPERTIES']['PROJECT']['VALUE'])) {
+            $arSelect = array(
+                "ID", 
+                "IBLOCK_ID", 
+                "NAME",
+                "PREVIEW_TEXT",
+                "DETAIL_PAGE_URL",
+                "PROPERTY_HOUSES_SQUARES",
+                "PROPERTY_HOUSES_SIZES",
+                "PROPERTY_HOUSES_ROOMS"
+            );
+            $arFilter = array("ID" => $variation['PROPERTIES']['PROJECT']['VALUE'], "ACTIVE" => "Y");
+
+            $res = CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
+            $value['VALUE_ELEMENTS'] = [];
+            while($element = $res->fetch()) {
+                if(!empty($element['DETAIL_PAGE_URL'])) {
+                    $element['DETAIL_PAGE_URL'] = CIBlock::ReplaceDetailUrl(
+                        $element['DETAIL_PAGE_URL'], 
+                        $element, 
+                        false, 
+                        "E"
+                    );
+                }
+                $offer['PROPERTIES']['PROJECT']['VALUE_ELEMENTS'][] = $element;
+            }
+        }
+        */
 
         sort($offer['COMBINATION']);
         $combinationKey = implode('|', $offer['COMBINATION']);

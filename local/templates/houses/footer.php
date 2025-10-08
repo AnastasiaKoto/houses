@@ -9,7 +9,7 @@
               <img src="<?=SITE_TEMPLATE_PATH?>/assets/img/logo.svg" alt="img">
             </a>
             <?$APPLICATION->IncludeComponent("bitrix:highloadblock.list", "socials", Array(
-              "BLOCK_ID" => "4",	// ID highload блока
+              "BLOCK_ID" => "5",	// ID highload блока
                 "CHECK_PERMISSIONS" => "N",	// Проверять права доступа
                 "DETAIL_URL" => "",	// Путь к странице просмотра записи
                 "FILTER_NAME" => "",	// Идентификатор фильтра

@@ -2,8 +2,6 @@ class HouseVariationManager {
     constructor() {
         this.offersMap = window.OFFERS_DATA || {};
         this.buildingsMap = window.BUILDINGS_DATA || {};
-        this.selectedValues = {};
-        this.propertyGroups = {};
         this.toggleBtn = null;
         this.editBlock = null;
         this.slider = null;
@@ -32,7 +30,9 @@ class HouseVariationManager {
         this.price = document.querySelector('.detail-product__mainscreen-total__item-price');
         this.deadline = document.querySelector('.detail-product__mainscreen-total__item-date');
         this.bubblesSelect = document.querySelector(".custom-select-bubbles-js");
-        this.options = this.bubblesSelect.querySelectorAll(".options li");
+        if(this.bubblesSelect) {
+            this.options = this.bubblesSelect.querySelectorAll(".options li");
+        }
         this.planeTabs = document.querySelector('.detail-product__layout-tabs__content');
         this.planeLinks = document.querySelector('.detail-product__layout-tabs__links');
         this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
@@ -54,18 +54,27 @@ class HouseVariationManager {
                 this.updateAvailability(e.target);
             }
         });
-        document.addEventListener('DOMContentLoaded', () => {
-            this.mainGalleryInit();
-            this.selectBubbles();
-            this.renderPlaneTabs();
-            this.initTabsAndSliders();
-            this.accInit();
-            this.initEquipmentTabs();
-            this.recomendationsSliderInit();
-        });
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initializeComponents();
+            });
+        } else {
+            this.initializeComponents();
+        }
+
         window.addEventListener('resize', this.refreshAccordions());
         document.addEventListener('tab-switched', this.refreshAccordions());
 
+    }
+
+    initializeComponents() {
+        this.mainGalleryInit();
+        this.selectBubbles();
+        this.renderPlaneTabs();
+        this.initTabsAndSliders();
+        this.accInit();
+        this.initEquipmentTabs();
+        this.recomendationsSliderInit();
     }
 
 
@@ -337,34 +346,36 @@ class HouseVariationManager {
     //инициализация и переинициализация главного слайдера
     mainGalleryInit() {
         //this.slider.forEach(slider => {
-            const splide = new Splide(this.slider, {
-                type: 'slide',
-                perPage: 1,
-                gap: 0,
-                pagination: true,
-                arrows: false,
-                drag: false,
-            }).mount();
+            if(this.slider) {
+                const splide = new Splide(this.slider, {
+                    type: 'slide',
+                    perPage: 1,
+                    gap: 0,
+                    pagination: true,
+                    arrows: false,
+                    drag: false,
+                }).mount();
 
-            this.slider._splide = splide;
+                this.slider._splide = splide;
 
-            const track = this.slider.querySelector('.splide__track');
+                const track = this.slider.querySelector('.splide__track');
 
-            track.addEventListener('mousemove', e => {
-                const rect = track.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const width = rect.width;
+                track.addEventListener('mousemove', e => {
+                    const rect = track.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const width = rect.width;
 
-                const slidesCount = splide.length;
-                const hoverZone = 15;
+                    const slidesCount = splide.length;
+                    const hoverZone = 15;
 
-                let index = Math.floor((x / width) * slidesCount);
+                    let index = Math.floor((x / width) * slidesCount);
 
-                if (x < hoverZone) index = 0;
-                if (x > width - hoverZone) index = slidesCount - 1;
+                    if (x < hoverZone) index = 0;
+                    if (x > width - hoverZone) index = slidesCount - 1;
 
-                splide.go(index);
-            });
+                    splide.go(index);
+                });
+            }
 
         //});
     }

@@ -434,6 +434,7 @@ class HouseVariationManager {
     selectBubbles() {
         //document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {
             const select = document.querySelector(".custom-select-bubbles-js");
+            if(!select) return;
             const trigger = select.querySelector(".selected");
             const options = select.querySelectorAll(".options li");
             const bubblesContainer = select.querySelector(".selected-bubbles");

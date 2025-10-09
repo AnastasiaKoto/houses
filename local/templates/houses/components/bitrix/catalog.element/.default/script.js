@@ -9,62 +9,108 @@ document.addEventListener("DOMContentLoaded", () => {
 		".detail-product__mainscreen-config__items.edit"
 	);
 
-	if (!editBlock || !viewBlock || !toggleBtn) return;
+	if(editBlock && viewBlock && toggleBtn) {
+		const updateViewData = () => {
+			// === 1. Стиль постройки ===
+			const styleValue = editBlock.querySelector(
+				'input[name="HOUSES_STYLE"]:checked'
+			)?.nextElementSibling?.textContent;
 
-	const updateViewData = () => {
-		// === 1. Стиль постройки ===
-		const styleValue = editBlock.querySelector(
-			'input[name="HOUSES_STYLE"]:checked'
-		)?.nextElementSibling?.textContent;
+			if (styleValue) {
+				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[0]
+					.querySelector(".detail-product__mainscreen-config__item-prop")
+					.textContent = styleValue;
+			}
 
-		if (styleValue) {
-			viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[0]
-				.querySelector(".detail-product__mainscreen-config__item-prop")
-				.textContent = styleValue;
-		}
+			// === 2. Этажность ===
+			const floorValue = editBlock.querySelector(
+				'input[name="HOUSES_FLOORS"]:checked'
+			)?.nextElementSibling?.textContent;
 
-		// === 2. Этажность ===
-		const floorValue = editBlock.querySelector(
-			'input[name="HOUSES_FLOORS"]:checked'
-		)?.nextElementSibling?.textContent;
+			if (floorValue) {
+				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[1]
+					.querySelector(".detail-product__mainscreen-config__item-prop")
+					.textContent = floorValue;
+			}
 
-		if (floorValue) {
-			viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[1]
-				.querySelector(".detail-product__mainscreen-config__item-prop")
-				.textContent = floorValue;
-		}
+			// === 3. Площадь дома ===
+			const selectedOption = editBlock.querySelector(
+				".custom-select-js .options li.active"
+			);
+			if (selectedOption) {
+				const strongText = selectedOption.querySelector("strong")?.textContent;
+				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[2]
+					.querySelector(".detail-product__mainscreen-config__item-prop")
+					.textContent = strongText || selectedOption.textContent;
+			}
+		};
 
-		// === 3. Площадь дома ===
-		const selectedOption = editBlock.querySelector(
-			".custom-select-js .options li.active"
-		);
-		if (selectedOption) {
-			const strongText = selectedOption.querySelector("strong")?.textContent;
-			viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[2]
-				.querySelector(".detail-product__mainscreen-config__item-prop")
-				.textContent = strongText || selectedOption.textContent;
-		}
-	};
+		toggleBtn.addEventListener("click", () => {
+			console.log('click');
+			const isEditing = editBlock.classList.contains("open");
 
-	toggleBtn.addEventListener("click", () => {
-		console.log('click');
-		const isEditing = editBlock.classList.contains("open");
+			if (isEditing) {
+				// === Сохраняем ===
+				updateViewData();
+				editBlock.classList.remove("open");
+				viewBlock.classList.remove("hidden");
+				toggleBtn.textContent = "Изменить";
+			} else {
+				// === Редактируем ===
+				editBlock.classList.add("open");
+				viewBlock.classList.add("hidden");
+				toggleBtn.textContent = "Сохранить";
+			}
+		});
+	}
 
-		if (isEditing) {
-			// === Сохраняем ===
-			updateViewData();
-			editBlock.classList.remove("open");
-			viewBlock.classList.remove("hidden");
-			toggleBtn.textContent = "Изменить";
-		} else {
-			// === Редактируем ===
-			editBlock.classList.add("open");
-			viewBlock.classList.add("hidden");
-			toggleBtn.textContent = "Сохранить";
-		}
+	showMore();
+	showVideo();
+	Fancybox.bind("[data-fancybox]", {
 	});
-
 });
+
+const showMore = () => {
+	const desc = document.querySelector(".detail-product__layout-description");
+	const toggleBtn = document.querySelector(".desc-toggle");
+
+	if (!desc || desc) return;
+
+	if (desc && toggleBtn) {
+		// Показываем кнопку только на мобилке
+		if (window.innerWidth <= 700) {
+			toggleBtn.style.display = "inline-block";
+		}
+
+		toggleBtn.addEventListener("click", () => {
+			desc.classList.toggle("expanded");
+			if (desc.classList.contains("expanded")) {
+				toggleBtn.textContent = "Скрыть";
+			} else {
+				toggleBtn.textContent = "Показать больше";
+			}
+		});
+	}
+}
+
+const showVideo = () => {
+	document.querySelectorAll('.player-wrapper').forEach(wrapper => {
+		wrapper.addEventListener('click', () => {
+			const videoId = wrapper.dataset.videoId;
+			wrapper.innerHTML = `
+			<iframe 
+			width="100%" 
+			height="100%" 
+			src="https://rutube.ru/play/embed/${videoId}" 
+			style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" 
+			allow="clipboard-write" 
+			allowfullscreen>
+			</iframe>
+		`;
+		});
+	});
+}
+
 
 //забрала
 /*
@@ -102,9 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 */
-
-Fancybox.bind("[data-fancybox]", {
-});
 
 /*
 Забрала
@@ -447,42 +490,3 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 */
-document.addEventListener("DOMContentLoaded", () => {
-	const desc = document.querySelector(".detail-product__layout-description");
-	const toggleBtn = document.querySelector(".desc-toggle");
-
-	if (!desc || desc) return;
-
-	if (desc && toggleBtn) {
-		// Показываем кнопку только на мобилке
-		if (window.innerWidth <= 700) {
-			toggleBtn.style.display = "inline-block";
-		}
-
-		toggleBtn.addEventListener("click", () => {
-			desc.classList.toggle("expanded");
-			if (desc.classList.contains("expanded")) {
-				toggleBtn.textContent = "Скрыть";
-			} else {
-				toggleBtn.textContent = "Показать больше";
-			}
-		});
-	}
-});
-
-
-document.querySelectorAll('.player-wrapper').forEach(wrapper => {
-	wrapper.addEventListener('click', () => {
-		const videoId = wrapper.dataset.videoId;
-		wrapper.innerHTML = `
-        <iframe 
-          width="100%" 
-          height="100%" 
-          src="https://rutube.ru/play/embed/${videoId}" 
-          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" 
-          allow="clipboard-write" 
-          allowfullscreen>
-        </iframe>
-      `;
-	});
-});

@@ -59,6 +59,8 @@ if ($haveOffers) {
 	$storages = $arResult['PROPERTIES']['STORAGE']['VALUE'][0] ?? '';
 	$wcs = $arResult['PROPERTIES']['HOUSES_WC']['VALUE'][0] ?? '';
 	$planes = $arResult['PROPERTIES']['PLANES']['VALUE_ELEMENT'] ?? [];
+	$recomendations = $arResult['PROPERTIES']['PROJECTS']['VALUE_ELEMENTS'];
+	//p($recomendations);
 }
 ?>
 <style>
@@ -74,22 +76,41 @@ if ($haveOffers) {
 	<div class="container">
 		<div class="detail-product__mainscreen-inner">
 			<div class="detail-product__mainscreen-images">
-				<? if (!empty($gallery)): ?>
-					<div class="splide detail__page-slider__images">
-						<div class="splide__track">
-							<ul class="splide__list detail__page-slider__image-items">
-								<? foreach ($gallery as $arImage): ?>
-									<li class="splide__slide detail__page-slider__image-item">
-										<div class="detail__page-slider__image-layer"></div>
-										<div class="detail__page-slider__image-description">
-											<?= $arImage['DESCRIPTION']; ?>
-										</div>
-										<img src="<?= $arImage['PATH']; ?>" alt="img">
-									</li>
-								<? endforeach; ?>
-							</ul>
+				<? if($arParams['SECTION_ID'] == 9): ?>
+					<? if(!empty($arResult['PROPERTIES']['TRANSLATION_LINK']['VALUE'])): ?>
+					<a target="_blank" href="<?= $arResult['PROPERTIES']['TRANSLATION_LINK']['DESCRIPTION']; ?>" class="detail-product__mainscreen-video__link">
+						<div class="detail-product__mainscreen-video__link-layer"></div>
+						<div class="detail-product__mainscreen-video__link-play">
+							<svg width="48" height="54" viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M47 26.134C47.6667 26.5189 47.6667 27.4811 47 27.866L2 53.8468C1.33333 54.2317 0.5 53.7506 0.5 52.9808V1.01924C0.5 0.249438 1.33333 -0.231687 2 0.153213L47 26.134Z"
+								fill="white" />
+							</svg>
+							<div class="detail-product__mainscreen-video__link-text">
+							Смотреть стройку в прямом эфире
+							</div>
 						</div>
-					</div>
+						<img src="<?= CFile::GetPath($arResult['PROPERTIES']['TRANSLATION_LINK']['VALUE']); ?>" alt="img">
+					</a>
+					<? endif; ?>
+				<? else: ?>
+					<? if (!empty($gallery)): ?>
+						<div class="splide detail__page-slider__images">
+							<div class="splide__track">
+								<ul class="splide__list detail__page-slider__image-items">
+									<? foreach ($gallery as $arImage): ?>
+										<li class="splide__slide detail__page-slider__image-item">
+											<div class="detail__page-slider__image-layer"></div>
+											<div class="detail__page-slider__image-description">
+												<?= $arImage['DESCRIPTION']; ?>
+											</div>
+											<img src="<?= $arImage['PATH']; ?>" alt="img">
+										</li>
+									<? endforeach; ?>
+								</ul>
+							</div>
+						</div>
+					<? endif; ?>
 				<? endif; ?>
 			</div>
 			<div class="detail-product__mainscreen-info">
@@ -1039,7 +1060,7 @@ if ($haveOffers) {
 			<ul class="splide__list examples-items projects-items">
 				<? if (!empty($recomendations)): ?>
 					<? foreach ($recomendations as $recomendation): ?>
-						<div class="splide__slide examples-item projects-item">
+						<div class="splide__slide examples-item projects-item" onclick="window.location='<?= $recomendation['DETAIL_PAGE_URL']; ?>'">
 							<? if (!empty($recomendation['PROPERTY_GALLERY_VALUE'])): ?>
 								<div class="splide projects-slider__images">
 									<div class="splide__track">

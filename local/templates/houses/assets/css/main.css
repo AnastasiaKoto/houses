@@ -2763,6 +2763,9 @@
  .catalog-item__no-images img {
   max-width: 100%;
  }
+  div[id^="wait_comp_"]{
+    display: none !important;
+  }
 
 
 

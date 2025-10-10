@@ -1,0 +1,6 @@
+iframe.waitwindowlocal {position:absolute; border:0px; z-index:9999;}
+div.waitwindowlocal {position:absolute; border:0px; background: none;}
+div.waitwindowlocalshadow {position:absolute; border:0px; background: none;}
+.bx-core-waitwindow{
+   display: none !important;
+}

@@ -149,8 +149,8 @@ if ($isFilter)
 					<span class="btn-name">
 						Фильтры
 					</span>
-					<span class="btn-count">
-						3 фильтра включены
+					<span class="btn-count hidden">
+						<span></span> фильтр включен
 					</span>
 				</a>
 				<div class="catalog-sort">

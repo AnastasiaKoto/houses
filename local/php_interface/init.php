@@ -31,3 +31,25 @@ function formatPriceInMillions($price) {
     // Округляем до целых миллионов
     return round($millions) . ' млн';
 }
+
+function recreateTextField($code, $arQuestion) {
+    $field = reset($arQuestion['STRUCTURE']);
+    $name = 'form_' . $field['FIELD_TYPE'] . '_' . $field['ID'];
+    $attrs = [
+        'type' => 'text',
+        'id' => htmlspecialcharsbx($code),
+        'name' => htmlspecialcharsbx($name),
+        'value' => htmlspecialcharsbx($arQuestion['VALUE'] ?? ''),
+    ];
+
+    $attrStr = '';
+    foreach ($attrs as $key => $val) {
+        $attrStr .= ' ' . $key . '="' . $val . '"';
+    }
+    $inputHtml = '<input' . $attrStr . '>';
+
+    $labelHtml = '<label for="' . htmlspecialcharsbx($code) . '">' . htmlspecialcharsbx($arQuestion['CAPTION']) . '</label>';
+
+    $html_code = $inputHtml . "\n" . $labelHtml;
+    return $html_code;
+}

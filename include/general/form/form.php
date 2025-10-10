@@ -1,7 +1,7 @@
 <section class="section question-form">
 	<div class="container">
 		<div class="question-form__inner">
-			<div class="section-title">
+			<div class="section-title main_section-title">
 				<? $APPLICATION->IncludeComponent(
 					"bitrix:main.include",
 					"",
@@ -13,7 +13,7 @@
 					)
 				); ?>
 			</div>
-			<div class="question-form__form-subtitle">
+			<div class="question-form__form-subtitle main_question-form__form-subtitle">
 				<? $APPLICATION->IncludeComponent(
 					"bitrix:main.include",
 					"",

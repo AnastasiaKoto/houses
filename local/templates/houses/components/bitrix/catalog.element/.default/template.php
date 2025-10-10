@@ -94,25 +94,23 @@ if ($haveOffers) {
 					</a>
 					<? endif; ?>
 				<? else: ?>
-					
-				<div class="splide detail__page-slider__images">
-					<div class="splide__track">
-						<ul class="splide__list detail__page-slider__image-items">
-							<? if (!empty($gallery)): ?>
-							<? foreach ($gallery as $arImage): ?>
-								<li class="splide__slide detail__page-slider__image-item">
-									<div class="detail__page-slider__image-layer"></div>
-									<div class="detail__page-slider__image-description">
-										<?= $arImage['DESCRIPTION']; ?>
-									</div>
-									<img src="<?= $arImage['PATH']; ?>" alt="img">
-								</li>
-							<? endforeach; ?>
-							<? endif; ?>
-						</ul>
-					</div>
-				</div>
-					
+					<? if (!empty($gallery)): ?>
+						<div class="splide detail__page-slider__images">
+							<div class="splide__track">
+								<ul class="splide__list detail__page-slider__image-items">
+									<? foreach ($gallery as $arImage): ?>
+										<li class="splide__slide detail__page-slider__image-item">
+											<div class="detail__page-slider__image-layer"></div>
+											<div class="detail__page-slider__image-description">
+												<?= $arImage['DESCRIPTION']; ?>
+											</div>
+											<img src="<?= $arImage['PATH']; ?>" alt="img">
+										</li>
+									<? endforeach; ?>
+								</ul>
+							</div>
+						</div>
+					<? endif; ?>
 				<? endif; ?>
 			</div>
 			<div class="detail-product__mainscreen-info">

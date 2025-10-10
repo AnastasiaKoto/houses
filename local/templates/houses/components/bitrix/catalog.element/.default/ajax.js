@@ -278,6 +278,7 @@ class HouseVariationManager {
     initEquipmentTabs() {
         const tabWidgets = document.querySelectorAll(".equipment-tabs");
 
+        if(!tabWidgets) return;
         tabWidgets.forEach(widget => {
             const links = widget.querySelectorAll(".equipment-tabs__link");
             const contents = widget.querySelectorAll(".equipment-tabs__content");

@@ -10,12 +10,16 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
-/*
+
 if ($arResult["isFormErrors"] == "Y") {
 	?>
-	<div class="" id="form-error__<?= $arParams["WEB_FORM_ID"] ?>" style="display: none;">
-		<div>В форме содержатся ошибки</div>
-		<?= $arResult["FORM_ERRORS_TEXT"]; ?>
+	<div class="question-form__inner thx-inner" id="form-error__<?= $arParams["WEB_FORM_ID"] ?>" style="display: none;">
+		<div class="section-title">
+		В форме содержатся ошибки!
+		</div>
+		<a href="javascript:void(0)" class="question-form__form-close">
+		Закрыть
+		</a>
 	</div>
 	<script>
 		new Fancybox([{
@@ -26,9 +30,19 @@ if ($arResult["isFormErrors"] == "Y") {
 <? }
 
 if ($arResult["isFormNote"] == "Y") { ?>
-	<div class="form-success" id="form-success__<?= $arParams["WEB_FORM_ID"] ?>" style="display: none;">
-		<div class="form-success__title">Спасибо!</div>
-		<div>Ваша заявка успешно отправлена.</div>
+	<div class="question-form__inner thx-inner" id="form-success__<?= $arParams["WEB_FORM_ID"] ?>" style="display: none;">
+		<div class="section-title">
+		Ваша заявка успешно отправлена!
+		</div>
+		<div class="question-form__form-subtitle">
+		Наш менеджер свяжется с вами по номеру:
+		</div>
+		<a href="+79999878797" class="question-form__form-phone">
+		+7 (999) 987-87-97
+		</a>
+		<a href="javascript:void(0)" class="question-form__form-close">
+		Закрыть
+		</a>
 	</div>
 	<script>
 		new Fancybox([{
@@ -45,11 +59,7 @@ if ($arResult["isFormNote"] == "Y") { ?>
 	</script>
 <? } ?>
 <?= $arResult["FORM_NOTE"];
-/*
-echo '<pre>';
-print_r($arResult["QUESTIONS"]);
-echo '</pre>';
-*/
+
 if ($arResult["isFormNote"] != "Y") { ?>
 	<?= $arResult["FORM_HEADER"] ?>
 	<div class="question-form__form">

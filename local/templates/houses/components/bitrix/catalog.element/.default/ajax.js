@@ -345,6 +345,7 @@ class HouseVariationManager {
 
     //инициализация и переинициализация главного слайдера
     mainGalleryInit() {
+        if(!this.slider) return;
         //this.slider.forEach(slider => {
             if(this.slider) {
                 const splide = new Splide(this.slider, {
@@ -534,6 +535,7 @@ class HouseVariationManager {
 
     //plane tabs
     renderPlaneTabs() {
+        if(!this.planeLinks) return;
         this.planeLinks.addEventListener("click", (e) => {
             if (e.target.classList.contains("detail-product__layout-tabs__link")) {
                 e.preventDefault();

@@ -53,6 +53,7 @@ const filters = () => {
   const dragLine = document.querySelector(".mobile-drag__line");
   const body = document.querySelector("body");
 
+  if(!trigger || !filters) return;
   let startY = 0;
   let isDragging = false;
 

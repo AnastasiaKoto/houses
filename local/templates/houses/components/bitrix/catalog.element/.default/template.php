@@ -360,7 +360,7 @@ if ($haveOffers) {
 							<? if (!empty($arResult['PROPERTIES']['HOUSES_STYLE']['VALUE'])): ?>
 								<div class="detail-product__finished-config__item">
 									<div class="detail-product__finished-config__item-label">
-										Стиль
+										Стиль постройки
 									</div>
 									<div class="detail-product__finished-config__item-value">
 										<?= $arResult['PROPERTIES']['HOUSES_STYLE']['VALUE'][0]; ?>
@@ -521,7 +521,7 @@ if ($haveOffers) {
 									<div class="icon">
 										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/bath.svg" alt="img">
 									</div>
-									<span> Кладовки</span>
+									<span>Санузлы</span>
 								</div>
 								<div class="detail-product__layout-additional-option__component-devider"></div>
 								<div

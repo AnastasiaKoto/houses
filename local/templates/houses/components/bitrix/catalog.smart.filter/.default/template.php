@@ -45,51 +45,72 @@ if(!empty($arResult["ITEMS"])):
 		<div class="catalog-filters__acc">
 			<?foreach($arResult["ITEMS"] as $key=>$arItem) { 
 				if ($key === 'SORT') continue;
-				if($arItem['CODE'] === 'HOUSES_PRICES' || $arItem['CODE'] === 'HOUSES_SQUARES'): 
-					if ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"] <= 0)
-						continue;
-					$price_ranges = array();
-					$step_num = $arItem['CODE'] === 'HOUSES_PRICES' ? 3 : 4;
-					$step = ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"]) / $step_num;
-					$ch_name = $arItem['CODE'] === 'HOUSES_PRICES' ? 'price_ranges[]' : 'square_ranges[]';
+				if($arItem['CODE'] === 'HOUSES_PRICES' || $arItem['CODE'] === 'HOUSES_SQUARES'):
+					if ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"] <= 0) continue;
 
-					for ($i = 0; $i < $step_num; $i++) {
-						$range_min = $arItem["VALUES"]["MIN"]["VALUE"] + $step * $i;
-						$range_max = $arItem["VALUES"]["MIN"]["VALUE"] + $step * ($i + 1);
-						$precision = $arItem["DECIMALS"] ? $arItem["DECIMALS"] : 0;
-						//уменьшаем, чтобы диапазоны не пересекались
-						if ($i < $step_num - 1) {
-							$range_max -= 0.01;
-						}
-						// Создаем названия для чекбоксов
-						if($arItem['CODE'] === 'HOUSES_PRICES') {
-							if ($i == 0) {
-								$range_name = "до " . formatPriceInMillions($range_max) . ' ₽';
-							} elseif ($i == $step_num - 1) {
-								$range_name = "от " . formatPriceInMillions($range_min) . ' ₽';
-							} else {
-								$range_name = formatPriceInMillions($range_min) . " ₽ - " . formatPriceInMillions($range_max) . ' ₽';
-							}
-						} else {
-							//тут увеличиваем чтобы вернуть отображение
-							if ($i == 0) {
-								$range_name = "до " . $range_max + 0.01 . ' м<sup>2</sup>';
-							} elseif ($i == $step_num - 1) {
-								$range_name = "от " . $range_min +0.01 . ' м<sup>2</sup>';
-							} else {
-								$range_name = $range_min . " м<sup>2</sup> - " . $range_max . ' м<sup>2</sup>';
-							}
-						}
-						
-						$price_ranges[] = array(
-							'min' => $range_min,
-							'max' => $range_max,
-							'name' => $range_name,
-							'control_name' => $arItem["VALUES"]["MIN"]["CONTROL_NAME"] . "_range_" . $i,
-							'control_id' => $arItem["VALUES"]["MIN"]["CONTROL_ID"] . "_range_" . $i
-						);
+					$price_ranges = [];
+
+					if ($arItem['CODE'] === 'HOUSES_PRICES') {
+						// Фиксированные диапазоны для цены
+						$price_ranges = [
+							[
+								'min' => 0,
+								'max' => 10000000,
+								'name' => 'до 10 млн ₽',
+								'control_name_suffix' => '_range_0',
+								'control_id_suffix' => '_range_0'
+							],
+							[
+								'min' => 10000000.01,
+								'max' => 15000000,
+								'name' => '10 - 15 млн ₽',
+								'control_name_suffix' => '_range_1',
+								'control_id_suffix' => '_range_1'
+							],
+							[
+								'min' => 15000000.01,
+								'max' => 999999999,
+								'name' => 'от 15 млн ₽',
+								'control_name_suffix' => '_range_2',
+								'control_id_suffix' => '_range_2'
+							]
+						];
+						$ch_name = 'price_ranges[]';
+					} else {
+						// Фиксированные диапазоны для площади
+						$price_ranges = [
+							[
+								'min' => 0,
+								'max' => 100,
+								'name' => 'до 100 м<sup>2</sup>',
+								'control_name_suffix' => '_range_0',
+								'control_id_suffix' => '_range_0'
+							],
+							[
+								'min' => 100.01,
+								'max' => 150,
+								'name' => '100 - 150 м<sup>2</sup>',
+								'control_name_suffix' => '_range_1',
+								'control_id_suffix' => '_range_1'
+							],
+							[
+								'min' => 150.01,
+								'max' => 99999,
+								'name' => 'от 150 м<sup>2</sup>',
+								'control_name_suffix' => '_range_2',
+								'control_id_suffix' => '_range_2'
+							]
+						];
+						$ch_name = 'square_ranges[]';
 					}
-				?>
+
+					foreach ($price_ranges as &$range) {
+						$range['control_name'] = $arItem["VALUES"]["MIN"]["CONTROL_NAME"] . $range['control_name_suffix'];
+						$range['control_id'] = $arItem["VALUES"]["MIN"]["CONTROL_ID"] . $range['control_id_suffix'];
+					}
+					unset($range);
+					?>
+
 					<div class="ctalog-filters__acc-item <?if ($arItem["DISPLAY_EXPANDED"]== "Y"):?>open<? endif; ?>">
 						<input
 							type="hidden"
@@ -106,12 +127,9 @@ if(!empty($arResult["ITEMS"])):
 							onkeyup="smartFilter.keyup(this)"
 						/>
 						<div class="catalog-filter__acc-title <?if (isset($arItem["DISPLAY_EXPANDED"]) && $arItem["DISPLAY_EXPANDED"] == "Y"):?>open<?endif?>">
-							<span>
-								<?=$arItem["NAME"]?>
-							</span>
+							<span><?=$arItem["NAME"]?></span>
 							<svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M1 1.5L5 5.5L9 1.5" stroke="#21272A" stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round" />
+								<path d="M1 1.5L5 5.5L9 1.5" stroke="#21272A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
 						</div>
 						<div class="catalog-filter__acc-content">
@@ -122,15 +140,12 @@ if(!empty($arResult["ITEMS"])):
 									name="<?= $ch_name; ?>" 
 									id="<?=$range['control_id']?>"
 									value="<?=$range['min']?>-<?=$range['max']?>"
-									onchange=""
 									data-min="<?=$range['min']?>"
 									data-max="<?=$range['max']?>"
 								>
 								<span class="checkmark">
-									<svg width="12" height="10" viewBox="0 0 12 10" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5"
-										stroke-linecap="round" stroke-linejoin="round" />
+									<svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								</span>
 								<span class="checkbox-text"><?=$range['name']?></span>
@@ -138,51 +153,35 @@ if(!empty($arResult["ITEMS"])):
 							<?endforeach;?>
 						</div>
 					</div>
+
 					<script>
 						BX.ready(function(){
-							window.initRanges = function() {
+							function initFixedRanges() {
 								var minInput = document.getElementById('<?=$arItem["VALUES"]["MIN"]["CONTROL_ID"]?>');
 								var maxInput = document.getElementById('<?=$arItem["VALUES"]["MAX"]["CONTROL_ID"]?>');
 								var checkboxes = document.querySelectorAll('input[name="<?= $ch_name; ?>"]');
 
-								if (minInput.value && maxInput.value) {
+								// Восстановление состояния чекбоксов при загрузке
+								if (minInput.value !== '' && maxInput.value !== '') {
 									var currentMin = parseFloat(minInput.value);
 									var currentMax = parseFloat(maxInput.value);
-									
+
 									checkboxes.forEach(function(checkbox) {
 										var min = parseFloat(checkbox.getAttribute('data-min'));
 										var max = parseFloat(checkbox.getAttribute('data-max'));
-										
-										// Отмечаем чекбоксы, которые попадают в текущий диапазон
-										if ((min >= currentMin && min <= currentMax) || 
-											(max >= currentMin && max <= currentMax) ||
-											(currentMin >= min && currentMax <= max)) {
+
+										// Проверяем пересечение диапазонов
+										if (currentMin <= max && currentMax >= min) {
 											checkbox.checked = true;
 										}
 									});
 								}
-							};
-							
-							initRanges();
 
-							function initRangeCheckboxes() {
-								var priceCheckboxes = document.querySelectorAll('input[name="<?= $ch_name; ?>"]');
-								
-								priceCheckboxes.forEach(function(checkbox) {
+								// Обработчик изменений
+								checkboxes.forEach(function(checkbox) {
 									checkbox.addEventListener('change', function() {
-										// Находим базовый ID контрола (убираем _range_X)
-										var baseControlId = this.id.replace(/_range_\d+$/, '');
-										
-										var minInput = document.getElementById('<?=$arItem["VALUES"]["MIN"]["CONTROL_ID"]?>');
-										var maxInput = document.getElementById('<?=$arItem["VALUES"]["MAX"]["CONTROL_ID"]?>');
-										
-										if (!minInput || !maxInput) return;
-										
-										// Собираем все выбранные диапазоны для этого поля цены
-										var rangeCheckboxes = document.querySelectorAll('input[name="<?= $ch_name; ?>"]');
 										var selectedRanges = [];
-										
-										rangeCheckboxes.forEach(function(cb) {
+										document.querySelectorAll('input[name="<?= $ch_name; ?>"]').forEach(function(cb) {
 											if (cb.checked) {
 												selectedRanges.push({
 													min: parseFloat(cb.getAttribute('data-min')),
@@ -190,19 +189,17 @@ if(!empty($arResult["ITEMS"])):
 												});
 											}
 										});
-										
-										// Вычисляем общий диапазон
+
 										if (selectedRanges.length > 0) {
-											var overallMin = Math.min.apply(Math, selectedRanges.map(function(range) { return range.min; }));
-											var overallMax = Math.max.apply(Math, selectedRanges.map(function(range) { return range.max; }));
-											
+											var overallMin = Math.min.apply(Math, selectedRanges.map(r => r.min));
+											var overallMax = Math.max.apply(Math, selectedRanges.map(r => r.max));
 											minInput.value = overallMin;
 											maxInput.value = overallMax;
 										} else {
-											// Если ничего не выбрано - очищаем поля
 											minInput.value = '';
 											maxInput.value = '';
 										}
+
 										if (window.smartFilter) {
 											smartFilter.keyup(minInput);
 										}
@@ -210,7 +207,7 @@ if(!empty($arResult["ITEMS"])):
 								});
 							}
 
-							initRangeCheckboxes();
+							initFixedRanges();
 						});
 					</script>
 				<? else: ?>

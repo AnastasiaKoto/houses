@@ -251,9 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
+const customSelectTrigger = () => {
   document.querySelectorAll(".custom-select, .custom-select-cornored").forEach(select => {
     const trigger = select.querySelector(".custom-select__trigger");
     const value = select.querySelector(".custom-select__value");
@@ -280,7 +278,15 @@ document.addEventListener("DOMContentLoaded", () => {
       select.classList.remove("open");
     });
   });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  customSelectTrigger();
 });
+
+BX.addCustomEvent('OnAjaxSuccess', function(){
+  customSelectTrigger();
+})
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {

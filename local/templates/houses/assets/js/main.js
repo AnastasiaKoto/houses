@@ -280,12 +280,34 @@ const customSelectTrigger = () => {
   });
 }
 
+
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+function checkAcceptedSort() {
+  const sortParam = getUrlParameter('sort');
+  if (sortParam) {
+    const sortElement = document.querySelector(`li[data-sort-key="${sortParam}"]`);
+    if (sortElement) {
+      const customSelectValue = document.querySelector('.custom-select__value');
+      if (customSelectValue) {
+        customSelectValue.textContent = sortElement.textContent;
+      }
+    }
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   customSelectTrigger();
+  checkAcceptedSort();
 });
 
 BX.addCustomEvent('OnAjaxSuccess', function(){
   customSelectTrigger();
+  setTimeout(checkAcceptedSort, 300);
 })
 
 // document.addEventListener("DOMContentLoaded", () => {

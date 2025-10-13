@@ -52,6 +52,7 @@ if(!empty($arResult['ITEMS'])):
 				</div>
 				<? $count++; endforeach; ?>
 			</div>
+			<a href="#question" class="ask-btn">Задать свой вопрос</a>
 		</div>
 	</div>
 </section>

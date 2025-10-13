@@ -4,8 +4,8 @@ $arSortParams = [
     'default' => ['NAME' => 'Порядок: по умолчанию', 'SORT' => 'SORT', 'ORDER' => 'ASC'], // Стандартное поле SORT
     'price_asc' => ['NAME' => 'Цена: по возрастанию', 'SORT' => 'PROPERTY_HOUSES_PRICES', 'ORDER' => 'ASC'],
     'price_desc' => ['NAME' => 'Цена: по убыванию', 'SORT' => 'PROPERTY_HOUSES_PRICES', 'ORDER' => 'DESC'],
-    'name_asc' => ['NAME' => 'Площадь по возрастанию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'ASC'],
-    'name_desc' => ['NAME' => 'Площадь по убыванию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'DESC'],
+    'square_asc' => ['NAME' => 'Площадь по возрастанию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'ASC'],
+    'square_desc' => ['NAME' => 'Площадь по убыванию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'DESC'],
     'date_desc' => ['NAME' => 'Порядок: сперва новые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'DESC'],
     'date_asc' => ['NAME' => 'Порядок: сперва старые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'ASC']
 ];

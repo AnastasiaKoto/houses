@@ -1,4 +1,4 @@
-<section class="section question-form">
+<section id="question" class="section question-form">
 	<div class="container">
 		<div class="question-form__inner">
 			<div class="section-title main_section-title">

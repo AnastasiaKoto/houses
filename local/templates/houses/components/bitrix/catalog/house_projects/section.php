@@ -154,7 +154,7 @@ if ($isFilter)
 					</span>
 				</a>
 				<div class="catalog-sort">
-					<div class="custom-select-cornored " data-placeholder="Удобное время">
+					<div class="custom-select-cornored <? if(isset($_REQUEST['sort']) && !empty($_REQUEST['sort'])) echo 'active'; ?>" data-placeholder="Удобное время">
 						<div class="custom-select__trigger">
 						<span class="custom-select__value"></span>
 						<label>Сортировка</label>

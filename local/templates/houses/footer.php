@@ -74,7 +74,7 @@
             "bitrix:highloadblock.list",
             "socials",
             array(
-              "BLOCK_ID" => "5",	// ID highload блока
+              "BLOCK_ID" => HL_SOCIAL_NETWORKS_ID,	// ID highload блока
               "CHECK_PERMISSIONS" => "N",	// Проверять права доступа
               "DETAIL_URL" => "",	// Путь к странице просмотра записи
               "FILTER_NAME" => "",	// Идентификатор фильтра

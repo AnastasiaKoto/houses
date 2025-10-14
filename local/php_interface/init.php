@@ -53,3 +53,5 @@ function recreateTextField($code, $arQuestion) {
     $html_code = $inputHtml . "\n" . $labelHtml;
     return $html_code;
 }
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/config/iblocks.php';

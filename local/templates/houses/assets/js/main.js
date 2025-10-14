@@ -299,7 +299,6 @@ function checkAcceptedSort() {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   customSelectTrigger();
   checkAcceptedSort();

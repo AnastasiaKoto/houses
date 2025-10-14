@@ -34,21 +34,25 @@
             <img src="<?=SITE_TEMPLATE_PATH?>/assets/img/logo.svg" alt="logo">
           </a>
           
-          <?$APPLICATION->IncludeComponent("bitrix:menu", "top_multilevel", Array(
-            "ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
-              "MAX_LEVEL" => "2",	// Уровень вложенности меню
-              "CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
-              "USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-              "DELAY" => "N",	// Откладывать выполнение шаблона меню
-              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
-              "COMPONENT_TEMPLATE" => "horizontal_multilevel"
-            ),
-            false
-          );?>
+          <?$APPLICATION->IncludeComponent(
+	"bitrix:menu", 
+	"top_multilevel", 
+	array(
+		"ROOT_MENU_TYPE" => "top",
+		"MAX_LEVEL" => "2",
+		"CHILD_MENU_TYPE" => "left",
+		"USE_EXT" => "N",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "N",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "top_multilevel"
+	),
+	false
+);?>
           
           <div class="nav-contacts">
             <a href="javascript:void(0)" class="nav-contact icon" target="_blank">
@@ -79,3 +83,18 @@
     </nav>
   </header>
   <main>
+    <div class="container" id="breadcrumb-container">
+    <? if($APPLICATION->GetCurPage() !== '/'): ?>
+      <?$APPLICATION->IncludeComponent(
+	"bitrix:breadcrumb", 
+	"houses_breadcrumbs", 
+	array(
+		"START_FROM" => "0",
+		"PATH" => "",
+		"SITE_ID" => "s1",
+		"COMPONENT_TEMPLATE" => "houses_breadcrumbs"
+	),
+	false
+);?>
+    <? endif; ?>
+    </div>

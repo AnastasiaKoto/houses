@@ -6,7 +6,7 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Catalog\ProductTable;
 
 $this->setFrameMode(true);
-
+$APPLICATION->AddChainItem($arResult["NAME"]);
 if (!empty($arResult['NAV_RESULT'])) {
 	$navParams = array(
 		'NavPageCount' => $arResult['NAV_RESULT']->NavPageCount,

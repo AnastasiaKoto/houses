@@ -1,0 +1,102 @@
+.vacancy {
+  & h1 {
+    margin-bottom: 20px;
+  }
+
+  & .vacancy-subtitle {
+    margin-bottom: 40px;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.6px;
+    color: var(--darg-gray-color);
+  }
+
+  & .vacancy-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 76px;
+    margin-top: 40px;
+    @media(max-width: 1400px) {
+      gap: 40px;
+    }
+
+    @media(max-width: 1100px) {
+     grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media(max-width: 700px) {
+     grid-template-columns: repeat(1, 1fr);
+     gap: 10px;
+    }
+
+    & .vacancy-item {
+      border-radius: 30px;
+      background: var(--light-color);
+      box-shadow: 0 4px 185.8px 0 rgba(0, 0, 0, 0.06);
+      padding: 31px 24px;
+
+      @media(max-width: 700px) {
+        padding: 24px;
+      }
+
+      & .vacancy-item__name {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        /* 28.8px */
+        letter-spacing: -0.48px;
+        margin-bottom: 10px;
+      }
+
+      & .vacancy-item-salary {
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        /* 24px */
+        letter-spacing: -0.4px;
+        margin-bottom: 10px;
+      }
+
+      & .vacancy-item__conditions {
+        padding-left: 25px;
+        list-style-type: disc;
+        margin-bottom: 10px;
+
+        & li {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 120%;
+          color: #8E9293;
+          letter-spacing: -0.32px;
+        }
+      }
+
+      & .vacancy-item__link {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 16.8px */
+        letter-spacing: -0.14px;
+        padding: 10px 20px;
+        border-radius: 20px;
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        transition: all .3s ease-in;
+        border: 1px solid var(--dark-color);
+        display: block;
+        max-width: fit-content;
+        &:hover {
+          transition: all .3s ease-in;
+          color: var(--dark-color);
+          background-color: var(--light-color);
+        }
+      }
+    }
+  }
+}

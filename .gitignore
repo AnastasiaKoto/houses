@@ -3,3 +3,4 @@
 /upload/
 /.htaccess
 /debug.log
+/local/php_interface/config/

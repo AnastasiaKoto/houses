@@ -9,7 +9,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Документы", 
-		"/company/dokumenty/", 
+		"/dokumenty/", 
 		Array(), 
 		Array(), 
 		"" 

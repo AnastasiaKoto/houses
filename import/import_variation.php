@@ -30,7 +30,7 @@ function getPropertyEnumId($propertyCode, $value, $iblockId) {
     if ($existing = $enumRes->Fetch()) {
         return $existing['ID'];
     }
-    logMessage("Значение не найдено");
+    logMessage("Значение $value не найдено");
     
     return null;
 }

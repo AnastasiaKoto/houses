@@ -9,14 +9,6 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.
 use Bitrix\Main\Loader;
 
 Loader::includeModule('iblock');
-Loader::includeModule('catalog');
-Loader::includeModule('highloadblock');
-
-function logMessage($message) {
-    $logFile = $_SERVER["DOCUMENT_ROOT"] . '/import/variations.log';
-    $timestamp = date("Y-m-d H:i:s");
-    file_put_contents($logFile, "[$timestamp] $message\n", FILE_APPEND);
-}
 
 function getPropertyEnumId($propertyCode, $value, $iblockId) {
     if (empty($value)) return null;
@@ -35,18 +27,12 @@ function getPropertyEnumId($propertyCode, $value, $iblockId) {
         'PROPERTY_ID' => $property['ID'],
         'VALUE' => $value
     ]);
-    
     if ($existing = $enumRes->Fetch()) {
         return $existing['ID'];
     }
+    logMessage("Значение не найдено");
     
-    $newEnum = new CIBlockPropertyEnum;
-    $newId = $newEnum->Add([
-        'PROPERTY_ID' => $property['ID'],
-        'VALUE' => $value
-    ]);
-    
-    return $newId ?: null;
+    return null;
 }
 
 function generateCode($name, $iblockId = 0) {
@@ -81,10 +67,45 @@ function generateCode($name, $iblockId = 0) {
     return $code;
 }
 
-function importOffersSimple($csvFilePath) {
-    $iblockId = 6;
-    $offersIblockId = 11;
+function addImages($paths) {
+    $gallery = [];
+
+    if(!empty($paths)) {
+        $photoGallery = explode(", ", $paths);
     
+        if (!empty($photoGallery)) {
+            foreach ($photoGallery as $field) {
+                $fileArray = CFile::MakeFileArray($field);
+                if ($fileArray) {
+                    $gallery[] = $fileArray;
+                }
+            }
+        }
+    }
+    
+    return $gallery;
+}
+
+function stringProjectsToArray($progectsString) {
+    $projectIds = explode(", ", $progectsString);
+    $linkedProjects = [];
+    foreach($projectIds as $projectId) {
+        $project = CIBlockElement::GetByID($projectId)->Fetch();
+        if ($project) {
+            $linkedProjects[] = $projectId;
+        } else {
+            logMessage("Элемент прилинкованного проекта не найден");
+        }
+    }
+
+    if(!empty($linkedProjects)) {
+        return $linkedProjects;
+    } else {
+        return null;
+    }
+}
+
+function importOffersSimple($csvFilePath) {
     $handle = fopen($csvFilePath, 'r');
     if (!$handle) {
         throw new Exception("Не удалось открыть файл: $csvFilePath");
@@ -95,86 +116,206 @@ function importOffersSimple($csvFilePath) {
         throw new Exception("Ошибка чтения заголовков CSV");
     }
     
+    $counter = 0;
     while (($data = fgetcsv($handle, 10000, ',')) !== false) {
-        $row = array_combine($header, $data);
-        
-        if ($row['Тип товара'] !== 'предложение') continue;
-        
-        $parentProductId = (int)$row['Элемент каталога'];
-        if (!$parentProductId) {
-            logMessage("Пропуск: не указан ID товара для предложения '{$row['Название']}'");
-            continue;
-        }
 
-        // Проверяем существование родительского товара
-        $res = CIBlockElement::GetList(
-            [],
-            ['ID' => $parentProductId, 'IBLOCK_ID' => $iblockId],
-            false,
-            false,
-            ['ID', 'NAME']
-        );
-        
-        if (!$arParent = $res->Fetch()) {
-            logMessage("Родительский товар $parentProductId не существует, пропускаем предложение");
-            continue;
-        }
+        try {
 
-        $sizeId = !empty($row['Размер']) ? getPropertyEnumId('SIZE', $row['Размер'], $offersIblockId) : null;
-        $volumeId = !empty($row['Объем']) ? getPropertyEnumId('VOLUME', $row['Объем'], $offersIblockId) : null;
-        $productCode = generateCode($row['Название'], $offersIblockId);
-        
-        $el = new CIBlockElement;
-        
-        $offerFields = [
-            'IBLOCK_ID' => $offersIblockId,
-            'NAME' => $row['Название'],
-            'CODE' => $productCode,
-            'ACTIVE' => $row['Активность'] == 'Да' ? 'Y' : 'N',
-            'PROPERTY_VALUES' => [
-                'CML2_LINK' => $parentProductId, // Привязка к товару по ID
-                'COLOR_REF' => $row['Цвет'],
-                'SIZE' => $sizeId,
-                'VOLUME' => $volumeId
-            ]
-        ];
+            if($counter <= 2):
 
-        $offerId = $el->Add($offerFields);
-        
-        if ($offerId) {
-            logMessage("Создано предложение ID: $offerId для товара $parentProductId ({$arParent['NAME']})");
-            
-            // Добавляем в каталог
-            $catalogFields = [
-                'ID' => $offerId,
-                'QUANTITY' => (int)$row['Доступное количество'] ?? 0,
-                'VAT_ID' => 2,
-                'VAT_INCLUDED' => 'Y',
-                'TYPE' => CCatalogProduct::TYPE_OFFER
+            if (empty(array_filter($data))) {
+                logMessage("Пустая дата.");
+                continue;
+            }
+
+            if (count($data) !== count($header)) {
+                logMessage("Не совпадает количество стролбцов строки.");
+                continue;
+            }
+
+            $row = array_combine($header, $data);
+            $productFields = [];
+            $productProperties = [];
+            $productId = !empty($row['ID']) ? $row['ID'] : null;
+            $gallery = addImages($row['Галерея']);
+            $project_type = $row['TYPE'] == 'variation' ? 'вариация' : 'проект';
+            $linkedProjects = [];
+
+            if (!empty($row['Примеры реализованных проектов'])) {
+                $linkedProjects = stringProjectsToArray($row['Примеры реализованных проектов']);
+            }
+
+
+            if($row['TYPE'] == 'variation'):
+                $iblockId = 11;
+                $sectionId = 0;
+                $anounce = $row['Описание для анонса'];
+
+                $styleId = !empty($row['Стиль']) ? getPropertyEnumId('HOUSES_STYLE', $row['Стиль'], $iblockId) : null;
+                $floors = !empty($row['Этажность']) ? getPropertyEnumId('HOUSES_FLOORS', $row['Этажность'], $iblockId) : null;
+                $facades = !empty($row['Стиль фасадов']) ? getPropertyEnumId('HOUSES_FACADE', $row['Стиль фасадов'], $iblockId) : null;
+                $otdelka = !empty($row['Отделка']) ? getPropertyEnumId('HOUSES_OTDELKA', $row['Отделка'], $iblockId) : null;
+                $naruzh_otdelka = !empty($row['Стиль отделки']) ? getPropertyEnumId('HOUSES_OTDELKA_STYLE', $row['Стиль отделки'], $iblockId) : null;
+
+                $productCode = generateCode($row['Название'], $iblockId);
+
+                $other_gallery = addImages($row['Другое (галерея)']);
+                $interjers_gallery = addImages($row['Изображения интерьеров']);
+                $cuts_gallery = addImages($row['Изображения разрезов']);
+                $facade_gallery = addImages($row['Изображения фасадов']);
+                $roof_gallery = addImages($row['Кровля (галерея)']);
+                $finish_gallery = addImages($row['Наружная отделка (галерея)']);
+                $doors_gallery = addImages($row['Окна и двери (галерея)']);
+                $walls_gallery = addImages($row['Стены (галерея)']);
+                $insul_gallery = addImages($row['Утепление (галерея)']);
+                $fundament_gallery = addImages($row['Фундамент (галерея)']);
+
+                $plane = array_map('trim', explode(', ', $row['Планировка этажей']));
+                //$square = getDirectoryItemId(9, $row['Площадь']);
+
+                $productProperties = [
+                    'HEIGHT' => $row['Высота потолков'],
+                    'SIZES' => $row['Габариты'],
+                    'GALLERY' => $gallery,
+                    'OTHER_IMG' => $other_gallery,
+                    'OTHER_CONFIG' => $row['Другое'],
+                    'INTERJER_IMAGES' => $interjers_gallery,
+                    'CUT_IMAGES' => $cuts_gallery,
+                    'FACADE_IMAGES' => $facade_gallery,
+                    'STORAGE' => $row['Кладовки'],
+                    'ROOF_IMG' => $roof_gallery,
+                    'ROOF_CONFIG' => $row['Кровля'],
+                    'OUTER_FINISH_CONFIG' => $row['Наружная отделка'],
+                    'OUTER_FINISH_IMG' => $finish_gallery,
+                    'DOORS_CONFIG' => $row['Окна и двери'],
+                    'DOORS_IMG' => $doors_gallery,
+                    'PLANE' => $plane,
+                    'HOUSES_SQUARES' => $row['Площадь'],
+                    'PROJECTS' => $linkedProjects,
+                    'WCS' => $row['Санузлы'],
+                    'ROOMS' => $row['Спальни'],
+                    'DEADLINE' => $row['Срок строительства'],
+                    'WALLS_CONFIG' => $row['Стены'],
+                    'WALLS_IMG' => $walls_gallery,
+                    'HOUSES_STYLE' => $styleId,
+                    'HOUSES_OTDELKA_STYLE' => $naruzh_otdelka,
+                    'HOUSES_OTDELKA' => $otdelka,
+                    'HOUSES_FACADE' => $facades,
+                    'FORMATTED_PRICE' => $row['Стоимость (только число!!)'],
+                    'INSULATION_CONFIG' => $row['Утепление'],
+                    'INSULATION_IMG' => $insul_gallery,
+                    'FUNDAMENT_CONFIG' => $row['Фундамент'],
+                    'FUNDAMENT_IMG' => $fundament_gallery,
+                    'HOUSES_FLOORS' => $floors
+                ];
+            elseif($row['TYPE'] == 'variable_project'):
+                $iblockId = 6;
+                $sectionId = 10;
+                $anounce = $row['Локация'];
+
+                $rooms = !empty($row['Количество комнат']) ? getPropertyEnumId('HOUSES_ROOMS', $row['Количество комнат'], $iblockId) : null;
+                $wcs = !empty($row['Количество санузлов']) ? getPropertyEnumId('HOUSES_WC', $row['Количество санузлов'], $iblockId) : null;
+                $show_main = !empty($row['Показывать на главной']) ? getPropertyEnumId('SHOW_MAIN', $row['Показывать на главной'], $iblockId) : null;
+                $styleId = !empty($row['Стиль']) ? getPropertyEnumId('HOUSES_STYLE', $row['Стиль'], $iblockId) : null;
+                $floors = !empty($row['Этажность']) ? getPropertyEnumId('HOUSES_FLOORS', $row['Этажность'], $iblockId) : null;
+
+                $buildings = array_map('trim', explode(', ', $row['Планировка этажей']));
+                $variations = [];
+
+                if (!empty($row['Вариации дома'])) {
+                    $variations = stringProjectsToArray($row['Дополнительные постройки (внешний код)']);
+                }
+                
+                $productProperties = [
+                    'HOUSE_VARIABLES' => $variations,
+                    'BUILDINGS' => $variations,
+                    'GALLERY' => $gallery,
+                    'HOUSES_ROOMS' => $rooms,
+                    'HOUSES_WC' => $wcs,
+                    'OTDELKA' => $row['Отделка (по умолчанию)'],
+                    'HOUSES_SQUARES' => $row['Площадь'],
+                    'SHOW_MAIN' => $show_main,
+                    'HOUSES_SIZES' => $row['Размеры'],
+                    'HOUSES_STYLE' => $styleId,
+                    'HOUSES_PRICES' => $row['Стоимость'],
+                    'INSULATION_IMG' => $insul_gallery,
+                    'FUNDAMENT_CONFIG' => $row['Фундамент'],
+                    'FUNDAMENT_IMG' => $fundament_gallery,
+                    'PROJECTS' => $linkedProjects,
+                    'HOUSES_FLOORS' => $floors
+                ];
+            endif;
+
+            $productFields = [
+                'IBLOCK_ID' => $iblockId ?? null,
+                'NAME' => $row['Название'],
+                'CODE' => $productCode,
+                'PREVIEW_TEXT' => $anounce ?? null,
+                'IBLOCK_SECTION' => $sectionId ?? null,
             ];
-            
-            if (!CCatalogProduct::Add($catalogFields)) {
-                logMessage("Ошибка добавления в каталог для предложения $offerId: " . $GLOBALS['APPLICATION']->GetException());
+            if($productId !== null) {
+                $existingProduct = CIBlockElement::GetList(
+                    [],
+                    [
+                        'IBLOCK_ID' => $iblockId,
+                        'ID' => $productId
+                    ],
+                    false,
+                    false,
+                    ['ID']
+                )->Fetch();
+
+                $productProperties = array_filter($productProperties, function($value) {
+                    return !empty($value);
+                });
             }
-            
-            if (!CPrice::Add([
-                'PRODUCT_ID' => $offerId,
-                'CATALOG_GROUP_ID' => 1,
-                'PRICE' => (int)$row['Розничная цена'],
-                'CURRENCY' => 'RUB'
-            ])) {
-                logMessage("Ошибка добавления цены для предложения $offerId: " . $GLOBALS['APPLICATION']->GetException());
-            }
-        } else {
-            logMessage("Ошибка создания предложения: " . $el->LAST_ERROR);
+
+            if ($existingProduct):
+                $element = new CIBlockElement;
+                $productId = $existingProduct['ID'];
+                $result = $element->Update($productId, $productFields);
+                
+                if ($result) {
+                    if (!empty($productProperties)) {
+
+                        $updateResult = CIBlockElement::SetPropertyValuesEx($productId, $iblockId, $productProperties);
+                        
+                        if (!$updateResult) {
+                            global $APPLICATION;
+                            $exception = $APPLICATION->GetException();
+                            $errorMessage = $exception ? $exception->GetString() : "Неизвестная ошибка";
+                            logMessage("Ошибка обновления свойств $project_type, ID: $productId: " . $errorMessage);
+                        }
+                    } else {
+                        logMessage("Нет свойств для обновления $project_type, ID: $productId - существующие значения сохранены");
+                    }
+                } else {
+                    $error = $element->LAST_ERROR;
+                    logMessage("Ошибка обновления $project_type, ID: $productId; Error: $error");
+                }
+            else:
+                $element = new CIBlockElement;
+                $newProductId = $element->Add(array_merge($productFields, [
+                    'PROPERTY_VALUES' => $productProperties
+                ]));
+
+                if (!$newProductId) {
+                    logMessage("Ошибка создания $project_type: " . $element->LAST_ERROR);
+                }
+            endif;
+            $counter++;
+        endif;
+        } catch (Exception $e) {
+            logMessage("Ошибка импорта товара: " . $e->getMessage());
         }
+        
     }
     
     fclose($handle);
 }
 
 try {
-    importOffersSimple($_SERVER["DOCUMENT_ROOT"] . '/import/variations.csv');
+    importOffersSimple($_SERVER["DOCUMENT_ROOT"] . '/import/projects.csv');
 } catch (Exception $e) {
     logMessage("Ошибка: " . $e->getMessage());
 }

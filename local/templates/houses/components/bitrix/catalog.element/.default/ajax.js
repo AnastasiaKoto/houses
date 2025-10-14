@@ -16,7 +16,7 @@ class HouseVariationManager {
         this.splideInstances = {};
         this.tabInstances = {};
 
-        
+
         this.init();
     }
 
@@ -30,7 +30,7 @@ class HouseVariationManager {
         this.price = document.querySelector('.detail-product__mainscreen-total__item-price');
         this.deadline = document.querySelector('.detail-product__mainscreen-total__item-date');
         this.bubblesSelect = document.querySelector(".custom-select-bubbles-js");
-        if(this.bubblesSelect) {
+        if (this.bubblesSelect) {
             this.options = this.bubblesSelect.querySelectorAll(".options li");
         }
         this.planeTabs = document.querySelector('.detail-product__layout-tabs__content');
@@ -260,13 +260,13 @@ class HouseVariationManager {
 
         // Стрелки управляют текущим активным слайдером
         if (prevArrow) {
-            prevArrow.addEventListener('click', () => { 
-                splides[instance.activeTab]?.go('<'); 
+            prevArrow.addEventListener('click', () => {
+                splides[instance.activeTab]?.go('<');
             });
         }
         if (nextArrow) {
-            nextArrow.addEventListener('click', () => { 
-                splides[instance.activeTab]?.go('>'); 
+            nextArrow.addEventListener('click', () => {
+                splides[instance.activeTab]?.go('>');
             });
         }
 
@@ -278,7 +278,7 @@ class HouseVariationManager {
     initEquipmentTabs() {
         const tabWidgets = document.querySelectorAll(".equipment-tabs");
 
-        if(!tabWidgets) return;
+        if (!tabWidgets) return;
         tabWidgets.forEach(widget => {
             const links = widget.querySelectorAll(".equipment-tabs__link");
             const contents = widget.querySelectorAll(".equipment-tabs__content");
@@ -346,38 +346,38 @@ class HouseVariationManager {
 
     //инициализация и переинициализация главного слайдера
     mainGalleryInit() {
-        if(!this.slider) return;
+        if (!this.slider) return;
         //this.slider.forEach(slider => {
-            if(this.slider) {
-                const splide = new Splide(this.slider, {
-                    type: 'slide',
-                    perPage: 1,
-                    gap: 0,
-                    pagination: true,
-                    arrows: false,
-                    drag: false,
-                }).mount();
+        if (this.slider) {
+            const splide = new Splide(this.slider, {
+                type: 'fade',
+                perPage: 1,
+                gap: 0,
+                pagination: true,
+                arrows: false,
+                drag: false,
+            }).mount();
 
-                this.slider._splide = splide;
+            this.slider._splide = splide;
 
-                const track = this.slider.querySelector('.splide__track');
+            const track = this.slider.querySelector('.splide__track');
 
-                track.addEventListener('mousemove', e => {
-                    const rect = track.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const width = rect.width;
+            track.addEventListener('mousemove', e => {
+                const rect = track.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const width = rect.width;
 
-                    const slidesCount = splide.length;
-                    const hoverZone = 15;
+                const slidesCount = splide.length;
+                const hoverZone = 15;
 
-                    let index = Math.floor((x / width) * slidesCount);
+                let index = Math.floor((x / width) * slidesCount);
 
-                    if (x < hoverZone) index = 0;
-                    if (x > width - hoverZone) index = slidesCount - 1;
+                if (x < hoverZone) index = 0;
+                if (x > width - hoverZone) index = slidesCount - 1;
 
-                    splide.go(index);
-                });
-            }
+                splide.go(index);
+            });
+        }
 
         //});
     }
@@ -435,35 +435,35 @@ class HouseVariationManager {
     //дополнительные постройки
     selectBubbles() {
         //document.querySelectorAll(".custom-select-bubbles-js").forEach(select => {
-            const select = document.querySelector(".custom-select-bubbles-js");
-            if(!select) return;
-            const trigger = select.querySelector(".selected");
-            const options = select.querySelectorAll(".options li");
-            const bubblesContainer = select.querySelector(".selected-bubbles");
+        const select = document.querySelector(".custom-select-bubbles-js");
+        if (!select) return;
+        const trigger = select.querySelector(".selected");
+        const options = select.querySelectorAll(".options li");
+        const bubblesContainer = select.querySelector(".selected-bubbles");
 
-            let selectedValues = [];
+        let selectedValues = [];
 
-            function updatePlaceholder() {
+        function updatePlaceholder() {
             if (selectedValues.length === 0) {
                 trigger.textContent = "Выберите вариант";
             } else {
                 trigger.textContent = `Выбрано ${selectedValues.length} ${getPluralForm(selectedValues.length, ['постройка', 'постройки', 'построек'])}`;
             }
-            }
+        }
 
-            function getPluralForm(n, forms) {
+        function getPluralForm(n, forms) {
             const n10 = n % 10, n100 = n % 100;
             if (n10 === 1 && n100 !== 11) return forms[0];
             if (n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return forms[1];
             return forms[2];
-            }
+        }
 
-            trigger.addEventListener("click", (e) => {
+        trigger.addEventListener("click", (e) => {
             e.stopPropagation();
             select.classList.toggle("open");
-            });
+        });
 
-            options.forEach(option => {
+        options.forEach(option => {
             option.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const value = option.dataset.value;
@@ -471,72 +471,72 @@ class HouseVariationManager {
                 const deadline = option.dataset.deadline;
                 const buildingObject = this.buildingsMap[option.dataset.value];
                 if (option.classList.contains("active")) {
-                // снять выбор
-                removeValue(value);
+                    // снять выбор
+                    removeValue(value);
                 } else {
-                // добавить выбор
-                this.changePropertyWithBuildings('price', price, 'plus');
-                this.changePropertyWithBuildings('deadline', deadline, 'plus');
-                if(buildingObject) {
-                    this.insertPlaneTabs(buildingObject, 'plus');
-                    this.changeParametersForBuildings(buildingObject, 'plus');
-                    this.insertBuildingsImagesTab(buildingObject, 'plus');
-                }
-                option.classList.add("active");
-                const optionText = option.innerHTML;
-                selectedValues.push({ value, text: optionText });
+                    // добавить выбор
+                    this.changePropertyWithBuildings('price', price, 'plus');
+                    this.changePropertyWithBuildings('deadline', deadline, 'plus');
+                    if (buildingObject) {
+                        this.insertPlaneTabs(buildingObject, 'plus');
+                        this.changeParametersForBuildings(buildingObject, 'plus');
+                        this.insertBuildingsImagesTab(buildingObject, 'plus');
+                    }
+                    option.classList.add("active");
+                    const optionText = option.innerHTML;
+                    selectedValues.push({ value, text: optionText });
 
-                const bubble = document.createElement("div");
-                bubble.className = "bubble";
-                bubble.dataset.value = value;
-                bubble.dataset.price = price;
-                bubble.dataset.deadline = deadline;
-                bubble.innerHTML = `
+                    const bubble = document.createElement("div");
+                    bubble.className = "bubble";
+                    bubble.dataset.value = value;
+                    bubble.dataset.price = price;
+                    bubble.dataset.deadline = deadline;
+                    bubble.innerHTML = `
                     <span class="bubble-text">${optionText}</span>
                     <button class="bubble-remove" type="button"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.00058 5.00291L8.49565 8.49797M1.50549 8.49797L5.00058 5.00291L1.50549 8.49797ZM8.49565 1.50781L5.00058 5.00291L8.49565 1.50781ZM5.00058 5.00291L1.50549 1.50781L5.00058 5.00291Z" stroke="#8E9293" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     </button>
                 `;
-                bubblesContainer.appendChild(bubble);
+                    bubblesContainer.appendChild(bubble);
 
-                bubble.querySelector(".bubble-remove").addEventListener("click", () => {
-                    removeValue(value);
-                });
+                    bubble.querySelector(".bubble-remove").addEventListener("click", () => {
+                        removeValue(value);
+                    });
                 }
 
                 updatePlaceholder();
             });
-            });
+        });
 
-            const removeValue = (value) =>  {
-                const option = select.querySelector(`.options li[data-value="${value}"]`);
-                if (option) option.classList.remove("active");
+        const removeValue = (value) => {
+            const option = select.querySelector(`.options li[data-value="${value}"]`);
+            if (option) option.classList.remove("active");
 
-                selectedValues = selectedValues.filter(v => v.value !== value);
+            selectedValues = selectedValues.filter(v => v.value !== value);
 
-                const bubble = bubblesContainer.querySelector(`.bubble[data-value="${value}"]`);
-                const optionPrice = bubble.dataset.price;
-                const optionDeadline = bubble.dataset.deadline;
-                this.changePropertyWithBuildings('price', optionPrice, 'min');
-                this.changePropertyWithBuildings('deadline', optionDeadline, 'min');
-                this.insertPlaneTabs(this.buildingsMap[bubble.dataset.value], 'min');
-                this.changeParametersForBuildings(this.buildingsMap[bubble.dataset.value], 'min');
-                this.insertBuildingsImagesTab(this.buildingsMap[bubble.dataset.value], 'min');
-                if (bubble) bubble.remove();
-                
-                updatePlaceholder();
-            };
+            const bubble = bubblesContainer.querySelector(`.bubble[data-value="${value}"]`);
+            const optionPrice = bubble.dataset.price;
+            const optionDeadline = bubble.dataset.deadline;
+            this.changePropertyWithBuildings('price', optionPrice, 'min');
+            this.changePropertyWithBuildings('deadline', optionDeadline, 'min');
+            this.insertPlaneTabs(this.buildingsMap[bubble.dataset.value], 'min');
+            this.changeParametersForBuildings(this.buildingsMap[bubble.dataset.value], 'min');
+            this.insertBuildingsImagesTab(this.buildingsMap[bubble.dataset.value], 'min');
+            if (bubble) bubble.remove();
 
-            document.addEventListener("click", () => {
+            updatePlaceholder();
+        };
+
+        document.addEventListener("click", () => {
             select.classList.remove("open");
-            });
+        });
         //});
     }
 
     //plane tabs
     renderPlaneTabs() {
-        if(!this.planeLinks) return;
+        if (!this.planeLinks) return;
         this.planeLinks.addEventListener("click", (e) => {
             if (e.target.classList.contains("detail-product__layout-tabs__link")) {
                 e.preventDefault();
@@ -544,7 +544,7 @@ class HouseVariationManager {
                 // убираем active у всех
                 const allLinks = this.planeLinks.querySelectorAll(".detail-product__layout-tabs__link");
                 const allPanes = this.planeTabs.querySelectorAll(".tab-pane");
-                
+
                 allLinks.forEach(l => l.classList.remove("active"));
                 allPanes.forEach(p => p.classList.remove("active"));
 
@@ -572,11 +572,21 @@ class HouseVariationManager {
                 const dt = e.target;
                 const item = dt.closest('li');
                 const dd = item.querySelector('dd');
-                
                 if (!item || !dd) return;
-                
+
+                const accList = item.closest('.equipment-tabs__content-acc');
                 const isActive = item.classList.contains('active');
-                
+
+
+                accList.querySelectorAll('li.active').forEach(activeItem => {
+                    if (activeItem !== item) {
+                        activeItem.classList.remove('active');
+                        const activeDd = activeItem.querySelector('dd');
+                        if (activeDd) activeDd.style.maxHeight = null;
+                    }
+                });
+
+
                 if (isActive) {
                     item.classList.remove('active');
                     dd.style.maxHeight = null;
@@ -586,7 +596,7 @@ class HouseVariationManager {
                 }
             }
         });
-    }
+    },
 
     refreshAccordions() {
         document.querySelectorAll('.equipment-tabs__content-acc li.active dd')
@@ -594,6 +604,7 @@ class HouseVariationManager {
                 dd.style.maxHeight = dd.scrollHeight + 'px';
             });
     }
+
 
 
     /*  FRONT END */
@@ -606,11 +617,11 @@ class HouseVariationManager {
         const clickedId = clickedElement.id;
         //console.log(clickedId);
         const combination = this.findMatchingOffer();
-        
-        if(clickedId) {
-            if(!combination) {
+
+        if (clickedId) {
+            if (!combination) {
                 console.log('Вариация не найдена!');
-                const availableCombinations = Object.keys(this.offersMap).filter(comb => 
+                const availableCombinations = Object.keys(this.offersMap).filter(comb =>
                     comb.includes(clickedId)
                 );
                 const available = false;
@@ -621,8 +632,8 @@ class HouseVariationManager {
                 const available = true;
                 this.blockAnavaibleBubles(available);
                 this.changeGallery(combination);
-                this.changeProperty(combination,'price');
-                this.changeProperty(combination,'deadline');
+                this.changeProperty(combination, 'price');
+                this.changeProperty(combination, 'deadline');
                 this.toggleBtnBlock(available);
                 this.changePlaneTabs(combination);
                 this.changeParameters(combination);
@@ -636,22 +647,22 @@ class HouseVariationManager {
     //собирает ключ из выбранных id и ищет совпадения в объекте
     findMatchingOffer() {
         const selectedElements = [];
-        
+
         const checkedRadios = document.querySelectorAll('input[type="radio"][name^="HOUSES_"]:checked');
         checkedRadios.forEach(radio => {
             selectedElements.push(radio.id);
         });
-        
+
         const activeLiElements = document.querySelectorAll('li.HOUSES_OPTION.active');
         activeLiElements.forEach(li => {
             selectedElements.push(li.id);
         });
-        
+
         const combinationKey = selectedElements.sort().join('|');
         //console.log(combinationKey);
         // Ищем в offersMap
         const matchingOffer = this.offersMap[combinationKey];
-        
+
         return matchingOffer;
     }
 
@@ -659,20 +670,20 @@ class HouseVariationManager {
     disableUnavailableElements(availableCombinations) {
         document.querySelectorAll('input[type="radio"][name^="HOUSES_"]').forEach(radio => {
             const elementId = radio.id;
-            if(elementId) {
+            if (elementId) {
                 const isAvailable = availableCombinations.some(comb => comb.includes(elementId));
                 const label = radio.closest('label');
-                
+
                 if (label) label.classList.toggle('noactive', !isAvailable);
                 if (!isAvailable && radio.checked) radio.checked = false;
             }
         });
-        
+
         document.querySelectorAll('li.HOUSES_OPTION').forEach(li => {
             const elementId = li.id;
-            if(elementId) {
+            if (elementId) {
                 const isAvailable = availableCombinations.some(comb => comb.includes(elementId));
-            
+
                 li.classList.toggle('noactive', !isAvailable);
                 if (!isAvailable && li.classList.contains('active')) {
                     li.classList.remove('active');
@@ -691,7 +702,7 @@ class HouseVariationManager {
             ".detail-product__mainscreen-config__items:not(.edit)"
         );
 
-        if(!viewBlock) return;
+        if (!viewBlock) return;
 
         this.editBlock.classList.add("open");
         viewBlock.classList.add("hidden");
@@ -700,12 +711,12 @@ class HouseVariationManager {
 
     //проверяет что в блоке главных х-к выбраны х-ки
     checkMainConfig() {
-        const allPropertiesSelected = 
+        const allPropertiesSelected =
             this.editBlock.querySelector('input[name="HOUSES_STYLE"]:checked') !== null &&
             this.editBlock.querySelector('input[name="HOUSES_FLOORS"]:checked') !== null &&
             this.editBlock.querySelector('input[name="HOUSES_SQUARES"]').value !== '';
-        
-        if(!allPropertiesSelected) {
+
+        if (!allPropertiesSelected) {
             this.showMainConfig();
             //console.log(allPropertiesSelected);
             this.toggleBtnBlock(allPropertiesSelected);
@@ -715,17 +726,17 @@ class HouseVariationManager {
     // блокирует кнопку "сохранить"
     toggleBtnBlock(available) {
         if (this.toggleBtn) {
-           // console.log(available);
+            // console.log(available);
             this.toggleBtn.classList.toggle('noactive', !available);
         }
     }
 
     //блокирует блок доп.построек
     blockAnavaibleBubles(available) {
-        if(!this.bubblesSelect) return;
+        if (!this.bubblesSelect) return;
         const select = document.querySelector(".custom-select-bubbles-js");
         const options = select.querySelectorAll(".options li");
-        if(options) {
+        if (options) {
             options.forEach(option => {
                 option.classList.toggle('noactive', !available);
             })
@@ -764,15 +775,15 @@ class HouseVariationManager {
         const element = type === 'price' ? this.price : this.deadline;
 
         let finalNumber = 0;
-        if(action === 'plus') {
+        if (action === 'plus') {
             finalNumber = Number(element.dataset[config.finalDataAttr]) + Number(property);
-        } else if(action === 'min') {
+        } else if (action === 'min') {
             finalNumber = Number(element.dataset[config.finalDataAttr]) - Number(property);
         }
 
         element.textContent = finalNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + config.suffix;
         element.dataset[config.finalDataAttr] = finalNumber;
-        if(!element.dataset[config.dataBuildings]) {
+        if (!element.dataset[config.dataBuildings]) {
             //element.setAttribute([config.dataBuildings], property);
             element.dataset[config.dataBuildings] = property;
         } else {
@@ -808,7 +819,7 @@ class HouseVariationManager {
         const element = type === 'price' ? this.price : this.deadline;
         //console.log('Price element:', this.price);
 
-        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES[config.property] || 
+        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES[config.property] ||
             !combination.PROPERTIES[config.property].VALUE) {
             console.log(config.fallbackMessage);
             return;
@@ -826,7 +837,7 @@ class HouseVariationManager {
         } else {
             const totalValue = Number(newValue) + Number(element.dataset[config.dataAttr]);
             element.dataset[config.finalDataAttr] = totalValue;
-            
+
             if (type === 'price') {
                 const formattedValue = totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
                 element.textContent = formattedValue + config.suffix;
@@ -841,28 +852,28 @@ class HouseVariationManager {
 
     //заменяет контент главной галереи
     changeGallery(combination) {
-        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.GALLERY || 
+        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.GALLERY ||
             !combination.PROPERTIES.GALLERY.VALUE || !Array.isArray(combination.PROPERTIES.GALLERY.VALUE)) {
             console.log('❌ Галерея не найдена в комбинации');
             return;
         }
-        
+
         const gallery = combination.PROPERTIES.GALLERY.VALUE;
-        
+
         const track = this.slider.querySelector('.splide__track');
         const list = track?.querySelector('.splide__list');
         if (!list) return;
-        
+
         if (this.slider._splide) {
             this.slider._splide.destroy();
             this.slider._splide = null;
         }
         list.innerHTML = '';
-        
+
         gallery.forEach((image, index) => {
             const slide = document.createElement('li');
             slide.className = 'splide__slide detail__page-slider__image-item';
-            
+
             slide.innerHTML = `
                 <div class="detail__page-slider__image-layer"></div>
                 <div class="detail__page-slider__image-description">
@@ -870,10 +881,10 @@ class HouseVariationManager {
                 </div>
                 <img src="${image.PATH}" alt="img ${index + 1}">
             `;
-            
+
             list.appendChild(slide);
         });
-        
+
         this.mainGalleryInit();
     }
 
@@ -882,7 +893,7 @@ class HouseVariationManager {
         const links = document.querySelectorAll('.detail-product__layout-tabs__link[data-type="house"]');
         const tabs = document.querySelectorAll('.tab-pane[data-type="house"]');
 
-        if(links.length === 0 && tabs.length === 0) {
+        if (links.length === 0 && tabs.length === 0) {
             return;
         }
 
@@ -896,7 +907,7 @@ class HouseVariationManager {
 
     //собирает блок плана постройки
     changePlaneTabs(combination) {
-        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.PLANE || 
+        if (!combination || !combination.PROPERTIES || !combination.PROPERTIES.PLANE ||
             !combination.PROPERTIES.PLANE.VALUE_ELEMENT || !Array.isArray(combination.PROPERTIES.PLANE.VALUE_ELEMENT)) {
             console.log('Планировки не найдены в комбинации');
             return;
@@ -905,12 +916,12 @@ class HouseVariationManager {
         this.resetPlaneTabs();
         const planes = combination.PROPERTIES.PLANE.VALUE_ELEMENT;
         let counter = 1;
-        
+
         planes.forEach((element, index) => {
 
             this.createTab(element, counter, 'house');
 
-            counter ++;
+            counter++;
         })
 
         this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
@@ -921,25 +932,25 @@ class HouseVariationManager {
     //считает табы
     countTabs(links) {
         let counter = 1;
-        if(links) {
-            links.forEach(link => { counter ++; });
+        if (links) {
+            links.forEach(link => { counter++; });
         }
         return counter;
     }
 
     //добавляет табы к текущим в плане постройки
     insertPlaneTabs(building, action) {
-        if(building.UF_GALLERY.length <= 0) {
+        if (building.UF_GALLERY.length <= 0) {
             return;
         }
         let counter = this.countTabs(this.planeTabLinks);
-        
-        if(action === 'plus') {
+
+        if (action === 'plus') {
             this.createTab(building, counter, 'building', building.UF_XML_ID);
 
             this.planeTabLinks = document.querySelectorAll(".detail-product__layout-tabs__link");
             this.planeTabPanes = document.querySelectorAll(".tab-pane");
-            
+
             // Используем общий метод
             this.updateActiveTab(this.planeTabLinks, this.planeTabPanes);
         } else {
@@ -948,7 +959,7 @@ class HouseVariationManager {
             this.sortTabsByDataTab();
         }
     }
-    
+
     //добавляет таб
     createTab(element, counter, type, buildingId = false) {
         //ссылка
@@ -959,10 +970,10 @@ class HouseVariationManager {
 
         link.classList.add('detail-product__layout-tabs__link');
         if (active) link.classList.add(active);
-        link.textContent =  description;
+        link.textContent = description;
         link.setAttribute('data-type', type);
         link.setAttribute('data-tab', counter.toString());
-        if(buildingId) link.setAttribute('data-building-id', buildingId.toString());
+        if (buildingId) link.setAttribute('data-building-id', buildingId.toString());
 
         //таб
         let img = document.createElement('img');
@@ -972,7 +983,7 @@ class HouseVariationManager {
         let imgLink = document.createElement('a');
         imgLink.classList.add('detail-product__layout-tabs__image');
         imgLink.setAttribute('href', file);
-        imgLink.setAttribute('data-fancybox','');
+        imgLink.setAttribute('data-fancybox', '');
 
         let viewIcon = document.createElement('div');
         viewIcon.classList.add('detail-product__layout-tabs__image-view__icon');
@@ -990,7 +1001,7 @@ class HouseVariationManager {
         panel.classList.add('tab-pane');
         if (active) panel.classList.add(active);
         panel.setAttribute('data-tab', counter.toString());
-        if(buildingId) panel.setAttribute('data-building-id', buildingId.toString());
+        if (buildingId) panel.setAttribute('data-building-id', buildingId.toString());
 
         imgLink.appendChild(img);
         imgLink.appendChild(viewIcon);
@@ -1006,26 +1017,26 @@ class HouseVariationManager {
     sortTabsByDataTab() {
         const linksArray = Array.from(this.planeLinks.querySelectorAll('.detail-product__layout-tabs__link'));
         const tabsArray = Array.from(this.planeTabs.querySelectorAll('.tab-pane'));
-        
+
         const sortedLinks = linksArray.sort((a, b) => {
             return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
         });
-        
+
         const sortedTabs = tabsArray.sort((a, b) => {
             return parseInt(a.dataset.tab) - parseInt(b.dataset.tab);
         });
-        
+
         this.planeLinks.innerHTML = '';
         this.planeTabs.innerHTML = '';
-        
+
         sortedLinks.forEach(link => {
             this.planeLinks.appendChild(link);
         });
-        
+
         sortedTabs.forEach(tab => {
             this.planeTabs.appendChild(tab);
         });
-        
+
         // Обновляем активный таб
         this.updateActiveTab(
             this.planeLinks.querySelectorAll('.detail-product__layout-tabs__link'),
@@ -1037,53 +1048,53 @@ class HouseVariationManager {
     //сбрасывает активность
     updateActiveTab(links, contents, forceFirstActive = false) {
         if (!links || !contents || links.length === 0 || contents.length === 0) return;
-        
+
         const linksArray = Array.from(links);
         const contentsArray = Array.from(contents);
-        
+
         // Убираем active у всех
         linksArray.forEach(link => link.classList.remove('active'));
         contentsArray.forEach(content => content.classList.remove('active'));
-        
+
         let activeLink = null;
         let activeContent = null;
-        
+
         if (!forceFirstActive) {
             // Пытаемся сохранить текущий активный таб, если он не скрыт
-            activeLink = linksArray.find(link => 
+            activeLink = linksArray.find(link =>
                 link.classList.contains('active') && !link.classList.contains('hidden')
             );
-            
+
             if (activeLink) {
                 const tabId = activeLink.dataset.tab;
-                activeContent = contentsArray.find(content => 
+                activeContent = contentsArray.find(content =>
                     content.dataset.tab === tabId && !content.classList.contains('hidden')
                 );
             }
         }
-        
+
         // Если активный таб не найден или невалиден, ищем первый не скрытый
         if (!activeLink || !activeContent) {
             // Находим первую не скрытую ссылку
             activeLink = linksArray.find(link => !link.classList.contains('hidden'));
-            
+
             if (activeLink) {
                 const tabId = activeLink.dataset.tab;
-                activeContent = contentsArray.find(content => 
+                activeContent = contentsArray.find(content =>
                     content.dataset.tab === tabId && !content.classList.contains('hidden')
                 );
             }
         }
-        
+
         if (activeLink && activeContent) {
             activeLink.classList.add('active');
             activeContent.classList.add('active');
-            if(activeContent.style.display === 'none') activeContent.style.display = '';
-            if(activeLink.style.display === 'none') activeLink.style.display = '';
+            if (activeContent.style.display === 'none') activeContent.style.display = '';
+            if (activeLink.style.display === 'none') activeLink.style.display = '';
         } else {
             console.warn('No suitable active tab found');
         }
-        
+
         return { activeLink, activeContent };
     }
 
@@ -1097,13 +1108,13 @@ class HouseVariationManager {
         parameters.forEach(parameter => {
             parameter.textContent = '-';
 
-            if(parameter.classList.contains('square-value') && combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
+            if (parameter.classList.contains('square-value') && combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
                 parameter.textContent = combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION;
             }
-            if(parameter.classList.contains('size-value') && combination.PROPERTIES?.SIZES?.VALUE) {
+            if (parameter.classList.contains('size-value') && combination.PROPERTIES?.SIZES?.VALUE) {
                 parameter.textContent = combination.PROPERTIES?.SIZES?.VALUE;
             }
-            if(parameter.classList.contains('height-value') && combination.PROPERTIES?.HEIGHT?.VALUE) {
+            if (parameter.classList.contains('height-value') && combination.PROPERTIES?.HEIGHT?.VALUE) {
                 parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
             }
         })
@@ -1111,13 +1122,13 @@ class HouseVariationManager {
         rooms.forEach(room => {
             room.textContent = '-';
 
-            if(room.classList.contains('rooms-value') && combination.PROPERTIES?.ROOMS?.VALUE) {
+            if (room.classList.contains('rooms-value') && combination.PROPERTIES?.ROOMS?.VALUE) {
                 room.textContent = combination.PROPERTIES?.ROOMS?.VALUE;
             }
-            if(room.classList.contains('storages-value') && combination.PROPERTIES?.STORAGE?.VALUE) {
+            if (room.classList.contains('storages-value') && combination.PROPERTIES?.STORAGE?.VALUE) {
                 room.textContent = combination.PROPERTIES?.STORAGE?.VALUE;
             }
-            if(room.classList.contains('wcs-value') && combination.PROPERTIES?.WCS?.VALUE) {
+            if (room.classList.contains('wcs-value') && combination.PROPERTIES?.WCS?.VALUE) {
                 room.textContent = combination.PROPERTIES?.WCS?.VALUE;
             }
         })
@@ -1127,9 +1138,9 @@ class HouseVariationManager {
     changeParametersForBuildings(building, action) {
         const buildingParametersWrapper = document.querySelector('.detail-product__layout-additional-option-buildings');
 
-        if(buildingParametersWrapper) {
+        if (buildingParametersWrapper) {
             let componentsInner = buildingParametersWrapper.querySelector('.detail-product__layout-additional-option__components');
-            if(action === 'plus') {
+            if (action === 'plus') {
                 let buildingComponent = document.createElement('div');
                 buildingComponent.classList.add('detail-product__layout-additional-option__component');
                 buildingComponent.dataset.building = building.UF_XML_ID;
@@ -1152,11 +1163,11 @@ class HouseVariationManager {
 
                 componentsInner.appendChild(buildingComponent);
 
-                if(buildingParametersWrapper.classList.contains('hidden')) buildingParametersWrapper.classList.remove('hidden');
+                if (buildingParametersWrapper.classList.contains('hidden')) buildingParametersWrapper.classList.remove('hidden');
             } else {
                 buildingParametersWrapper.querySelector(`.detail-product__layout-additional-option__component[data-building="${building.UF_XML_ID}"]`).remove();
-                
-                if(buildingParametersWrapper.querySelectorAll('.detail-product__layout-additional-option__component').length <= 0) {
+
+                if (buildingParametersWrapper.querySelectorAll('.detail-product__layout-additional-option__component').length <= 0) {
                     buildingParametersWrapper.classList.add('hidden');
                 }
             }
@@ -1195,7 +1206,7 @@ class HouseVariationManager {
             } else {
                 propertyTabWrapper.classList.remove('hidden');
                 if (tabLink) tabLink.classList.remove('hidden');
-                
+
                 // Обновляем содержимое таба
                 updateContent(propertyTabWrapper, contentData);
             }
@@ -1203,7 +1214,7 @@ class HouseVariationManager {
 
         // Обновляем активный таб
         this.updateActiveTab(allTabLinks, allTabContents);
-        
+
         this.reinitTabsAndSliders();
     }
 
@@ -1234,7 +1245,7 @@ class HouseVariationManager {
                 const imagePropertyCode = property.CODE.replace('_CONFIG', '_IMG');
                 const imageProperty = allProperties[imagePropertyCode];
                 const content = this.decodeHTML(property.VALUE);
-                
+
                 return {
                     hasContent: !!content,
                     content: content,
@@ -1246,7 +1257,7 @@ class HouseVariationManager {
                 tabWrapper.querySelector('.equipment-tabs__content-inner .equipment-tabs__content-acc').innerHTML = contentData.content;
                 if (contentData.imageProperty && contentData.imageProperty?.VALUE) {
                     let tabsImg = tabWrapper.querySelector('.equipment-tabs__content-image img');
-                    if(!tabsImg) {
+                    if (!tabsImg) {
                         let tabsImgEl = document.createElement('div');
                         tabsImgEl.classList.add('equipment-tabs__content-image');
                         tabsImgEl.innerHTML = `<img src="${contentData.imageProperty.VALUE}" alt="img">`;
@@ -1275,32 +1286,32 @@ class HouseVariationManager {
         if (!list) return;
 
         list.innerHTML = '';
-        
+
         gallery.forEach((image, index) => {
             let image_path = '';
-            if(code) {
+            if (code) {
                 image_path = image.PATH;
             } else {
                 image_path = image;
             }
             const slide = document.createElement('li');
             slide.className = 'splide__slide';
-            
+
             slide.innerHTML = `
                 <img src="${image_path}" alt="img ${index + 1}">
             `;
-            
+
             list.appendChild(slide);
         });
     }
-    
+
     //добавляет галереи доп построек
     insertBuildingsImagesTab(building, action) {
         const buildingGallery = building.UF_GALLERY;
-        if(buildingGallery.length > 0) {
+        if (buildingGallery.length > 0) {
             let counter = this.countTabs(document.querySelectorAll('.detail-product__preview-tabs__link'));
 
-            if(action === 'plus') {
+            if (action === 'plus') {
                 const linksWrapper = document.querySelector('.detail-product__preview-tabs__links');
                 const allTabs = document.querySelectorAll('.detail-product__preview-tabs__content');
                 const lastElement = allTabs[allTabs.length - 1];
@@ -1325,14 +1336,14 @@ class HouseVariationManager {
                                     </div>
                                 </div>`;
                 this.updateGalleryContent(tab, buildingGallery, false);
-                
+
                 linksWrapper.appendChild(link);
                 lastElement.parentNode.insertBefore(tab, lastElement.nextSibling);
             } else {
                 let tab = document.querySelector(`.detail-product__preview-tabs__content[data-property="${building.UF_XML_ID}"]`);
                 let link = document.querySelector(`.detail-product__preview-tabs__link[data-tab="${tab.dataset.tab}"]`);
 
-                if(tab && link) {
+                if (tab && link) {
                     tab.remove();
                     link.remove();
                 }
@@ -1349,19 +1360,19 @@ class HouseVariationManager {
     changeRecomendationBlock(combination) {
 
         const recomendationsSection = document.querySelector('.examples');
-        if(!combination?.PROPERTIES || !combination?.PROPERTIES?.PROJECTS || !combination?.PROPERTIES?.PROJECTS?.VALUE_ELEMENTS) {
+        if (!combination?.PROPERTIES || !combination?.PROPERTIES?.PROJECTS || !combination?.PROPERTIES?.PROJECTS?.VALUE_ELEMENTS) {
             recomendationsSection.classList.add('hidden');
             return;
         }
 
         const projects = combination.PROPERTIES.PROJECTS.VALUE_ELEMENTS;
 
-        if(projects) {
-            if(recomendationsSection.classList.contains('hidden')) recomendationsSection.classList.remove('hidden');
+        if (projects) {
+            if (recomendationsSection.classList.contains('hidden')) recomendationsSection.classList.remove('hidden');
             const track = this.sliderRecomendations.querySelector('.splide__track');
             const list = track?.querySelector('.splide__list');
             if (!list) return;
-            
+
             if (this.sliderRecomendations._splide) {
                 this.sliderRecomendations._splide.destroy();
                 this.sliderRecomendations._splide = null;
@@ -1372,7 +1383,7 @@ class HouseVariationManager {
                 projectCard.classList.add('splide__slide', 'examples-item', 'projects-item');
 
                 let gallery = project.PROPERTY_GALLERY_VALUE;
-                if(gallery && gallery.length > 0) {
+                if (gallery && gallery.length > 0) {
                     let projectImages = document.createElement('div');
                     projectImages.classList.add('splide', 'projects-slider__images');
 
@@ -1385,11 +1396,11 @@ class HouseVariationManager {
                     gallery.forEach((imgSrc, index) => {
                         const listItem = document.createElement('li');
                         listItem.className = 'splide__slide projects-slider__image-item';
-                        
+
                         const img = document.createElement('img');
                         img.src = imgSrc;
                         img.alt = `project-image-${index + 1}`;
-                        
+
                         listItem.appendChild(img);
                         list.appendChild(listItem);
                     })

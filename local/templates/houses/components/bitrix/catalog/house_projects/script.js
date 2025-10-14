@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   slidersCatalog.forEach(slider => {
     const splide = new Splide(slider, {
-      type: 'slide',
+      type: 'fade',
       perPage: 1,
       gap: 0,
       pagination: true,

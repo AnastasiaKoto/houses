@@ -121,7 +121,7 @@ function importOffersSimple($csvFilePath) {
 
         try {
 
-            if($counter <= 2):
+            //if($counter <= 2):
 
             if (empty(array_filter($data))) {
                 logMessage("Пустая дата.");
@@ -304,7 +304,7 @@ function importOffersSimple($csvFilePath) {
                 }
             endif;
             $counter++;
-        endif;
+        //endif;
         } catch (Exception $e) {
             logMessage("Ошибка импорта товара: " . $e->getMessage());
         }

@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
+$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 use Bitrix\Main\Loader;

@@ -84,17 +84,18 @@
   </header>
   <main>
     <div class="container" id="breadcrumb-container">
-    <? if($APPLICATION->GetCurPage() !== '/'): ?>
+    <? 
+    if($APPLICATION->GetCurPage() !== '/'): ?>
       <?$APPLICATION->IncludeComponent(
-	"bitrix:breadcrumb", 
-	"houses_breadcrumbs", 
-	array(
-		"START_FROM" => "0",
-		"PATH" => "",
-		"SITE_ID" => "s1",
-		"COMPONENT_TEMPLATE" => "houses_breadcrumbs"
-	),
-	false
-);?>
+        "bitrix:breadcrumb", 
+        "houses_breadcrumbs", 
+        array(
+          "START_FROM" => "0",
+          "PATH" => "",
+          "SITE_ID" => "s1",
+          "COMPONENT_TEMPLATE" => "houses_breadcrumbs"
+        ),
+        false
+      );?>
     <? endif; ?>
     </div>

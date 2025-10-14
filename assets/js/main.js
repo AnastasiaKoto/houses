@@ -507,39 +507,105 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  const sliders = document.querySelectorAll('.projects-slider__images');
+// document.addEventListener('DOMContentLoaded', function () {
+//   const sliders = document.querySelectorAll('.projects-slider__images');
 
-  sliders.forEach(slider => {
-    const splide = new Splide(slider, {
-      type: 'slide',
-      perPage: 1,
-      gap: 0,
-      pagination: true,
-      arrows: false,
-      drag: false,
-    }).mount();
+//   sliders.forEach(slider => {
+//     const splide = new Splide(slider, {
+//       type: 'slide',
+//       perPage: 1,
+//       gap: 0,
+//       pagination: true,
+//       arrows: false,
+//       drag: false,
+//     }).mount();
 
-    const track = slider.querySelector('.splide__track');
+//     const track = slider.querySelector('.splide__track');
 
-    track.addEventListener('mousemove', e => {
-      const rect = track.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const width = rect.width;
+//     track.addEventListener('mousemove', e => {
+//       const rect = track.getBoundingClientRect();
+//       const x = e.clientX - rect.left;
+//       const width = rect.width;
 
-      const slidesCount = splide.length;
-      const hoverZone = 15;
+//       const slidesCount = splide.length;
+//       const hoverZone = 15;
 
-      let index = Math.floor((x / width) * slidesCount);
+//       let index = Math.floor((x / width) * slidesCount);
 
-      if (x < hoverZone) index = 0;
-      if (x > width - hoverZone) index = slidesCount - 1;
+//       if (x < hoverZone) index = 0;
+//       if (x > width - hoverZone) index = slidesCount - 1;
 
-      splide.go(index);
+//       splide.go(index);
+//     });
+
+//   });
+// });
+class ProjectsSlider {
+  constructor(selectorOrElement) {
+    if (typeof selectorOrElement === 'string') {
+      this.selector = selectorOrElement;
+      this.elements = document.querySelectorAll(this.selector);
+    } else if (selectorOrElement instanceof HTMLElement) {
+      this.selector = null;
+      this.elements = [selectorOrElement];
+    } else {
+      this.elements = [];
+    }
+    this.sliders = [];
+    this.init();
+  }
+
+  init() {
+    this.elements.forEach(sliderEl => {
+      const splide = new Splide(sliderEl, {
+        type: 'slide',
+        perPage: 1,
+        pagination: true,
+        arrows: false,
+        drag: false,
+      }).mount();
+
+      const track = sliderEl.querySelector('.splide__track');
+      const handleMouseMove = e => {
+        const rect = track.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const width = rect.width;
+        const slidesCount = splide.length;
+        const hoverZone = 15;
+
+        let index = Math.floor((x / width) * slidesCount);
+        if (x < hoverZone) index = 0;
+        if (x > width - hoverZone) index = slidesCount - 1;
+
+        splide.go(index);
+      };
+
+      track.addEventListener('mousemove', handleMouseMove);
+      this.sliders.push({ splide, track, handleMouseMove });
     });
+  }
 
-  });
+  destroy() {
+    this.sliders.forEach(({ splide, track, handleMouseMove }) => {
+      track.removeEventListener('mousemove', handleMouseMove);
+      splide.destroy();
+    });
+    this.sliders = [];
+  }
+
+  reinit() {
+    this.destroy();
+    this.init();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const projectsSlider = new ProjectsSlider('.projects-slider__images');
+
+
+    projectsSlider.reinit();
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const movableItems = document.querySelectorAll("[data-move-target]");

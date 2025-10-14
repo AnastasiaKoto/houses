@@ -376,7 +376,7 @@
 
           @media(max-width: 992px) {
             /* height: 284px; */
-            border-radius: 26px;
+            border-radius: 16px;
           }
 
           & .splide__pagination {

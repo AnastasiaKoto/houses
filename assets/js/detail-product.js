@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ".detail-product__mainscreen-config__items.edit"
   );
 
-  if(!editBlock || viewBlock || toggleBtn) return;
+
+  if(!editBlock || !viewBlock || !toggleBtn) return;
 
   const updateViewData = () => {
     // === 1. Стиль постройки ===

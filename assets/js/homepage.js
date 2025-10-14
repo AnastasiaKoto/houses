@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
           pagination: false,
           arrows: false,
           gap: 20,
+          speed: 600,  
+          easing: 'ease', 
           breakpoints: {
             700: {
               gap: 10
@@ -94,10 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   initSplide();
-
-
   window.addEventListener('resize', initSplide);
-
 
   const prevArrow = document.querySelector('.styles-arrow__prev');
   const nextArrow = document.querySelector('.styles-arrow__next');
@@ -111,21 +110,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
   const sliderUniq = document.querySelector('.uniq-slider');
   if (!sliderUniq) return;
 
   const splide = new Splide(sliderUniq, {
-    type: 'slide',
+    type: 'loop',
     // perPage: 1,
-    awtoWidth: true,
+    autoWidth: true, 
     gap: 20,
     perMove: 1,
     pagination: false,
     arrows: false,
+    speed: 600, 
+    easing: 'ease',
     breakpoints: {
       992: {
         gap: 10,
+        // type: 'loop',
       }
     }
   });
@@ -147,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   function moveElementOnBreakpoint(elementSelector, targetSelector, breakpoint) {

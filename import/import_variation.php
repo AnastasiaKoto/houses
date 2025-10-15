@@ -174,6 +174,7 @@ function importOffersSimple($csvFilePath) {
                 //$square = getDirectoryItemId(9, $row['Площадь']);
 
                 $productProperties = [
+                    'SHOWED_NAME' => $row['Название для пользователя'],
                     'HEIGHT' => $row['Высота потолков'],
                     'SIZES' => $row['Габариты'],
                     'GALLERY' => $gallery,

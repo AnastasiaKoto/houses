@@ -1301,7 +1301,9 @@ class HouseVariationManager {
             } else {
                 image_path = image;
             }
-            const slide = document.createElement('li');
+            const slide = document.createElement('a');
+            slide.dataset.fancybox;
+            slide.setAttribute('href', image_path);
             slide.className = 'splide__slide';
 
             slide.innerHTML = `

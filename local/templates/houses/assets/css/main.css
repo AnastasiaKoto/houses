@@ -3068,6 +3068,15 @@
    }
  }
 
+ .bx-core-waitwindow{
+   display: none !important;
+  }
+
+  div[id^="wait_comp_"] {
+    display: none !important;
+  }
+
+
 
 
  @font-face {

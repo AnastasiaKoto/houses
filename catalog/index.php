@@ -306,4 +306,14 @@ $APPLICATION->IncludeComponent(
 	),
 	false
 );?>
+<? $APPLICATION->IncludeComponent(
+    "bitrix:main.include",
+    "",
+    array(
+        "AREA_FILE_SHOW" => "file",
+        "AREA_FILE_SUFFIX" => "",
+        "EDIT_TEMPLATE" => "standard.php",
+        "PATH" => "/include/general/form/form.php"
+    )
+); ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

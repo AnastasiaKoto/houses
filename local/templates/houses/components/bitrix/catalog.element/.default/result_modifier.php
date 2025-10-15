@@ -105,9 +105,10 @@ if(isset($arResult['PROPERTIES']['HOUSE_VARIABLES']['VALUE']) && !empty($arResul
             "ID", 
             "IBLOCK_ID", 
             "NAME",
-            "PREVIEW_TEXT"
+            "PREVIEW_TEXT",
+            "ACTIVE"
         );
-        $arFilter = array("ID" => $variation_id, "ACTIVE" => "Y");
+        $arFilter = array("ID" => $variation_id);
 
         $res = CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
         if($obElement = $res->GetNextElement()) {
@@ -208,7 +209,11 @@ if(!empty($arResult['PROPERTIES']['BUILDINGS']['VALUE'])) {
 if(isset($arResult['VARIATIONS']) && !empty($arResult['VARIATIONS'])) {
     $props = [];
     $uniqueValues = [];
+    $activeVariationValues = [];
+
     foreach($arResult['VARIATIONS'] as $variation) {
+        $isActiveVariation = ($variation['ACTIVE'] ?? 'Y') === 'Y';
+
         if(!empty($variation['PROPERTIES'])) {
             foreach($variation['PROPERTIES'] as $key => $prop) {
                 if (strpos($key, 'HOUSES_') !== false) {
@@ -217,6 +222,9 @@ if(isset($arResult['VARIATIONS']) && !empty($arResult['VARIATIONS'])) {
                     }
                     if (!isset($uniqueValues[$key])) {
                         $uniqueValues[$key] = [];
+                    }
+                    if (!isset($activeVariationValues[$key])) {
+                        $activeVariationValues[$key] = [];
                     }
                     
                     if (!in_array($prop['VALUE'], $uniqueValues[$key])) {
@@ -231,14 +239,29 @@ if(isset($arResult['VARIATIONS']) && !empty($arResult['VARIATIONS'])) {
                         $uniqueValues[$key][] = $prop['VALUE'];
                         $props[$key][] = $prop;
                     }
+                    if ($isActiveVariation && !in_array($prop['VALUE'], $activeVariationValues[$key])) {
+                        $activeVariationValues[$key][] = $prop['VALUE'];
+                    }
                 }
             }
         }
     }
+
+    foreach ($props as $propKey => &$propValues) {
+        foreach ($propValues as &$propValue) {
+            if (!in_array($propValue['VALUE'], $activeVariationValues[$propKey])) {
+                $propValue['HIDDEN'] = 'Y';
+            } else {
+                $propValue['HIDDEN'] = 'N';
+            }
+        }
+        unset($propValue);
+    }
+    unset($propValues);
 }
 
 $arResult['PROPS'] = $props;
-
+//p($arResult['PROPS']);
 //формируем массив с комбинациями
 if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
     $arResult['JS_OFFERS'] = [];
@@ -248,6 +271,7 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
             'ID' => $variation['ID'],
             'NAME' => $variation['NAME'],
             'PREVIEW_TEXT' => $variation['PREVIEW_TEXT'],
+            'ACTIVE' => $variation['ACTIVE'],
             'PROPERTIES' => [],
             'COMBINATION' => []
         ];

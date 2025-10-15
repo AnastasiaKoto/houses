@@ -24,8 +24,10 @@ $haveOffers = isset($arResult['JS_OFFERS']) && !empty($arResult['JS_OFFERS']) ? 
 if ($haveOffers) {
 	$currentOffer = [];
 	foreach ($arResult['JS_OFFERS'] as $offer) {
-		$currentOffer = $offer;
-		break;
+		if($offer['ACTIVE'] == 'Y') {
+			$currentOffer = $offer;
+			break;
+		}
 	}
 
 	$gallery = $currentOffer['PROPERTIES']['GALLERY']['VALUE'];
@@ -200,7 +202,7 @@ if ($haveOffers) {
 													<? foreach ($arResult['PROPS']['HOUSES_STYLE'] as $value):
 														$checked = in_array('HOUSES_STYLE:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : '';
 														?>
-														<label class="radio">
+														<label class="radio <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>">
 															<input type="radio" id="HOUSES_STYLE:<?= $value['VALUE_ENUM_ID']; ?>"
 																name="HOUSES_STYLE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 															<span class="radio__text"><?= $value['VALUE']; ?></span>
@@ -217,7 +219,7 @@ if ($haveOffers) {
 												<div class="custom-radio">
 													<? foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value):
 														$checked = in_array('HOUSES_FLOORS:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
-														<label class="radio">
+														<label class="radio <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>">
 															<input type="radio" id="HOUSES_FLOORS:<?= $value['VALUE_ENUM_ID']; ?>"
 																name="HOUSES_FLOORS" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 															<span class="radio__text"><?= $value['VALUE']; ?></span>
@@ -245,7 +247,7 @@ if ($haveOffers) {
 														<? foreach ($arResult['PROPS']['HOUSES_SQUARES'] as $value):
 															$checked = in_array('HOUSES_SQUARES:' . $value['VALUE'], $currentOffer['COMBINATION']) ? 'active' : ''; ?>
 															<li id="HOUSES_SQUARES:<?= $value['VALUE'] ?>"
-																class="HOUSES_OPTION <?= $checked; ?>"
+																class="HOUSES_OPTION <?= $checked; ?> <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>"
 																data-value="<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>"
 																class="<?= $checked; ?>">
 																<strong><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></strong>
@@ -276,7 +278,7 @@ if ($haveOffers) {
 												<div class="custom-radio">
 													<? foreach ($arResult['PROPS']['HOUSES_FACADE'] as $value):
 														$checked = in_array('HOUSES_FACADE:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
-														<label class="radio">
+														<label class="radio <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>">
 															<input type="radio" id="HOUSES_FACADE:<?= $value['VALUE_ENUM_ID']; ?>"
 																name="HOUSES_FACADE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 															<span class="radio__text"><?= $value['VALUE']; ?></span>
@@ -293,7 +295,7 @@ if ($haveOffers) {
 												<div class="custom-radio">
 													<? foreach ($arResult['PROPS']['HOUSES_OTDELKA'] as $value):
 														$checked = in_array('HOUSES_OTDELKA:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
-														<label class="radio">
+														<label class="radio <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>">
 															<input type="radio" id="HOUSES_OTDELKA:<?= $value['VALUE_ENUM_ID']; ?>"
 																name="HOUSES_OTDELKA" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
 															<span class="radio__text"><?= $value['VALUE']; ?></span>
@@ -310,7 +312,7 @@ if ($haveOffers) {
 												<div class="custom-radio">
 													<? foreach ($arResult['PROPS']['HOUSES_OTDELKA_STYLE'] as $value):
 														$checked = in_array('HOUSES_OTDELKA_STYLE:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION']) ? 'checked' : ''; ?>
-														<label class="radio">
+														<label class="radio <?= $value['HIDDEN'] == 'Y' ? 'noactive' : ''; ?>">
 															<input type="radio"
 																id="HOUSES_OTDELKA_STYLE:<?= $value['VALUE_ENUM_ID']; ?>"
 																name="HOUSES_OTDELKA_STYLE" value="<?= $value['VALUE']; ?>" <?= $checked; ?>>
@@ -718,9 +720,9 @@ if ($haveOffers) {
 						<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
 							<ul class="splide__list">
 								<? foreach ($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'] as $img): ?>
-									<li class="splide__slide">
+									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
 										<img src="<?= $img['PATH']; ?>" alt="img">
-									</li>
+									</a>
 								<? endforeach; ?>
 							</ul>
 						<? endif; ?>
@@ -736,9 +738,9 @@ if ($haveOffers) {
 						<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
 							<ul class="splide__list">
 								<? foreach ($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'] as $img): ?>
-									<li class="splide__slide">
+									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
 										<img src="<?= $img['PATH']; ?>" alt="img">
-									</li>
+									</a>
 								<? endforeach; ?>
 							</ul>
 						<? endif; ?>
@@ -754,9 +756,9 @@ if ($haveOffers) {
 						<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
 							<ul class="splide__list">
 								<? foreach ($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'] as $img): ?>
-									<li class="splide__slide">
+									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
 										<img src="<?= $img['PATH']; ?>" alt="img">
-									</li>
+									</a>
 								<? endforeach; ?>
 							</ul>
 						<? endif; ?>

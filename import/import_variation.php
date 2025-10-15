@@ -137,6 +137,7 @@ function importOffersSimple($csvFilePath) {
             $productFields = [];
             $productProperties = [];
             $productId = !empty($row['ID']) ? $row['ID'] : null;
+            $productCode = generateCode($row['Название'], $iblockId);
             $gallery = addImages($row['Галерея']);
             $project_type = $row['TYPE'] == 'variation' ? 'вариация' : 'проект';
             $linkedProjects = [];
@@ -157,7 +158,6 @@ function importOffersSimple($csvFilePath) {
                 $otdelka = !empty($row['Отделка']) ? getPropertyEnumId('HOUSES_OTDELKA', $row['Отделка'], $iblockId) : null;
                 $naruzh_otdelka = !empty($row['Стиль отделки']) ? getPropertyEnumId('HOUSES_OTDELKA_STYLE', $row['Стиль отделки'], $iblockId) : null;
 
-                $productCode = generateCode($row['Название'], $iblockId);
 
                 $other_gallery = addImages($row['Другое (галерея)']);
                 $interjers_gallery = addImages($row['Изображения интерьеров']);
@@ -219,16 +219,16 @@ function importOffersSimple($csvFilePath) {
                 $styleId = !empty($row['Стиль']) ? getPropertyEnumId('HOUSES_STYLE', $row['Стиль'], $iblockId) : null;
                 $floors = !empty($row['Этажность']) ? getPropertyEnumId('HOUSES_FLOORS', $row['Этажность'], $iblockId) : null;
 
-                $buildings = array_map('trim', explode(', ', $row['Планировка этажей']));
+                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки (внешний код)']));
                 $variations = [];
 
                 if (!empty($row['Вариации дома'])) {
-                    $variations = stringProjectsToArray($row['Дополнительные постройки (внешний код)']);
+                    $variations = stringProjectsToArray($row['Вариации дома']);
                 }
                 
                 $productProperties = [
                     'HOUSE_VARIABLES' => $variations,
-                    'BUILDINGS' => $variations,
+                    'BUILDINGS' => $buildings,
                     'GALLERY' => $gallery,
                     'HOUSES_ROOMS' => $rooms,
                     'HOUSES_WC' => $wcs,

@@ -596,7 +596,7 @@ class HouseVariationManager {
                 }
             }
         });
-    },
+    }
 
     refreshAccordions() {
         document.querySelectorAll('.equipment-tabs__content-acc li.active dd')

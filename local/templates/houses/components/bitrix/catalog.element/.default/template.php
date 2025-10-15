@@ -65,13 +65,6 @@ if ($haveOffers) {
 	//p($recomendations);
 }
 ?>
-<style>
-	.noactive {
-		opacity: 0.4;
-		pointer-events: none;
-		cursor: default;
-	}
-</style>
 <section class="section detail-product__mainscreen" <? if ($haveOffers) {
 	echo 'id="' . $currentOffer['COMBINATION_KEY'] . '"';
 } ?>>

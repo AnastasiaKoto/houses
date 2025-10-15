@@ -1132,6 +1132,13 @@ class HouseVariationManager {
                 room.textContent = combination.PROPERTIES?.WCS?.VALUE;
             }
         })
+
+        let title = document.querySelector('h1');
+        if(combination.PROPERTIES?.SHOWED_NAME?.VALUE !== '') {
+            title.textContent = combination.PROPERTIES.SHOWED_NAME.VALUE;
+        } else {
+            title.textContent = combination.NAME;
+        }
     }
 
     //меняет параметры построек

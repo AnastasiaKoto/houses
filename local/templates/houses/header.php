@@ -83,7 +83,7 @@
     </nav>
   </header>
   <main>
-    <div class="container" id="breadcrumb-container">
+    <div class="container" id="navigation">
     <? 
     if($APPLICATION->GetCurPage() !== '/'): ?>
       <?$APPLICATION->IncludeComponent(

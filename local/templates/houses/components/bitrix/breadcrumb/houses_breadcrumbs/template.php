@@ -13,7 +13,7 @@ if(empty($arResult))
 
 $strReturn = '';
 
-$strReturn .= '<div class="breadcrumbs" id="navigation">';
+$strReturn .= '<div class="breadcrumbs">';
 
 $itemSize = count($arResult);
 for($index = 0; $index < $itemSize; $index++)

@@ -1842,6 +1842,7 @@
      & .custom-select__options {
        max-height: 200px;
        opacity: 1;
+       overflow: auto;
      }
 
      & .custom-select__arrow {

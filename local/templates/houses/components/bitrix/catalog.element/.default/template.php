@@ -229,7 +229,7 @@ if ($haveOffers) {
 												<div class="custom-select-js">
 													<? foreach ($arResult['PROPS']['HOUSES_SQUARES'] as $value): ?>
 														<? if (in_array('HOUSES_SQUARES:' . $value['VALUE'], $currentOffer['COMBINATION'])): ?>
-															<div class="selected"><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></div>
+															<div class="selected"><strong><?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?></strong> <?= $value['VALUE_ELEMENT']['UF_FULL_DESCRIPTION']; ?></div>
 															<input type="hidden" name="HOUSES_SQUARES"
 																value="<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>">
 															<?

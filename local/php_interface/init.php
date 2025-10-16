@@ -35,6 +35,7 @@ function formatPriceInMillions($price) {
 function recreateTextField($code, $arQuestion) {
     $field = reset($arQuestion['STRUCTURE']);
     $name = 'form_' . $field['FIELD_TYPE'] . '_' . $field['ID'];
+    
     $attrs = [
         'type' => 'text',
         'id' => htmlspecialcharsbx($code),
@@ -42,10 +43,17 @@ function recreateTextField($code, $arQuestion) {
         'value' => htmlspecialcharsbx($arQuestion['VALUE'] ?? ''),
     ];
 
+    $fieldParam = $arQuestion['STRUCTURE'][0]['FIELD_PARAM'] ?? '';
+    
     $attrStr = '';
     foreach ($attrs as $key => $val) {
         $attrStr .= ' ' . $key . '="' . $val . '"';
     }
+    
+    if (!empty($fieldParam)) {
+        $attrStr .= ' ' . $fieldParam;
+    }
+    
     $inputHtml = '<input' . $attrStr . '>';
 
     $labelHtml = '<label for="' . htmlspecialcharsbx($code) . '">' . htmlspecialcharsbx($arQuestion['CAPTION']) . '</label>';

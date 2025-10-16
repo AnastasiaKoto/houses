@@ -4,7 +4,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
-	"news", 
+	"vacancies", 
 	[
 		"IBLOCK_TYPE" => "vacancies",
 		"IBLOCK_ID" => IB_VACANCIES_ID,
@@ -36,8 +36,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"FILTER_NAME" => "",
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"USE_COMPARE" => "N",
-		"PRICE_CODE" => [
-		],
+		"PRICE_CODE" => "",
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
 		"PRICE_VAT_INCLUDE" => "N",

@@ -32,11 +32,23 @@ $sectionListParams = array(
 	"ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
 );
 ?>
-<section class="section news">
+<section class="section vacancy">
 	<div class="container">
 		<h1>
-			Новости
+			Вакансии
 		</h1>
+		<div class="vacancy-subtitle">
+			<? $APPLICATION->IncludeComponent(
+				"bitrix:main.include",
+				"",
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "",
+					"EDIT_TEMPLATE" => "standard.php",
+					"PATH" => "/include/vacancies/page_descr.php"
+				)
+			); ?>
+		</div>
 		<?
 		$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section.list",
@@ -47,13 +59,12 @@ $sectionListParams = array(
 		);
 		$intSectionID = $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
-			"news_list",
+			"vacancies_list",
 			array(
 				"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-				"IS_BRAND_PAGE" => $arParams['IS_BRAND_PAGE'] ?? "N",
 				"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-				"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'SORT',
-				"ELEMENT_SORT_ORDER" => $_REQUEST['sort_order'] ?? 'ASC',
+				"ELEMENT_SORT_FIELD" => $arParams['ELEMENT_SORT_FIELD'],
+				"ELEMENT_SORT_ORDER" => $arParams['ELEMENT_SORT_ORDER'],
 				"ELEMENT_SORT_FIELD2" => 'ID',
 				"ELEMENT_SORT_ORDER2" => 'DESC',
 				"PROPERTY_CODE" => (isset($arParams["LIST_PROPERTY_CODE"]) ? $arParams["LIST_PROPERTY_CODE"] : []),

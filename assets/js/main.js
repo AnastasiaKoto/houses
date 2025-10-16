@@ -440,6 +440,13 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("active");
     overlay.classList.add("active");
     document.documentElement.classList.add("lock");
+
+  
+    const input = modal.querySelector('input[data-name="name"]');
+    if (input) {
+
+      setTimeout(() => input.focus(), 100);
+    }
   }
 
   function closeModal(modal) {
@@ -470,6 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', () => {

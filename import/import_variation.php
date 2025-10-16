@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
+//$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 use Bitrix\Main\Loader;
@@ -105,6 +105,9 @@ function stringProjectsToArray($progectsString) {
     }
 }
 
+// дебаг
+
+
 function importOffersSimple($csvFilePath) {
     $handle = fopen($csvFilePath, 'r');
     if (!$handle) {
@@ -121,7 +124,7 @@ function importOffersSimple($csvFilePath) {
 
         try {
 
-            //if($counter <= 2):
+            if($counter <= 2):
 
             if (empty(array_filter($data))) {
                 logMessage("Пустая дата.");
@@ -174,7 +177,7 @@ function importOffersSimple($csvFilePath) {
                 //$square = getDirectoryItemId(9, $row['Площадь']);
 
                 $productProperties = [
-                    'SHOWED_NAME' => $row['Название для пользователя'],
+                    //'SHOWED_NAME' => $row['Название для пользователя'],
                     'HEIGHT' => $row['Высота потолков'],
                     'SIZES' => $row['Габариты'],
                     'GALLERY' => $gallery,
@@ -272,21 +275,45 @@ function importOffersSimple($csvFilePath) {
                 });
             }
 
-            if ($existingProduct):
+            if ($existingProduct && !empty($existingProduct['ID'])):
                 $element = new CIBlockElement;
                 $productId = $existingProduct['ID'];
-                $result = $element->Update($productId, $productFields);
+                $result = $element->Update($productId, array_merge($productFields, [
+                    'PROPERTY_VALUES' => $productProperties
+                ]));
                 
                 if ($result) {
+                    logMessage("Успешно обновлён элемент ID: $productId");
+                } else {
+                    logMessage("Ошибка обновления элемента ID: $productId: " . $element->LAST_ERROR);
+                }
+                //$result = $element->Update($productId, $productFields);
+                /*
+                if ($result) {
                     if (!empty($productProperties)) {
-
+                        logMessage("IB ID: " . $iblockId);
                         $updateResult = CIBlockElement::SetPropertyValuesEx($productId, $iblockId, $productProperties);
-                        
+                        //\Bitrix\Iblock\PropertyIndex\Manager::updateElementIndex($iblockId, $productId);
                         if (!$updateResult) {
-                            global $APPLICATION;
-                            $exception = $APPLICATION->GetException();
-                            $errorMessage = $exception ? $exception->GetString() : "Неизвестная ошибка";
-                            logMessage("Ошибка обновления свойств $project_type, ID: $productId: " . $errorMessage);
+                            logMessage("Ошибка SetPropertyValuesEx: " . $element->LAST_ERROR);
+                            if (!empty($productProperties)) {
+                                logMessage("Начинаем обновление свойств для $project_type, ID: $productId");
+                                
+                                // Обновляем каждое свойство по отдельности для отладки
+                                foreach ($productProperties as $propertyCode => $propertyValue) {
+                                    logMessage("Обновляем свойство: $propertyCode");
+
+                                    $updateResult = CIBlockElement::SetPropertyValuesEx($productId, $iblockId, array($propertyCode => $propertyValue));
+                                    if(!$updateResult) {
+                                        global $APPLICATION;
+                                        $exception = $APPLICATION->GetException();
+                                        $errorMessage = $exception ? $exception->GetString() : "Неизвестная ошибка";
+                                        logMessage("Ошибка обновления свойства '$propertyCode': " . $errorMessage);
+                                    }
+                                }
+                            } else {
+                                logMessage("Массив свойств пуст");
+                            }
                         }
                     } else {
                         logMessage("Нет свойств для обновления $project_type, ID: $productId - существующие значения сохранены");
@@ -295,6 +322,7 @@ function importOffersSimple($csvFilePath) {
                     $error = $element->LAST_ERROR;
                     logMessage("Ошибка обновления $project_type, ID: $productId; Error: $error");
                 }
+                */
             else:
                 $element = new CIBlockElement;
                 $newProductId = $element->Add(array_merge($productFields, [
@@ -306,7 +334,7 @@ function importOffersSimple($csvFilePath) {
                 }
             endif;
             $counter++;
-        //endif;
+        endif;
         } catch (Exception $e) {
             logMessage("Ошибка импорта товара: " . $e->getMessage());
         }

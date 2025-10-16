@@ -24,11 +24,11 @@ $arUrlRewrite=array (
     'PATH' => '/products/index.php',
     'SORT' => 100,
   ),
-  2 => 
+  6 => 
   array (
     'CONDITION' => '#^/news/#',
     'RULE' => '',
-    'ID' => 'bitrix:news',
+    'ID' => 'bitrix:catalog',
     'PATH' => '/news/index.php',
     'SORT' => 100,
   ),

@@ -250,6 +250,7 @@ function importOffersSimple($csvFilePath) {
             $productFields = [
                 'IBLOCK_ID' => $iblockId ?? null,
                 'NAME' => $row['Название'],
+                'ACTIVE' => $row['Активность'],
                 'CODE' => $productCode,
                 'PREVIEW_TEXT' => $anounce ?? null,
                 'IBLOCK_SECTION' => $sectionId ?? null,

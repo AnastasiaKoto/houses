@@ -1,4 +1,7 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+use Bitrix\Main\Loader; 
+Loader::includeModule('highloadblock'); 
+
 foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
     if (!empty($arQuestion["STRUCTURE"][0]["FIELD_TYPE"]) && $arQuestion["STRUCTURE"][0]["FIELD_TYPE"] === "checkbox") {
         $html = $arQuestion['HTML_CODE'];

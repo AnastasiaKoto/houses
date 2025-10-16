@@ -258,6 +258,7 @@ function importOffersSimple($csvFilePath) {
                 'PREVIEW_TEXT' => $anounce ?? null,
                 'IBLOCK_SECTION' => $sectionId ?? null,
             ];
+            $existingProduct = null;
             if($productId !== null) {
                 $existingProduct = CIBlockElement::GetList(
                     [],

@@ -52,7 +52,7 @@ if(!empty($arResult['ITEMS'])):
 						<div class="styles-item__description">
 							<?= $arItem['~PREVIEW_TEXT']; ?>
 						</div>
-						<a href="javascript:void(0)" class="arrow-btn__light">
+						<a href="<?= $arItem['PROPERTIES']['BTN_LINK']['VALUE']; ?>" class="arrow-btn__light">
 							<span>
 								<?= $arItem['PROPERTIES']['BTN_TXT']['VALUE']; ?>
 							</span>

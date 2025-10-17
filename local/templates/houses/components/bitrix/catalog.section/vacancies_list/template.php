@@ -3,7 +3,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 	die();
 
 use Bitrix\Main\Localization\Loc;
-
+$APPLICATION->AddChainItem($arResult["NAME"]);
 $this->setFrameMode(true);
 if (!empty($arResult['NAV_RESULT'])) {
 	$navParams = array(

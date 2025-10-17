@@ -1,17 +1,18 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 $arSortParams = [
-    'default' => ['NAME' => 'Порядок: по умолчанию', 'SORT' => 'SORT', 'ORDER' => 'ASC'], // Стандартное поле SORT
     'price_asc' => ['NAME' => 'Цена: по возрастанию', 'SORT' => 'PROPERTY_HOUSES_PRICES', 'ORDER' => 'ASC'],
     'price_desc' => ['NAME' => 'Цена: по убыванию', 'SORT' => 'PROPERTY_HOUSES_PRICES', 'ORDER' => 'DESC'],
     'square_asc' => ['NAME' => 'Площадь по возрастанию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'ASC'],
     'square_desc' => ['NAME' => 'Площадь по убыванию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'DESC'],
+    'popular_asc' => ['NAME' => 'Популярность по возрастанию', 'SORT' => 'SORT', 'ORDER' => 'ASC'],
+    'popular_desc' => ['NAME' => 'Популярность по убыванию', 'SORT' => 'SORT', 'ORDER' => 'DESC'],
     'date_desc' => ['NAME' => 'Порядок: сперва новые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'DESC'],
     'date_asc' => ['NAME' => 'Порядок: сперва старые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'ASC']
 ];
 
-$currentSort = $_REQUEST['sort'] ?? 'default';
-$activeSort = $arSortParams[$currentSort] ?? $arSortParams['default'];
+$currentSort = $_REQUEST['sort'] ?? 'price_asc';
+$activeSort = $arSortParams[$currentSort] ?? $arSortParams['price_asc'];
 
 $arResult['HIDDEN'] = array_filter($arResult['HIDDEN'] ?? [], function($field) {
     return !in_array($field['CONTROL_NAME'], ['sort', 'sort_field', 'sort_order']);

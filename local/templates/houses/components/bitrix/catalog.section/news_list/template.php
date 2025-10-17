@@ -34,7 +34,7 @@ if (!empty($arResult['ITEMS'])):
 			</div>
 			<div class="news-item__body">
 				<div class="news-item__theme">
-					<?= $arResult["NAME"]; ?>
+					<?= $arResult["NAME"] ?? $arItem['SECTION_NAME']; ?>
 				</div>
 				<div class="news-item__name">
 					<?= $arItem['NAME']; ?>

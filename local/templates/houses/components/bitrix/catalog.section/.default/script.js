@@ -198,7 +198,7 @@
 				}
 
 				const splide = new Splide(slider, {
-					type: 'slide',
+					type: 'fade',
 					speed: 600, 
  					easing: 'ease',
 					perPage: 1,

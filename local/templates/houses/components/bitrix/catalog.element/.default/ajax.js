@@ -393,6 +393,8 @@ class HouseVariationManager {
                 if (!splide) {
                     splide = new Splide(this.sliderRecomendations, {
                         type: 'splide',
+                        speed: 600, 
+                        easing: 'ease',
                         autoWidth: true,
                         perMove: 1,
                         pagination: false,

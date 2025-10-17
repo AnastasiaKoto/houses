@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     autoplay: true,
     interval: 5000,
     pauseOnHover: false,
+    speed: 600, 
+    easing: 'ease',
   });
 
   const slidesCount = sliderMainscreen.querySelectorAll('.splide__slide').length;
@@ -75,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
           perMove: 1,
           pagination: false,
           arrows: false,
+          speed: 600, 
+          easing: 'ease',
         });
         splide.mount();
       }
@@ -109,13 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderUniq) return;
 
   const splide = new Splide(sliderUniq, {
-    type: 'slide',
+    type: 'loop',
     // perPage: 1,
     awtoWidth: true,
     gap: 20,
     perMove: 1,
     pagination: false,
     arrows: false,
+    speed: 600, 
+    easing: 'ease',
     breakpoints: {
       992: {
         gap: 10,

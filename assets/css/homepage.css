@@ -4,6 +4,7 @@
      grid-template-columns: 1fr 1fr;
      grid-template-rows: 2fr 1fr;
      gap: 20px;
+      max-height: 700px;
 
      @media(max-width: 1110px) {
        display: flex;
@@ -732,7 +733,7 @@
        }
 
        & .uniq-slider__Description {
-         color: var(--dark-color);
+         color: var(--darg-gray-color);
        }
      }
 
@@ -903,6 +904,9 @@
            flex-direction: column;
            gap: 10px;
            text-align: center;
+           & .why-we__item-image__layer {
+            transform: rotate(180deg);
+           }
 
            @media(max-width: 1100px) {
              grid-column-end: span 1;

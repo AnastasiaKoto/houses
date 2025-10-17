@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
   const sliderStyles = document.querySelector('.styles-slider');
   if (!sliderStyles) return;

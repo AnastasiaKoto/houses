@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   const slidersCatalog = document.querySelectorAll('.catalog-item__images');
 
   slidersCatalog.forEach(slider => {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
   });
 });
-
+*/
 
 const showFilterItems = () => {
   const items = document.querySelectorAll(".ctalog-filters__acc-item");

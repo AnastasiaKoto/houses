@@ -15,7 +15,7 @@ if(!empty($arResult['SECTIONS'])):
 	//p($arParams['CURSECTION']);
 ?>
 <div class="section-cats__links">
-	<a href="/vacancies/" class="section-cats__link <?= $arResult['SECTION']['ID'] == 0 && !$arParams['CURSECTION'] ? 'current' : ''; ?>">
+	<a href="/company/vacancies/" class="section-cats__link <?= $arResult['SECTION']['ID'] == 0 && !$arParams['CURSECTION'] ? 'current' : ''; ?>">
 		Все
 	</a>
 	<? foreach($arResult['SECTIONS'] as $arSection): ?>

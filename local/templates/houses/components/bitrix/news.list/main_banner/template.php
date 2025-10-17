@@ -36,7 +36,7 @@ echo '</pre>';
 					</h4>
 				</div>
 				<? if(!empty($arItem['DISPLAY_PROPERTIES']['BLACK_BTN_TXT']['DISPLAY_VALUE'])) { ?>
-				<a href="javasscript:void(0)" class="arrow-btn__dark">
+				<a href="/proekty-domov/" class="arrow-btn__dark">
 					<span>
 						<?= $arItem['DISPLAY_PROPERTIES']['BLACK_BTN_TXT']['DISPLAY_VALUE']; ?>
 					</span>

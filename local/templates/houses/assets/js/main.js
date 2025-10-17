@@ -21,6 +21,8 @@ class ProjectsSlider {
         pagination: true,
         arrows: false,
         drag: false,
+        speed: 600, 
+        easing: 'ease',
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');

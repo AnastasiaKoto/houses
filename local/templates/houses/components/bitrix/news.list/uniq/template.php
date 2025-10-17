@@ -51,8 +51,9 @@ if(!empty($arResult['ITEMS'])):
 		<div class="splide uniq-slider">
 			<div class="splide__track">
 				<ul class="splide__list">
+					<? $counter = 1; ?>
 					<? foreach($arResult['ITEMS'] as $arItem): ?>
-					<li class="splide__slide <?= $arItem['PROPERTIES']['TEXT_COLOR']['VALUE'] == 'Темный текст' ? 'dark-text' : '';  ?>">
+					<li data-modal-target="#modal<?= $counter; ?>" class="splide__slide <?= $arItem['PROPERTIES']['TEXT_COLOR']['VALUE'] == 'Темный текст' ? 'dark-text' : '';  ?>">
 						<div class="uniq-slider__image">
 							<? if($arItem['PROPERTIES']['TEXT_COLOR']['VALUE'] !== 'Темный текст'): ?>
 							<div class="uniq-dark__layer"></div>
@@ -66,7 +67,19 @@ if(!empty($arResult['ITEMS'])):
 							<?= $arItem['~PREVIEW_TEXT']; ?>
 						</div>
 					</li>
-					<? endforeach; ?>
+					<? if(!empty($arItem['DETAIL_TEXT'])): ?>
+					<div class="modal" id="modal<?= $counter; ?>">
+						<div class="modal-inner">
+							<div class="modal-content">
+								<?= $arItem['~DETAIL_TEXT']; ?>
+							</div>
+							<button class="modal-close">
+							Закрыть окно
+							</button>
+						</div>
+					</div>
+					<? endif; ?>
+					<? $counter++; endforeach; ?>
 				</ul>
 			</div>
 		</div>

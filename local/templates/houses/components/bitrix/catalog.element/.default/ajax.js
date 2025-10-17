@@ -392,7 +392,7 @@ class HouseVariationManager {
             if (window.innerWidth <= 1500) {
                 if (!splide) {
                     splide = new Splide(this.sliderRecomendations, {
-                        type: 'loop',
+                        type: 'splide',
                         autoWidth: true,
                         perMove: 1,
                         pagination: false,

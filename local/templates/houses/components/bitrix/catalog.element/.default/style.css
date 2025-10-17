@@ -1007,6 +1007,12 @@
           color: #C7C9C9;
           padding-bottom: 6px;
           border-bottom: 2px solid transparent;
+          transition: color .3s ease-in;
+
+          &:hover {
+            color: #f6662a;
+            
+          }
 
           &.active {
             color: var(--dark-color);
@@ -1078,6 +1084,11 @@
           letter-spacing: -0.6px;
           padding-bottom: 10px;
           border-bottom: 3px solid transparent;
+          transition: color .3s ease-in;
+
+          &:hover {
+            color: #f6662a;
+          }
 
           @media(max-width: 992px) {
             font-size: 22px;
@@ -1260,6 +1271,11 @@
         letter-spacing: -0.6px;
         border-bottom: 3px solid transparent;
         padding-bottom: 10px;
+        transition: color .3s ease-in;
+
+        &:hover {
+          color: #f6662a;
+        }
 
         @media(max-width: 1200px) {
 

@@ -17,6 +17,9 @@ if ($arResult["isFormErrors"] == "Y") {
 		<div class="section-title">
 		В форме содержатся ошибки!
 		</div>
+		<div class="question-form__form-subtitle">
+			<?= $arResult['FORM_ERRORS']; ?>
+		</div>
 		<a href="javascript:void(0)" onclick="window.location.reload();" class="question-form__form-close">
 		Закрыть
 		</a>
@@ -54,7 +57,7 @@ if ($arResult["isFormErrors"] == "Y") {
 					if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") {
 				?>
 					<div class="float-input">
-						<?= recreateTextField($FIELD_SID, $arQuestion); ?>
+						<?= recreateTextField($FIELD_SID, $arQuestion, 'text'); ?>
 					</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") { ?>
 					<div class="custom-select" data-placeholder="<?= $arQuestion['CAPTION']; ?>">

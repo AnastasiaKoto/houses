@@ -3,25 +3,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 	die();
 
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Catalog\ProductTable;
-
-/**
- * @global CMain $APPLICATION
- * @var array $arParams
- * @var array $arResult
- * @var CatalogSectionComponent $component
- * @var CBitrixComponentTemplate $this
- * @var string $templateName
- * @var string $componentPath
- *
- *  _________________________________________________________________________
- * |	Attention!
- * |	The following comments are for system use
- * |	and are required for the component to work correctly in ajax mode:
- * |	<!-- items-container -->
- * |	<!-- pagination-container -->
- * |	<!-- component-end -->
- */
 
 $this->setFrameMode(true);
 if (!empty($arResult['NAV_RESULT'])) {
@@ -49,12 +30,13 @@ if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1) {
 }
 
 $obName = 'ob' . preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
-$containerName = 'container-' . $navParams['NavNum'];
-if (!empty($arResult['ITEMS'])):
+$containerName = 'container-' . $navParams['NavNum'];?>
+<!-- items-container -->
+<?if (!empty($arResult['ITEMS'])):
 	?>
-	<div class="vacancy-items" data-entity="items-row" id="<?= $containerName ?>">
+	<div class="vacancy-items catalog-items" data-entity="items-row" id="<?= $containerName ?>">
 		<? foreach($arResult['ITEMS'] as $arItem): ?>
-		<div class="vacancy-item" data-entity="item">
+		<div class="vacancy-item catalog-item" data-entity="item">
 			<div class="vacancy-item__name">
 				<?= $arItem['NAME']; ?>
 			</div>
@@ -70,7 +52,9 @@ if (!empty($arResult['ITEMS'])):
 		</div>
 		<? endforeach; ?>
 	</div>
-	<?
+<? endif; ?>
+<!-- items-container -->
+<?
 	if ($showLazyLoad) {
 		?>
 		<div class="show-more-container">
@@ -81,7 +65,6 @@ if (!empty($arResult['ITEMS'])):
 		<?
 	}
 	?>
-<? endif; ?>
 <?
 
 $signer = new \Bitrix\Main\Security\Sign\Signer;
@@ -110,3 +93,4 @@ $signedParams = $signer->sign(base64_encode(serialize($arResult['ORIGINAL_PARAME
 		container: '<?= $containerName ?>'
 	});
 </script>
+<!-- component-end -->

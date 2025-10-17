@@ -9,7 +9,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Вакансии", 
-		"/company/vakancy/", 
+		"/vacancies/", 
 		Array(), 
 		Array(), 
 		"" 

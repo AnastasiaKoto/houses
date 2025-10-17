@@ -32,15 +32,15 @@ function formatPriceInMillions($price) {
     return round($millions) . ' млн';
 }
 
-function recreateTextField($code, $arQuestion) {
+function recreateTextField($code, $arQuestion, $type, $value = false) {
     $field = reset($arQuestion['STRUCTURE']);
     $name = 'form_' . $field['FIELD_TYPE'] . '_' . $field['ID'];
     
     $attrs = [
-        'type' => 'text',
+        'type' => $type,
         'id' => htmlspecialcharsbx($code),
         'name' => htmlspecialcharsbx($name),
-        'value' => htmlspecialcharsbx($arQuestion['VALUE'] ?? ''),
+        'value' => htmlspecialcharsbx($value ?? $arQuestion['VALUE']),
     ];
 
     $fieldParam = $arQuestion['STRUCTURE'][0]['FIELD_PARAM'] ?? '';

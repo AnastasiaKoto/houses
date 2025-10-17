@@ -48,6 +48,12 @@
 			this.showMoreButtonMessage = this.showMoreButton.innerHTML;
 			BX.bind(this.showMoreButton, 'click', BX.proxy(this.showMore, this));
 		}
+		/*
+		if (params.loadOnScroll)
+		{
+			BX.bind(window, 'scroll', BX.proxy(this.loadOnScroll, this));
+		}
+		*/
 	};
 
 	window.JCCatalogSectionComponent.prototype =
@@ -76,6 +82,18 @@
 				this.showMoreButton.innerHTML = BX.message('BTN_MESSAGE_LAZY_LOAD_WAITER');
 			}
 		},
+		/*
+		loadOnScroll: function()
+		{
+			var scrollTop = BX.GetWindowScrollPos().scrollTop,
+				containerBottom = BX.pos(this.container).bottom;
+
+			if (scrollTop + window.innerHeight > containerBottom)
+			{
+				this.showMore();
+			}
+		},
+		*/
 		showMore: function () {
 			if (this.navParams.NavPageNomer < this.navParams.NavPageCount) {
 				var data = {};
@@ -181,35 +199,14 @@
 			items = temporaryNode.querySelectorAll('[data-entity="item"]');
 
 			if (items.length) {
-				//this.showHeader(true);
+				this.showHeader(true);
 				for (var k = 0; k < items.length; k++) {
 					if (items[k] && this.container) {
-						items[k].style.opacity = 0;
-
 						this.container.appendChild(items[k]);
 					}
 				}
-				new BX.easing({
-					duration: 2000,
-					start: { opacity: 0 },
-					finish: { opacity: 100 },
-					transition: BX.easing.makeEaseOut(BX.easing.transitions.quad),
-					step: function (state) {
-						for (var k in items) {
-							if (items.hasOwnProperty(k)) {
-								items[k].style.opacity = state.opacity / 100;
-							}
-						}
-					},
-					complete: function () {
-						for (var k in items) {
-							if (items.hasOwnProperty(k)) {
-								items[k].removeAttribute('style');
-							}
-						}
-					}
-				}).animate();
 			}
+			console.log(processed);
 			BX.ajax.processScripts(processed.SCRIPT);
 		},
 		processEpilogue: function (epilogueHtml) {

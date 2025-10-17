@@ -12,7 +12,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 <?
 
 if ($arResult["isFormErrors"] == "Y") {
-	p($arResult);
 	?>
 	<div class="modal-content thx-content">
           <div class="modal-title">
@@ -57,7 +56,7 @@ if ($arResult["isFormErrors"] == "Y") {
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") { 
 					?>
 						<div class="float-input">
-							<?= recreateTextField($FIELD_SID, $arQuestion); ?>
+							<?= recreateTextField($FIELD_SID, $arQuestion, 'text'); ?>
 						</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "email") { ?>
 						<div class="float-input">

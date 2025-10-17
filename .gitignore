@@ -5,3 +5,8 @@
 /debug.log
 /local/php_interface/config/
 /bitrix_old/*
+/docker-compose.yml
+/instruction.txt
+/nginx/
+/php/
+/www/

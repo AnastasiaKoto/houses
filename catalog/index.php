@@ -101,7 +101,7 @@ $APPLICATION->IncludeComponent(
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
 		"PAGE_ELEMENT_COUNT" => "9",
 		"LINE_ELEMENT_COUNT" => "3",
-		"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'SORT',
+		"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'PROPERTY_HOUSES_PRICES',
 		"ELEMENT_SORT_ORDER" => $_REQUEST['sort_order'] ?? 'ASC',
 		"ELEMENT_SORT_FIELD2" => 'ID',
 		"ELEMENT_SORT_ORDER2" => 'DESC',

@@ -3,17 +3,15 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderMainscreen) return;
 
   const splide = new Splide(sliderMainscreen, {
-    type: 'slide',
+    type: 'loop', // теперь бесконечный
     perPage: 1,
     gap: 0,
     perMove: 1,
     pagination: false,
     arrows: false,
     autoplay: true,
-    interval: 5000,
+    interval: 7000, // медленнее (7 секунд)
     pauseOnHover: false,
-    speed: 600, 
-    easing: 'ease',
   });
 
   const slidesCount = sliderMainscreen.querySelectorAll('.splide__slide').length;
@@ -62,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   splide.mount();
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
   const sliderStyles = document.querySelector('.styles-slider');
   if (!sliderStyles) return;
@@ -72,13 +71,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.innerWidth <= 1500) {
       if (!splide) {
         splide = new Splide(sliderStyles, {
-          type: 'slide',
+          type: 'loop',
           autoWidth: true,
           perMove: 1,
           pagination: false,
           arrows: false,
-          speed: 600, 
-          easing: 'ease',
+          gap: 20,
+          speed: 600,  
+          easing: 'ease', 
+          breakpoints: {
+            700: {
+              gap: 10
+            }
+          }
         });
         splide.mount();
       }
@@ -91,10 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   initSplide();
-
-
   window.addEventListener('resize', initSplide);
-
 
   const prevArrow = document.querySelector('.styles-arrow__prev');
   const nextArrow = document.querySelector('.styles-arrow__next');
@@ -108,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
   const sliderUniq = document.querySelector('.uniq-slider');
   if (!sliderUniq) return;
@@ -115,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const splide = new Splide(sliderUniq, {
     type: 'loop',
     // perPage: 1,
-    awtoWidth: true,
+    autoWidth: true, 
     gap: 20,
     perMove: 1,
     pagination: false,
@@ -125,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     breakpoints: {
       992: {
         gap: 10,
+        // type: 'loop',
       }
     }
   });
@@ -146,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   function moveElementOnBreakpoint(elementSelector, targetSelector, breakpoint) {
@@ -177,6 +182,43 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+  const sliders = document.querySelectorAll('.projects-slider');
+  if (!sliders.length) return;
+
+  const prevArrow = document.querySelector('.projects-arrow__prev');
+  const nextArrow = document.querySelector('.projects-arrow__next');
+
+
+  const splides = Array.from(sliders).map(slider => {
+    const s = new Splide(slider, {
+      type: 'slide',
+      autoWidth: true,
+      gap: 20,
+      perMove: 1,
+      pagination: false,
+      arrows: false,
+    });
+    s.mount();
+    return s;
+  });
+
+
+  let currentIndex = 0;
+
+
+  if (prevArrow) prevArrow.addEventListener('click', () => splides[currentIndex].go('<'));
+  if (nextArrow) nextArrow.addEventListener('click', () => splides[currentIndex].go('>'));
+
+
+  sliders.forEach((slider, i) => {
+    slider.addEventListener('mouseenter', () => {
+      currentIndex = i;
+    });
+  });
+});
+
+
 
 
 
@@ -195,3 +237,27 @@ document.addEventListener("DOMContentLoaded", () => {
 //     }).mount();
 //   });
 // });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.projects-tabs__link');
+  const contents = document.querySelectorAll('.projects-slider-wrapper');
+
+  if (!tabs.length || !contents.length) return;
+
+  tabs[0].classList.add('active');
+  contents[0].classList.add('active');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      // удаляем active со всех
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      // добавляем active выбранному
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+});

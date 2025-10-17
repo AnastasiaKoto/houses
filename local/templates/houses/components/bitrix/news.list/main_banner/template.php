@@ -54,22 +54,22 @@ echo '</pre>';
 				</div>
 				<? } ?>
 			</div>
-			<? if(!empty($arItem['PROPERTIES']['PROJECTS']['ARVALUE'])): ?>
+			<? if(!empty($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE'])): ?>
 			<div class="mainscreen-slider">
 				<div class="splide mainscreen-splide">
 					<div class="splide__track">
 						<ul class="splide__list">
-							<? foreach($arItem['PROPERTIES']['PROJECTS']['ARVALUE'] as $project): ?>
-							<li class="splide__slide">
+							<? foreach($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE'] as $project): ?>
+							<li class="splide__slide" onclick="window.location='<?= $project['UF_LINK']; ?>'">
 								<div class="mainscreen-splide__image">
-									<img src="<?= $project['PREVIEW_PICTURE']; ?>" alt="<?= $project['NAME']; ?>">
+									<img src="<?= $project['UF_IMAGE']; ?>" alt="<?= $project['UF_NAME']; ?>">
 								</div>
 								<div class="mainscreen-splide__info">
 									<div class="mainscreen-splide__info-title">
-										<?= $project['NAME']; ?>
+										<?= $project['UF_NAME']; ?>
 									</div>
 									<div class="mainscreen-splide__info-price">
-										<?= $project['MIN_PRICE'] > 0 ? number_format($project['MIN_PRICE'], 0, '', ' ') . ' ₽' : ''; ?>
+										<?= $project['UF_DESCRIPTION']; ?>
 									</div>
 								</div>
 							</li>

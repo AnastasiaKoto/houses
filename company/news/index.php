@@ -4,10 +4,10 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
-	"vacancies", 
+	"news", 
 	[
-		"IBLOCK_TYPE" => "vacancies",
-		"IBLOCK_ID" => IB_VACANCIES_ID,
+		"IBLOCK_TYPE" => "content",
+		"IBLOCK_ID" => IB_NEWS_ID,
 		"TEMPLATE_THEME" => "",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"BASKET_URL" => "",
@@ -17,14 +17,14 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"PRODUCT_QUANTITY_VARIABLE" => "quantity",
 		"PRODUCT_PROPS_VARIABLE" => "prop",
 		"SEF_MODE" => "Y",
-		"SEF_FOLDER" => "/vacancies/",
+		"SEF_FOLDER" => "/company/news/",
 		"AJAX_MODE" => "Y",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "Y",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
-		"CACHE_FILTER" => "N",
+		"CACHE_FILTER" => "Y",
 		"CACHE_GROUPS" => "Y",
 		"SET_TITLE" => "Y",
 		"ADD_SECTION_CHAIN" => "Y",
@@ -32,7 +32,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"SET_STATUS_404" => "Y",
 		"DETAIL_DISPLAY_NAME" => "Y",
 		"USE_ELEMENT_COUNTER" => "N",
-		"USE_FILTER" => "N",
+		"USE_FILTER" => "Y",
 		"FILTER_NAME" => "",
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"USE_COMPARE" => "N",
@@ -54,7 +54,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"SECTION_TOP_DEPTH" => "2",
 		"SECTIONS_VIEW_MODE" => "TILE",
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
-		"PAGE_ELEMENT_COUNT" => "3",
+		"PAGE_ELEMENT_COUNT" => "8",
 		"LINE_ELEMENT_COUNT" => "3",
 		"ELEMENT_SORT_FIELD" => "sort",
 		"ELEMENT_SORT_ORDER" => "asc",
@@ -118,9 +118,9 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"OFFERS_SORT_ORDER" => "desc",
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER2" => "desc",
-		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TEMPLATE" => "arrows",
 		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"DISPLAY_BOTTOM_PAGER" => "N",
 		"PAGER_TITLE" => "Товары",
 		"PAGER_SHOW_ALWAYS" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
@@ -168,7 +168,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"SIDEBAR_SECTION_SHOW" => "N",
 		"SIDEBAR_DETAIL_SHOW" => "N",
 		"SIDEBAR_PATH" => "",
-		"COMPONENT_TEMPLATE" => "vacancies",
+		"COMPONENT_TEMPLATE" => "news",
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
 		"LABEL_PROP_MOBILE" => "",
 		"LABEL_PROP_POSITION" => "top-left",
@@ -198,7 +198,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"DETAIL_ADD_TO_BASKET_ACTION" => [
 			0 => "ADD",
 		],
-		"SEARCH_PAGE_RESULT_COUNT" => "",
+		"SEARCH_PAGE_RESULT_COUNT" => "50",
 		"SEARCH_RESTART" => "N",
 		"SEARCH_NO_WORD_LOGIC" => "Y",
 		"SEARCH_USE_LANGUAGE_GUESS" => "N",
@@ -271,7 +271,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 		"SHOW_GENERAL_STORE_INFORMATION" => "Y",
 		"USE_ENHANCED_ECOMMERCE" => "N",
 		"PAGER_BASE_LINK_ENABLE" => "N",
-		"LAZY_LOAD" => "Y",
+		"LAZY_LOAD" => "N",
 		"MESS_BTN_LAZY_LOAD" => "Показать ещё",
 		"LOAD_ON_SCROLL" => "N",
 		"SHOW_404" => "N",
@@ -299,4 +299,14 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	],
 	false
 );?>
+<? $APPLICATION->IncludeComponent(
+    "bitrix:main.include",
+    "",
+    array(
+        "AREA_FILE_SHOW" => "file",
+        "AREA_FILE_SUFFIX" => "",
+        "EDIT_TEMPLATE" => "standard.php",
+        "PATH" => "/include/general/form/form.php"
+    )
+); ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

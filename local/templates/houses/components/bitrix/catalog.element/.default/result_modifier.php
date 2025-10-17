@@ -22,31 +22,6 @@ while ($enum = $rsEnum->GetNext()) {
     $roomsForJsOffers[$enum['ID']] = $enum['VALUE'];
 }
 
-function getHlData($valueId, $tableName) {
-    $hlblock = Bitrix\Highloadblock\HighloadBlockTable::getList(array(
-        'filter' => array('=TABLE_NAME' => $tableName)
-    ))->fetch();
-
-    if($hlblock) {
-        $entity = Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock);
-        $entityClass = $entity->getDataClass();
-
-        $item = $entityClass::getList(array(
-            'select' => array('*'),
-            'filter' => array('=UF_XML_ID'=>$valueId)
-        ))->fetch();
-
-        if($item) {
-            if(!empty($item['UF_FILE'])) {
-                $item['UF_FILE'] = CFile::GetPath($item['UF_FILE']);
-            }
-        }
-        return $item;
-    }
-
-    return null;
-}
-
 function getProjects($projectIds, $roomsForJsOffers = false) {
 
     $arSelect = ["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "DETAIL_PAGE_URL"];

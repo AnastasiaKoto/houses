@@ -22,7 +22,7 @@ use Bitrix\Catalog\ProductTable;
  * |	<!-- pagination-container -->
  * |	<!-- component-end -->
  */
-
+$APPLICATION->AddChainItem($arResult["NAME"]);
 $this->setFrameMode(true);
 if (!empty($arResult['ITEMS'])):
 	?>
@@ -34,7 +34,7 @@ if (!empty($arResult['ITEMS'])):
 			</div>
 			<div class="news-item__body">
 				<div class="news-item__theme">
-					<?= $arItem['DISPLAY_PROPERTIES']['THEME']['VALUE']; ?>
+					<?= $arResult["NAME"]; ?>
 				</div>
 				<div class="news-item__name">
 					<?= $arItem['NAME']; ?>

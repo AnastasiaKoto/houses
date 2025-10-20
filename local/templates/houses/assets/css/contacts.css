@@ -1,0 +1,218 @@
+.contacts {
+  & .contacts-inner {
+    display: flex;
+    gap: 40px;
+
+    & .contacts-info {
+      max-width: 680px;
+      width: 100%;
+
+      @media(max-width: 992px) {
+        max-width: 100%;
+      }
+
+
+      & h1 {
+        margin-bottom: 20px;
+        @media(max-width: 1100px) {
+          margin-top: 20px;
+        }
+      }
+
+      & .contacts-description {
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        /* 24px */
+        letter-spacing: -0.4px;
+        color: var(--darg-gray-color);
+        @media(max-width: 700px) {
+          font-weight: 400;
+        }
+      }
+
+      & .contacts-items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 24px;
+        margin-top: 63px;
+        @media(max-width: 700px) {
+          grid-template-columns: 1fr;
+          margin-top: 30px;
+          gap: 20px;
+        }
+
+        & .contacts-item {
+          & .contacts-item__label {
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+            color: var(--darg-gray-color);
+            margin-bottom: 4px;
+          }
+
+          & .contacts-item__text {
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%;
+            /* 24px */
+            letter-spacing: -0.4px;
+
+            & a {
+              font-size: 20px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 120%;
+              /* 24px */
+              letter-spacing: -0.4px;
+              color: var(--dark-color);
+            }
+          }
+        }
+      }
+
+      & .contats-social {
+        margin-top: 63px;
+        @media(max-width: 700px) {
+          margin-top: 20px;
+        }
+
+        & .contats-social__label {
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 130%;
+          color: var(--darg-gray-color);
+          margin-bottom: 8px;
+        }
+
+        & .contats-social__items {
+          display: flex;
+          gap: 8px;
+
+          & a {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #E7EAEB;
+            background: #F3F3F6;
+
+            & svg {
+              & path {
+                transition: all .3s ease-in;
+              }
+            }
+
+            &:hover {
+              background-color: var(--dark-color);
+              transition: all .3s ease-in;
+
+              & svg {
+                & path {
+                  transition: all .3s ease-in;
+                  fill: var(--light-color);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+  }
+
+  .contacts-form {
+    max-width: 680px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 40px;
+    border: 1px solid #E7EAEB;
+    background: #F3F3F6;
+
+    @media(max-width: 1100px) {
+      padding: 20px;
+    }
+
+    @media(max-width: 992px) {
+      max-width: 100%;
+      margin-top: 100px;
+    }
+
+    & .contacts-form__title {
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      /* 30px */
+      letter-spacing: -0.6px;
+      margin-bottom: 10px;
+    }
+
+    & .contacts-form__description {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      color: var(--darg-gray-color);
+    }
+
+    & form {
+      margin-top: 40px;
+
+      & .float-input {
+        max-width: 100%;
+        margin-bottom: 10px;
+      }
+
+      & .custom-select {
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+
+      & .custom-checkbox-black {
+        & .checkbox-text {
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 140%;
+          color: var(--darg-gray-color);
+
+          & a {
+            color: var(--dark-color);
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            color: var(--darg-gray-color);
+          }
+        }
+      }
+
+      & .arrow-btn__dark {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  .contacts-map__frame {
+    margin-top: 40px;
+    height: 459px;
+    width: 100%;
+    border-radius: 40px;
+    border: 1px solid #E7EAEB;
+    overflow: hidden;
+    @media(max-width: 700px) {
+      margin-top: 30px;
+    }
+  }
+}

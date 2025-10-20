@@ -937,7 +937,7 @@
    animation: slideDown 0.3s forwards;
  }
 
-  @keyframes slideDown {
+ @keyframes slideDown {
    from {
      transform: translateY(-100%);
      opacity: 0;
@@ -2116,7 +2116,7 @@
    justify-content: center;
    opacity: 0;
    z-index: -1;
-   transform: scale(0);
+   pointer-events: none;
    transition: all .3s ease-in;
 
    & .modal-inner {
@@ -2141,6 +2141,14 @@
 
        @media(max-width: 700px) {
          align-items: flex-start;
+       }
+
+       & .custom-select {
+         max-width: 100%;
+       }
+
+       & .custom-select__trigger {
+         border: 1px solid #E7EAEB;
        }
 
        & .modal-title {
@@ -2257,7 +2265,7 @@
  .modal.active {
    opacity: 1;
    z-index: 12;
-   transform: scale(1);
+   pointer-events: auto;
    transition: all .3s ease-in;
  }
 

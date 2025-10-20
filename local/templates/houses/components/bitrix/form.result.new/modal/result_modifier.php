@@ -2,6 +2,23 @@
 use Bitrix\Main\Loader; 
 Loader::includeModule('highloadblock'); 
 
+$formPrefix = $arParams['UNIQUE_PREFIX'] ?? 'form_';
+if (isset($arResult['FORM_HEADER'])) {
+    if (preg_match('/<form[^>]*id="[^"]*"[^>]*>/', $arResult['FORM_HEADER'])) {
+        $arResult['FORM_HEADER'] = preg_replace(
+            '/(<form[^>]*)id="[^"]*"([^>]*>)/', 
+            '$1id="' . $formPrefix . '"$2', 
+            $arResult['FORM_HEADER']
+        );
+    } else {
+        $arResult['FORM_HEADER'] = preg_replace(
+            '/(<form[^>]*)>/', 
+            '$1 id="' . $formPrefix . '">', 
+            $arResult['FORM_HEADER']
+        );
+    }
+}
+
 foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
     if (!empty($arQuestion["STRUCTURE"][0]["FIELD_TYPE"]) && $arQuestion["STRUCTURE"][0]["FIELD_TYPE"] === "checkbox") {
         $html = $arQuestion['HTML_CODE'];

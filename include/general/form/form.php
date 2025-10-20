@@ -49,6 +49,7 @@
 						"WEB_FORM_ID" => "",
 					),
 					"WEB_FORM_ID" => "1",	// ID веб-формы
+					"UNIQUE_PREFIX" => "footer_form"
 				),
 				false
 			); ?>

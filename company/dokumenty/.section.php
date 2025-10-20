@@ -1,3 +1,6 @@
 <?
-$sSectionName="Документы";
+$sSectionName = "Документы";
+$arDirProperties = Array(
+   "title" => "Документы"
+);
 ?>

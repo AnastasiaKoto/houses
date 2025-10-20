@@ -13,8 +13,16 @@
 	<? 
 	Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/splide.min.css');
   Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/fancybox.css');
-	Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/homepage.css');
 	Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/main.css');
+
+  if($APPLICATION->GetCurPage() == '/'): 
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/homepage.css');
+  endif;
+  
+  if($APPLICATION->GetCurPage() == '/contacts/'): 
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/contacts.css');
+  endif;
+  
 	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/splide.min.js');
   Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/fancybox.umd.js');
 	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/homepage.js');

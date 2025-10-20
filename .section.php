@@ -1,7 +1,7 @@
 <?
 $sSectionName = "Главная";
 $arDirProperties = Array(
-   "title" => "Главная",
+   "title" => "Проекты домов",
    "ROBOTS" => "index, follow"
 );
 ?>

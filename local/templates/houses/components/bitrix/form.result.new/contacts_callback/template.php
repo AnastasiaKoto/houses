@@ -10,7 +10,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
-$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? '';
+
 if ($arResult["isFormErrors"] == "Y") {
 	?>
 	<div class="thx-inner">
@@ -48,16 +48,21 @@ if ($arResult["isFormErrors"] == "Y") {
 		document.querySelector('.main_question-form__form-subtitle').style.display = 'none';
 	</script>
 <? } elseif ($arResult["isFormNote"] != "Y") { ?>
-	<?= $arResult["FORM_HEADER"] ?>
-	<div class="question-form__form">
-		<div class="input-row">
+	<div class="contacts-form" data-move-target=".contacts-map__frame" data-move-break="992">
+		<div class="contacts-form__title">
+			<?= $arResult['arForm']['NAME']; ?>
+		</div>
+		<div class="contacts-form__description">
+			<?= $arResult['arForm']['DESCRIPTION']; ?>
+		</div>
+		<?= $arResult["FORM_HEADER"] ?>
 			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { ?>
 				<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] != "checkbox") { 
 					
 					if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") {
 				?>
 					<div class="float-input">
-						<?= recreateTextField($FIELD_SID, $arQuestion, 'text', $prefix); ?>
+						<?= recreateTextField($FIELD_SID, $arQuestion, 'text'); ?>
 					</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") { ?>
 					<div class="custom-select" data-placeholder="<?= $arQuestion['CAPTION']; ?>">
@@ -83,31 +88,37 @@ if ($arResult["isFormErrors"] == "Y") {
 						<?= $arQuestion["HTML_CODE"]; ?>
 					</div>
 					<? } ?>
+				<? } ?>
 			<? } ?>
-			<? } ?>
-		</div>
-		<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { 
-			if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "checkbox") { 
-		?>
-		<div class="agreed">
-			<label class="custom-checkbox">
+			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { 
+				if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "checkbox") { 
+			?>
+			<label class="custom-checkbox-black">
 				<?= $arQuestion["HTML_CODE"]; ?>
-				<span class="checkmark"></span>
-				<span class="agreed-text"><?= $arQuestion['CAPTION']; ?></span>
+				<span class="checkmark">
+					<svg width="12" height="10" viewBox="0 0 12 10" fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white"
+							stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</span>
+				<span class="checkbox-text"><?= $arQuestion['CAPTION']; ?></span>
 			</label>
-		</div>
-		<? } } ?>
-		<button type="submit" class="arrow-btn__light" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
-			<span>
-				<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>
-			</span>
-			<div class="icon">
-				<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M11.9167 6L6.91667 11M1.5 6H11.9167H1.5ZM11.9167 6L6.91667 1L11.9167 6Z" stroke="white"
-						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				</svg>
-			</div>
-		</button>
+			<? } } ?>
+			<button type="submit" class="arrow-btn__dark modal-submit" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
+				<span>
+					<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>
+				</span>
+				<div class="icon">
+					<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M11.4167 6.5L6.41667 11.5M1 6.5H11.4167H1ZM11.4167 6.5L6.41667 1.5L11.4167 6.5Z"
+							stroke="#2E2F33" stroke-width="1.5" stroke-linecap="round"
+							stroke-linejoin="round" />
+					</svg>
+				</div>
+			</button>
+		<?= $arResult["FORM_FOOTER"]; ?>
 	</div>
-	<?= $arResult["FORM_FOOTER"]; ?>
 <? } ?>

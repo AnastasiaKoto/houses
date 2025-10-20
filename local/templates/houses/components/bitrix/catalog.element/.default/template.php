@@ -1139,71 +1139,13 @@ if ($haveOffers) {
 		</div>
 	</div>
 </section>
-<?/*
-<section class="section question-form">
-  <div class="container">
-	  <div class="question-form__inner">
-		  <div class="section-title">
-			  Остались вопросы?
-		  </div>
-		  <div class="question-form__form-subtitle">
-			  Оставьте свои контакты — и мы с удовольствием ответим на все ваши вопросы и поможем с выбором идеального
-			  дома!
-		  </div>
-		  <form class="question-form__form">
-			  <div class="input-row">
-				  <div class="float-input">
-					  <input id="name" type="text" autocomplete="name" />
-					  <label for="name">Ваше имя</label>
-				  </div>
-				  <div class="float-input">
-					  <input type="tel" id="tel" name="tel" autocomplete="tel">
-					  <label for="tel">Номер телефона</label>
-				  </div>
-				  <div class="custom-select" data-placeholder="Удобное время">
-					  <div class="custom-select__trigger">
-						  <span class="custom-select__value"></span>
-						  <label>Удобное время</label>
-						  <span class="custom-select__arrow"></span>
-					  </div>
-					  <ul class="custom-select__options">
-						  <li data-value="1">с 12:00 до 20:00</li>
-						  <li data-value="2">с 12:00 до 20:02</li>
-						  <li data-value="3">с 12:00 до 20:03</li>
-					  </ul>
-					  <input type="hidden" name="my-select">
-				  </div>
-			  </div>
-			  <div class="agreed">
-				  <label class="custom-checkbox">
-					  <input type="checkbox" name="agree" />
-					  <span class="checkmark"></span>
-					  <span class="agreed-text">Я согласен на обработку персональных данных и ознакомлен с <a
-							  href="javascript:void(0)" target="_blank">политикой
-							  конфиденциальности</a></span>
-				  </label>
-			  </div>
-			  <button type="submit" class="arrow-btn__light">
-				  <span>
-					  Заказать звонок
-				  </span>
-				  <div class="icon">
-					  <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-						  <path d="M11.9167 6L6.91667 11M1.5 6H11.9167H1.5ZM11.9167 6L6.91667 1L11.9167 6Z"
-							  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-					  </svg>
-				  </div>
-			  </button>
-		  </form>
-	  </div>
-  </div>
-</section>
-*/
+<?
 if ($haveOffers):
 	?>
 	<script>
 		window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
+		console.log(OFFERS_DATA);
 	</script>
 <? endif; ?>
 <script>

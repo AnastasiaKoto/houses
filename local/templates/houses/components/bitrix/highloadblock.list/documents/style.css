@@ -63,9 +63,9 @@
         display: -moz-box;
         -moz-box-orient: vertical;
         display: -webkit-box;
-        -webkit-line-clamp: 5;
+        -webkit-line-clamp: 7;
         -webkit-box-orient: vertical;
-        line-clamp: 5;
+        line-clamp: 7;
         box-orient: vertical;
         margin-bottom: 43px;
       }

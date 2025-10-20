@@ -50,6 +50,7 @@ if(!empty($arResult['ITEMS'])):
 					<div class="why-we__item-subtitle">
 						<?= $arItem['~PREVIEW_TEXT']; ?>
 					</div>
+					<? if(!empty($arItem['PROPERTIES']['BTN_TXT']['VALUE'])): ?>
 					<? $link = str_starts_with($arItem['PROPERTIES']['BTN_LINK']['VALUE'], '#') ? 'data-modal-target="' . $arItem['PROPERTIES']['BTN_LINK']['VALUE'] . '"' : 'href="' . $arItem['PROPERTIES']['BTN_LINK']['VALUE'] . '"'; ?>
 					<a <?= $link; ?> class="simple-link why-we__item-link">
 						<span>
@@ -61,6 +62,7 @@ if(!empty($arResult['ITEMS'])):
 								stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</a>
+					<? endif; ?>
 				</div>
 				<? endforeach; ?>
 			</div>

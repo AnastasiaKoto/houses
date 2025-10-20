@@ -10,7 +10,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
-
+$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? '';
 if ($arResult["isFormErrors"] == "Y") {
 	?>
 	<div class="thx-inner">
@@ -57,7 +57,7 @@ if ($arResult["isFormErrors"] == "Y") {
 					if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") {
 				?>
 					<div class="float-input">
-						<?= recreateTextField($FIELD_SID, $arQuestion, 'text'); ?>
+						<?= recreateTextField($FIELD_SID, $arQuestion, 'text', $prefix); ?>
 					</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") { ?>
 					<div class="custom-select" data-placeholder="<?= $arQuestion['CAPTION']; ?>">

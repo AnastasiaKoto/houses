@@ -50,7 +50,8 @@ if(!empty($arResult['ITEMS'])):
 					<div class="why-we__item-subtitle">
 						<?= $arItem['~PREVIEW_TEXT']; ?>
 					</div>
-					<a href="<?= $arItem['PROPERTIES']['BTN_LINK']['VALUE']; ?>" class="simple-link why-we__item-link">
+					<? $link = str_starts_with($arItem['PROPERTIES']['BTN_LINK']['VALUE'], '#') ? 'data-modal-target="' . $arItem['PROPERTIES']['BTN_LINK']['VALUE'] . '"' : 'href="' . $arItem['PROPERTIES']['BTN_LINK']['VALUE'] . '"'; ?>
+					<a <?= $link; ?> class="simple-link why-we__item-link">
 						<span>
 							<?= $arItem['PROPERTIES']['BTN_TXT']['VALUE']; ?>
 						</span>

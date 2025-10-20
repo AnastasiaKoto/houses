@@ -32,7 +32,7 @@
  }
 
  body {
-   padding-top: 133px;
+   padding-top: 88px;
 
    @media(max-width: 1100px) {
      padding-top: 88px;
@@ -70,7 +70,7 @@
    --darg-gray-color: #8E9293;
    --light-gray-color: #C7C9C9;
    --blue-color: #54B8F0;
-   --accent-color: #F05454;
+   --accent-color: #f6662a;
  }
 
  h1 {
@@ -476,10 +476,11 @@
  header {
    position: absolute;
    left: 0;
-   top: 50px;
+   top: 12px;
    width: 100%;
    z-index: 10;
-   transition: all .3s ease-out;
+   transition: transform 0.3s ease, opacity 0.3s ease;
+   opacity: 1;
 
    @media(max-width: 1100px) {
      top: 12px;
@@ -931,7 +932,23 @@
  header.fixed {
    position: fixed;
    top: 12px;
+   opacity: 1;
+   transform: translateY(-100%);
+   animation: slideDown 0.3s forwards;
  }
+
+  @keyframes slideDown {
+   from {
+     transform: translateY(-100%);
+     opacity: 0;
+   }
+
+   to {
+     transform: translateY(0);
+     opacity: 1;
+   }
+ }
+
 
 
  .projects {
@@ -1796,7 +1813,7 @@
      left: 12px;
      top: 50%;
      transform: translateY(-50%);
-     color: #aaa;
+     color: var(--darg-gray-color);
      pointer-events: none;
      transition: 0.2s ease all;
    }

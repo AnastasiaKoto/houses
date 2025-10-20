@@ -1,3 +1,4 @@
+
 class ProjectsSlider {
   constructor(selectorOrElement) {
     if (typeof selectorOrElement === 'string') {
@@ -11,28 +12,28 @@ class ProjectsSlider {
     }
     this.sliders = [];
     this.init();
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  getOptions() {
+    return {
+      type: 'slide',
+      perPage: 1,
+      pagination: true,
+      arrows: false,
+      drag: window.innerWidth <= 992, 
+      speed: 600,
+      easing: 'ease',
+    };
   }
 
   init() {
     this.elements.forEach(sliderEl => {
-      const splide = new Splide(sliderEl, {
-        type: 'slide',
-        perPage: 1,
-        pagination: true,
-        arrows: false,
-        drag: false,
-        speed: 600, 
-        easing: 'ease',
-        breakpoints: {
-          992: {
-            drag: true,
-          }
-        }
-        
-      }).mount();
+      const splide = new Splide(sliderEl, this.getOptions()).mount();
 
       const track = sliderEl.querySelector('.splide__track');
       const handleMouseMove = e => {
+        if (window.innerWidth <= 992) return; 
         const rect = track.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const width = rect.width;
@@ -63,7 +64,13 @@ class ProjectsSlider {
     this.destroy();
     this.init();
   }
+
+  handleResize() {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => this.reinit(), 300);
+  }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const menuItems = document.querySelectorAll(".nav-menu > li");

@@ -28,6 +28,7 @@ class ProjectsSlider {
             drag: true,
           }
         }
+        
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');

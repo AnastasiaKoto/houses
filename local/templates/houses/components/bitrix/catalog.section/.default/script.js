@@ -206,6 +206,11 @@
 					pagination: true,
 					arrows: false,
 					drag: false,
+					breakpoints: {
+						992: {
+						drag: true,
+						}
+					}
 				}).mount();
 
 				const track = slider.querySelector('.splide__track');

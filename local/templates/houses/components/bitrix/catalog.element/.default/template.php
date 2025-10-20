@@ -31,7 +31,7 @@ if ($haveOffers) {
 	}
 
 	$gallery = $currentOffer['PROPERTIES']['GALLERY']['VALUE'];
-	$title = $currentOffer['NAME'];
+	$title = $currentOffer['PROPERTIES']['SHOWED_NAME']['VALUE'] ?? $currentOffer['NAME'];
 	$price = $currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
 	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
@@ -330,14 +330,17 @@ if ($haveOffers) {
 									<div class="custom-select-bubbles-js">
 										<div class="selected">Выберите вариант</div>
 										<ul class="options">
-											<? foreach ($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'] as $arItem): ?>
+											<? foreach ($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS'] as $arItem): 
+												if(!empty($arItem['UF_NAME'])):
+											?>
 												<li data-price="<?= $arItem['UF_PRICE']; ?>"
 													data-deadline="<?= $arItem['UF_DEADLINE']; ?>"
 													data-value="<?= $arItem['UF_XML_ID']; ?>">
 													<span><?= $arItem['UF_NAME']; ?></span> <span
 														class="price"><?= '+' . number_format($arItem['UF_PRICE'], 0, ',', ' ') . '₽'; ?></span>
 												</li>
-											<? endforeach; ?>
+											<? endif;
+											endforeach; ?>
 										</ul>
 										<div class="selected-bubbles"></div>
 									</div>

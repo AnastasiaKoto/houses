@@ -4,6 +4,7 @@
      grid-template-columns: 1fr 1fr;
      grid-template-rows: 2fr 1fr;
      gap: 20px;
+     max-height: 700px;
 
      @media(max-width: 1110px) {
        display: flex;
@@ -41,7 +42,7 @@
            margin-bottom: 20px;
            line-height: 144%;
            word-break: normal;
-           
+
 
            & span {
              padding: 4px 10px;
@@ -50,8 +51,8 @@
              color: var(--light-color);
            }
 
-           @media(max-width: 1600px) {
-            font-size: 48px;
+           @media(max-width: 1600px) and (min-width: 1200px) {
+             font-size: 48px;
            }
 
            @media(max-width: 1100px) {
@@ -910,6 +911,10 @@
            gap: 10px;
            text-align: center;
 
+           & .why-we__item-image__layer {
+             transform: rotate(180deg);
+           }
+
            @media(max-width: 1100px) {
              grid-column-end: span 1;
            }
@@ -1025,7 +1030,8 @@
                stroke: var(--dark-color);
              }
            }
-            &:hover {
+
+           &:hover {
              color: var(--accent-color);
 
              & span {

@@ -45,5 +45,8 @@ $this->setFrameMode(true);
 				</div>
 			</div>
 		</div>
+		<a href="/company/news/" class="back-to__news">
+			Вернуться к статьям
+		</a>
 	</div>
 </section>

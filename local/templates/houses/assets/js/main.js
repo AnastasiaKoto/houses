@@ -23,6 +23,12 @@ class ProjectsSlider {
         drag: false,
         speed: 600, 
         easing: 'ease',
+        breakpoints: {
+          992: {
+            drag: true,
+          }
+        }
+        
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');

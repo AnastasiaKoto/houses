@@ -252,7 +252,15 @@
 
       & .catalog-filters__acc {
         overflow-y: auto;
-        max-height: 198px;
+        max-height: 333px;
+
+        @media(max-width: 390px) {
+          max-height: 320px;
+        }
+
+        @media(max-width: 380px) {
+          max-height: 198px;
+        }
       }
     }
 
@@ -357,6 +365,7 @@
         background: #F3F3F6;
         padding: 8px;
         cursor: pointer;
+
         & .catalog-item__no-images {
           border-radius: 16px;
         }

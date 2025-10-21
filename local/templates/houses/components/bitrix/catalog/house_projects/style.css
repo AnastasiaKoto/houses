@@ -254,7 +254,7 @@
         overflow-y: auto;
         max-height: 333px;
 
-        
+
         @media(max-width: 390px) {
           max-height: 320px;
         }
@@ -530,7 +530,7 @@
                 }
 
                 & .catalog-item__spec-item__text {
-                  font-size: 16px;
+                  font-size: 15px;
                   font-style: normal;
                   font-weight: 400;
                   line-height: 130%;
@@ -546,11 +546,11 @@
                   }
 
                   @media(max-width: 1300px) {
-                    font-size: 18px;
+                    font-size: 15px;
                   }
 
                   @media(max-width: 700px) {
-                    font-size: 16px;
+                    font-size: 15px;
                   }
 
                   @media(max-width: 371px) {

@@ -254,6 +254,7 @@
         overflow-y: auto;
         max-height: 333px;
 
+        
         @media(max-width: 390px) {
           max-height: 320px;
         }

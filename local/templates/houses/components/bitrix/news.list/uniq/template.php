@@ -67,22 +67,25 @@ if(!empty($arResult['ITEMS'])):
 							<?= $arItem['~PREVIEW_TEXT']; ?>
 						</div>
 					</li>
-					<? if(!empty($arItem['DETAIL_TEXT'])): ?>
-					<div class="modal" id="modal<?= $counter; ?>">
-						<div class="modal-inner">
-							<div class="modal-content">
-								<?= $arItem['~DETAIL_TEXT']; ?>
-							</div>
-							<button class="modal-close">
-							Закрыть окно
-							</button>
-						</div>
-					</div>
-					<? endif; ?>
 					<? $counter++; endforeach; ?>
 				</ul>
 			</div>
 		</div>
+		<? $counter = 1; ?>
+		<? foreach($arResult['ITEMS'] as $arItem): ?>
+			<? if(!empty($arItem['DETAIL_TEXT'])): ?>
+			<div class="modal" id="modal<?= $counter; ?>">
+				<div class="modal-inner">
+					<div class="modal-content">
+						<?= $arItem['~DETAIL_TEXT']; ?>
+					</div>
+					<button class="modal-close">
+					Закрыть окно
+					</button>
+				</div>
+			</div>
+			<? endif; ?>
+		<? $counter++; endforeach; ?>
 	</div>
 </section>
 <? endif; ?>

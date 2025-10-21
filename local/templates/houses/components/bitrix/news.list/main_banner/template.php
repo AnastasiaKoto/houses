@@ -54,8 +54,7 @@ echo '</pre>';
 				</div>
 				<? } ?>
 			</div>
-			<? if(!empty($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE'])): 
-			p($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE']);
+			<? if(!empty($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE'])):
 			?>
 			<div class="mainscreen-slider">
 				<div class="splide mainscreen-splide">

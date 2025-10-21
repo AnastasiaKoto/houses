@@ -245,9 +245,10 @@
 
     & .catalog-filters.active.half {
       /* transform: translateY(-50%); */
-      transform: translateY(-200%);
+      /* transform: translateY(-200%); */
       transition: all .3s ease-in;
       height: 50vh;
+      bottom: 0;
 
       & .catalog-filters__acc {
         overflow-y: auto;
@@ -256,7 +257,7 @@
     }
 
     & .catalog-filters.active.full {
-      transform: translateY(-100%);
+      /* transform: translateY(-100%); */
       /* transform: translateY(-200%); */
       transition: all .3s ease-in;
       height: 99.5vh;

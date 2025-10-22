@@ -585,17 +585,19 @@
              }
 
              &:hover {
-               background-color: var(--dark-color);
+               /* background-color: var(--dark-color); */
                transition: all .3s ease-in;
 
                & span {
-                 color: var(--light-color);
+                 /* color: var(--light-color); */
+                 color: var(--accent-color);
                  transition: all .3s ease-in;
                }
 
                & svg {
                  & path {
-                   stroke: var(--light-color);
+                   /* stroke: var(--light-color); */
+                   stroke: var(--accent-color);
                    transition: all .3s ease-in;
                  }
                }
@@ -1809,7 +1811,7 @@
 
    & label {
      position: absolute;
-     left: 12px;
+     left: 19px;
      top: 50%;
      transform: translateY(-50%);
      color: var(--darg-gray-color);
@@ -1838,7 +1840,7 @@
      border-radius: 20px;
      background: white;
      max-height: 0;
-     overflow: hidden;
+     overflow: auto;
      opacity: 0;
      transition: all 0.2s;
      z-index: 10;
@@ -2659,12 +2661,12 @@
    }
 
    &:hover {
-     background-color: var(--dark-color) !important;
+     /* background-color: var(--dark-color) !important; */
      transition: all .3s ease-in;
 
      & svg {
        & path {
-         stroke: var(--light-color);
+         stroke: var(--accent-color);
          transition: all .3s ease-in;
        }
      }

@@ -2783,6 +2783,17 @@
                  }
                }
              }
+
+             &:nth-child(3) {
+               &:hover {
+                 & svg {
+                   & path {
+                     fill: none;
+                     stroke: var(--accent-color);
+                   }
+                 }
+               }
+             }
            }
          }
        }

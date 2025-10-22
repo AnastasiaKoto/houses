@@ -11,22 +11,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 ?>
 <section id="vacancy-form" class="section question-form vacancy-form">
 	<div class="container">
-		<?
-
-		if ($arResult["isFormErrors"] == "Y") {
-			?>
-			<div class="question-form__inner thx-inner">
-				<div class="section-title">
-					В форме содержатся ошибки!
-				</div>
-				<div class="question-form__form-subtitle">
-					<?= $arResult['FORM_ERRORS']; ?>
-				</div>
-				<a href="javascript:void(0)" onclick="window.location.reload();" class="question-form__form-close">
-					Закрыть
-				</a>
-			</div>
-		<? } elseif ($arResult["isFormNote"] == "Y") { ?>
+		<? if ($arResult["isFormNote"] == "Y") { ?>
 			<div class="question-form__inner thx-inner">
 				<div class="section-title">
 					Ваша заявка успешно отправлена!
@@ -57,23 +42,23 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 								if ($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") {
 									?>
-									<div class="float-input">
+									<div class="float-input input-wrapper">
 										<?= recreateTextField($FIELD_SID, $arQuestion, 'text'); ?>
 									</div>
 								<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "email") { ?>
-									<div class="float-input">
-										<?= $arQuestion["HTML_CODE"]; ?>
-										<label for="vacancy_email">Электронная почта</label>
+									<div class="float-input input-wrapper">
+										<? // $arQuestion["HTML_CODE"]; ?>
+										<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"]); ?>
 									</div>
 								<? } elseif ($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") { ?>
-										<?= recreateTextField($FIELD_SID, $arQuestion, 'hidden', $arParams['VACANCY']); ?>
+										<?= recreateTextField($FIELD_SID, $arQuestion, 'hidden', '', $arParams['VACANCY']); ?>
 								<? } ?>
 							<? } ?>
 						<? } ?>
 					</div>
 					<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { ?>
 						<? if ($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "file") { ?>
-							<div class="file-upload" id="fileUpload">
+							<div class="file-upload  input-wrapper" id="fileUpload">
 								<?= $arQuestion["HTML_CODE"]; ?>
 
 								<label for="fileInput" id="fileLabel">
@@ -87,8 +72,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 						if ($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "checkbox") {
 							?>
 							<div class="agreed">
-								<label class="custom-checkbox">
-									<?= $arQuestion["HTML_CODE"]; ?>
+								<label class="custom-checkbox input-wrapper">
+									<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"]); ?>
+									<? //$arQuestion["HTML_CODE"]; ?>
 									<span class="checkmark"></span>
 									<span class="agreed-text"><?= $arQuestion['CAPTION']; ?></span>
 								</label>
@@ -110,7 +96,26 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 				</div>
 				<?= $arResult["FORM_FOOTER"]; ?>
 			</div>
+			<?
+			if ($arResult["isFormErrors"] == "Y") {
+				$fields = [];
+				foreach($arResult['FORM_ERRORS'] as $key => $value) {
+					$fields[] = $key;
+				}
+				?>
+				<script>
+					const fields = <?= json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+					console.log(fields);
+					const form = document.querySelector('.question-form__inner form[name="<?= $arResult['arForm']['SID']; ?>"]');
+					if (Array.isArray(fields) && fields.length > 0) {
+						fields.forEach(field => {
+							console.log(field);
+							form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+						});
+					}
+				</script>
+			<? } ?>
 		<? } ?>
-
+		
 	</div>
 </section>

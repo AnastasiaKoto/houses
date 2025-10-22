@@ -36,12 +36,21 @@ function recreateTextField($code, $arQuestion, $type, $prefix = '', $value = fal
     $field = reset($arQuestion['STRUCTURE']);
     $name = 'form_' . $field['FIELD_TYPE'] . '_' . $field['ID'];
     
-    $attrs = [
-        'type' => $type,
-        'id' => htmlspecialcharsbx($code) . $prefix,
-        'name' => htmlspecialcharsbx($name),
-        'value' => htmlspecialcharsbx($value ?? $arQuestion['VALUE']),
-    ];
+    if($type !== 'checkbox') {
+        $attrs = [
+            'type' => $type,
+            'id' => htmlspecialcharsbx($code) . $prefix,
+            'name' => htmlspecialcharsbx($name),
+            'value' => htmlspecialcharsbx($value ?? $arQuestion['VALUE']),
+        ];
+    } else {
+        $attrs = [
+            'type' => $type,
+            'id' => htmlspecialcharsbx($code) . $prefix,
+            'name' => 'form_checkbox_' . htmlspecialcharsbx($code) . '[]',
+            'value' => htmlspecialcharsbx($field['ID']),
+        ];
+    }
 
     $fieldParam = $arQuestion['STRUCTURE'][0]['FIELD_PARAM'] ?? '';
     
@@ -56,7 +65,12 @@ function recreateTextField($code, $arQuestion, $type, $prefix = '', $value = fal
     
     $inputHtml = '<input' . $attrStr . '>';
 
-    $labelHtml = '<label for="' . htmlspecialcharsbx($code) . '">' . htmlspecialcharsbx($arQuestion['CAPTION']) . '</label>';
+    if($type !== 'checkbox') {
+        $labelHtml = '<label for="' . htmlspecialcharsbx($code) . $prefix . '">' . htmlspecialcharsbx($arQuestion['CAPTION']) . '</label>';
+    } else {
+        $labelHtml = '';
+    }
+    
 
     $html_code = $inputHtml . "\n" . $labelHtml;
     return $html_code;

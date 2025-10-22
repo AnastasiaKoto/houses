@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     pagination: false,
     arrows: false,
     autoplay: true,
-    interval: 7000, // медленнее (7 секунд)
+    interval: 7000,
+    speed: 900,
+    easing: 'ease',
     pauseOnHover: false,
   });
 
@@ -76,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
           perMove: 1,
           pagination: false,
           arrows: false,
-          gap: 20,
-          speed: 600,  
-          easing: 'ease', 
+          // gap: 20,
+          speed: 600,
+          easing: 'ease',
           breakpoints: {
             700: {
               gap: 10
@@ -112,43 +114,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  const sliderUniq = document.querySelector('.uniq-slider');
-  if (!sliderUniq) return;
+	const sliderUniq = document.querySelector('.uniq-slider');
+	if (!sliderUniq) return;
 
-  const splide = new Splide(sliderUniq, {
-    type: 'loop',
-    // perPage: 1,
-    autoWidth: true, 
-    gap: 20,
-    perMove: 1,
-    pagination: false,
-    arrows: false,
-    speed: 600, 
-    easing: 'ease',
-    breakpoints: {
-      992: {
-        gap: 10,
-        // type: 'loop',
-      }
-    }
-  });
+	const splide = new Splide(sliderUniq, {
+		type: 'slide',
+		perPage: 4,          
+		perMove: 1,
+		gap: 20,
+		speed: 600,
+		easing: 'ease',
+		pagination: false,
+		arrows: false,
+		focus: 'start',       
+		padding: { right: 15 }, 
+		breakpoints: {
+			992: {
+				perPage: 2,
+				gap: 10,
+				padding: { right: 10 },
+			},
+		},
+	});
 
-  splide.mount();
+	splide.mount();
 
-  const prevArrow = document.querySelector('.uniq-arrow__prev');
-  const nextArrow = document.querySelector('.uniq-arrow__next');
+	const prevArrow = document.querySelector('.uniq-arrow__prev');
+	const nextArrow = document.querySelector('.uniq-arrow__next');
 
-  if (prevArrow) {
-    prevArrow.addEventListener('click', () => {
-      splide.go('<');
-    });
-  }
+	function updateArrows() {
+		if (!prevArrow || !nextArrow) return;
 
-  if (nextArrow) {
-    nextArrow.addEventListener('click', () => {
-      splide.go('>');
-    });
-  }
+
+		prevArrow.classList.toggle('is-disabled', splide.index === 0);
+
+		nextArrow.classList.toggle(
+			'is-disabled',
+			splide.index >= splide.length - splide.options.perPage
+		);
+	}
+
+	splide.on('moved', updateArrows);
+	splide.on('mounted', updateArrows);
+	splide.on('resized', updateArrows);
+
+	// стрелки
+	if (prevArrow) {
+		prevArrow.addEventListener('click', () => {
+			if (!prevArrow.classList.contains('is-disabled')) splide.go('<');
+		});
+	}
+
+	if (nextArrow) {
+		nextArrow.addEventListener('click', () => {
+			if (!nextArrow.classList.contains('is-disabled')) splide.go('>');
+		});
+	}
 });
 
 

@@ -2770,7 +2770,19 @@
              width: 24px;
              height: 24px;
 
-             & svg {}
+             & svg {
+               & path {
+                 transition: fill .3s ease-in;
+               }
+             }
+
+             &:hover {
+               & svg {
+                 & path {
+                   fill: var(--accent-color);
+                 }
+               }
+             }
            }
          }
        }

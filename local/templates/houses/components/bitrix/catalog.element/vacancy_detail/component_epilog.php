@@ -12,6 +12,7 @@ use Bitrix\Main\Loader;
  */
 
 ?>
+<section id="vacancy-form" class="section question-form vacancy-form">
 <? $APPLICATION->IncludeComponent(
 	"bitrix:form.result.new", 
 	"vacancy_form", 
@@ -36,3 +37,4 @@ use Bitrix\Main\Loader;
 	false
 );
 ?>
+</section>

@@ -22,7 +22,6 @@ use Bitrix\Catalog\ProductTable;
  * |	<!-- pagination-container -->
  * |	<!-- component-end -->
  */
-$APPLICATION->AddChainItem($arResult["NAME"]);
 $this->setFrameMode(true);
 if (!empty($arResult['ITEMS'])):
 	?>

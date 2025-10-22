@@ -3,7 +3,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 	die();
 
 use Bitrix\Main\Localization\Loc;
-$APPLICATION->AddChainItem($arResult["NAME"]);
 $this->setFrameMode(true);
 if (!empty($arResult['NAV_RESULT'])) {
 	$navParams = array(
@@ -46,7 +45,7 @@ $containerName = 'container-' . $navParams['NavNum'];?>
 			<div class="vacancy-item__conditions">
 				<?= $arItem['PREVIEW_TEXT']; ?>
 			</div>
-			<a href="<?= $arItem['DETAIL_PAGE_URL']; ?>" class="vacancy-item__link">
+			<a href="<?= $arItem['DETAIL_PAGE_URL']; ?>" target="_self" class="vacancy-item__link">
 				Посмотреть
 			</a>
 		</div>

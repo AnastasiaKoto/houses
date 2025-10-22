@@ -1,6 +1,14 @@
 <?php
 $arUrlRewrite=array (
-  9 => 
+  3 => 
+  array (
+    'CONDITION' => '#^SECTION_CODE=$1&ELEMENT_CODE=$2&$3\\??(.*)#',
+    'RULE' => '&$1',
+    'ID' => 'bitrix:catalog.section',
+    'PATH' => '/index.php',
+    'SORT' => 100,
+  ),
+  2 => 
   array (
     'CONDITION' => '#^/company/vacancies/#',
     'RULE' => '',
@@ -8,15 +16,7 @@ $arUrlRewrite=array (
     'PATH' => '/company/vacancies/index.php',
     'SORT' => 100,
   ),
-  4 => 
-  array (
-    'CONDITION' => '#^([^/]+?)\\??(.*)#',
-    'RULE' => 'SECTION_CODE=$1&$2',
-    'ID' => 'bitrix:catalog.section',
-    'PATH' => '/index.php',
-    'SORT' => 100,
-  ),
-  8 => 
+  1 => 
   array (
     'CONDITION' => '#^/company/news/#',
     'RULE' => '',
@@ -24,39 +24,7 @@ $arUrlRewrite=array (
     'PATH' => '/company/news/index.php',
     'SORT' => 100,
   ),
-  7 => 
-  array (
-    'CONDITION' => '#^/vacancies/#',
-    'RULE' => '',
-    'ID' => 'bitrix:catalog',
-    'PATH' => '/vacancies/index.php',
-    'SORT' => 100,
-  ),
-  0 => 
-  array (
-    'CONDITION' => '#^/services/#',
-    'RULE' => '',
-    'ID' => 'bitrix:catalog',
-    'PATH' => '/services/index.php',
-    'SORT' => 100,
-  ),
-  1 => 
-  array (
-    'CONDITION' => '#^/products/#',
-    'RULE' => '',
-    'ID' => 'bitrix:catalog',
-    'PATH' => '/products/index.php',
-    'SORT' => 100,
-  ),
-  6 => 
-  array (
-    'CONDITION' => '#^/news/#',
-    'RULE' => '',
-    'ID' => 'bitrix:catalog',
-    'PATH' => '/news/index.php',
-    'SORT' => 100,
-  ),
-  5 => 
+  4 => 
   array (
     'CONDITION' => '#^/#',
     'RULE' => '',

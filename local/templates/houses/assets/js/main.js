@@ -12,28 +12,24 @@ class ProjectsSlider {
     }
     this.sliders = [];
     this.init();
-    window.addEventListener('resize', this.handleResize.bind(this));
-  }
-
-  getOptions() {
-    return {
-      type: 'slide',
-      perPage: 1,
-      pagination: true,
-      arrows: false,
-      drag: window.innerWidth <= 992, 
-      speed: 600,
-      easing: 'ease',
-    };
   }
 
   init() {
     this.elements.forEach(sliderEl => {
-      const splide = new Splide(sliderEl, this.getOptions()).mount();
+      const splide = new Splide(sliderEl, {
+        type: 'fade',
+        perPage: 1,
+        pagination: true,
+        arrows: false,
+        drag: false,
+        speed: 600,
+        easing: 'ease',
+      }).mount();
 
       const track = sliderEl.querySelector('.splide__track');
+
       const handleMouseMove = e => {
-        if (window.innerWidth <= 992) return; 
+        if (window.innerWidth < 992) return;
         const rect = track.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const width = rect.width;
@@ -47,14 +43,22 @@ class ProjectsSlider {
         splide.go(index);
       };
 
+      const handleMouseLeave = e => {
+        if (window.innerWidth < 992) return; 
+        splide.go(0); 
+      };
+
       track.addEventListener('mousemove', handleMouseMove);
-      this.sliders.push({ splide, track, handleMouseMove });
+      track.addEventListener('mouseleave', handleMouseLeave);
+
+      this.sliders.push({ splide, track, handleMouseMove, handleMouseLeave });
     });
   }
 
   destroy() {
-    this.sliders.forEach(({ splide, track, handleMouseMove }) => {
+    this.sliders.forEach(({ splide, track, handleMouseMove, handleMouseLeave }) => {
       track.removeEventListener('mousemove', handleMouseMove);
+      track.removeEventListener('mouseleave', handleMouseLeave);
       splide.destroy();
     });
     this.sliders = [];
@@ -63,11 +67,6 @@ class ProjectsSlider {
   reinit() {
     this.destroy();
     this.init();
-  }
-
-  handleResize() {
-    clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(() => this.reinit(), 300);
   }
 }
 

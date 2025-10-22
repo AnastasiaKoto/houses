@@ -26,11 +26,12 @@
 		this.more_container = document.querySelector('.show-more-container');
 		this.showMoreButton = null;
 		this.showMoreButtonMessage = null;
+		this.projectsSlider = new ProjectsSlider('.catalog-item__images');
 
 		//добавлена инициализация слайдера при загрузке
 		BX.ready(BX.delegate(function() {
 			if (this.container) {
-				this.initSliders(this.container);
+				this.projectsSlider.reinit();
 			}
 		}, this));
 
@@ -190,8 +191,7 @@
 
 		//добавлено для переинициализации слайдеров карточек
 		initSliders: function(container) {
-			const slidersCatalog = container.querySelectorAll('.catalog-item__images');
-			
+			/*
 			slidersCatalog.forEach(slider => {
 				if (slider.classList.contains('splide-initialized')) {
 					return;
@@ -235,6 +235,7 @@
 
 				slider.classList.add('splide-initialized');
 			});
+			*/
 		},
 
 		processItems: function (itemsHtml, position) {
@@ -285,7 +286,8 @@
 						this.container.appendChild(items[k]);
 					}
 				}
-				this.initSliders(this.container);
+				projectsSlider.reinit();
+				//this.initSliders(this.container);
 				new BX.easing({
 					duration: 2000,
 					start: { opacity: 0 },

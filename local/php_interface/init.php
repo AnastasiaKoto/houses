@@ -37,6 +37,9 @@ function recreateTextField($code, $arQuestion, $type, $prefix = '', $value = fal
     $name = 'form_' . $field['FIELD_TYPE'] . '_' . $field['ID'];
     
     if($type !== 'checkbox') {
+        if($code == 'PHONE') {
+            $type = 'tel';
+        }
         $attrs = [
             'type' => $type,
             'id' => htmlspecialcharsbx($code) . $prefix,

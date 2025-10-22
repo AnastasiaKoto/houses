@@ -28,14 +28,14 @@ if(!empty($arResult['ITEMS'])):
 					);?>
 				</div>
 				<div class="uniq-arrows">
-					<div class="uniq-arrow uniq-arrow__prev">
+					<div class="slider-arrow uniq-arrow uniq-arrow__prev">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15.4167 10H5H15.4167ZM5 10L10 5L5 10ZM5 10L10 15Z" fill="#8E9293" />
 							<path d="M5 10L10 15M15.4167 10H5H15.4167ZM5 10L10 5L5 10Z" stroke="#8E9293"
 								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>
-					<div class="uniq-arrow uniq-arrow__next">
+					<div class="slider-arrow uniq-arrow uniq-arrow__next">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M5 10H15.4167H5ZM15.4167 10L10.4167 5L15.4167 10ZM15.4167 10L10.4167 15Z"
 								fill="#8E9293" />

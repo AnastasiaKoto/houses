@@ -4,8 +4,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 
 use Bitrix\Main\Localization\Loc;
 
-$APPLICATION->AddHeadScript('/local/templates/houses/components/bitrix/catalog.element/.default/ajax.js');
-
 /**
  * @global CMain $APPLICATION
  * @var array $arParams
@@ -18,6 +16,7 @@ $APPLICATION->AddHeadScript('/local/templates/houses/components/bitrix/catalog.e
  */
 
 $this->setFrameMode(true);
+$this->addExternalJs('/local/templates/houses/components/bitrix/catalog.element/.default/ajax.js');
 
 $haveOffers = isset($arResult['JS_OFFERS']) && !empty($arResult['JS_OFFERS']) ? true : false;
 
@@ -1139,15 +1138,14 @@ if ($haveOffers) {
 		</div>
 	</div>
 </section>
+<script>
+	window.HouseVariationManager = new HouseVariationManager();
+</script>
 <?
 if ($haveOffers):
 	?>
 	<script>
 		window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
-		console.log(OFFERS_DATA);
 	</script>
 <? endif; ?>
-<script>
-	const houseManager = new HouseVariationManager();
-</script>

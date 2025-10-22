@@ -231,7 +231,7 @@ $sectionListParams = array(
 				'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
 
 				'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
-				"ADD_SECTIONS_CHAIN" => "N",
+				"ADD_SECTIONS_CHAIN" => $arParams['ADD_SECTIONS_CHAIN'],
 				'ADD_TO_BASKET_ACTION' => $basketAction,
 				'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
 				'COMPARE_PATH' => $arResult['FOLDER'] . $arResult['URL_TEMPLATES']['compare'],

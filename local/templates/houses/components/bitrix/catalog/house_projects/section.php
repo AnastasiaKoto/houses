@@ -88,7 +88,7 @@ if ($isFilter)
 				"VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
 				"SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
 				"HIDE_SECTION_NAME" => ($arParams["SECTIONS_HIDE_SECTION_NAME"] ?? "N"),
-				"ADD_SECTIONS_CHAIN" => ($arParams["ADD_SECTIONS_CHAIN"] ?? ''),
+				"ADD_SECTIONS_CHAIN" => "N",
 				"CURRENT_SECTION" => $arResult['SECTION']['ID']
 			);
 			if ($sectionListParams["COUNT_ELEMENTS"] === "Y")
@@ -99,6 +99,7 @@ if ($isFilter)
 					$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
 				}
 			}
+			
 			$APPLICATION->IncludeComponent(
 				"bitrix:catalog.section.list",
 				"",
@@ -154,9 +155,9 @@ if ($isFilter)
 					</span>
 				</a>
 				<div class="catalog-sort">
-					<div class="custom-select-cornored <? if(isset($_REQUEST['sort']) && !empty($_REQUEST['sort'])) echo 'active'; ?>" data-placeholder="Удобное время">
+					<div class="custom-select-cornored active <? // if(isset($_REQUEST['sort']) && !empty($_REQUEST['sort'])) echo 'active'; ?>" data-placeholder="Удобное время">
 						<div class="custom-select__trigger">
-						<span class="custom-select__value"></span>
+						<span class="custom-select__value"><?= $arParams["ELEMENT_SORT_FIELD"] == 'PROPERTY_HOUSES_PRICES' && $arParams["ELEMENT_SORT_ORDER"] == 'ASC'  ? 'Цена по возрастанию' : 'По умолчанию'; ?></span>
 						<label>Сортировка</label>
 						<span class="custom-select__arrow"></span>
 						</div>
@@ -296,7 +297,7 @@ if ($isFilter)
 						'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
 
 						'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
-						"ADD_SECTIONS_CHAIN" => "N",
+						"ADD_SECTIONS_CHAIN" => $arParams['ADD_SECTIONS_CHAIN'],
 						'ADD_TO_BASKET_ACTION' => $basketAction,
 						'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
 						'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],

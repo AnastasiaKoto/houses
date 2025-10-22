@@ -30,7 +30,7 @@ $this->setFrameMode(true);
 			<h1>
 				<?= $arResult['NAME']; ?>
 			</h1>
-			<a href="#vacancy-form" class="arrow-orange__link">
+			<a href="#vacancy-form" class="no-ajax arrow-orange__link">
 				<span>
 					Откликнуться
 				</span>

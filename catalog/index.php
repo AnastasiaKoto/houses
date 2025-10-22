@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("Каталог");
 $APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
 	"house_projects", 
-	array(
+	[
 		"TEMPLATE_THEME" => "blue",
 		"IBLOCK_TYPE" => "products",
 		"IBLOCK_ID" => "6",
@@ -40,33 +40,33 @@ $APPLICATION->IncludeComponent(
 		"COMPARE_POSITION" => "",
 		"USE_FILTER" => "Y",
 		"FILTER_NAME" => "",
-		"FILTER_FIELD_CODE" => array(
+		"FILTER_FIELD_CODE" => [
 			0 => "",
 			1 => "",
-		),
+		],
 		"FILTER_HIDE_ON_MOBILE" => "N",
-		"FILTER_PROPERTY_CODE" => array(
+		"FILTER_PROPERTY_CODE" => [
 			0 => "",
 			1 => "",
-		),
-		"FILTER_PRICE_CODE" => array(
+		],
+		"FILTER_PRICE_CODE" => [
 			0 => "BASE",
-		),
-		"FILTER_OFFERS_FIELD_CODE" => array(
+		],
+		"FILTER_OFFERS_FIELD_CODE" => [
 			0 => "PREVIEW_PICTURE",
 			1 => "DETAIL_PICTURE",
 			2 => "",
-		),
-		"FILTER_OFFERS_PROPERTY_CODE" => array(
+		],
+		"FILTER_OFFERS_PROPERTY_CODE" => [
 			0 => "",
 			1 => "",
-		),
+		],
 		"USE_COMMON_SETTINGS_BASKET_POPUP" => "N",
 		"TOP_ADD_TO_BASKET_ACTION" => "ADD",
 		"SECTION_ADD_TO_BASKET_ACTION" => "ADD",
-		"DETAIL_ADD_TO_BASKET_ACTION" => array(
+		"DETAIL_ADD_TO_BASKET_ACTION" => [
 			0 => "BUY",
-		),
+		],
 		"DETAIL_SHOW_BASIS_PRICE" => "Y",
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"USE_REVIEW" => "N",
@@ -79,8 +79,8 @@ $APPLICATION->IncludeComponent(
 		"SHOW_LINK_TO_FORUM" => "N",
 		"POST_FIRST_MESSAGE" => "N",
 		"USE_COMPARE" => "N",
-		"PRICE_CODE" => array(
-		),
+		"PRICE_CODE" => [
+		],
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
 		"PRICE_VAT_INCLUDE" => "N",
@@ -89,11 +89,11 @@ $APPLICATION->IncludeComponent(
 		"USE_PRODUCT_QUANTITY" => "N",
 		"CONVERT_CURRENCY" => "N",
 		"CURRENCY_ID" => "RUB",
-		"OFFERS_CART_PROPERTIES" => array(
+		"OFFERS_CART_PROPERTIES" => [
 			0 => "COLOR_REF",
 			1 => "SIZES_SHOES",
 			2 => "SIZES_CLOTHES",
-		),
+		],
 		"SHOW_TOP_ELEMENTS" => "N",
 		"SECTION_COUNT_ELEMENTS" => "N",
 		"SECTION_TOP_DEPTH" => "1",
@@ -101,66 +101,66 @@ $APPLICATION->IncludeComponent(
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
 		"PAGE_ELEMENT_COUNT" => "9",
 		"LINE_ELEMENT_COUNT" => "3",
-		"ELEMENT_SORT_FIELD" => $_REQUEST['sort_field'] ?? 'PROPERTY_HOUSES_PRICES',
-		"ELEMENT_SORT_ORDER" => $_REQUEST['sort_order'] ?? 'ASC',
-		"ELEMENT_SORT_FIELD2" => 'ID',
-		"ELEMENT_SORT_ORDER2" => 'DESC',
-		"LIST_PROPERTY_CODE" => array(
+		"ELEMENT_SORT_FIELD" => $_REQUEST["sort_field"]??"PROPERTY_HOUSES_PRICES",
+		"ELEMENT_SORT_ORDER" => $_REQUEST["sort_order"]??"ASC",
+		"ELEMENT_SORT_FIELD2" => "ID",
+		"ELEMENT_SORT_ORDER2" => "DESC",
+		"LIST_PROPERTY_CODE" => [
 			0 => "NEWPRODUCT",
 			1 => "SALELEADER",
 			2 => "SPECIALOFFER",
 			3 => "",
-		),
+		],
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"LIST_META_KEYWORDS" => "-",
 		"LIST_META_DESCRIPTION" => "-",
 		"LIST_BROWSER_TITLE" => "-",
-		"LIST_OFFERS_FIELD_CODE" => array(
+		"LIST_OFFERS_FIELD_CODE" => [
 			0 => "NAME",
 			1 => "PREVIEW_PICTURE",
 			2 => "DETAIL_PICTURE",
 			3 => "",
-		),
-		"LIST_OFFERS_PROPERTY_CODE" => array(
+		],
+		"LIST_OFFERS_PROPERTY_CODE" => [
 			0 => "ARTNUMBER",
 			1 => "COLOR_REF",
 			2 => "SIZES_SHOES",
 			3 => "SIZES_CLOTHES",
 			4 => "MORE_PHOTO",
 			5 => "",
-		),
+		],
 		"LIST_OFFERS_LIMIT" => "0",
 		"SECTION_BACKGROUND_IMAGE" => "-",
-		"DETAIL_DETAIL_PICTURE_MODE" => array(
+		"DETAIL_DETAIL_PICTURE_MODE" => [
 			0 => "POPUP",
 			1 => "MAGNIFIER",
-		),
+		],
 		"DETAIL_ADD_DETAIL_TO_SLIDER" => "N",
 		"DETAIL_DISPLAY_PREVIEW_TEXT_MODE" => "E",
-		"DETAIL_PROPERTY_CODE" => array(
+		"DETAIL_PROPERTY_CODE" => [
 			0 => "NEWPRODUCT",
 			1 => "MANUFACTURER",
 			2 => "MATERIAL",
 			3 => "",
-		),
+		],
 		"DETAIL_META_KEYWORDS" => "-",
 		"DETAIL_META_DESCRIPTION" => "-",
 		"DETAIL_BROWSER_TITLE" => "-",
 		"DETAIL_SET_CANONICAL_URL" => "N",
 		"DETAIL_CHECK_SECTION_ID_VARIABLE" => "N",
 		"SHOW_DEACTIVATED" => "N",
-		"DETAIL_OFFERS_FIELD_CODE" => array(
+		"DETAIL_OFFERS_FIELD_CODE" => [
 			0 => "NAME",
 			1 => "",
-		),
-		"DETAIL_OFFERS_PROPERTY_CODE" => array(
+		],
+		"DETAIL_OFFERS_PROPERTY_CODE" => [
 			0 => "ARTNUMBER",
 			1 => "COLOR_REF",
 			2 => "SIZES_SHOES",
 			3 => "SIZES_CLOTHES",
 			4 => "MORE_PHOTO",
 			5 => "",
-		),
+		],
 		"DETAIL_BACKGROUND_IMAGE" => "-",
 		"DETAIL_STRICT_SECTION_CHECK" => "N",
 		"LINK_IBLOCK_TYPE" => "products",
@@ -192,15 +192,15 @@ $APPLICATION->IncludeComponent(
 		"GIFTS_SHOW_NAME" => "Y",
 		"GIFTS_SHOW_OLD_PRICE" => "Y",
 		"USE_STORE" => "N",
-		"STORES" => array(
+		"STORES" => [
 			0 => "1",
-		),
+		],
 		"USE_MIN_AMOUNT" => "N",
 		"USER_FIELDS" => "",
-		"FIELDS" => array(
+		"FIELDS" => [
 			0 => "ADDRESS",
 			1 => "PHONE",
-		),
+		],
 		"SHOW_EMPTY_STORE" => "Y",
 		"SHOW_GENERAL_STORE_INFORMATION" => "N",
 		"STORE_PATH" => "/store/#store_id#",
@@ -226,16 +226,16 @@ $APPLICATION->IncludeComponent(
 		"SHOW_404" => "Y",
 		"MESSAGE_404" => "",
 		"ADD_PICT_PROP" => "-",
-		"LABEL_PROP" => array(
-		),
+		"LABEL_PROP" => [
+		],
 		"PRODUCT_DISPLAY_MODE" => "Y",
 		"OFFER_ADD_PICT_PROP" => "MORE_PHOTO",
-		"OFFER_TREE_PROPS" => array(
+		"OFFER_TREE_PROPS" => [
 			0 => "COLOR_REF",
 			1 => "SIZES_SHOES",
 			2 => "SIZES_CLOTHES",
 			3 => "",
-		),
+		],
 		"DETAIL_DISPLAY_NAME" => "Y",
 		"SHOW_DISCOUNT_PERCENT" => "N",
 		"SHOW_OLD_PRICE" => "N",
@@ -273,8 +273,8 @@ $APPLICATION->IncludeComponent(
 		"SEARCH_USE_LANGUAGE_GUESS" => "Y",
 		"SEARCH_CHECK_DATES" => "Y",
 		"SEARCH_USE_SEARCH_RESULT_ORDER" => "N",
-		"LIST_PROPERTY_CODE_MOBILE" => array(
-		),
+		"LIST_PROPERTY_CODE_MOBILE" => [
+		],
 		"LIST_PRODUCT_BLOCKS_ORDER" => "price,props,sku,quantityLimit,quantity,buttons",
 		"LIST_PRODUCT_ROW_VARIANTS" => "[{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false},{'VARIANT':'2','BIG_DATA':false}]",
 		"LIST_ENLARGE_PRODUCT" => "STRICT",
@@ -282,8 +282,8 @@ $APPLICATION->IncludeComponent(
 		"LIST_SLIDER_INTERVAL" => "3000",
 		"LIST_SLIDER_PROGRESS" => "N",
 		"SHOW_SKU_DESCRIPTION" => "N",
-		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => array(
-		),
+		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => [
+		],
 		"DETAIL_IMAGE_RESOLUTION" => "16by9",
 		"DETAIL_PRODUCT_INFO_BLOCK_ORDER" => "sku,props",
 		"DETAIL_PRODUCT_PAY_BLOCK_ORDER" => "rating,price,priceRanges,quantityLimit,quantity,buttons",
@@ -296,14 +296,14 @@ $APPLICATION->IncludeComponent(
 		"LOAD_ON_SCROLL" => "N",
 		"FILE_404" => "",
 		"COMPATIBLE_MODE" => "N",
-		"SEF_URL_TEMPLATES" => array(
+		"SEF_URL_TEMPLATES" => [
 			"sections" => "",
 			"section" => "#SECTION_CODE_PATH#/",
 			"element" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
 			"compare" => "",
 			"smart_filter" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/",
-		)
-	),
+		]
+	],
 	false
 );?>
 <? $APPLICATION->IncludeComponent(

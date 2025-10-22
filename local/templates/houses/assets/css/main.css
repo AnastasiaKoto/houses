@@ -2777,19 +2777,23 @@
              }
 
              &:hover {
-               & svg {
-                 & path {
-                   fill: var(--accent-color);
-                 }
-               }
-             }
-
-             &:nth-child(3) {
-               &:hover {
+               &:not(:nth-child(3)) {
                  & svg {
                    & path {
-                     fill: none;
-                     stroke: var(--accent-color);
+                     fill: var(--accent-color);
+                   }
+                 }
+               }
+
+               &:nth-child(3) {
+                 & svg {
+                  & >path {
+                    stroke: var(--accent-color);
+                  }
+                   & g {
+                     & > path {
+                      fill: var(--accent-color);
+                     }
                    }
                  }
                }

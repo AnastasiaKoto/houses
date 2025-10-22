@@ -28,6 +28,7 @@
 						"WEB_FORM_ID" => "",
 					),
 					"WEB_FORM_ID" => "3",	// ID веб-формы
+          "UNIQUE_PREFIX" => "presentation_form"
 				),
 				false
 			); ?>
@@ -59,6 +60,7 @@
 						"WEB_FORM_ID" => "",
 					),
 					"WEB_FORM_ID" => "2",	// ID веб-формы
+          "UNIQUE_PREFIX" => "estimate_form"
 				),
 				false
 			); ?>

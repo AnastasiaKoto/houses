@@ -10,22 +10,10 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
-if($arResult["isFormErrors"] == "Y" || $arResult["isFormNote"] == "Y") {
+if($arResult["isFormNote"] == "Y") {
 	$APPLICATION->RestartBuffer();
-	if ($arResult["isFormErrors"] == "Y") {
-		?>
-		<div class="modal-content thx-content">
-			<div class="modal-title">
-				В форме содержатся ошибки!
-			</div>
-			<a href="tel:+79999879898" target="_blank" class="modal-thx__phone">
-				+7 (999) 987-98-98
-			</a>
-			<button class="modal-close" onclick="window.location.reload();">
-			Закрыть окно
-			</button>
-		</div>
-	<? } elseif ($arResult["isFormNote"] == "Y") { ?>
+	
+	if ($arResult["isFormNote"] == "Y") { ?>
 		<div class="modal-content thx-content">
 			<div class="modal-title">
 				Ваша заявка успешно отправлена!
@@ -58,7 +46,7 @@ if($arResult["isFormErrors"] == "Y" || $arResult["isFormNote"] == "Y") {
 				<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] != "checkbox") { ?>
 					<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") {  ?>
 						<? if($FIELD_SID == 'TIME'): ?>
-							<div class="custom-select" data-placeholder="<?= $arQuestion['CAPTION']; ?>">
+							<div class="custom-select input-wrapper" data-placeholder="<?= $arQuestion['CAPTION']; ?>">
 								<div class="custom-select__trigger">
 									<span class="custom-select__value"></span>
 									<label><?= $arQuestion['CAPTION']; ?></label>
@@ -85,19 +73,23 @@ if($arResult["isFormErrors"] == "Y" || $arResult["isFormNote"] == "Y") {
 						<? endif; ?>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") { 
 					?>
-						<div class="float-input">
+						<div class="float-input input-wrapper">
 							<?= recreateTextField($FIELD_SID, $arQuestion, 'text', $prefix); ?>
 						</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "email") { ?>
-						<div class="float-input">
+						<div class="float-input input-wrapper">
+							<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"], $prefix); ?>
+							<?/*
 							<?= $arQuestion["HTML_CODE"]; ?>
 							<label for="<?= $arResult['arForm']['NAME']; ?>_email"><?= $arQuestion['CAPTION']; ?></label>
+							*/?>
 						</div>
 					<? } ?>
 				<? } else { ?>
 					
-					<label class="custom-checkbox-black">
-						<?= $arQuestion["HTML_CODE"]; ?>
+					<label class="custom-checkbox-black input-wrapper">
+						<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"], $prefix); ?>
+						<? // $arQuestion["HTML_CODE"]; ?>
 						<span class="checkmark">
 							<svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1.3335 5.66406L4.00016 8.33073L10.6668 1.66406" stroke="white" stroke-width="1.5"
@@ -136,5 +128,24 @@ if($arResult["isFormErrors"] == "Y" || $arResult["isFormNote"] == "Y") {
 			</div>
 			<? endif; ?>
 		</div>
+		<?if ($arResult["isFormErrors"] == "Y") {
+			$fields = [];
+			foreach($arResult['FORM_ERRORS'] as $key => $value) {
+				$fields[] = $key;
+			}
+			?>
+			<script>
+				const fields = <?= json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+				const form = document.querySelector('.modal-content form[name="<?= $arResult['arForm']['SID']; ?>"]');
+				if (Array.isArray(fields) && fields.length > 0) {
+					console.log(fields);
+					fields.forEach(field => {
+						field =  field + '<?=$prefix?>';
+						console.log(field);
+						form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+					});
+				}
+			</script>
+		<? } ?>
 	</div>
 <? }

@@ -10,25 +10,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
-$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? '';
-if ($arResult["isFormErrors"] == "Y") {
-	?>
-	<div class="thx-inner">
-		<div class="section-title">
-		В форме содержатся ошибки!
-		</div>
-		<div class="question-form__form-subtitle">
-			<?= $arResult['FORM_ERRORS']; ?>
-		</div>
-		<a href="javascript:void(0)" onclick="window.location.reload();" class="question-form__form-close">
-		Закрыть
-		</a>
-	</div>
-	<script>
-		document.querySelector('.main_section-title').style.display = 'none';
-		document.querySelector('.main_question-form__form-subtitle').style.display = 'none';
-	</script>
-<? } elseif ($arResult["isFormNote"] == "Y") { ?>
+$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? ''; ?>
+
+<? if ($arResult["isFormNote"] == "Y") { ?>
 	<div class="thx-inner">
 		<div class="section-title">
 		Ваша заявка успешно отправлена!
@@ -51,16 +35,17 @@ if ($arResult["isFormErrors"] == "Y") {
 	<?= $arResult["FORM_HEADER"] ?>
 	<div class="question-form__form">
 		<div class="input-row">
-			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { ?>
+			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { 
+			?>
 				<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] != "checkbox") { 
 					
 					if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "text") {
 				?>
-					<div class="float-input">
+					<div class="float-input input-wrapper">
 						<?= recreateTextField($FIELD_SID, $arQuestion, 'text', $prefix); ?>
 					</div>
 					<? } elseif($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") { ?>
-					<div class="custom-select" data-placeholder="<?= $arQuestion['CAPTION']; ?>">
+					<div class="custom-select input-wrapper" data-placeholder="<?= $arQuestion['CAPTION']; ?>">
 						<div class="custom-select__trigger">
 							<span class="custom-select__value"></span>
 							<label><?= $arQuestion['CAPTION']; ?></label>
@@ -90,8 +75,9 @@ if ($arResult["isFormErrors"] == "Y") {
 			if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "checkbox") { 
 		?>
 		<div class="agreed">
-			<label class="custom-checkbox">
-				<?= $arQuestion["HTML_CODE"]; ?>
+			<label class="custom-checkbox input-wrapper">
+				<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"], $prefix); ?>
+				<? //$arQuestion["HTML_CODE"]; ?>
 				<span class="checkmark"></span>
 				<span class="agreed-text"><?= $arQuestion['CAPTION']; ?></span>
 			</label>
@@ -110,4 +96,23 @@ if ($arResult["isFormErrors"] == "Y") {
 		</button>
 	</div>
 	<?= $arResult["FORM_FOOTER"]; ?>
+	<?
+	if ($arResult["isFormErrors"] == "Y") {
+		$fields = [];
+		foreach($arResult['FORM_ERRORS'] as $key => $value) {
+			$fields[] = $key;
+		}
+		?>
+		<script>
+			const fields = <?= json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+			const form = document.querySelector('.question-form__inner form[name="<?= $arResult['arForm']['SID']; ?>"]');
+			if (Array.isArray(fields) && fields.length > 0) {
+				fields.forEach(field => {
+					field =  field + '<?=$prefix?>';
+					console.log(field);
+					form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+				});
+			}
+		</script>
+	<? } ?>
 <? } ?>

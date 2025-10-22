@@ -25,7 +25,7 @@ use Bitrix\Main\Loader;
 		"LIST_URL" => "",
 		"SEF_MODE" => "N",
 		"SUCCESS_URL" => "",
-		"USE_EXTENDED_ERRORS" => "N",
+		"USE_EXTENDED_ERRORS" => "Y",
 		"WEB_FORM_ID" => "4",
 		"VACANCY" => $arResult["NAME"],
 		"VARIABLE_ALIASES" => [

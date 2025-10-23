@@ -286,7 +286,7 @@
 						this.container.appendChild(items[k]);
 					}
 				}
-				projectsSlider.reinit();
+				this.projectsSlider.reinit();
 				//this.initSliders(this.container);
 				new BX.easing({
 					duration: 2000,

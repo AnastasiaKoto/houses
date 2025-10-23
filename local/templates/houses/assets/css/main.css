@@ -2685,6 +2685,11 @@
    }
  }
 
+ .slider-arrow.is-disabled {
+   opacity: 0.4;
+   pointer-events: none;
+ }
+
  .section-cats__links {
    display: flex;
    gap: 10px;

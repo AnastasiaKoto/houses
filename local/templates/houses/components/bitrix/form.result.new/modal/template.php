@@ -12,24 +12,37 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 <?
 if($arResult["isFormNote"] == "Y") {
 	$APPLICATION->RestartBuffer();
-	
-	if ($arResult["isFormNote"] == "Y") { ?>
-		<div class="modal-content thx-content">
-			<div class="modal-title">
-				Ваша заявка успешно отправлена!
-			</div>
-			<div class="modal-subtitle">
-			Наш менеджер свяжется с вами по номеру:
-			</div>
-			<a href="tel:+79999879898" target="_blank" class="modal-thx__phone">
-				+7 (999) 987-98-98
-			</a>
-			<button class="modal-close" onclick="window.location.reload();">
-			Закрыть окно
-			</button>
+
+	if(isset($_REQUEST['RESULT_ID'])) {
+		$resultId = intval($_REQUEST['RESULT_ID']);
+		$fieldId = 0;
+		foreach($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
+			if($FIELD_SID == 'PHONE') {
+				$fieldId = $arQuestion['STRUCTURE'][0]['ID'];
+				break;
+			}
+		}
+		$userPhone = getUserPhone($resultId, $fieldId);
+	}
+?>
+	<div class="modal-content thx-content">
+		<div class="modal-title">
+			Ваша заявка успешно отправлена!
 		</div>
-	<? }
-	die();
+		<? if (isset($userPhone) && !empty($userPhone)): ?>
+			<div class="question-form__form-subtitle">
+			Наш менеджер свяжется с вами по номеру:
+			</div>
+		
+            <a class="question-form__form-phone">
+                <?= htmlspecialcharsbx($userPhone) ?>
+            </a>
+		<? endif; ?>
+		<button class="modal-close" onclick="window.location.reload();">
+		Закрыть окно
+		</button>
+	</div>
+<?	die();
 } elseif ($arResult["isFormNote"] != "Y") { 
 	$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? '';
 	?>

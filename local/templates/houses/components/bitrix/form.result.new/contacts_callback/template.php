@@ -9,17 +9,32 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
  */
 
 ?>
-<? if ($arResult["isFormNote"] == "Y") { ?>
+<? if ($arResult["isFormNote"] == "Y") { 
+	if(isset($_REQUEST['RESULT_ID'])) {
+		$resultId = intval($_REQUEST['RESULT_ID']);
+		$fieldId = 0;
+		foreach($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
+			if($FIELD_SID == 'PHONE') {
+				$fieldId = $arQuestion['STRUCTURE'][0]['ID'];
+				break;
+			}
+		}
+		$userPhone = getUserPhone($resultId, $fieldId);
+	}
+?>
 	<div class="thx-inner">
 		<div class="section-title">
 		Ваша заявка успешно отправлена!
 		</div>
-		<div class="question-form__form-subtitle">
-		Наш менеджер свяжется с вами по номеру:
-		</div>
-		<a href="+79999878797" class="question-form__form-phone">
-		+7 (999) 987-87-97
-		</a>
+		<? if (isset($userPhone) && !empty($userPhone)): ?>
+			<div class="question-form__form-subtitle">
+			Наш менеджер свяжется с вами по номеру:
+			</div>
+		
+            <a class="question-form__form-phone">
+                <?= htmlspecialcharsbx($userPhone) ?>
+            </a>
+		<? endif; ?>
 		<a href="javascript:void(0)" onclick="window.location.reload();" class="question-form__form-close">
 		Закрыть
 		</a>

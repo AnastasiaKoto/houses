@@ -33,7 +33,7 @@
 					"AJAX_OPTION_SHADOW" => "N",
 					"AJAX_OPTION_JUMP" => "N",
 					"AJAX_OPTION_STYLE" => "Y",
-					"AJAX_OPTION_HISTORY" => "N",
+					"AJAX_OPTION_HISTORY" => "Y",
 					"CACHE_TIME" => "3600000",	// Время кеширования (сек.)
 					"CACHE_TYPE" => "A",	// Тип кеширования
 					"CHAIN_ITEM_LINK" => "",	// Ссылка на дополнительном пункте в навигационной цепочке

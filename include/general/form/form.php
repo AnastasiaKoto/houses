@@ -21,7 +21,7 @@
 						"AREA_FILE_SHOW" => "file",
 						"AREA_FILE_SUFFIX" => "",
 						"EDIT_TEMPLATE" => "standard.php",
-						"PATH" => "/include/general/form/section_title.php"
+						"PATH" => "/include/general/form/section_descr.php"
 					)
 				); ?>
 			</div>

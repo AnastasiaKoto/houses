@@ -231,13 +231,13 @@
             ООО «10 ДОМОВ»
           </div>
           <div class="footer-reqs__item">
-            ИНН 397092663596
+            ИНН 5017142429
           </div>
           <div class="footer-reqs__item">
-            КПП 265245504
+            КПП 501701001
           </div>
           <div class="footer-reqs__item">
-            ОГРН 3076747289759
+            ОГРН 1255000090003
           </div>
         </div>
       </div>

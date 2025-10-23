@@ -26,12 +26,12 @@
 		this.more_container = document.querySelector('.show-more-container');
 		this.showMoreButton = null;
 		this.showMoreButtonMessage = null;
-		this.projectsSlider = new ProjectsSlider('.catalog-item__images');
 
 		//добавлена инициализация слайдера при загрузке
 		BX.ready(BX.delegate(function() {
 			if (this.container) {
-				this.projectsSlider.reinit();
+				const projectsSlider = new ProjectsSlider('.catalog-item__images');
+				projectsSlider.reinit();
 			}
 		}, this));
 
@@ -286,7 +286,8 @@
 						this.container.appendChild(items[k]);
 					}
 				}
-				this.projectsSlider.reinit();
+				const projectsSlider = new ProjectsSlider('.catalog-item__images');
+				projectsSlider.reinit();
 				//this.initSliders(this.container);
 				new BX.easing({
 					duration: 2000,

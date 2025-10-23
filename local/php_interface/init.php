@@ -79,6 +79,21 @@ function recreateTextField($code, $arQuestion, $type, $prefix = '', $value = fal
     return $html_code;
 }
 
+function getUserPhone($resultId, $fieldId) {
+    if(CModule::IncludeModule("form")) {
+        CFormResult::GetDataByID(
+            $resultId,
+            array('PHONE'),
+            $arResultData,
+            $arResult2
+        );
+        
+        $userPhone = $arResult2['PHONE'][$fieldId]['USER_TEXT'] ?? '';
+        return $userPhone;
+    }
+    return false;
+}
+
 function getHlData($valueId, $tableName) {
     $hlblock = Bitrix\Highloadblock\HighloadBlockTable::getList(array(
         'filter' => array('=TABLE_NAME' => $tableName)

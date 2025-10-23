@@ -33,9 +33,9 @@ $prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? ''; ?>
 			Наш менеджер свяжется с вами по номеру:
 			</div>
 		
-            <a class="question-form__form-phone">
+            <span class="question-form__form-phone">
                 <?= htmlspecialcharsbx($userPhone) ?>
-            </a>
+			</span>
 		<? endif; ?>
 		<a href="javascript:void(0)" onclick="window.location.reload();" class="question-form__form-close">
 		Закрыть

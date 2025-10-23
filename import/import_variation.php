@@ -210,10 +210,28 @@ function importOffersSimple($csvFilePath) {
                     'FUNDAMENT_IMG' => $fundament_gallery,
                     'HOUSES_FLOORS' => $floors
                 ];
-            elseif($row['TYPE'] == 'variable_project'):
+            elseif($row['TYPE'] == 'variable_project' || $row['TYPE'] == 'simple_active' || $row['TYPE'] == 'simple_real'):
                 $iblockId = 6;
-                $sectionId = 10;
+                if($row['TYPE'] == 'simple_active') {
+                    $sectionId = 9;
+                } elseif($row['TYPE'] == 'simple_real') {
+                    $sectionId = 7;
+                } else {
+                    $sectionId = 10;
+                }
+                
                 $anounce = $row['Локация'];
+                if($row['TYPE'] == 'simple_active' || $row['TYPE'] == 'simple_real') {
+                    $detailDescr = $row['Детальное описание'];
+                    $storages = !empty($row['Количество кладовок']) ? getPropertyEnumId('HOUSES_WC', $row['Количество кладовок'], $iblockId) : null;
+                    $plane = array_map('trim', explode(', ', $row['Планировка дома']));
+                    $video = addImages($row['Превью видео'], $row['Видео (embed code)']);
+                    $finished_project = addImages($row['Завершенный проект'], '');
+                    $otdelka_gallery = addImages($row['Этап отделки']);
+                    $building_gallery = addImages($row['Этап строительства']);
+                }
+
+                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки (внешний код)']));
 
                 $rooms = !empty($row['Количество комнат']) ? getPropertyEnumId('HOUSES_ROOMS', $row['Количество комнат'], $iblockId) : null;
                 $wcs = !empty($row['Количество санузлов']) ? getPropertyEnumId('HOUSES_WC', $row['Количество санузлов'], $iblockId) : null;
@@ -221,65 +239,44 @@ function importOffersSimple($csvFilePath) {
                 $styleId = !empty($row['Стиль']) ? getPropertyEnumId('HOUSES_STYLE', $row['Стиль'], $iblockId) : null;
                 $floors = !empty($row['Этажность']) ? getPropertyEnumId('HOUSES_FLOORS', $row['Этажность'], $iblockId) : null;
 
-                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки (внешний код)']));
+                
                 $variations = [];
-
-                if (!empty($row['Вариации дома'])) {
-                    $variations = stringProjectsToArray($row['Вариации дома']);
-                }
                 
                 $productProperties = [
                     'HOUSE_VARIABLES' => $variations,
                     'BUILDINGS' => $buildings,
+                    'VIDEO_POINT' => $video ?? null,
+                    'HEIGHT' => $row['Высота потолков'] ?? null,
                     'GALLERY' => $gallery,
+                    'END_POINT' => $finished_project ?? null,
+                    'STORAGE' => $storages ?? null,
                     'HOUSES_ROOMS' => $rooms,
                     'HOUSES_WC' => $wcs,
                     'OTDELKA' => $row['Отделка (по умолчанию)'],
+                    'PLANES' => $plane ?? null,
                     'HOUSES_SQUARES' => $row['Площадь'],
                     'SHOW_MAIN' => $show_main,
+                    'PROJECTS' => $linkedProjects,
+                    'HOUSES_FLOORS' => $floors,
                     'HOUSES_SIZES' => $row['Размеры'],
                     'HOUSES_STYLE' => $styleId,
                     'HOUSES_PRICES' => $row['Стоимость'],
-                    'INSULATION_IMG' => $insul_gallery,
-                    'FUNDAMENT_CONFIG' => $row['Фундамент'],
-                    'FUNDAMENT_IMG' => $fundament_gallery,
-                    'PROJECTS' => $linkedProjects,
-                    'HOUSES_FLOORS' => $floors
+                    'FINISHED_POINT' => $otdelka_gallery ?? null,
+                    'CONSTRUCT_POINT' => $building_gallery ?? null
                 ];
-            elseif($row['TYPE'] == 'simple_active'):
-                $iblockId = 6;
-                $sectionId = 9;
-                $anounce = $row['Локация'];
-                $detailDescr = $row['Детальное описание'];
-                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки']));
-                $rooms = !empty($row['Количество комнат']) ? getPropertyEnumId('HOUSES_ROOMS', $row['Количество комнат'], $iblockId) : null;
-                $wcs = !empty($row['Количество санузлов']) ? getPropertyEnumId('HOUSES_WC', $row['Количество санузлов'], $iblockId) : null;
-                $storages = !empty($row['Количество кладовок']) ? getPropertyEnumId('HOUSES_WC', $row['Количество кладовок'], $iblockId) : null;
 
-                $gallery = addImages($row['Превью видео'], $row['Видео (embed code)']);
-                $finished_project = addImages($row['Завершенный проект'], '');
+                if($row['TYPE'] == 'variable_project') {
+                    if (!empty($row['Вариации дома'])) {
+                        $variations = stringProjectsToArray($row['Вариации дома']);
+                        $productProperties['HOUSE_VARIABLES'] = $variations;
+                    }
+                }
 
-                $productProperties = [
-                    'HOUSE_VARIABLES' => $variations,
-                    'BUILDINGS' => $buildings,
-                    'GALLERY' => $gallery,
-                    'HOUSES_ROOMS' => $rooms,
-                    'HOUSES_WC' => $wcs,
-                    'OTDELKA' => $row['Отделка (по умолчанию)'],
-                    'HOUSES_SQUARES' => $row['Площадь'],
-                    'SHOW_MAIN' => $show_main,
-                    'HOUSES_SIZES' => $row['Размеры'],
-                    'HOUSES_STYLE' => $styleId,
-                    'HOUSES_PRICES' => $row['Стоимость'],
-                    'INSULATION_IMG' => $insul_gallery,
-                    'FUNDAMENT_CONFIG' => $row['Фундамент'],
-                    'FUNDAMENT_IMG' => $fundament_gallery,
-                    'PROJECTS' => $linkedProjects,
-                    'HOUSES_FLOORS' => $floors
-                ];
-            elseif($row['TYPE'] == 'simple_real'):
-                $iblockId = 6;
-                $sectionId = 7;
+                if($row['TYPE'] == 'simple_active') {
+                    $translation = addImages($row['Превью трансляции'], $row['Ссылка на трансляцию']);
+                    $productProperties['TRANSLATION_LINK'] = $translation;
+                }  
+                
             endif;
 
             $productFields = [

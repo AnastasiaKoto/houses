@@ -472,6 +472,12 @@
    }
  }
 
+ .section.vacancy-detail {
+   @media (min-width: 1150px) {
+     margin-bottom: 80px;
+   }
+ }
+
  header {
    position: absolute;
    left: 0;
@@ -2685,6 +2691,11 @@
    }
  }
 
+ .slider-arrow.is-disabled {
+   opacity: 0.4;
+   pointer-events: none;
+ }
+
  .section-cats__links {
    display: flex;
    gap: 10px;
@@ -2787,12 +2798,13 @@
 
                &:nth-child(3) {
                  & svg {
-                  & >path {
-                    stroke: var(--accent-color);
-                  }
+                   &>path {
+                     stroke: var(--accent-color);
+                   }
+
                    & g {
-                     & > path {
-                      fill: var(--accent-color);
+                     &>path {
+                       fill: var(--accent-color);
                      }
                    }
                  }

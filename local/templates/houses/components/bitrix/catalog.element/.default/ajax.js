@@ -193,6 +193,8 @@ class HouseVariationManager {
             const splideOptions = {
                 type: 'loop',
                 autoWidth: true,
+                speed: 600, 
+                easing: 'ease',
                 gap: 20,
                 perMove: 1,
                 pagination: false,

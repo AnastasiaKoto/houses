@@ -123,8 +123,10 @@ $prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? ''; ?>
 			if (Array.isArray(fields) && fields.length > 0) {
 				fields.forEach(field => {
 					field =  field + '<?=$prefix?>';
-					console.log(field);
-					form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+					let parent = form.querySelector(`#${field}`).closest('.input-wrapper');
+					if(!parent.classList.contains('error')) {
+						parent.classList.add('error');
+					}
 				});
 			}
 		</script>

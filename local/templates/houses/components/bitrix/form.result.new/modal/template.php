@@ -154,8 +154,10 @@ if($arResult["isFormNote"] == "Y") {
 					console.log(fields);
 					fields.forEach(field => {
 						field =  field + '<?=$prefix?>';
-						console.log(field);
-						form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+						let parent = form.querySelector(`#${field}`).closest('.input-wrapper');
+						if(!parent.classList.contains('error')) {
+							parent.classList.add('error');
+						}
 					});
 				}
 			</script>

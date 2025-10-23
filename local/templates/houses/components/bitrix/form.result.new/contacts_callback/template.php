@@ -129,8 +129,10 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 			const form = document.querySelector('.contacts-form form[name="<?= $arResult['arForm']['SID']; ?>"]');
 			if (Array.isArray(fields) && fields.length > 0) {
 				fields.forEach(field => {
-					console.log(field);
-					form.querySelector(`#${field}`).closest('.input-wrapper').classList.add('error');
+					let parent = form.querySelector(`#${field}`).closest('.input-wrapper');
+					if(!parent.classList.contains('error')) {
+						parent.classList.add('error');
+					}
 				});
 			}
 		</script>

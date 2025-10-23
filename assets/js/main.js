@@ -323,6 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     initAll();
   }
+  
 
 })();
 

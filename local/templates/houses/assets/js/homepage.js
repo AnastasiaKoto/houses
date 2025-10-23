@@ -210,33 +210,79 @@ document.addEventListener('DOMContentLoaded', function () {
   const prevArrow = document.querySelector('.projects-arrow__prev');
   const nextArrow = document.querySelector('.projects-arrow__next');
 
-
   const splides = Array.from(sliders).map(slider => {
     const s = new Splide(slider, {
       type: 'slide',
-      autoWidth: true,
-      gap: 20,
+      perPage: 3,
       perMove: 1,
+      gap: 20,
+      speed: 600,
+      easing: 'ease',
       pagination: false,
       arrows: false,
+      focus: 'start',
+      padding: { right: 15 },
+      breakpoints: {
+        992: {
+          perPage: 2,
+          gap: 10,
+          padding: { right: 10 },
+        },
+      },
     });
     s.mount();
     return s;
   });
 
-
   let currentIndex = 0;
 
+  function updateArrows() {
+    if (!prevArrow || !nextArrow) return;
 
-  if (prevArrow) prevArrow.addEventListener('click', () => splides[currentIndex].go('<'));
-  if (nextArrow) nextArrow.addEventListener('click', () => splides[currentIndex].go('>'));
+    const splide = splides[currentIndex];
+    prevArrow.classList.toggle('is-disabled', splide.index === 0);
+    nextArrow.classList.toggle(
+      'is-disabled',
+      splide.index >= splide.length - splide.options.perPage
+    );
+  }
+
+
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => {
+      const splide = splides[currentIndex];
+      if (!prevArrow.classList.contains('is-disabled')) {
+        splide.go('<');
+      }
+    });
+  }
+
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => {
+      const splide = splides[currentIndex];
+      if (!nextArrow.classList.contains('is-disabled')) {
+        splide.go('>');
+      }
+    });
+  }
+
+
+  splides.forEach(splide => {
+    splide.on('moved', updateArrows);
+    splide.on('mounted', updateArrows);
+    splide.on('resized', updateArrows);
+  });
 
 
   sliders.forEach((slider, i) => {
     slider.addEventListener('mouseenter', () => {
       currentIndex = i;
+      updateArrows(); 
     });
   });
+
+
+  updateArrows();
 });
 
 

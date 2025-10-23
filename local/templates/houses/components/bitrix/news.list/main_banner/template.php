@@ -62,9 +62,10 @@ echo '</pre>';
 						<ul class="splide__list">
 							<? foreach($arItem['PROPERTIES']['BANNER_SLIDES']['ARVALUE'] as $project): ?>
 							<li class="splide__slide" onclick="window.location='<?= $project['UF_LINK']; ?>'">
-								<div class="ms-slider__layer"></div>
+								
 								<div class="mainscreen-splide__image">
 									<img src="<?= $project['UF_IMAGE']; ?>" alt="<?= $project['UF_NAME']; ?>">
+									<div class="mainscreen-splide__image-layer"></div>
 								</div>
 								<div class="mainscreen-splide__info">
 									<div class="mainscreen-splide__info-title">

@@ -1,4 +1,7 @@
 .vacancy-detail {
+  @media(min-width:1150px) {
+    margin-bottom: 80px;
+  }
   & .vacancy-detail__head {
     padding: 39px 34px;
     border-radius: 40px;

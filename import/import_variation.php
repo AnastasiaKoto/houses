@@ -246,6 +246,36 @@ function importOffersSimple($csvFilePath) {
                     'PROJECTS' => $linkedProjects,
                     'HOUSES_FLOORS' => $floors
                 ];
+            elseif($row['TYPE'] == 'simple_active'):
+                $iblockId = 6;
+                $sectionId = 9;
+                $anounce = $row['Локация'];
+                $detailDescr = $row['Детальное описание'];
+                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки']));
+
+                $gallery = addImages($row['Превью видео']);
+
+                $productProperties = [
+                    'HOUSE_VARIABLES' => $variations,
+                    'BUILDINGS' => $buildings,
+                    'GALLERY' => $gallery,
+                    'HOUSES_ROOMS' => $rooms,
+                    'HOUSES_WC' => $wcs,
+                    'OTDELKA' => $row['Отделка (по умолчанию)'],
+                    'HOUSES_SQUARES' => $row['Площадь'],
+                    'SHOW_MAIN' => $show_main,
+                    'HOUSES_SIZES' => $row['Размеры'],
+                    'HOUSES_STYLE' => $styleId,
+                    'HOUSES_PRICES' => $row['Стоимость'],
+                    'INSULATION_IMG' => $insul_gallery,
+                    'FUNDAMENT_CONFIG' => $row['Фундамент'],
+                    'FUNDAMENT_IMG' => $fundament_gallery,
+                    'PROJECTS' => $linkedProjects,
+                    'HOUSES_FLOORS' => $floors
+                ];
+            elseif($row['TYPE'] == 'simple_real'):
+                $iblockId = 6;
+                $sectionId = 7;
             endif;
 
             $productFields = [
@@ -254,6 +284,7 @@ function importOffersSimple($csvFilePath) {
                 'ACTIVE' => $row['Активность'],
                 'CODE' => $productCode,
                 'PREVIEW_TEXT' => $anounce ?? null,
+                'DETAIL_TEXT' => $detailDescr ?? null,
                 'IBLOCK_SECTION' => $sectionId ?? null,
             ];
             $existingProduct = null;

@@ -34,9 +34,9 @@ if($arResult["isFormNote"] == "Y") {
 			Наш менеджер свяжется с вами по номеру:
 			</div>
 		
-            <a class="question-form__form-phone">
+            <span class="question-form__form-phone">
                 <?= htmlspecialcharsbx($userPhone) ?>
-            </a>
+			</span>
 		<? endif; ?>
 		<button class="modal-close" onclick="window.location.reload();">
 		Закрыть окно

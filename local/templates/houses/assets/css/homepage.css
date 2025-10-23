@@ -150,6 +150,7 @@
          height: 100%;
          width: 100%;
          position: relative;
+         cursor: pointer;
 
          & .splide__track {
            height: 100%;

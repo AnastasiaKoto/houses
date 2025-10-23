@@ -120,17 +120,19 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 			}
 			?>
 			<script>
-				const fields = <?= json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
-				console.log(fields);
-				const form = document.querySelector('.question-form__inner form[name="<?= $arResult['arForm']['SID']; ?>"]');
-				if (Array.isArray(fields) && fields.length > 0) {
-					fields.forEach(field => {
-						let parent = form.querySelector(`#${field}`).closest('.input-wrapper');
-						if(!parent.classList.contains('error')) {
-							parent.classList.add('error');
-						}
-					});
-				}
+				(() => {
+					const fields = <?= json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+					console.log(fields);
+					const form = document.querySelector('.question-form__inner form[name="<?= $arResult['arForm']['SID']; ?>"]');
+					if (Array.isArray(fields) && fields.length > 0) {
+						fields.forEach(field => {
+							let parent = form.querySelector(`#${field}`).closest('.input-wrapper');
+							if(!parent.classList.contains('error')) {
+								parent.classList.add('error');
+							}
+						});
+					}
+				})();
 			</script>
 		<? } ?>
 	<? } ?>

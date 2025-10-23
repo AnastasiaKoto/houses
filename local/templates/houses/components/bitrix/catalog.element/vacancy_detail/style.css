@@ -234,7 +234,7 @@
     height: 24px;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url(../img/plus.svg);
+    background-image: url('/local/templates/houses/assets/img/plus.svg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

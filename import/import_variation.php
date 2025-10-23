@@ -252,8 +252,12 @@ function importOffersSimple($csvFilePath) {
                 $anounce = $row['Локация'];
                 $detailDescr = $row['Детальное описание'];
                 $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки']));
+                $rooms = !empty($row['Количество комнат']) ? getPropertyEnumId('HOUSES_ROOMS', $row['Количество комнат'], $iblockId) : null;
+                $wcs = !empty($row['Количество санузлов']) ? getPropertyEnumId('HOUSES_WC', $row['Количество санузлов'], $iblockId) : null;
+                $storages = !empty($row['Количество кладовок']) ? getPropertyEnumId('HOUSES_WC', $row['Количество кладовок'], $iblockId) : null;
 
-                $gallery = addImages($row['Превью видео']);
+                $gallery = addImages($row['Превью видео'], $row['Видео (embed code)']);
+                $finished_project = addImages($row['Завершенный проект'], '');
 
                 $productProperties = [
                     'HOUSE_VARIABLES' => $variations,

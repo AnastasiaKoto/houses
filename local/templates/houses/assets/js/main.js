@@ -321,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
 BX.addCustomEvent('OnAjaxSuccess', function(){
   customSelectTrigger();
   setTimeout(checkAcceptedSort, 300);
+  applyPhoneMask();
 })
 
 // document.addEventListener("DOMContentLoaded", () => {

@@ -14,6 +14,7 @@
 
       & h1 {
         margin-bottom: 20px;
+
         @media(max-width: 1100px) {
           margin-top: 20px;
         }
@@ -27,6 +28,7 @@
         /* 24px */
         letter-spacing: -0.4px;
         color: var(--darg-gray-color);
+
         @media(max-width: 700px) {
           font-weight: 400;
         }
@@ -37,6 +39,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 40px 24px;
         margin-top: 63px;
+
         @media(max-width: 700px) {
           grid-template-columns: 1fr;
           margin-top: 30px;
@@ -76,6 +79,7 @@
 
       & .contats-social {
         margin-top: 63px;
+
         @media(max-width: 700px) {
           margin-top: 20px;
         }
@@ -211,8 +215,33 @@
     border-radius: 40px;
     border: 1px solid #E7EAEB;
     overflow: hidden;
+
     @media(max-width: 700px) {
       margin-top: 30px;
     }
   }
+}
+
+.question-form__form-subtitle {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.4px;
+  color: var(--darg-gray-color);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.question-form__form-phone {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.4px;
+  color: var(--dark-color);
+}
+
+.question-form__form-close {
+  margin-left: 0;
 }

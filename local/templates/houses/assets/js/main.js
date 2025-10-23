@@ -235,35 +235,170 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.float-input').forEach(wrapper => {
-    const input = wrapper.querySelector('input');
+// document.addEventListener('DOMContentLoaded', () => {
+//   document.querySelectorAll('.float-input').forEach(wrapper => {
+//     const input = wrapper.querySelector('input');
 
-    // если при загрузке уже есть значение — ставим актив
-    if (input.value && input.value.trim() !== '') {
-      wrapper.classList.add('active');
+//     // если при загрузке уже есть значение — ставим актив
+//     if (input.value && input.value.trim() !== '') {
+//       wrapper.classList.add('active');
+//     }
+
+//     input.addEventListener('focus', () => {
+//       wrapper.classList.add('active');
+//     });
+
+//     input.addEventListener('blur', () => {
+//       if (!input.value || input.value.trim() === '') {
+//         wrapper.classList.remove('active');
+//       }
+//     });
+
+//     // на input (ввод) — чтобы в реальном времени реагировать на вставку/удаление
+//     input.addEventListener('input', () => {
+//       if (input.value && input.value.trim() !== '') {
+//         wrapper.classList.add('active');
+//       } else {
+//         wrapper.classList.remove('active');
+//       }
+//     });
+//   });
+// });
+(() => {
+  const INPUT_SELECTOR = 'input, textarea';
+  const DEBUG = false;
+  const log = (...args) => { if (DEBUG) console.log('[float-input]', ...args); };
+
+  function isFilled(input) {
+    if (!input) return false;
+    const raw = String(input.value || '').trim();
+
+
+    if (raw !== '') return true;
+
+ 
+    if (raw.replace(/\D/g, '').length > 0) return true;
+
+
+    try {
+      if (typeof input.inputmask?.unmaskedvalue === 'function') {
+        const u = String(input.inputmask.unmaskedvalue() || '').trim();
+        if (u !== '' && u.replace(/\D/g, '').length > 0) return true;
+      }
+      // некоторые либы хранят unmaskedValue как свойство
+      if (typeof input.unmaskedValue === 'function') {
+        const u = String(input.unmaskedValue() || '').trim();
+        if (u !== '' && u.replace(/\D/g, '').length > 0) return true;
+      }
+    } catch (err) {
+ 
+      log('mask lib check error', err);
     }
 
-    input.addEventListener('focus', () => {
+    return false;
+  }
+
+  function updateWrapper(wrapper) {
+    if (!wrapper) return;
+    const input = wrapper.querySelector(INPUT_SELECTOR);
+    if (!input) return;
+    if (isFilled(input)) {
       wrapper.classList.add('active');
-    });
+      log('activated', input);
+    } else {
+      wrapper.classList.remove('active');
+      log('deactivated', input);
+    }
+  }
 
-    input.addEventListener('blur', () => {
-      if (!input.value || input.value.trim() === '') {
-        wrapper.classList.remove('active');
+  function initWrapper(wrapper) {
+    if (!wrapper || wrapper.__floatInitDone) return;
+    const input = wrapper.querySelector(INPUT_SELECTOR);
+    if (!input) return;
+
+    wrapper.__floatInitDone = true;
+
+
+    updateWrapper(wrapper);
+
+
+    const onFocus = () => wrapper.classList.add('active');
+    const onCheck = () => updateWrapper(wrapper);
+
+    input.addEventListener('focus', onFocus, true);
+    input.addEventListener('input', onCheck, true);
+    input.addEventListener('change', onCheck, true);
+    input.addEventListener('paste', onCheck, true);
+    input.addEventListener('cut', onCheck, true);
+    input.addEventListener('blur', () => setTimeout(onCheck, 10), true); 
+
+
+    const mo = new MutationObserver(muts => {
+      for (const m of muts) {
+        if (m.type === 'attributes') {
+          if (m.attributeName === 'value' || m.attributeName === 'data-mask-applied' || m.attributeName === 'placeholder') {
+            updateWrapper(wrapper);
+          }
+        }
       }
     });
+    mo.observe(input, { attributes: true, attributeFilter: ['value', 'data-mask-applied', 'placeholder'] });
+    wrapper.__floatInputMO = mo;
 
-    // на input (ввод) — чтобы в реальном времени реагировать на вставку/удаление
-    input.addEventListener('input', () => {
-      if (input.value && input.value.trim() !== '') {
-        wrapper.classList.add('active');
-      } else {
-        wrapper.classList.remove('active');
+    log('init wrapper', wrapper);
+  }
+
+  function initAll() {
+    document.querySelectorAll('.float-input').forEach(initWrapper);
+  }
+
+
+  function delegatedHandler(e) {
+    const target = e.target;
+    if (!target) return;
+    const wrapper = target.closest('.float-input');
+    if (!wrapper) return;
+    if (e.type === 'focus') {
+      wrapper.classList.add('active');
+    } else if (e.type === 'blur') {
+      setTimeout(() => updateWrapper(wrapper), 10);
+    } else {
+      updateWrapper(wrapper);
+    }
+  }
+  ['input', 'change', 'paste', 'cut'].forEach(ev => document.addEventListener(ev, delegatedHandler, true));
+  document.addEventListener('focus', delegatedHandler, true);
+  document.addEventListener('blur', delegatedHandler, true);
+
+  // Следим за динамически добавляемыми .float-input в DOM
+  const docObserver = new MutationObserver(muts => {
+    for (const m of muts) {
+      if (m.type === 'childList' && m.addedNodes.length) {
+        m.addedNodes.forEach(node => {
+          if (!(node instanceof Element)) return;
+          if (node.matches && node.matches('.float-input')) initWrapper(node);
+          node.querySelectorAll && node.querySelectorAll('.float-input').forEach(initWrapper);
+        });
       }
-    });
+    }
   });
-});
+  docObserver.observe(document.documentElement || document.body, { childList: true, subtree: true });
+
+
+  window.updateFloatInputs = function() {
+    initAll();
+    document.querySelectorAll('.float-input').forEach(updateWrapper);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+  
+
+  
+})();
 
 const customSelectTrigger = () => {
   document.querySelectorAll(".custom-select, .custom-select-cornored").forEach(select => {

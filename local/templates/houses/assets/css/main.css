@@ -2040,6 +2040,21 @@
    }
  }
 
+  .custom-checkbox.error {
+  & .agreed-text {
+    color: #F05454;
+    & a {
+      color: #F05454;
+      border-color: #F05454;
+    }
+  }
+  & .checkmark {
+    border-color: #F05454;
+    
+    
+  }
+ }
+
  .agreed {
    display: flex;
    justify-content: center;

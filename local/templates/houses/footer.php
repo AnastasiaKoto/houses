@@ -224,7 +224,7 @@
       <div class="footer-devider"></div>
       <div class="footer-copy">
         <div class="copyright">
-          ©2025 Дом Готов. Все права защищены.
+          ©2025 10 Домов. Все права защищены.
         </div>
         <div class="footer-reqs">
           <div class="footer-reqs__item">

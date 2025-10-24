@@ -10,3 +10,5 @@
 /nginx/
 /php/
 /www/
+.*
+!.gitignore

@@ -1138,9 +1138,6 @@ if ($haveOffers) {
 		</div>
 	</div>
 </section>
-<script>
-	window.HouseVariationManager = new HouseVariationManager();
-</script>
 <?
 if ($haveOffers):
 	?>
@@ -1149,3 +1146,6 @@ if ($haveOffers):
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
 	</script>
 <? endif; ?>
+<script>
+	const HouseVariationManager = new HouseVariationManager();
+</script>

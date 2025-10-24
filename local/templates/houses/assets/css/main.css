@@ -2150,6 +2150,16 @@
      }
    }
 
+   & .checkbox-text {
+     color: #F05454;
+
+     & a {
+       color: #F05454;
+       border-color: #F05454;
+     }
+   }
+
+
    & .checkmark {
      border-color: #F05454;
 
@@ -3209,7 +3219,7 @@
  }
 
  font.errortext {
-  display: none !important;
+   display: none !important;
  }
 
 

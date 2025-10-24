@@ -619,9 +619,9 @@ class HouseVariationManager {
     //достает доступные комбинации
     updateAvailability(clickedElement) {
         const clickedId = clickedElement.id;
-        //console.log(clickedId);
+        console.log(clickedId);
         const combination = this.findMatchingOffer();
-
+        console.log(combination);
         if (clickedId) {
             if (!combination) {
                 console.log('Вариация не найдена!');
@@ -656,11 +656,13 @@ class HouseVariationManager {
         checkedRadios.forEach(radio => {
             selectedElements.push(radio.id);
         });
+        console.log(checkedRadios);
 
         const activeLiElements = document.querySelectorAll('li.HOUSES_OPTION.active');
         activeLiElements.forEach(li => {
             selectedElements.push(li.id);
         });
+        console.log(activeLiElements);
 
         const combinationKey = selectedElements.sort().join('|');
         console.log(combinationKey);

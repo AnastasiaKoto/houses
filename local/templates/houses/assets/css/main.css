@@ -3208,6 +3208,9 @@
    display: none !important;
  }
 
+ font.errortext {
+  display: none !important;
+ }
 
 
 

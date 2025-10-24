@@ -71,14 +71,14 @@ if(!empty($arResult['ITEMS'])):
 			</ul>
 		</div>
 		<div class="styles-arrows">
-			<div class="styles-arrow styles-arrow__prev">
+			<div class="slider-arrow styles-arrow styles-arrow__prev">
 				<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M11.4167 6H1H11.4167ZM1 6L6 1L1 6ZM1 6L6 11Z" fill="#8E9293" />
 					<path d="M1 6L6 11M11.4167 6H1H11.4167ZM1 6L6 1L1 6Z" stroke="#8E9293" stroke-width="1.5"
 						stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</div>
-			<div class="styles-arrow styles-arrow__next">
+			<div class="slider-arrow styles-arrow styles-arrow__next">
 				<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6ZM11.4167 6L6.41667 11Z" fill="#8E9293" />
 					<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="#8E9293"

@@ -161,8 +161,127 @@ class HouseVariationManager {
     }
 
     // Инициализация конкретного экземпляра табов
+    // initTabInstance(instance) {
+    //     const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+
+    //     // Функция для инициализации Splide
+    //     const mountSplideFor = (tabName) => {
+    //         if (!tabName) return null;
+    //         if (splides[tabName]) return splides[tabName];
+
+    //         const content = contentMap.get(tabName);
+    //         if (!content) return null;
+
+    //         const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+    //         if (!el) return null;
+
+    //         const computed = window.getComputedStyle(content);
+    //         const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+    //         const prev = {};
+    //         if (wasHidden) {
+    //             prev.display = content.style.display;
+    //             prev.visibility = content.style.visibility;
+    //             prev.position = content.style.position;
+    //             prev.left = content.style.left;
+
+    //             content.style.display = 'block';
+    //             content.style.visibility = 'hidden';
+    //             content.style.position = 'absolute';
+    //             content.style.left = '-9999px';
+    //         }
+
+    //         const splideOptions = {
+    //             type: 'loop',
+    //             autoWidth: true,
+    //             speed: 600,
+    //             easing: 'ease',
+    //             gap: 20,
+    //             perMove: 1,
+    //             pagination: false,
+    //             arrows: false,
+    //             breakpoints: {
+    //                 992: {
+    //                     gap: 10,
+    //                     drag: true
+    //                 }
+    //             }
+    //         };
+
+    //         const splideInstance = new Splide(el, splideOptions);
+    //         splideInstance.mount();
+
+    //         if (wasHidden) {
+    //             content.style.display = prev.display || '';
+    //             content.style.visibility = prev.visibility || '';
+    //             content.style.position = prev.position || '';
+    //             content.style.left = prev.left || '';
+    //         }
+
+    //         splides[tabName] = splideInstance;
+    //         setTimeout(() => {
+    //             try { splideInstance.refresh(); } catch (e) { /* ignore */ }
+    //         }, 50);
+
+    //         return splideInstance;
+    //     };
+
+    //     // Инициализация активного таба
+    //     contents.forEach(c => {
+    //         if (c.dataset.tab === activeTab) {
+    //             c.classList.add('active');
+    //             c.style.display = '';
+    //             mountSplideFor(activeTab);
+    //         } else {
+    //             c.classList.remove('active');
+    //             c.style.display = 'none';
+    //         }
+    //     });
+
+    //     // Навешиваем обработчики на ссылки
+    //     links.forEach(link => {
+    //         link.addEventListener('click', function (e) {
+    //             e.preventDefault();
+    //             const tabName = this.dataset.tab;
+    //             if (!tabName || tabName === instance.activeTab) return;
+
+    //             // Снимаем active у ссылок и контентов
+    //             links.forEach(l => l.classList.remove('active'));
+    //             contents.forEach(c => {
+    //                 c.classList.remove('active');
+    //                 c.style.display = 'none';
+    //             });
+
+    //             // Активируем выбранные
+    //             this.classList.add('active');
+    //             const newContent = contentMap.get(tabName);
+    //             if (newContent) {
+    //                 newContent.classList.add('active');
+    //                 newContent.style.display = '';
+    //                 // Инициализируем / обновляем слайдер для этого таба
+    //                 mountSplideFor(tabName);
+    //             }
+
+    //             instance.activeTab = tabName;
+    //         });
+    //     });
+
+    //     // Стрелки управляют текущим активным слайдером
+    //     if (prevArrow) {
+    //         prevArrow.addEventListener('click', () => {
+    //             splides[instance.activeTab]?.go('<');
+    //         });
+    //     }
+    //     if (nextArrow) {
+    //         nextArrow.addEventListener('click', () => {
+    //             splides[instance.activeTab]?.go('>');
+    //         });
+    //     }
+
+    //     instance.mountSplideFor = mountSplideFor;
+    // }
+
     initTabInstance(instance) {
-        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+        const { contents, links, contentMap, prevArrow, nextArrow, splides } = instance;
 
         // Функция для инициализации Splide
         const mountSplideFor = (tabName) => {
@@ -175,6 +294,7 @@ class HouseVariationManager {
             const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
             if (!el) return null;
 
+            // если контент скрыт — временно показать, чтобы Splide мог рассчитать размеры
             const computed = window.getComputedStyle(content);
             const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
             const prev = {};
@@ -190,8 +310,9 @@ class HouseVariationManager {
                 content.style.left = '-9999px';
             }
 
+            // 🔹 обновленные опции по аналогии с uniq-slider
             const splideOptions = {
-                type: 'loop',
+                type: 'slide', // не бесконечный
                 autoWidth: true,
                 speed: 600,
                 easing: 'ease',
@@ -199,7 +320,15 @@ class HouseVariationManager {
                 perMove: 1,
                 pagination: false,
                 arrows: false,
-                breakpoints: { 992: { gap: 10 } }
+                focus: 'start',
+                padding: { right: 15 },
+                breakpoints: {
+                    992: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true
+                    }
+                }
             };
 
             const splideInstance = new Splide(el, splideOptions);
@@ -213,67 +342,49 @@ class HouseVariationManager {
             }
 
             splides[tabName] = splideInstance;
+
+            // 🔹 функция обновления состояния стрелок
+            function updateArrows() {
+                if (!prevArrow || !nextArrow) return;
+                prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+                nextArrow.classList.toggle(
+                    'is-disabled',
+                    splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+                );
+            }
+
+            splideInstance.on('mounted', updateArrows);
+            splideInstance.on('moved', updateArrows);
+            splideInstance.on('resized', updateArrows);
+
+            // 🔹 обработчики кликов стрелок
+            if (prevArrow) {
+                prevArrow.addEventListener('click', () => {
+                    if (!prevArrow.classList.contains('is-disabled')) splideInstance.go('<');
+                });
+            }
+
+            if (nextArrow) {
+                nextArrow.addEventListener('click', () => {
+                    if (!nextArrow.classList.contains('is-disabled')) splideInstance.go('>');
+                });
+            }
+
+            // обновляем после маунта
             setTimeout(() => {
-                try { splideInstance.refresh(); } catch (e) { /* ignore */ }
+                try {
+                    splideInstance.refresh();
+                    updateArrows();
+                } catch (e) { /* ignore */ }
             }, 50);
 
             return splideInstance;
         };
 
-        // Инициализация активного таба
-        contents.forEach(c => {
-            if (c.dataset.tab === activeTab) {
-                c.classList.add('active');
-                c.style.display = '';
-                mountSplideFor(activeTab);
-            } else {
-                c.classList.remove('active');
-                c.style.display = 'none';
-            }
-        });
-
-        // Навешиваем обработчики на ссылки
-        links.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const tabName = this.dataset.tab;
-                if (!tabName || tabName === instance.activeTab) return;
-
-                // Снимаем active у ссылок и контентов
-                links.forEach(l => l.classList.remove('active'));
-                contents.forEach(c => {
-                    c.classList.remove('active');
-                    c.style.display = 'none';
-                });
-
-                // Активируем выбранные
-                this.classList.add('active');
-                const newContent = contentMap.get(tabName);
-                if (newContent) {
-                    newContent.classList.add('active');
-                    newContent.style.display = '';
-                    // Инициализируем / обновляем слайдер для этого таба
-                    mountSplideFor(tabName);
-                }
-
-                instance.activeTab = tabName;
-            });
-        });
-
-        // Стрелки управляют текущим активным слайдером
-        if (prevArrow) {
-            prevArrow.addEventListener('click', () => {
-                splides[instance.activeTab]?.go('<');
-            });
-        }
-        if (nextArrow) {
-            nextArrow.addEventListener('click', () => {
-                splides[instance.activeTab]?.go('>');
-            });
-        }
-
+        // Возвращаем наружу, если нужно вызывать снаружи
         instance.mountSplideFor = mountSplideFor;
     }
+
 
     //инициализация табов комплектации
 

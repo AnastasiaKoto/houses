@@ -88,26 +88,68 @@ document.addEventListener('DOMContentLoaded', function () {
   let splide;
 
   function initSplide() {
+    // Слайдер включается только при <= 1500px
     if (window.innerWidth <= 1500) {
       if (!splide) {
         splide = new Splide(sliderStyles, {
-          type: 'loop',
-          autoWidth: true,
+          type: 'slide',
+          perPage: 3,
           perMove: 1,
-          pagination: false,
-          arrows: false,
-          // gap: 20,
+          gap: 20,
           speed: 600,
           easing: 'ease',
+          pagination: false,
+          arrows: false,
+          focus: 'start',
+          padding: { right: 15 },
           breakpoints: {
+            992: {
+              perPage: 2,
+              gap: 10,
+              padding: { right: 10 },
+            },
             700: {
-              gap: 10
-            }
-          }
+              perPage: 1,
+              padding: { right: 10 },
+            },
+          },
         });
+
         splide.mount();
+
+        // --- стрелки ---
+        const prevArrow = document.querySelector('.styles-arrow__prev');
+        const nextArrow = document.querySelector('.styles-arrow__next');
+
+        function updateArrows() {
+          if (!prevArrow || !nextArrow) return;
+
+          prevArrow.classList.toggle('is-disabled', splide.index === 0);
+
+          nextArrow.classList.toggle(
+            'is-disabled',
+            splide.index >= splide.length - splide.options.perPage
+          );
+        }
+
+        splide.on('moved', updateArrows);
+        splide.on('mounted', updateArrows);
+        splide.on('resized', updateArrows);
+
+        if (prevArrow) {
+          prevArrow.addEventListener('click', () => {
+            if (!prevArrow.classList.contains('is-disabled')) splide.go('<');
+          });
+        }
+
+        if (nextArrow) {
+          nextArrow.addEventListener('click', () => {
+            if (!nextArrow.classList.contains('is-disabled')) splide.go('>');
+          });
+        }
       }
     } else {
+      // Уничтожаем слайдер при >1500px
       if (splide) {
         splide.destroy();
         splide = null;
@@ -117,16 +159,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initSplide();
   window.addEventListener('resize', initSplide);
-
-  const prevArrow = document.querySelector('.styles-arrow__prev');
-  const nextArrow = document.querySelector('.styles-arrow__next');
-
-  if (prevArrow) {
-    prevArrow.addEventListener('click', () => splide?.go('<'));
-  }
-  if (nextArrow) {
-    nextArrow.addEventListener('click', () => splide?.go('>'));
-  }
 });
 
 

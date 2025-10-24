@@ -619,12 +619,9 @@ class HouseVariationManager {
     //достает доступные комбинации
     updateAvailability(clickedElement) {
         const clickedId = clickedElement.id;
-        console.log(clickedId);
         const combination = this.findMatchingOffer();
-        console.log(combination);
         if (clickedId) {
             if (!combination) {
-                console.log('Вариация не найдена!');
                 const availableCombinations = Object.keys(this.offersMap).filter(comb =>
                     comb.includes(clickedId)
                 );
@@ -632,7 +629,6 @@ class HouseVariationManager {
                 this.blockAnavaibleBubles(available);
                 this.disableUnavailableElements(availableCombinations);
             } else {
-                console.log('Вариация найдена!');
                 const available = true;
                 this.blockAnavaibleBubles(available);
                 this.changeGallery(combination);
@@ -656,17 +652,13 @@ class HouseVariationManager {
         checkedRadios.forEach(radio => {
             selectedElements.push(radio.id);
         });
-        console.log(checkedRadios);
 
         const activeLiElements = document.querySelectorAll('li.HOUSES_OPTION.active');
         activeLiElements.forEach(li => {
             selectedElements.push(li.id);
         });
-        console.log(activeLiElements);
 
         const combinationKey = selectedElements.sort().join('|');
-        console.log(combinationKey);
-        console.log(this.offersMap);
         // Ищем в offersMap
         const matchingOffer = this.offersMap[combinationKey];
 

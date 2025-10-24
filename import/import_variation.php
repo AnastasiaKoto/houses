@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
+//$_SERVER["DOCUMENT_ROOT"] = 'www/10domov.ru/';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 use Bitrix\Main\Loader;
@@ -47,7 +47,7 @@ function generateCode($name, $iblockId = 0) {
     
     $baseCode = CUtil::translit($name, "ru", $params);
     $code = $baseCode;
-    $counter = 1;
+    //$counter = 1;
     
     if ($iblockId > 0) {
         $filter = [
@@ -57,16 +57,61 @@ function generateCode($name, $iblockId = 0) {
         
         $res = CIBlockElement::GetList([], $filter, false, false, ['ID']);
         while ($res->Fetch()) {
-            $code = $baseCode . '-' . $counter;
+            $randomSymbols = generateRandomSuffix();
+            $code = $baseCode . '-' . $randomSymbols;
             $filter['=CODE'] = $code;
             $res = CIBlockElement::GetList([], $filter, false, false, ['ID']);
-            $counter++;
+            //$counter++;
         }
     }
     
     return $code;
 }
 
+// Функция для генерации случайного набора символов
+function generateRandomSuffix($length = 3) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $randomString = '';
+    
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    
+    return $randomString;
+}
+
+function addImages($paths, $descriptions = []) {
+
+    $gallery = [];
+
+    if(!empty($paths)) {
+        $photoGallery = explode(", ", $paths);
+        
+        $descriptionArray = [];
+        if (!empty($descriptions)) {
+            if (is_string($descriptions)) {
+                $descriptionArray = explode(", ", $descriptions);
+            }
+        }
+    
+        if (!empty($photoGallery)) {
+            foreach ($photoGallery as $index => $field) {
+                $fileArray = CFile::MakeFileArray($field);
+                if ($fileArray) {
+                    // Добавляем описание, если оно есть
+                    if (isset($descriptionArray[$index])) {
+                        $fileArray['description'] = trim($descriptionArray[$index]);
+                    }
+                    $gallery[] = $fileArray;
+                }
+            }
+        }
+    }
+    
+    return $gallery;
+}
+
+/*
 function addImages($paths) {
     $gallery = [];
 
@@ -85,6 +130,7 @@ function addImages($paths) {
     
     return $gallery;
 }
+*/
 
 function stringProjectsToArray($progectsString) {
     $projectIds = explode(", ", $progectsString);
@@ -138,6 +184,7 @@ function importOffersSimple($csvFilePath) {
             $productFields = [];
             $productProperties = [];
             $productId = !empty($row['ID']) ? $row['ID'] : null;
+            $iblockId = $row['TYPE'] == 'variation' ? 11 : 6;
             $productCode = generateCode($row['Название'], $iblockId);
             $gallery = addImages($row['Галерея']);
             $project_type = $row['TYPE'] == 'variation' ? 'вариация' : 'проект';
@@ -149,7 +196,6 @@ function importOffersSimple($csvFilePath) {
 
 
             if($row['TYPE'] == 'variation'):
-                $iblockId = 11;
                 $sectionId = 0;
                 $anounce = $row['Описание для анонса'];
 
@@ -211,7 +257,6 @@ function importOffersSimple($csvFilePath) {
                     'HOUSES_FLOORS' => $floors
                 ];
             elseif($row['TYPE'] == 'variable_project' || $row['TYPE'] == 'simple_active' || $row['TYPE'] == 'simple_real'):
-                $iblockId = 6;
                 if($row['TYPE'] == 'simple_active') {
                     $sectionId = 9;
                 } elseif($row['TYPE'] == 'simple_real') {
@@ -223,15 +268,15 @@ function importOffersSimple($csvFilePath) {
                 $anounce = $row['Локация'];
                 if($row['TYPE'] == 'simple_active' || $row['TYPE'] == 'simple_real') {
                     $detailDescr = $row['Детальное описание'];
-                    $storages = !empty($row['Количество кладовок']) ? getPropertyEnumId('HOUSES_WC', $row['Количество кладовок'], $iblockId) : null;
+                    $storages = !empty($row['Количество кладовок']) ? getPropertyEnumId('STORAGE', $row['Количество кладовок'], $iblockId) : null;
                     $plane = array_map('trim', explode(', ', $row['Планировка дома']));
                     $video = addImages($row['Превью видео'], $row['Видео (embed code)']);
-                    $finished_project = addImages($row['Завершенный проект'], '');
+                    $finished_project = addImages($row['Завершенный проект']);
                     $otdelka_gallery = addImages($row['Этап отделки']);
                     $building_gallery = addImages($row['Этап строительства']);
                 }
 
-                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки (внешний код)']));
+                $buildings = array_map('trim', explode(', ', $row['Дополнительные постройки']));
 
                 $rooms = !empty($row['Количество комнат']) ? getPropertyEnumId('HOUSES_ROOMS', $row['Количество комнат'], $iblockId) : null;
                 $wcs = !empty($row['Количество санузлов']) ? getPropertyEnumId('HOUSES_WC', $row['Количество санузлов'], $iblockId) : null;
@@ -241,7 +286,7 @@ function importOffersSimple($csvFilePath) {
 
                 
                 $variations = [];
-                
+                logMessage(print_r($video, true));
                 $productProperties = [
                     'HOUSE_VARIABLES' => $variations,
                     'BUILDINGS' => $buildings,
@@ -262,7 +307,9 @@ function importOffersSimple($csvFilePath) {
                     'HOUSES_STYLE' => $styleId,
                     'HOUSES_PRICES' => $row['Стоимость'],
                     'FINISHED_POINT' => $otdelka_gallery ?? null,
-                    'CONSTRUCT_POINT' => $building_gallery ?? null
+                    'CONSTRUCT_POINT' => $building_gallery ?? null,
+                    'SIMPLE_DESCR' => $row['Описание простого проекта'] ?? null,
+                    'DEADLINE' => $row['Срок строительства'] ?? null
                 ];
 
                 if($row['TYPE'] == 'variable_project') {

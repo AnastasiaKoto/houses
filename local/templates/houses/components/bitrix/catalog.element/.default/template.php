@@ -1147,5 +1147,5 @@ if ($haveOffers):
 	</script>
 <? endif; ?>
 <script>
-	const HouseVariationManager = new HouseVariationManager();
+	const houseManager = new HouseVariationManager();
 </script>

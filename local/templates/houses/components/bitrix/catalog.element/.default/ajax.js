@@ -663,7 +663,8 @@ class HouseVariationManager {
         });
 
         const combinationKey = selectedElements.sort().join('|');
-        //console.log(combinationKey);
+        console.log(combinationKey);
+        console.log(this.offersMap);
         // Ищем в offersMap
         const matchingOffer = this.offersMap[combinationKey];
 

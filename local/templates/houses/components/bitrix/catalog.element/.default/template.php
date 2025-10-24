@@ -448,7 +448,7 @@ if ($haveOffers) {
 								Площадь дома
 							</div>
 							<div class="detail-product__layout-spec__item-value square-value">
-								<?= $square; ?>
+								<?= $square; ?><sup>м</sup>
 							</div>
 						</div>
 					<? endif; ?>
@@ -647,14 +647,14 @@ if ($haveOffers) {
 				<div class="section-title">
 					Изображения проекта
 				</div>
-				<a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#presentation"
+				<a href="javascript:void(0)" class="arrow-btn__dark" data-modal-target="#presentation"
 					data-move-target=".btn-anchor" data-move-break="700">
 					<span>
 						Получить презентацию дома
 					</span>
 					<div class="icon">
 						<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="white"
+							<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="black"
 								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>

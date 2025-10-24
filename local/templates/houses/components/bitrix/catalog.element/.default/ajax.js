@@ -193,7 +193,7 @@ class HouseVariationManager {
             const splideOptions = {
                 type: 'loop',
                 autoWidth: true,
-                speed: 600, 
+                speed: 600,
                 easing: 'ease',
                 gap: 20,
                 perMove: 1,
@@ -349,40 +349,42 @@ class HouseVariationManager {
     //инициализация и переинициализация главного слайдера
     mainGalleryInit() {
         if (!this.slider) return;
-        //this.slider.forEach(slider => {
-        if (this.slider) {
-            const splide = new Splide(this.slider, {
-                type: 'fade',
-                perPage: 1,
-                gap: 0,
-                pagination: true,
-                arrows: false,
-                drag: false,
-            }).mount();
 
-            this.slider._splide = splide;
+        const splide = new Splide(this.slider, {
+            type: 'fade',
+            perPage: 1,
+            gap: 0,
+            pagination: true,
+            arrows: false,
+            drag: false,
+        }).mount();
 
-            const track = this.slider.querySelector('.splide__track');
+        this.slider._splide = splide;
 
-            track.addEventListener('mousemove', e => {
-                const rect = track.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const width = rect.width;
+        const track = this.slider.querySelector('.splide__track');
 
-                const slidesCount = splide.length;
-                const hoverZone = 15;
+        track.addEventListener('mousemove', e => {
+            const rect = track.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
 
-                let index = Math.floor((x / width) * slidesCount);
+            const slidesCount = splide.length;
+            const hoverZone = 15;
 
-                if (x < hoverZone) index = 0;
-                if (x > width - hoverZone) index = slidesCount - 1;
+            let index = Math.floor((x / width) * slidesCount);
 
-                splide.go(index);
-            });
-        }
+            if (x < hoverZone) index = 0;
+            if (x > width - hoverZone) index = slidesCount - 1;
 
-        //});
+            splide.go(index);
+        });
+
+
+        track.addEventListener('mouseleave', () => {
+            splide.go(0);
+        });
     }
+
 
     //инициализация слайдера рекомендаций
     recomendationsSliderInit() {
@@ -395,7 +397,7 @@ class HouseVariationManager {
                 if (!splide) {
                     splide = new Splide(this.sliderRecomendations, {
                         type: 'splide',
-                        speed: 600, 
+                        speed: 600,
                         easing: 'ease',
                         autoWidth: true,
                         perMove: 1,
@@ -1133,7 +1135,7 @@ class HouseVariationManager {
         })
 
         let title = document.querySelector('h1');
-        if(combination.PROPERTIES?.SHOWED_NAME?.VALUE !== '') {
+        if (combination.PROPERTIES?.SHOWED_NAME?.VALUE !== '') {
             title.textContent = combination.PROPERTIES.SHOWED_NAME.VALUE;
         } else {
             title.textContent = combination.NAME;

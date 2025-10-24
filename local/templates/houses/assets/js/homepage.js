@@ -3,20 +3,24 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderMainscreen) return;
 
   const splide = new Splide(sliderMainscreen, {
-    type: 'loop', // теперь бесконечный
+    type: 'loop',
     perPage: 1,
     gap: 0,
     perMove: 1,
     pagination: false,
-    arrows: false,
+    arrows: false, 
     autoplay: true,
     interval: 7000,
+    pauseOnHover: false,
     speed: 900,
     easing: 'ease',
-    pauseOnHover: false,
   });
 
-  const slidesCount = sliderMainscreen.querySelectorAll('.splide__slide').length;
+ 
+  const realSlides = sliderMainscreen.querySelectorAll('.splide__slide:not(.is-clone)');
+  const slidesCount = realSlides.length;
+
+ 
   const progressWrapper = document.createElement('div');
   progressWrapper.classList.add('story-progress');
 
@@ -32,17 +36,26 @@ document.addEventListener('DOMContentLoaded', function () {
     bar.appendChild(fill);
     progressWrapper.appendChild(bar);
     fills.push(fill);
+
+
+    bar.addEventListener('click', () => {
+      splide.go(i);
+    });
   }
 
   sliderMainscreen.appendChild(progressWrapper);
 
+
   function startFill(index) {
+    const realIndex = index % slidesCount;
+
     fills.forEach((f, i) => {
       f.style.transition = 'none';
-      f.style.width = i < index ? '100%' : '0%';
+      f.style.width = i < realIndex ? '100%' : '0%';
+      f.parentElement.classList.toggle('active', i === realIndex);
     });
 
-    const fill = fills[index];
+    const fill = fills[realIndex];
     if (!fill) return;
 
     setTimeout(() => {
@@ -51,15 +64,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 20);
   }
 
-  splide.on('mounted', () => {
-    startFill(0);
-  });
-
-  splide.on('move', (newIndex) => {
-    startFill(newIndex);
+  splide.on('mounted move', () => {
+    const currentIndex = splide.Components.Controller.getIndex(true);
+    startFill(currentIndex);
   });
 
   splide.mount();
+
+  const prevArrow = document.querySelector('.mainscreen-arrow__prev');
+  const nextArrow = document.querySelector('.mainscreen-arrow__next');
+
+  if (prevArrow && nextArrow) {
+    prevArrow.addEventListener('click', () => splide.go('<')); 
+    nextArrow.addEventListener('click', () => splide.go('>')); 
+  }
 });
 
 

@@ -2040,19 +2040,21 @@
    }
  }
 
-  .custom-checkbox.error {
-  & .agreed-text {
-    color: #F05454;
-    & a {
-      color: #F05454;
-      border-color: #F05454;
-    }
-  }
-  & .checkmark {
-    border-color: #F05454;
-    
-    
-  }
+ .custom-checkbox.error {
+   & .agreed-text {
+     color: #F05454;
+
+     & a {
+       color: #F05454;
+       border-color: #F05454;
+     }
+   }
+
+   & .checkmark {
+     border-color: #F05454;
+
+
+   }
  }
 
  .agreed {
@@ -2135,6 +2137,23 @@
 
    & input:checked+.checkmark .check-icon {
      display: block;
+   }
+ }
+
+ .custom-checkbox-black.error {
+   & .agreed-text {
+     color: #F05454;
+
+     & a {
+       color: #F05454;
+       border-color: #F05454;
+     }
+   }
+
+   & .checkmark {
+     border-color: #F05454;
+
+
    }
  }
 

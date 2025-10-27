@@ -24,6 +24,11 @@ class ProjectsSlider {
         drag: false,
         speed: 600,
         easing: 'ease',
+        breakpoints: {
+          992: {
+            drag: true,
+          }
+        }
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');
@@ -44,8 +49,8 @@ class ProjectsSlider {
       };
 
       const handleMouseLeave = e => {
-        if (window.innerWidth < 992) return; 
-        splide.go(0); 
+        if (window.innerWidth < 992) return;
+        splide.go(0);
       };
 
       track.addEventListener('mousemove', handleMouseMove);
@@ -276,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (raw !== '') return true;
 
- 
+
     if (raw.replace(/\D/g, '').length > 0) return true;
 
 
@@ -291,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (u !== '' && u.replace(/\D/g, '').length > 0) return true;
       }
     } catch (err) {
- 
+
       log('mask lib check error', err);
     }
 
@@ -330,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener('change', onCheck, true);
     input.addEventListener('paste', onCheck, true);
     input.addEventListener('cut', onCheck, true);
-    input.addEventListener('blur', () => setTimeout(onCheck, 10), true); 
+    input.addEventListener('blur', () => setTimeout(onCheck, 10), true);
 
 
     const mo = new MutationObserver(muts => {
@@ -385,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
   docObserver.observe(document.documentElement || document.body, { childList: true, subtree: true });
 
 
-  window.updateFloatInputs = function() {
+  window.updateFloatInputs = function () {
     initAll();
     document.querySelectorAll('.float-input').forEach(updateWrapper);
   };
@@ -395,9 +400,9 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     initAll();
   }
-  
 
-  
+
+
 })();
 
 const customSelectTrigger = () => {
@@ -453,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
   checkAcceptedSort();
 });
 
-BX.addCustomEvent('OnAjaxSuccess', function(){
+BX.addCustomEvent('OnAjaxSuccess', function () {
   customSelectTrigger();
   setTimeout(checkAcceptedSort, 300);
   applyPhoneMask();
@@ -796,22 +801,22 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
 
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
-  if(!anchorLinks) return;
+  if (!anchorLinks) return;
 
   anchorLinks.forEach(link => {
     link.addEventListener('click', e => {
-      const targetId = link.getAttribute('href').substring(1); 
+      const targetId = link.getAttribute('href').substring(1);
       const targetEl = document.getElementById(targetId);
 
       if (targetEl) {
-        e.preventDefault(); 
+        e.preventDefault();
 
-        const offset = 100; 
+        const offset = 100;
         const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
 
         window.scrollTo({
           top: topPos,
-          behavior: 'smooth' 
+          behavior: 'smooth'
         });
       }
     });

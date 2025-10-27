@@ -123,90 +123,89 @@
           ); ?>
         </div>
         <ul class="footer-items">
-          <li class="footer-item">
-            <? $APPLICATION->IncludeComponent(
-              "bitrix:menu",
-              "footer_menu",
-              array(
-                "ROOT_MENU_TYPE" => "bottom_projects",	// Тип меню для первого уровня
-                "MAX_LEVEL" => "1",	// Уровень вложенности меню
-                "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
-                "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-                "DELAY" => "N",	// Откладывать выполнение шаблона меню
-                "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-                "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-                "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
-                "COMPONENT_TEMPLATE" => "",
-                "MENU_TITLE" => "Проекты домов"
-              ),
-              false
-            ); ?>
-          </li>
-          <li class="footer-item">
-            <? $APPLICATION->IncludeComponent(
-              "bitrix:menu",
-              "footer_menu",
-              array(
-                "ROOT_MENU_TYPE" => "bottom_portfolio",	// Тип меню для первого уровня
-                "MAX_LEVEL" => "1",	// Уровень вложенности меню
-                "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
-                "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-                "DELAY" => "N",	// Откладывать выполнение шаблона меню
-                "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-                "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-                "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
-                "COMPONENT_TEMPLATE" => "",
-                "MENU_TITLE" => "Портфолио проектов"
-              ),
-              false
-            ); ?>
-          </li>
-          <li class="footer-item">
-            <? $APPLICATION->IncludeComponent(
-              "bitrix:menu",
-              "footer_menu",
-              array(
-                "ROOT_MENU_TYPE" => "bottom_company",	// Тип меню для первого уровня
-                "MAX_LEVEL" => "1",	// Уровень вложенности меню
-                "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
-                "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-                "DELAY" => "N",	// Откладывать выполнение шаблона меню
-                "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-                "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-                "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
-                "COMPONENT_TEMPLATE" => "",
-                "MENU_TITLE" => "О компании"
-              ),
-              false
-            ); ?>
-          </li>
-          <li class="footer-item">
-            <? $APPLICATION->IncludeComponent(
-              "bitrix:menu",
-              "footer_menu",
-              array(
-                "ROOT_MENU_TYPE" => "bottom_dop",	// Тип меню для первого уровня
-                "MAX_LEVEL" => "1",	// Уровень вложенности меню
-                "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
-                "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-                "DELAY" => "N",	// Откладывать выполнение шаблона меню
-                "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-                "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-                "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-                "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-                "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
-                "COMPONENT_TEMPLATE" => "",
-                "MENU_TITLE" => "Дополнительно"
-              ),
-              false
-            ); ?>
-          </li>
+          
+          <? $APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "footer_menu",
+            array(
+              "ROOT_MENU_TYPE" => "bottom_projects",	// Тип меню для первого уровня
+              "MAX_LEVEL" => "1",	// Уровень вложенности меню
+              "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+              "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+              "DELAY" => "N",	// Откладывать выполнение шаблона меню
+              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+              "COMPONENT_TEMPLATE" => "",
+              "MENU_TITLE" => "Проекты домов"
+            ),
+            false
+          ); ?>
+          
+          <? $APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "footer_menu",
+            array(
+              "ROOT_MENU_TYPE" => "bottom_portfolio",	// Тип меню для первого уровня
+              "MAX_LEVEL" => "1",	// Уровень вложенности меню
+              "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+              "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+              "DELAY" => "N",	// Откладывать выполнение шаблона меню
+              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+              "COMPONENT_TEMPLATE" => "",
+              "MENU_TITLE" => "Портфолио проектов"
+            ),
+            false
+          ); ?>
+          
+          
+          <? $APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "footer_menu",
+            array(
+              "ROOT_MENU_TYPE" => "bottom_company",	// Тип меню для первого уровня
+              "MAX_LEVEL" => "1",	// Уровень вложенности меню
+              "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+              "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+              "DELAY" => "N",	// Откладывать выполнение шаблона меню
+              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+              "COMPONENT_TEMPLATE" => "",
+              "MENU_TITLE" => "О компании"
+            ),
+            false
+          ); ?>
+          
+          
+          <? $APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "footer_menu",
+            array(
+              "ROOT_MENU_TYPE" => "bottom_dop",	// Тип меню для первого уровня
+              "MAX_LEVEL" => "1",	// Уровень вложенности меню
+              "CHILD_MENU_TYPE" => "",	// Тип меню для остальных уровней
+              "USE_EXT" => "N",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+              "DELAY" => "N",	// Откладывать выполнение шаблона меню
+              "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
+              "MENU_CACHE_TYPE" => "N",	// Тип кеширования
+              "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+              "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+              "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+              "COMPONENT_TEMPLATE" => "",
+              "MENU_TITLE" => "Дополнительно"
+            ),
+            false
+          ); ?>
+          
           <li class="footer-item">
             <? $APPLICATION->IncludeComponent(
               "bitrix:main.include",

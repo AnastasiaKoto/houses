@@ -45,8 +45,8 @@ $arSortParams = [
     'price_desc' => ['NAME' => 'Цена: по убыванию', 'SORT' => 'PROPERTY_HOUSES_PRICES', 'ORDER' => 'DESC'],
     'square_asc' => ['NAME' => 'Площадь по возрастанию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'ASC'],
     'square_desc' => ['NAME' => 'Площадь по убыванию', 'SORT' => 'PROPERTY_HOUSES_SQUARES', 'ORDER' => 'DESC'],
-    'popular_asc' => ['NAME' => 'Популярность по возрастанию', 'SORT' => 'SORT', 'ORDER' => 'ASC'],
-    'popular_desc' => ['NAME' => 'Популярность по убыванию', 'SORT' => 'SORT', 'ORDER' => 'DESC'],
+    //'popular_asc' => ['NAME' => 'Популярность по возрастанию', 'SORT' => 'SORT', 'ORDER' => 'ASC'],
+    'popular_desc' => ['NAME' => 'По популярности', 'SORT' => 'SORT', 'ORDER' => 'DESC'],
     'date_desc' => ['NAME' => 'Порядок: сперва новые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'DESC'],
     'date_asc' => ['NAME' => 'Порядок: сперва старые', 'SORT' => 'ACTIVE_FROM', 'ORDER' => 'ASC']
 ];

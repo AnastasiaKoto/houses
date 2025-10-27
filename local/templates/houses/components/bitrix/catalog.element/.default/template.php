@@ -448,7 +448,7 @@ if ($haveOffers) {
 								Площадь дома
 							</div>
 							<div class="detail-product__layout-spec__item-value square-value">
-								<?= $square; ?><sup>м</sup>
+								<?= $square; ?>
 							</div>
 						</div>
 					<? endif; ?>

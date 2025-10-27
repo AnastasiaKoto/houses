@@ -126,6 +126,8 @@ $containerName = 'container-' . $navParams['NavNum'];
 			</div>
 		<? endforeach; ?>
 	</div>
+<? else: ?>
+	<p>Подходящих результатов не найдено</p>
 <? endif; ?>
 <!-- items-container -->
 

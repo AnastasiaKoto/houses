@@ -468,6 +468,11 @@ class HouseVariationManager {
             pagination: true,
             arrows: false,
             drag: false,
+            breakpoints: {
+                992: {
+                    drag: true, 
+                }
+            }
         }).mount();
 
         this.slider._splide = splide;

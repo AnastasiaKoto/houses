@@ -311,7 +311,8 @@ class HouseVariationManager {
 
         const splideOptions = {
             type: 'slide', 
-            autoWidth: true,
+            autoWidth: false,
+            perPage: 3,
             speed: 600,
             easing: 'ease',
             gap: 20,

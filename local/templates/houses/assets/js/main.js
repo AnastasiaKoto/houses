@@ -154,6 +154,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+//устраняем конфликт одинаковых форм
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.addEventListener('click', function(e) {
+    if (e.target.closest('.js-modal-form-submit')) {
+      e.preventDefault();
+      const form = e.target.closest('form');
+      BX.ajax.submit(form, 'modal');
+    }
+    
+    if (e.target.closest('.js-footer-form-submit')) {
+      e.preventDefault(); 
+      const form = e.target.closest('form');
+      BX.ajax.submit(form, 'footer');
+    }
+  });
+});*/
+
 // document.addEventListener("DOMContentLoaded", () => {
 //   const accordions = document.querySelectorAll('.questions-acc');
 //   if (!accordions.length) return;

@@ -281,109 +281,150 @@ class HouseVariationManager {
     // }
 
     initTabInstance(instance) {
-        const { contents, links, contentMap, prevArrow, nextArrow, splides } = instance;
+    const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
-        // Функция для инициализации Splide
-        const mountSplideFor = (tabName) => {
-            if (!tabName) return null;
-            if (splides[tabName]) return splides[tabName];
 
-            const content = contentMap.get(tabName);
-            if (!content) return null;
+    const mountSplideFor = (tabName) => {
+        if (!tabName) return null;
+        if (splides[tabName]) return splides[tabName];
 
-            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-            if (!el) return null;
+        const content = contentMap.get(tabName);
+        if (!content) return null;
 
-            // если контент скрыт — временно показать, чтобы Splide мог рассчитать размеры
-            const computed = window.getComputedStyle(content);
-            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-            const prev = {};
-            if (wasHidden) {
-                prev.display = content.style.display;
-                prev.visibility = content.style.visibility;
-                prev.position = content.style.position;
-                prev.left = content.style.left;
+        const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+        if (!el) return null;
 
-                content.style.display = 'block';
-                content.style.visibility = 'hidden';
-                content.style.position = 'absolute';
-                content.style.left = '-9999px';
-            }
+        const computed = window.getComputedStyle(content);
+        const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+        const prev = {};
+        if (wasHidden) {
+            prev.display = content.style.display;
+            prev.visibility = content.style.visibility;
+            prev.position = content.style.position;
+            prev.left = content.style.left;
 
-            // 🔹 обновленные опции по аналогии с uniq-slider
-            const splideOptions = {
-                type: 'slide', // не бесконечный
-                autoWidth: true,
-                speed: 600,
-                easing: 'ease',
-                gap: 20,
-                perMove: 1,
-                pagination: false,
-                arrows: false,
-                focus: 'start',
-                padding: { right: 15 },
-                breakpoints: {
-                    992: {
-                        gap: 10,
-                        padding: { right: 10 },
-                        drag: true
-                    }
+            content.style.display = 'block';
+            content.style.visibility = 'hidden';
+            content.style.position = 'absolute';
+            content.style.left = '-9999px';
+        }
+
+        const splideOptions = {
+            type: 'slide', 
+            autoWidth: true,
+            speed: 600,
+            easing: 'ease',
+            gap: 20,
+            perMove: 1,
+            pagination: false,
+            arrows: false,
+            focus: 'start',
+            padding: { right: 15 },
+            breakpoints: {
+                992: {
+                    gap: 10,
+                    padding: { right: 10 },
+                    drag: true
                 }
-            };
-
-            const splideInstance = new Splide(el, splideOptions);
-            splideInstance.mount();
-
-            if (wasHidden) {
-                content.style.display = prev.display || '';
-                content.style.visibility = prev.visibility || '';
-                content.style.position = prev.position || '';
-                content.style.left = prev.left || '';
             }
-
-            splides[tabName] = splideInstance;
-
-            // 🔹 функция обновления состояния стрелок
-            function updateArrows() {
-                if (!prevArrow || !nextArrow) return;
-                prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
-                nextArrow.classList.toggle(
-                    'is-disabled',
-                    splideInstance.index >= splideInstance.length - splideInstance.options.perPage
-                );
-            }
-
-            splideInstance.on('mounted', updateArrows);
-            splideInstance.on('moved', updateArrows);
-            splideInstance.on('resized', updateArrows);
-
-            // 🔹 обработчики кликов стрелок
-            if (prevArrow) {
-                prevArrow.addEventListener('click', () => {
-                    if (!prevArrow.classList.contains('is-disabled')) splideInstance.go('<');
-                });
-            }
-
-            if (nextArrow) {
-                nextArrow.addEventListener('click', () => {
-                    if (!nextArrow.classList.contains('is-disabled')) splideInstance.go('>');
-                });
-            }
-
-            // обновляем после маунта
-            setTimeout(() => {
-                try {
-                    splideInstance.refresh();
-                    updateArrows();
-                } catch (e) { /* ignore */ }
-            }, 50);
-
-            return splideInstance;
         };
 
-        // Возвращаем наружу, если нужно вызывать снаружи
-        instance.mountSplideFor = mountSplideFor;
+        const splideInstance = new Splide(el, splideOptions);
+        splideInstance.mount();
+
+        if (wasHidden) {
+            content.style.display = prev.display || '';
+            content.style.visibility = prev.visibility || '';
+            content.style.position = prev.position || '';
+            content.style.left = prev.left || '';
+        }
+
+        splides[tabName] = splideInstance;
+
+    
+        function updateArrows() {
+            if (!prevArrow || !nextArrow) return;
+            prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+            nextArrow.classList.toggle(
+                'is-disabled',
+                splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+            );
+        }
+
+        splideInstance.on('mounted', updateArrows);
+        splideInstance.on('moved', updateArrows);
+        splideInstance.on('resized', updateArrows);
+
+        setTimeout(() => {
+            try {
+                splideInstance.refresh();
+                updateArrows();
+            } catch (e) { /* ignore */ }
+        }, 50);
+
+        return splideInstance;
+    };
+
+
+    contents.forEach(c => {
+        if (c.dataset.tab === activeTab) {
+            c.classList.add('active');
+            c.style.display = '';
+            mountSplideFor(activeTab);
+        } else {
+            c.classList.remove('active');
+            c.style.display = 'none';
+        }
+    });
+
+
+    links.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const tabName = this.dataset.tab;
+            if (!tabName || tabName === instance.activeTab) return;
+
+        
+            links.forEach(l => l.classList.remove('active'));
+            contents.forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
+
+        
+            this.classList.add('active');
+            const newContent = contentMap.get(tabName);
+            if (newContent) {
+                newContent.classList.add('active');
+                newContent.style.display = '';
+                mountSplideFor(tabName);
+            }
+
+            instance.activeTab = tabName;
+        });
+    });
+
+
+    if (prevArrow) {
+        prevArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide) return;
+            if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+        });
     }
+
+    if (nextArrow) {
+        nextArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide) return;
+            if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+        });
+    }
+
+    instance.mountSplideFor = mountSplideFor;
+}
+
+
 
 
     //инициализация табов комплектации

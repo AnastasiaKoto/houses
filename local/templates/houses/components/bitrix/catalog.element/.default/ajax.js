@@ -426,6 +426,7 @@ class HouseVariationManager {
 
 
 
+
     //инициализация табов комплектации
 
     initEquipmentTabs() {

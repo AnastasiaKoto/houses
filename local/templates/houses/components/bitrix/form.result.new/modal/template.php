@@ -10,9 +10,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 ?>
 <?
+
 if($arResult["isFormNote"] == "Y") {
 	$APPLICATION->RestartBuffer();
-
 	if(isset($_REQUEST['RESULT_ID'])) {
 		$resultId = intval($_REQUEST['RESULT_ID']);
 		$fieldId = 0;
@@ -42,7 +42,7 @@ if($arResult["isFormNote"] == "Y") {
 		Закрыть окно
 		</button>
 	</div>
-<?	die();
+<? die();
 } elseif ($arResult["isFormNote"] != "Y") { 
 	$prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? '';
 	?>
@@ -114,7 +114,7 @@ if($arResult["isFormNote"] == "Y") {
 					</label>
 				<? } ?>
 			<? } ?>
-			<button type="submit" class="arrow-btn__dark modal-submit" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
+			<button type="submit" class="arrow-btn__dark modal-submit js-modal-form-submit" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
 				<span>
 					<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>
 				</span>

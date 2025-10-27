@@ -97,7 +97,7 @@ $prefix = '_' . $arParams['UNIQUE_PREFIX'] ?? ''; ?>
 			</label>
 		</div>
 		<? } } ?>
-		<button type="submit" class="arrow-btn__light" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
+		<button type="submit" class="arrow-btn__light js-footer-form-submit" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
 			<span>
 				<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>
 			</span>

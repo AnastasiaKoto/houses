@@ -26,31 +26,31 @@
 				); ?>
 			</div>
 			<? $APPLICATION->IncludeComponent(
-				"bitrix:form.result.new",
-				"callback",
-				array(
+				"bitrix:form.result.new", 
+				"callback", 
+				[
 					"AJAX_MODE" => "Y",
 					"AJAX_OPTION_SHADOW" => "N",
 					"AJAX_OPTION_JUMP" => "N",
 					"AJAX_OPTION_STYLE" => "Y",
-					"AJAX_OPTION_HISTORY" => "Y",
-					"CACHE_TIME" => "3600000",	// Время кеширования (сек.)
-					"CACHE_TYPE" => "A",	// Тип кеширования
-					"CHAIN_ITEM_LINK" => "",	// Ссылка на дополнительном пункте в навигационной цепочке
-					"CHAIN_ITEM_TEXT" => "",	// Название дополнительного пункта в навигационной цепочке
-					"EDIT_URL" => "",	// Страница редактирования результата
-					"IGNORE_CUSTOM_TEMPLATE" => "N",	// Игнорировать свой шаблон
-					"LIST_URL" => "",	// Страница со списком результатов
-					"SEF_MODE" => "N",	// Включить поддержку ЧПУ
-					"SUCCESS_URL" => "",	// Страница с сообщением об успешной отправке
-					"USE_EXTENDED_ERRORS" => "Y",	// Использовать расширенный вывод сообщений об ошибках
-					"VARIABLE_ALIASES" => array(
-						"RESULT_ID" => "",
+					"AJAX_OPTION_HISTORY" => "N",
+					"CACHE_TIME" => "3600000",
+					"CACHE_TYPE" => "A",
+					"CHAIN_ITEM_LINK" => "",
+					"CHAIN_ITEM_TEXT" => "",
+					"EDIT_URL" => "",
+					"IGNORE_CUSTOM_TEMPLATE" => "N",
+					"LIST_URL" => "",
+					"SEF_MODE" => "N",
+					"SUCCESS_URL" => "",
+					"USE_EXTENDED_ERRORS" => "Y",
+					"WEB_FORM_ID" => "1",
+					"UNIQUE_PREFIX" => "footer_form",
+					"VARIABLE_ALIASES" => [
 						"WEB_FORM_ID" => "",
-					),
-					"WEB_FORM_ID" => "1",	// ID веб-формы
-					"UNIQUE_PREFIX" => "footer_form"
-				),
+						"RESULT_ID" => "",
+					]
+				],
 				false
 			); ?>
 		</div>

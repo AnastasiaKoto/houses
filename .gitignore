@@ -12,3 +12,5 @@
 /www/
 .*
 !.gitignore
+/robots.txt
+/sitemap.xml

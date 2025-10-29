@@ -14,3 +14,4 @@
 !.gitignore
 /robots.txt
 /sitemap.xml
+*sitemap*

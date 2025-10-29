@@ -31,7 +31,7 @@ if ($haveOffers) {
 
 	$gallery = $currentOffer['PROPERTIES']['GALLERY']['VALUE'];
 	$title = $currentOffer['PROPERTIES']['SHOWED_NAME']['VALUE'] ?? $currentOffer['NAME'];
-	$price = $currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
+	$price = (int)$currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
 	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
 	//планировка дома

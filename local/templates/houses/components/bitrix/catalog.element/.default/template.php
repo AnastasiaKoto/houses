@@ -1210,6 +1210,7 @@ if ($haveOffers):
 	<script>
 		window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
+		console.log(OFFERS_DATA);
 	</script>
 <? endif; ?>
 <script>

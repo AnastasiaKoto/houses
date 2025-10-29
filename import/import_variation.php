@@ -246,7 +246,7 @@ function importOffersSimple($csvFilePath) {
                     'HOUSES_OTDELKA_STYLE' => $naruzh_otdelka,
                     'HOUSES_OTDELKA' => $otdelka,
                     'HOUSES_FACADE' => $facades,
-                    'FORMATTED_PRICE' => (int)$row['Стоимость (только число!!)'],
+                    'FORMATTED_PRICE' => (int)preg_replace('/[^\d]/', '', $row['Стоимость (только число!!)']),
                     'INSULATION_CONFIG' => $row['Утепление'],
                     'INSULATION_IMG' => $insul_gallery,
                     'FUNDAMENT_CONFIG' => $row['Фундамент'],

@@ -368,9 +368,9 @@ function importOffersSimple($csvFilePath) {
                 
                 if ($result) {
                     if (!empty($productProperties)) {
-                        logMessage("IB ID: " . $iblockId);
                         try {
                             CIBlockElement::SetPropertyValuesEx($productId, $iblockId, $productProperties);
+                            logMessage("Успешно обновлён элемент ID: $productId");
                         } catch (Exception $e) {
                             logMessage("Ошибка SetPropertyValuesEx: " . $e->getMessage());
                         }

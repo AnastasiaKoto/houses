@@ -784,6 +784,7 @@ if ($haveOffers) {
 						<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="#000"
 								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								
 						</svg>
 					</div>
 				</a>

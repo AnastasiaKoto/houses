@@ -780,6 +780,7 @@ class HouseVariationManager {
     updateAvailability(clickedElement) {
         const clickedId = clickedElement.id;
         const combination = this.findMatchingOffer();
+        console.log(combination);
         if (clickedId) {
             if (!combination) {
                 const availableCombinations = Object.keys(this.offersMap).filter(comb =>

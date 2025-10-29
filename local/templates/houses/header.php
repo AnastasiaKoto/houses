@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <? use Bitrix\Main\Page\Asset; ?>
 <!DOCTYPE html>
-<html lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>">
 
 <head>
   <meta charset="UTF-8">
@@ -46,20 +46,20 @@
           <?$APPLICATION->IncludeComponent(
 	"bitrix:menu", 
 	"top_multilevel", 
-	array(
+	[
 		"ROOT_MENU_TYPE" => "top",
 		"MAX_LEVEL" => "2",
 		"CHILD_MENU_TYPE" => "left",
 		"USE_EXT" => "N",
 		"DELAY" => "N",
 		"ALLOW_MULTI_SELECT" => "Y",
-		"MENU_CACHE_TYPE" => "N",
+		"MENU_CACHE_TYPE" => "Y",
 		"MENU_CACHE_TIME" => "3600",
 		"MENU_CACHE_USE_GROUPS" => "Y",
-		"MENU_CACHE_GET_VARS" => array(
-		),
+		"MENU_CACHE_GET_VARS" => [
+		],
 		"COMPONENT_TEMPLATE" => "top_multilevel"
-	),
+	],
 	false
 );?>
           

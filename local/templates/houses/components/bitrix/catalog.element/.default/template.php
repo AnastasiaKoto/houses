@@ -775,15 +775,16 @@ if ($haveOffers) {
 				<div class="section-title">
 					Комплектация дома
 				</div>
-				<a href="javascript:void(0)" class="arrow-btn__light" data-modal-target="#estimate"
+				<a href="javascript:void(0)" class="arrow-btn__dark" data-modal-target="#estimate"
 					data-move-target=".eq-ancho-link" data-move-break="700">
 					<span>
 						Получить подробную смету
 					</span>
 					<div class="icon">
 						<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="white"
+							<path d="M11.4167 6L6.41667 11M1 6H11.4167H1ZM11.4167 6L6.41667 1L11.4167 6Z" stroke="#000"
 								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								
 						</svg>
 					</div>
 				</a>

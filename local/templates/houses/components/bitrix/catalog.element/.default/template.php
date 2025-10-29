@@ -31,7 +31,7 @@ if ($haveOffers) {
 
 	$gallery = $currentOffer['PROPERTIES']['GALLERY']['VALUE'];
 	$title = $currentOffer['PROPERTIES']['SHOWED_NAME']['VALUE'] ?? $currentOffer['NAME'];
-	$price = (int)$currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE'];
+	$price = (int)preg_replace('/[^\d]/', '', $currentOffer['PROPERTIES']['FORMATTED_PRICE']['VALUE']);
 	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
 	//планировка дома
@@ -126,66 +126,72 @@ if ($haveOffers) {
 										</button>
 									</div>
 									<div class="detail-product__mainscreen-config__items">
-										<? if (!empty($arResult['PROPS']['HOUSES_STYLE'])): ?>
-											<div class="detail-product__mainscreen-config__item">
-												<div class="detail-product__mainscreen-config__item-name">
-													<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
-												</div>
-												<div class="detail-product__mainscreen-config__item-devider"></div>
-												<? foreach ($arResult['PROPS']['HOUSES_STYLE'] as $value):
+										<? if (!empty($arResult['PROPS']['HOUSES_STYLE'])):
+												$styleValue = '';
+												foreach ($arResult['PROPS']['HOUSES_STYLE'] as $value):
 													if (in_array('HOUSES_STYLE:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION'])):
-														?>
-														<div class="detail-product__mainscreen-config__item-prop">
-															<?= $value['VALUE']; ?>
-														</div>
-														<?
+														$styleValue = $value['VALUE'];
 														break;
 													endif;
-												endforeach; ?>
-											</div>
-										<? endif; ?>
-
-										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS'])): ?>
-											<div class="detail-product__mainscreen-config__item">
-												<div class="detail-product__mainscreen-config__item-name">
-													<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
+												endforeach;
+												if(!empty($styleValue)):?>
+												<div class="detail-product__mainscreen-config__item">
+													<div class="detail-product__mainscreen-config__item-name">
+														<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
+													</div>
+													<div class="detail-product__mainscreen-config__item-devider"></div>
+													<div class="detail-product__mainscreen-config__item-prop">
+														<?= $styleValue;  ?>
+													</div>		
 												</div>
-												<div class="detail-product__mainscreen-config__item-devider"></div>
-												<? foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value):
-													if (in_array('HOUSES_FLOORS:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION'])):
-														?>
-														<div class="detail-product__mainscreen-config__item-prop">
-															<?= $value['VALUE']; ?>
-														</div>
-														<?
-														break;
-													endif;
-												endforeach; ?>
-											</div>
+											<? endif; ?>
 										<? endif; ?>
 
-										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS'])):
+												$floorsValue = '';
+												foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value):
+													if (in_array('HOUSES_FLOORS:' . $value['VALUE_ENUM_ID'], $currentOffer['COMBINATION'])):
+														$floorsValue = $value['VALUE'];
+														break;
+													endif;
+												endforeach;
+												if(!empty($floorsValue)):?>
+												<div class="detail-product__mainscreen-config__item">
+													<div class="detail-product__mainscreen-config__item-name">
+														<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
+													</div>
+													<div class="detail-product__mainscreen-config__item-devider"></div>
+													<div class="detail-product__mainscreen-config__item-prop">
+														<?= $floorsValue; ?>
+													</div>
+												</div>
+												<? endif; ?>
+										<? endif; ?>
+
+										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES'])): 
+											$squareValue = '';
+											foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value):
+												if (in_array('HOUSES_SQUARES:' . $value['VALUE'], $currentOffer['COMBINATION'])):
+													$squareValue  = $value['VALUE_ELEMENT']['UF_DESCRIPTION'];
+													break;
+												endif;
+											endforeach;
+											if(!empty($squareValue)):?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
 												</div>
 												<div class="detail-product__mainscreen-config__item-devider"></div>
-												<? foreach ($arResult['PROPS']['HOUSES_SQUARES'] as $value):
-													if (in_array('HOUSES_SQUARES:' . $value['VALUE'], $currentOffer['COMBINATION'])):
-														?>
-														<div class="detail-product__mainscreen-config__item-prop">
-															<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>
-														</div>
-														<?
-														break;
-													endif;
-												endforeach; ?>
+												<div class="detail-product__mainscreen-config__item-prop">
+													<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>
+												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
 
 									</div>
 									<div class="detail-product__mainscreen-config__items edit">
-										<? if (!empty($arResult['PROPS']['HOUSES_STYLE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_STYLE']['VALUE'])): ?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
@@ -203,7 +209,7 @@ if ($haveOffers) {
 												</div>
 											</div>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS']['VALUE'])): ?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
@@ -220,7 +226,7 @@ if ($haveOffers) {
 												</div>
 											</div>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES']['VALUE_ELEMENT']['UF_DESCRIPTION'])): ?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
@@ -262,7 +268,7 @@ if ($haveOffers) {
 										</div>
 									</div>
 									<div class="detail-product__mainscreen-view__items">
-										<? if (!empty($arResult['PROPS']['HOUSES_FACADE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_FACADE']['VALUE'])): ?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_FACADE'][0]['NAME']; ?>
@@ -279,7 +285,7 @@ if ($haveOffers) {
 												</div>
 											</div>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA']['VALUE'])): ?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_OTDELKA'][0]['NAME']; ?>
@@ -296,7 +302,7 @@ if ($haveOffers) {
 												</div>
 											</div>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA_STYLE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA_STYLE']['VALUE'])): ?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_OTDELKA_STYLE'][0]['NAME']; ?>

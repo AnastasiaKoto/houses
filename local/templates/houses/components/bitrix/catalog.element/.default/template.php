@@ -191,7 +191,16 @@ if ($haveOffers) {
 
 									</div>
 									<div class="detail-product__mainscreen-config__items edit">
-										<? if (!empty($arResult['PROPS']['HOUSES_STYLE']['VALUE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_STYLE'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_STYLE'] as $value) {
+												if(!empty($value['VALUE'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
@@ -208,8 +217,18 @@ if ($haveOffers) {
 													<? endforeach; ?>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS']['VALUE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_FLOORS'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value) {
+												if(!empty($value['VALUE'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
@@ -225,8 +244,18 @@ if ($haveOffers) {
 													<? endforeach; ?>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES']['VALUE_ELEMENT']['UF_DESCRIPTION'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_SQUARES'] as $value) {
+												if(!empty($value['VALUE_ELEMENT'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-config__item">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
@@ -255,6 +284,7 @@ if ($haveOffers) {
 													</ul>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
 									</div>
 									<div class="anchor-edit"></div>
@@ -268,7 +298,16 @@ if ($haveOffers) {
 										</div>
 									</div>
 									<div class="detail-product__mainscreen-view__items">
-										<? if (!empty($arResult['PROPS']['HOUSES_FACADE']['VALUE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_FACADE'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_FACADE'] as $value) {
+												if(!empty($value['VALUE'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_FACADE'][0]['NAME']; ?>
@@ -284,8 +323,18 @@ if ($haveOffers) {
 													<? endforeach; ?>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA']['VALUE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_OTDELKA'] as $value) {
+												if(!empty($value['VALUE'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_OTDELKA'][0]['NAME']; ?>
@@ -301,8 +350,18 @@ if ($haveOffers) {
 													<? endforeach; ?>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
-										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA_STYLE']['VALUE'])): ?>
+										<? if (!empty($arResult['PROPS']['HOUSES_OTDELKA_STYLE'])): 
+											$show = false;
+											foreach ($arResult['PROPS']['HOUSES_OTDELKA_STYLE'] as $value) {
+												if(!empty($value['VALUE'])) {
+													$show = true;
+													break;
+												}
+											}
+											if($show):
+										?>
 											<div class="detail-product__mainscreen-view__item">
 												<div class="detail-product__mainscreen-view__item-name">
 													<?= $arResult['PROPS']['HOUSES_OTDELKA_STYLE'][0]['NAME']; ?>
@@ -319,6 +378,7 @@ if ($haveOffers) {
 													<? endforeach; ?>
 												</div>
 											</div>
+											<? endif; ?>
 										<? endif; ?>
 									</div>
 								</div>

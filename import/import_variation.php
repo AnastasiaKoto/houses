@@ -179,6 +179,7 @@ function importOffersSimple($csvFilePath) {
             $row = array_combine($header, $data);
             $productFields = [];
             $productProperties = [];
+            $gallery = [];
             $productId = !empty($row['ID']) ? $row['ID'] : null;
             $iblockId = $row['TYPE'] == 'variation' ? 11 : 6;
             $productCode = generateCode($row['Название'], $iblockId);
@@ -352,6 +353,7 @@ function importOffersSimple($csvFilePath) {
             if ($existingProduct && !empty($existingProduct['ID'])):
                 $element = new CIBlockElement;
                 $productId = $existingProduct['ID'];
+                /*
                 $result = $element->Update($productId, array_merge($productFields, [
                     'PROPERTY_VALUES' => $productProperties
                 ]));
@@ -361,33 +363,16 @@ function importOffersSimple($csvFilePath) {
                 } else {
                     logMessage("Ошибка обновления элемента ID: $productId: " . $element->LAST_ERROR);
                 }
-                //$result = $element->Update($productId, $productFields);
-                /*
+                */
+                $result = $element->Update($productId, $productFields);
+                
                 if ($result) {
                     if (!empty($productProperties)) {
                         logMessage("IB ID: " . $iblockId);
-                        $updateResult = CIBlockElement::SetPropertyValuesEx($productId, $iblockId, $productProperties);
-                        //\Bitrix\Iblock\PropertyIndex\Manager::updateElementIndex($iblockId, $productId);
-                        if (!$updateResult) {
-                            logMessage("Ошибка SetPropertyValuesEx: " . $element->LAST_ERROR);
-                            if (!empty($productProperties)) {
-                                logMessage("Начинаем обновление свойств для $project_type, ID: $productId");
-                                
-                                // Обновляем каждое свойство по отдельности для отладки
-                                foreach ($productProperties as $propertyCode => $propertyValue) {
-                                    logMessage("Обновляем свойство: $propertyCode");
-
-                                    $updateResult = CIBlockElement::SetPropertyValuesEx($productId, $iblockId, array($propertyCode => $propertyValue));
-                                    if(!$updateResult) {
-                                        global $APPLICATION;
-                                        $exception = $APPLICATION->GetException();
-                                        $errorMessage = $exception ? $exception->GetString() : "Неизвестная ошибка";
-                                        logMessage("Ошибка обновления свойства '$propertyCode': " . $errorMessage);
-                                    }
-                                }
-                            } else {
-                                logMessage("Массив свойств пуст");
-                            }
+                        try {
+                            CIBlockElement::SetPropertyValuesEx($productId, $iblockId, $productProperties);
+                        } catch (Exception $e) {
+                            logMessage("Ошибка SetPropertyValuesEx: " . $e->getMessage());
                         }
                     } else {
                         logMessage("Нет свойств для обновления $project_type, ID: $productId - существующие значения сохранены");
@@ -396,7 +381,6 @@ function importOffersSimple($csvFilePath) {
                     $error = $element->LAST_ERROR;
                     logMessage("Ошибка обновления $project_type, ID: $productId; Error: $error");
                 }
-                */
             else:
                 $element = new CIBlockElement;
                 $newProductId = $element->Add(array_merge($productFields, [

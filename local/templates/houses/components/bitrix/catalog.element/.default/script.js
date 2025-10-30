@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (prop) prop.textContent = strongText || selectedOption.textContent;
 			}
 
+			
 
 		};
 

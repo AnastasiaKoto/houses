@@ -87,7 +87,7 @@ class HouseVariationManager {
         tabHeads.forEach(head => {
             const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
 
-            // Собираем панели контента (сначала внутри root, иначе — последовательные siblings)
+            // Собираем панели контента
             let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
             if (!contents.length) {
                 let node = root.nextElementSibling;
@@ -125,7 +125,6 @@ class HouseVariationManager {
                         c.dataset.tab = gen;
                     }
                 } else if (l && !c) {
-                    // есть ссылка без контента (создаём namespace)
                     if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
                 } else if (c && !l) {
                     if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
@@ -136,29 +135,137 @@ class HouseVariationManager {
             contents.forEach(c => {
                 if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
             });
-            const linkMap = new Map();
-            links.forEach(l => {
-                if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
-            });
 
-            // Сохраняем конфигурацию для этого экземпляра табов
-            const tabInstanceId = `tabs-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-            this.tabInstances[tabInstanceId] = {
-                head,
-                root,
-                contents,
-                links,
-                contentMap,
-                linkMap,
-                prevArrow,
-                nextArrow,
-                splides: {},
-                activeTab: head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab || links[0]?.dataset.tab
+            const splides = {};
+            const splideOptions = {
+                type: 'slide',
+                autoWidth: false,
+                gap: 20,
+                perMove: 1,
+                pagination: false,
+                arrows: false,
+                speed: 600,
+                easing: 'ease',
+                focus: 'start',
+                padding: { right: 15 },
+                breakpoints: { 992: { gap: 10, padding: { right: 10 }, drag: true } }
             };
 
-            this.initTabInstance(this.tabInstances[tabInstanceId]);
+            function mountSplideFor(tabName) {
+                if (!tabName) return null;
+                if (splides[tabName]) return splides[tabName];
+
+                const content = contentMap.get(tabName);
+                if (!content) return null;
+
+                const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+                if (!el) return null;
+
+                // Если скрыт, временно отображаем
+                const computed = window.getComputedStyle(content);
+                const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+                const prev = {};
+                if (wasHidden) {
+                    prev.display = content.style.display;
+                    prev.visibility = content.style.visibility;
+                    prev.position = content.style.position;
+                    prev.left = content.style.left;
+
+                    content.style.display = 'block';
+                    content.style.visibility = 'hidden';
+                    content.style.position = 'absolute';
+                    content.style.left = '-9999px';
+                }
+
+                const instance = new Splide(el, splideOptions);
+                instance.mount();
+
+                if (wasHidden) {
+                    content.style.display = prev.display || '';
+                    content.style.visibility = prev.visibility || '';
+                    content.style.position = prev.position || '';
+                    content.style.left = prev.left || '';
+                }
+
+                splides[tabName] = instance;
+
+                // 🔹 стрелки
+                const updateArrows = () => {
+                    if (!prevArrow || !nextArrow) return;
+                    const slidesCount = el.querySelectorAll('.splide__slide').length;
+                    const perPage = instance.options?.perPage || 1;
+
+                    prevArrow.classList.toggle('is-disabled', instance.index === 0);
+                    nextArrow.classList.toggle('is-disabled', instance.index >= slidesCount - perPage);
+
+                    if (slidesCount <= perPage) {
+                        prevArrow.style.display = 'none';
+                        nextArrow.style.display = 'none';
+                    } else {
+                        prevArrow.style.display = '';
+                        nextArrow.style.display = '';
+                    }
+                };
+
+                instance.on('mounted', updateArrows);
+                instance.on('moved', updateArrows);
+                instance.on('resized', updateArrows);
+
+                setTimeout(() => {
+                    try { instance.refresh(); updateArrows(); } catch (e) { }
+                }, 50);
+
+                return instance;
+            }
+
+            let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
+                || links[0].dataset.tab;
+
+            contents.forEach(c => {
+                if (c.dataset.tab === activeTab) {
+                    c.classList.add('active');
+                    c.style.display = '';
+                    mountSplideFor(activeTab);
+                } else {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                }
+            });
+
+            // Переключение табов
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const tabName = this.dataset.tab;
+                    if (!tabName || tabName === activeTab) return;
+
+                    links.forEach(l => l.classList.remove('active'));
+                    contents.forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
+
+                    this.classList.add('active');
+                    const newContent = contentMap.get(tabName);
+                    if (newContent) {
+                        newContent.classList.add('active');
+                        newContent.style.display = '';
+                        mountSplideFor(tabName);
+                    }
+
+                    activeTab = tabName;
+                });
+            });
+
+            // Стрелки управляют текущим слайдером
+            if (prevArrow) prevArrow.addEventListener('click', () => {
+                const instance = splides[activeTab];
+                if (instance && !prevArrow.classList.contains('is-disabled')) instance.go('<');
+            });
+            if (nextArrow) nextArrow.addEventListener('click', () => {
+                const instance = splides[activeTab];
+                if (instance && !nextArrow.classList.contains('is-disabled')) instance.go('>');
+            });
         });
     }
+
 
     // Инициализация конкретного экземпляра табов
     // initTabInstance(instance) {

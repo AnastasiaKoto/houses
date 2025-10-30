@@ -16,11 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				'input[name="HOUSES_STYLE"]:checked'
 			)?.nextElementSibling?.textContent;
 
-			// if (styleValue) {
-			// 	viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[0]
-			// 		.querySelector(".detail-product__mainscreen-config__item-prop")
-			// 		.textContent = styleValue;
-			// }
 			if (styleValue) {
 				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[0];
 
@@ -39,10 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			)?.nextElementSibling?.textContent;
 
 			if (floorValue) {
-				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[1]
-					?.querySelector(".detail-product__mainscreen-config__item-prop")
-					.textContent = floorValue;
+				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[1];
+
+				if (item) {
+					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
+					if (prop) {
+						prop.textContent = floorValue;
+					}
+				}
 			}
+
 
 			// === 3. Площадь дома ===
 			const selectedOption = editBlock.querySelector(
@@ -50,10 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			);
 			if (selectedOption) {
 				const strongText = selectedOption.querySelector("strong")?.textContent;
-				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[2]
-					?.querySelector(".detail-product__mainscreen-config__item-prop")
-					.textContent = strongText || selectedOption.textContent;
+				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[2];
+
+				if (item) {
+					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
+					if (prop) {
+						prop.textContent = strongText || selectedOption.textContent;
+					}
+				}
 			}
+
 		};
 
 		toggleBtn.addEventListener("click", () => {
@@ -332,18 +339,18 @@ if (!tabName || tabName === activeTab) return;
 // Снимаем active у ссылок и контентов
 links.forEach(l => l.classList.remove('active'));
 contents.forEach(c => {
-	c.classList.remove('active');
-	c.style.display = 'none';
+c.classList.remove('active');
+c.style.display = 'none';
 });
 
 // Активируем выбранные
 this.classList.add('active');
 const newContent = contentMap.get(tabName);
 if (newContent) {
-	newContent.classList.add('active');
-	newContent.style.display = '';
-	// Инициализируем / обновляем слайдер для этого таба
-	mountSplideFor(tabName);
+newContent.classList.add('active');
+newContent.style.display = '';
+// Инициализируем / обновляем слайдер для этого таба
+mountSplideFor(tabName);
 }
 
 activeTab = tabName;

@@ -170,7 +170,7 @@ if ($haveOffers) {
 
 										<? if (!empty($arResult['PROPS']['HOUSES_SQUARES'])): 
 											$squareValue = '';
-											foreach ($arResult['PROPS']['HOUSES_FLOORS'] as $value):
+											foreach ($arResult['PROPS']['HOUSES_SQUARES'] as $value):
 												if (in_array('HOUSES_SQUARES:' . $value['VALUE'], $currentOffer['COMBINATION'])):
 													$squareValue  = $value['VALUE_ELEMENT']['UF_DESCRIPTION'];
 													break;
@@ -183,7 +183,7 @@ if ($haveOffers) {
 												</div>
 												<div class="detail-product__mainscreen-config__item-devider"></div>
 												<div class="detail-product__mainscreen-config__item-prop">
-													<?= $value['VALUE_ELEMENT']['UF_DESCRIPTION']; ?>
+													<?= $squareValue; ?>
 												</div>
 											</div>
 											<? endif; ?>
@@ -1210,7 +1210,7 @@ if ($haveOffers):
 	<script>
 		window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
-		console.log(OFFERS_DATA);
+		//console.log(OFFERS_DATA);
 	</script>
 <? endif; ?>
 <script>

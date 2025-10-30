@@ -280,158 +280,341 @@ class HouseVariationManager {
     //     instance.mountSplideFor = mountSplideFor;
     // }
 
+    //     initTabInstance(instance) {
+    //     const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+
+
+    //     const mountSplideFor = (tabName) => {
+    //         if (!tabName) return null;
+    //         if (splides[tabName]) return splides[tabName];
+
+    //         const content = contentMap.get(tabName);
+    //         if (!content) return null;
+
+    //         const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+    //         if (!el) return null;
+
+    //         const computed = window.getComputedStyle(content);
+    //         const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+    //         const prev = {};
+    //         if (wasHidden) {
+    //             prev.display = content.style.display;
+    //             prev.visibility = content.style.visibility;
+    //             prev.position = content.style.position;
+    //             prev.left = content.style.left;
+
+    //             content.style.display = 'block';
+    //             content.style.visibility = 'hidden';
+    //             content.style.position = 'absolute';
+    //             content.style.left = '-9999px';
+    //         }
+
+    //         const splideOptions = {
+    //             type: 'slide', 
+    //             autoWidth: false,
+
+    //             speed: 600,
+    //             easing: 'ease',
+    //             gap: 20,
+    //             perMove: 1,
+    //             pagination: false,
+    //             arrows: false,
+    //             focus: 'start',
+    //             padding: { right: 15 },
+    //             breakpoints: {
+    //                 992: {
+    //                     gap: 10,
+    //                     padding: { right: 10 },
+    //                     drag: true,
+
+    //                 },
+    //                 700: {
+    //                     gap: 10,
+    //                     padding: { right: 10 },
+    //                     drag: true,
+    //                     // autoWidth: true,
+
+    //                 }
+    //             }
+    //         };
+
+    //         const splideInstance = new Splide(el, splideOptions);
+    //         splideInstance.mount();
+
+    //         if (wasHidden) {
+    //             content.style.display = prev.display || '';
+    //             content.style.visibility = prev.visibility || '';
+    //             content.style.position = prev.position || '';
+    //             content.style.left = prev.left || '';
+    //         }
+
+    //         splides[tabName] = splideInstance;
+
+
+    //         function updateArrows() {
+    //             if (!prevArrow || !nextArrow) return;
+    //             prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+    //             nextArrow.classList.toggle(
+    //                 'is-disabled',
+    //                 splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+    //             );
+    //         }
+
+    //         splideInstance.on('mounted', updateArrows);
+    //         splideInstance.on('moved', updateArrows);
+    //         splideInstance.on('resized', updateArrows);
+
+    //         setTimeout(() => {
+    //             try {
+    //                 splideInstance.refresh();
+    //                 updateArrows();
+    //             } catch (e) { /* ignore */ }
+    //         }, 50);
+
+    //         return splideInstance;
+    //     };
+
+
+    //     contents.forEach(c => {
+    //         if (c.dataset.tab === activeTab) {
+    //             c.classList.add('active');
+    //             c.style.display = '';
+    //             mountSplideFor(activeTab);
+    //         } else {
+    //             c.classList.remove('active');
+    //             c.style.display = 'none';
+    //         }
+    //     });
+
+
+    //     links.forEach(link => {
+    //         link.addEventListener('click', function (e) {
+    //             e.preventDefault();
+    //             const tabName = this.dataset.tab;
+    //             if (!tabName || tabName === instance.activeTab) return;
+
+
+    //             links.forEach(l => l.classList.remove('active'));
+    //             contents.forEach(c => {
+    //                 c.classList.remove('active');
+    //                 c.style.display = 'none';
+    //             });
+
+
+    //             this.classList.add('active');
+    //             const newContent = contentMap.get(tabName);
+    //             if (newContent) {
+    //                 newContent.classList.add('active');
+    //                 newContent.style.display = '';
+    //                 mountSplideFor(tabName);
+    //             }
+
+    //             instance.activeTab = tabName;
+    //         });
+    //     });
+
+
+    //     if (prevArrow) {
+    //         prevArrow.addEventListener('click', () => {
+    //             const activeSplide = splides[instance.activeTab];
+    //             if (!activeSplide) return;
+    //             if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+    //         });
+    //     }
+
+    //     if (nextArrow) {
+    //         nextArrow.addEventListener('click', () => {
+    //             const activeSplide = splides[instance.activeTab];
+    //             if (!activeSplide) return;
+    //             if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+    //         });
+    //     }
+
+    //     instance.mountSplideFor = mountSplideFor;
+    // }
     initTabInstance(instance) {
-    const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
 
-    const mountSplideFor = (tabName) => {
-        if (!tabName) return null;
-        if (splides[tabName]) return splides[tabName];
+        const mountSplideFor = (tabName) => {
+            if (!tabName) return null;
+            if (splides[tabName]) return splides[tabName];
 
-        const content = contentMap.get(tabName);
-        if (!content) return null;
+            const content = contentMap.get(tabName);
+            if (!content) return null;
 
-        const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-        if (!el) return null;
+            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+            if (!el) return null;
 
-        const computed = window.getComputedStyle(content);
-        const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-        const prev = {};
-        if (wasHidden) {
-            prev.display = content.style.display;
-            prev.visibility = content.style.visibility;
-            prev.position = content.style.position;
-            prev.left = content.style.left;
+            const computed = window.getComputedStyle(content);
+            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+            const prev = {};
+            if (wasHidden) {
+                prev.display = content.style.display;
+                prev.visibility = content.style.visibility;
+                prev.position = content.style.position;
+                prev.left = content.style.left;
 
-            content.style.display = 'block';
-            content.style.visibility = 'hidden';
-            content.style.position = 'absolute';
-            content.style.left = '-9999px';
-        }
-
-        const splideOptions = {
-            type: 'slide', 
-            autoWidth: false,
- 
-            speed: 600,
-            easing: 'ease',
-            gap: 20,
-            perMove: 1,
-            pagination: false,
-            arrows: false,
-            focus: 'start',
-            padding: { right: 15 },
-            breakpoints: {
-                992: {
-                    gap: 10,
-                    padding: { right: 10 },
-                    drag: true,
-              
-                },
-                700: {
-                    gap: 10,
-                    padding: { right: 10 },
-                    drag: true,
-                    // autoWidth: true,
-               
-                }
+                content.style.display = 'block';
+                content.style.visibility = 'hidden';
+                content.style.position = 'absolute';
+                content.style.left = '-9999px';
             }
-        };
 
-        const splideInstance = new Splide(el, splideOptions);
-        splideInstance.mount();
+            const splideInstance = new Splide(el, {
+                type: 'slide',
+                autoWidth: false,
+                speed: 600,
+                easing: 'ease',
+                gap: 20,
+                perMove: 1,
+                pagination: false,
+                arrows: false,
+                focus: 'start',
+                padding: { right: 15 },
+                breakpoints: {
+                    992: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true,
+                    },
+                    700: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true,
+                    }
+                }
+            }).mount();
 
-        if (wasHidden) {
-            content.style.display = prev.display || '';
-            content.style.visibility = prev.visibility || '';
-            content.style.position = prev.position || '';
-            content.style.left = prev.left || '';
-        }
+            if (wasHidden) {
+                content.style.display = prev.display || '';
+                content.style.visibility = prev.visibility || '';
+                content.style.position = prev.position || '';
+                content.style.left = prev.left || '';
+            }
 
-        splides[tabName] = splideInstance;
+            splides[tabName] = splideInstance;
 
-    
-        function updateArrows() {
-            if (!prevArrow || !nextArrow) return;
-            prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
-            nextArrow.classList.toggle(
-                'is-disabled',
-                splideInstance.index >= splideInstance.length - splideInstance.options.perPage
-            );
-        }
 
-        splideInstance.on('mounted', updateArrows);
-        splideInstance.on('moved', updateArrows);
-        splideInstance.on('resized', updateArrows);
+            const getSlidesCount = () =>
+                el.querySelectorAll('.splide__slide').length;
 
-        setTimeout(() => {
-            try {
+            const getPerPage = () => {
+                const pp = splideInstance.options?.perPage;
+                return typeof pp === 'number' && pp > 0 ? pp : 1;
+            };
+
+
+            const updateArrows = () => {
+                if (!prevArrow || !nextArrow) return;
+
+                const slidesCount = getSlidesCount();
+                const perPage = getPerPage();
+
+                const isStart = splideInstance.index === 0;
+                const lastIndex = Math.max(0, slidesCount - perPage);
+                const isEnd = splideInstance.index >= lastIndex;
+
+                prevArrow.classList.toggle('is-disabled', isStart);
+                nextArrow.classList.toggle('is-disabled', isEnd);
+
+                if (slidesCount <= perPage) {
+                    prevArrow.style.display = 'none';
+                    nextArrow.style.display = 'none';
+                } else {
+                    prevArrow.style.display = '';
+                    nextArrow.style.display = '';
+                }
+            };
+
+
+            splideInstance.on('mounted', updateArrows);
+            splideInstance.on('moved', updateArrows);
+            splideInstance.on('resized', () => {
                 splideInstance.refresh();
                 updateArrows();
-            } catch (e) { /* ignore */ }
-        }, 50);
-
-        return splideInstance;
-    };
+            });
+            splideInstance.on('updated', updateArrows);
 
 
-    contents.forEach(c => {
-        if (c.dataset.tab === activeTab) {
-            c.classList.add('active');
-            c.style.display = '';
-            mountSplideFor(activeTab);
-        } else {
-            c.classList.remove('active');
-            c.style.display = 'none';
-        }
-    });
+            setTimeout(() => {
+                splideInstance.refresh();
+                updateArrows();
+            }, 50);
+
+            return splideInstance;
+        };
 
 
-    links.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const tabName = this.dataset.tab;
-            if (!tabName || tabName === instance.activeTab) return;
-
-        
-            links.forEach(l => l.classList.remove('active'));
-            contents.forEach(c => {
+        contents.forEach(c => {
+            if (c.dataset.tab === activeTab) {
+                c.classList.add('active');
+                c.style.display = '';
+                mountSplideFor(activeTab);
+            } else {
                 c.classList.remove('active');
                 c.style.display = 'none';
-            });
-
-        
-            this.classList.add('active');
-            const newContent = contentMap.get(tabName);
-            if (newContent) {
-                newContent.classList.add('active');
-                newContent.style.display = '';
-                mountSplideFor(tabName);
             }
-
-            instance.activeTab = tabName;
         });
-    });
 
 
-    if (prevArrow) {
-        prevArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide) return;
-            if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const tabName = this.dataset.tab;
+                if (!tabName || tabName === instance.activeTab) return;
+
+                links.forEach(l => l.classList.remove('active'));
+                contents.forEach(c => {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                });
+
+                this.classList.add('active');
+                const newContent = contentMap.get(tabName);
+                if (newContent) {
+                    newContent.classList.add('active');
+                    newContent.style.display = '';
+                    mountSplideFor(tabName);
+                }
+
+                instance.activeTab = tabName;
+            });
         });
+
+
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => {
+                const activeSplide = splides[instance.activeTab];
+                if (!activeSplide || prevArrow.classList.contains('is-disabled')) return;
+                activeSplide.go('<');
+            });
+        }
+
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => {
+                const activeSplide = splides[instance.activeTab];
+                if (!activeSplide || nextArrow.classList.contains('is-disabled')) return;
+                activeSplide.go('>');
+            });
+        }
+
+
+        if (!instance._resizeHandler) {
+            instance._resizeHandler = () => {
+                const activeSplide = splides[instance.activeTab];
+                if (activeSplide) {
+                    activeSplide.refresh();
+                    activeSplide.emit('updated');
+                }
+            };
+            window.addEventListener('resize', instance._resizeHandler);
+        }
+
+
+        instance.mountSplideFor = mountSplideFor;
     }
 
-    if (nextArrow) {
-        nextArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide) return;
-            if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
-        });
-    }
-
-    instance.mountSplideFor = mountSplideFor;
-}
 
 
 
@@ -520,7 +703,7 @@ class HouseVariationManager {
             drag: false,
             breakpoints: {
                 992: {
-                    drag: true, 
+                    drag: true,
                 }
             }
         }).mount();
@@ -837,29 +1020,29 @@ class HouseVariationManager {
 
     //сбрасывает выбор, если в комбинациях есть характеристики, но выбранной комбинации не найдено
     resetOtherSelections(keepElementId) {
-		// Сброс радио-кнопок (кроме текущей)
-		document.querySelectorAll('input[type="radio"][name^="HOUSES_"]:checked').forEach(radio => {
-			if (radio.id !== keepElementId) {
-				radio.checked = false;
-			}
-		});
+        // Сброс радио-кнопок (кроме текущей)
+        document.querySelectorAll('input[type="radio"][name^="HOUSES_"]:checked').forEach(radio => {
+            if (radio.id !== keepElementId) {
+                radio.checked = false;
+            }
+        });
 
-		// Сброс активных площадей (кроме текущей)
-		document.querySelectorAll('li.HOUSES_OPTION.active').forEach(li => {
-			if (li.id !== keepElementId) {
-				li.classList.remove('active');
-				const select = li.closest('.custom-select-js');
-				if (select) {
-					const selectedEl = select.querySelector('.selected');
-					if (selectedEl && !select.querySelector('li.active')) {
-						selectedEl.textContent = 'Выберите площадь';
-					}
-					const input = select.querySelector('input[name="HOUSES_SQUARES"]');
-					if (input) input.value = '';
-				}
-			}
-		});
-	}
+        // Сброс активных площадей (кроме текущей)
+        document.querySelectorAll('li.HOUSES_OPTION.active').forEach(li => {
+            if (li.id !== keepElementId) {
+                li.classList.remove('active');
+                const select = li.closest('.custom-select-js');
+                if (select) {
+                    const selectedEl = select.querySelector('.selected');
+                    if (selectedEl && !select.querySelector('li.active')) {
+                        selectedEl.textContent = 'Выберите площадь';
+                    }
+                    const input = select.querySelector('input[name="HOUSES_SQUARES"]');
+                    if (input) input.value = '';
+                }
+            }
+        });
+    }
 
     //блокирует характеристики, недоступные в найденных комбинациях
     disableUnavailableElements(availableCombinations) {

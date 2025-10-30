@@ -731,19 +731,19 @@ if ($haveOffers) {
 			<div class="detail-product__preview-tabs">
 				<div class="detail-product__preview-tabs__head">
 					<div class="detail-product__preview-tabs__links">
-						<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
+						<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
 							<a href="javascript:void(0)" class="detail-product__preview-tabs__link active" data-type="house"
 								data-tab="1">
 								<?= $currentOffer['PROPERTIES']['FACADE_IMAGES']['NAME']; ?>
 							</a>
 						<? endif; ?>
-						<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
+						<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
 							<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house"
 								data-tab="2">
 								<?= $currentOffer['PROPERTIES']['INTERJER_IMAGES']['NAME']; ?>
 							</a>
 						<? endif; ?>
-						<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
+						<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
 							<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house"
 								data-tab="3">
 								<?= $currentOffer['PROPERTIES']['CUT_IMAGES']['NAME']; ?>

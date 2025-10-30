@@ -206,7 +206,11 @@ class HouseVariationManager {
                     992: {
                         gap: 10,
                         padding: { right: 10 },
-                        drag: true
+                        drag: true,
+                        perPage: 2
+                    },
+                    700: {
+                        perPage: 1
                     }
                 }
             };

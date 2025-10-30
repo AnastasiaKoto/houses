@@ -445,7 +445,6 @@ class HouseVariationManager {
             const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
             if (!el) return null;
 
-            // Если элемент скрыт, делаем временно видимым для инициализации
             const computed = window.getComputedStyle(content);
             const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
             const prev = {};
@@ -473,16 +472,8 @@ class HouseVariationManager {
                 focus: 'start',
                 padding: { right: 15 },
                 breakpoints: {
-                    992: {
-                        gap: 10,
-                        padding: { right: 10 },
-                        drag: true,
-                    },
-                    700: {
-                        gap: 10,
-                        padding: { right: 10 },
-                        drag: true,
-                    }
+                    992: { gap: 10, padding: { right: 10 }, drag: true },
+                    700: { gap: 10, padding: { right: 10 }, drag: true }
                 }
             }).mount();
 
@@ -511,7 +502,6 @@ class HouseVariationManager {
                 prevArrow.classList.toggle('is-disabled', isStart);
                 nextArrow.classList.toggle('is-disabled', isEnd);
 
-                // Скрываем стрелки, если мало слайдов
                 if (slidesCount <= perPage) {
                     prevArrow.style.display = 'none';
                     nextArrow.style.display = 'none';
@@ -521,26 +511,19 @@ class HouseVariationManager {
                 }
             };
 
-            // Подписка на события без рекурсий
+            // события Splide
             splideInstance.on('mounted', updateArrows);
             splideInstance.on('moved', updateArrows);
-            splideInstance.on('resized', () => {
-                splideInstance.refresh();
-                updateArrows();
-            });
+            splideInstance.on('resized', updateArrows);
 
-            // Форсируем один раз после mount
             setTimeout(() => {
-                try {
-                    splideInstance.refresh();
-                    updateArrows();
-                } catch (e) { }
+                try { splideInstance.refresh(); updateArrows(); } catch (e) { }
             }, 50);
 
             return splideInstance;
         };
 
-        // Активируем текущий таб
+        // Активный таб
         contents.forEach(c => {
             if (c.dataset.tab === activeTab) {
                 c.classList.add('active');
@@ -560,10 +543,7 @@ class HouseVariationManager {
                 if (!tabName || tabName === instance.activeTab) return;
 
                 links.forEach(l => l.classList.remove('active'));
-                contents.forEach(c => {
-                    c.classList.remove('active');
-                    c.style.display = 'none';
-                });
+                contents.forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
 
                 this.classList.add('active');
                 const newContent = contentMap.get(tabName);
@@ -578,35 +558,22 @@ class HouseVariationManager {
         });
 
         // Стрелки
-        if (prevArrow) {
-            prevArrow.addEventListener('click', () => {
-                const activeSplide = splides[instance.activeTab];
-                if (!activeSplide || prevArrow.classList.contains('is-disabled')) return;
-                activeSplide.go('<');
-            });
-        }
-        if (nextArrow) {
-            nextArrow.addEventListener('click', () => {
-                const activeSplide = splides[instance.activeTab];
-                if (!activeSplide || nextArrow.classList.contains('is-disabled')) return;
-                activeSplide.go('>');
-            });
-        }
+        if (prevArrow) prevArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide || prevArrow.classList.contains('is-disabled')) return;
+            activeSplide.go('<');
+        });
+        if (nextArrow) nextArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide || nextArrow.classList.contains('is-disabled')) return;
+            activeSplide.go('>');
+        });
 
-        // Resize — обновляем активный splide без рекурсии
+        // Resize
         if (!instance._resizeHandler) {
             instance._resizeHandler = () => {
-                const activeSplide = splides[instance.activeTab];
-                if (activeSplide) {
-                    try { activeSplide.refresh(); } catch (e) { }
-                }
-                if (instance.activeTab) {
-                    // форсируем пересчёт стрелок
-                    const content = contentMap.get(instance.activeTab);
-                    const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-                    const inst = splides[instance.activeTab];
-                    if (inst) inst.emit('moved'); // безопасно обновляет стрелки
-                }
+                // безопасно пересоздаём Splide для активного таба при смене ширины
+                mountSplideFor(instance.activeTab);
             };
             window.addEventListener('resize', instance._resizeHandler);
         }

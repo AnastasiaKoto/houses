@@ -11,55 +11,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (editBlock && viewBlock && toggleBtn) {
 		const updateViewData = () => {
+			const items = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item");
+			if (!items) return;
+
 			// === 1. Стиль постройки ===
-			const styleValue = editBlock.querySelector(
-				'input[name="HOUSES_STYLE"]:checked'
-			)?.nextElementSibling?.textContent;
-
-			if (styleValue) {
-				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[0];
-
-				if (item) {
-					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
-					if (prop) {
-						prop.textContent = styleValue;
-					}
-				}
+			const styleValue = editBlock.querySelector('input[name="HOUSES_STYLE"]:checked')?.nextElementSibling?.textContent;
+			if (styleValue && items[0]) {
+				const prop = items[0].querySelector(".detail-product__mainscreen-config__item-prop");
+				if (prop) prop.textContent = styleValue;
 			}
-
 
 			// === 2. Этажность ===
-			const floorValue = editBlock.querySelector(
-				'input[name="HOUSES_FLOORS"]:checked'
-			)?.nextElementSibling?.textContent;
-
-			if (floorValue) {
-				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[1];
-
-				if (item) {
-					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
-					if (prop) {
-						prop.textContent = floorValue;
-					}
-				}
+			const floorValue = editBlock.querySelector('input[name="HOUSES_FLOORS"]:checked')?.nextElementSibling?.textContent;
+			if (floorValue && items[1]) {
+				const prop = items[1].querySelector(".detail-product__mainscreen-config__item-prop");
+				if (prop) prop.textContent = floorValue;
 			}
-
 
 			// === 3. Площадь дома ===
-			const selectedOption = editBlock.querySelector(
-				".custom-select-js .options li.active"
-			);
-			if (selectedOption) {
+			const selectedOption = editBlock.querySelector(".custom-select-js .options li.active");
+			if (selectedOption && items[2]) {
 				const strongText = selectedOption.querySelector("strong")?.textContent;
-				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[2];
-
-				if (item) {
-					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
-					if (prop) {
-						prop.textContent = strongText || selectedOption.textContent;
-					}
-				}
+				const prop = items[2].querySelector(".detail-product__mainscreen-config__item-prop");
+				if (prop) prop.textContent = strongText || selectedOption.textContent;
 			}
+
 
 		};
 

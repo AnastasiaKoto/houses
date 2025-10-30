@@ -332,6 +332,7 @@ class HouseVariationManager {
                     gap: 10,
                     padding: { right: 10 },
                     drag: true,
+                    autoWidth: true,
                     perPage: 1,
                 }
             }

@@ -81,13 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	}
-
-	showMore();
-	showVideo();
 	Fancybox.bind("[data-fancybox]", {
 	});
+	showMore();
+	showVideo();
 });
-
 const showMore = () => {
 	const desc = document.querySelector(".detail-product__layout-description");
 	const toggleBtn = document.querySelector(".desc-toggle");

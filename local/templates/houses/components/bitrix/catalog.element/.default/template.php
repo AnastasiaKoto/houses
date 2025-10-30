@@ -135,7 +135,7 @@ if ($haveOffers) {
 													endif;
 												endforeach;
 												if(!empty($styleValue)):?>
-												<div class="detail-product__mainscreen-config__item">
+												<div class="detail-product__mainscreen-config__item" data-prop="style">
 													<div class="detail-product__mainscreen-config__item-name">
 														<?= $arResult['PROPS']['HOUSES_STYLE'][0]['NAME']; ?>
 													</div>
@@ -156,7 +156,7 @@ if ($haveOffers) {
 													endif;
 												endforeach;
 												if(!empty($floorsValue)):?>
-												<div class="detail-product__mainscreen-config__item">
+												<div class="detail-product__mainscreen-config__item" data-prop="floors">
 													<div class="detail-product__mainscreen-config__item-name">
 														<?= $arResult['PROPS']['HOUSES_FLOORS'][0]['NAME']; ?>
 													</div>
@@ -177,7 +177,7 @@ if ($haveOffers) {
 												endif;
 											endforeach;
 											if(!empty($squareValue)):?>
-											<div class="detail-product__mainscreen-config__item">
+											<div class="detail-product__mainscreen-config__item" data-prop="area">
 												<div class="detail-product__mainscreen-config__item-name">
 													<?= $arResult['PROPS']['HOUSES_SQUARES'][0]['NAME']; ?>
 												</div>

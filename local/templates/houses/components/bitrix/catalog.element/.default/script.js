@@ -11,57 +11,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (editBlock && viewBlock && toggleBtn) {
 		const updateViewData = () => {
-			const items = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item");
-			if (!items) return;
+			// === Стиль постройки ===
+			const styleValue = editBlock.querySelector('input[name="HOUSES_STYLE"]:checked')
+				?.nextElementSibling?.textContent;
 
-			// === 1. Стиль постройки ===
-			const styleValue = editBlock.querySelector('input[name="HOUSES_STYLE"]:checked')?.nextElementSibling?.textContent;
-			if (styleValue && items[0]) {
-				const prop = items[0].querySelector(".detail-product__mainscreen-config__item-prop");
-				if (prop) prop.textContent = styleValue;
-			}
+			const styleItem = viewBlock.querySelector('[data-prop="style"] .detail-product__mainscreen-config__item-prop');
+			if (styleValue && styleItem) styleItem.textContent = styleValue;
 
-			// === 2. Этажность ===
-			const floorValue = editBlock.querySelector('input[name="HOUSES_FLOORS"]:checked')?.nextElementSibling?.textContent;
-			if (floorValue && items[1]) {
-				const prop = items[1].querySelector(".detail-product__mainscreen-config__item-prop");
-				if (prop) prop.textContent = floorValue;
-			}
+			// === Этажность ===
+			const floorValue = editBlock.querySelector('input[name="HOUSES_FLOORS"]:checked')
+				?.nextElementSibling?.textContent;
 
-			// === 3. Площадь дома ===
+			const floorItem = viewBlock.querySelector('[data-prop="floors"] .detail-product__mainscreen-config__item-prop');
+			if (floorValue && floorItem) floorItem.textContent = floorValue;
+
+			// === Площадь дома ===
 			const selectedOption = editBlock.querySelector(".custom-select-js .options li.active");
-			if (selectedOption && items[2]) {
-				const strongText = selectedOption.querySelector("strong")?.textContent;
-				const prop = items[2].querySelector(".detail-product__mainscreen-config__item-prop");
-				if (prop) prop.textContent = strongText || selectedOption.textContent;
-			}
+			const areaValue = selectedOption?.querySelector("strong")?.textContent || selectedOption?.textContent;
 
-	
-
+			const areaItem = viewBlock.querySelector('[data-prop="area"] .detail-product__mainscreen-config__item-prop');
+			if (areaValue && areaItem) areaItem.textContent = areaValue;
 		};
 
 		toggleBtn.addEventListener("click", () => {
-			console.log('click');
 			const isEditing = editBlock.classList.contains("open");
 
 			if (isEditing) {
-				// === Сохраняем ===
 				updateViewData();
 				editBlock.classList.remove("open");
 				viewBlock.classList.remove("hidden");
 				toggleBtn.textContent = "Изменить";
 			} else {
-				// === Редактируем ===
 				editBlock.classList.add("open");
 				viewBlock.classList.add("hidden");
 				toggleBtn.textContent = "Сохранить";
 			}
 		});
 	}
-	Fancybox.bind("[data-fancybox]", {
-	});
+
 	showMore();
 	showVideo();
+	Fancybox.bind("[data-fancybox]", {});
+
+
 });
 const showMore = () => {
 	const desc = document.querySelector(".detail-product__layout-description");

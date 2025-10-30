@@ -42,18 +42,18 @@ class HouseVariationManager {
 
     //вешает обработчики
     bindEvents() {
-        // document.addEventListener('change', (e) => {
-        //     console.log('change');
-        //     if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
-        //         this.updateAvailability(e.target);
-        //     }
-        // });
-        // document.addEventListener('click', (e) => {
-        //     console.log('click');
-        //     if (e.target.className.includes('HOUSES_')) {
-        //         this.updateAvailability(e.target);
-        //     }
-        // });
+        document.addEventListener('change', (e) => {
+            console.log('change');
+            if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
+                this.updateAvailability(e.target);
+            }
+        });
+        document.addEventListener('click', (e) => {
+            console.log('click');
+            if (e.target.className.includes('HOUSES_')) {
+                this.updateAvailability(e.target);
+            }
+        });
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 this.initializeComponents();
@@ -87,7 +87,7 @@ class HouseVariationManager {
         tabHeads.forEach(head => {
             const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
 
-            // Собираем панели контента
+            // Собираем панели контента (сначала внутри root, иначе — последовательные siblings)
             let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
             if (!contents.length) {
                 let node = root.nextElementSibling;
@@ -125,6 +125,7 @@ class HouseVariationManager {
                         c.dataset.tab = gen;
                     }
                 } else if (l && !c) {
+                    // есть ссылка без контента (создаём namespace)
                     if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
                 } else if (c && !l) {
                     if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
@@ -135,137 +136,29 @@ class HouseVariationManager {
             contents.forEach(c => {
                 if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
             });
+            const linkMap = new Map();
+            links.forEach(l => {
+                if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
+            });
 
-            const splides = {};
-            const splideOptions = {
-                type: 'slide',
-                autoWidth: false,
-                gap: 20,
-                perMove: 1,
-                pagination: false,
-                arrows: false,
-                speed: 600,
-                easing: 'ease',
-                focus: 'start',
-                padding: { right: 15 },
-                breakpoints: { 992: { gap: 10, padding: { right: 10 }, drag: true } }
+            // Сохраняем конфигурацию для этого экземпляра табов
+            const tabInstanceId = `tabs-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            this.tabInstances[tabInstanceId] = {
+                head,
+                root,
+                contents,
+                links,
+                contentMap,
+                linkMap,
+                prevArrow,
+                nextArrow,
+                splides: {},
+                activeTab: head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab || links[0]?.dataset.tab
             };
 
-            function mountSplideFor(tabName) {
-                if (!tabName) return null;
-                if (splides[tabName]) return splides[tabName];
-
-                const content = contentMap.get(tabName);
-                if (!content) return null;
-
-                const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-                if (!el) return null;
-
-                // Если скрыт, временно отображаем
-                const computed = window.getComputedStyle(content);
-                const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-                const prev = {};
-                if (wasHidden) {
-                    prev.display = content.style.display;
-                    prev.visibility = content.style.visibility;
-                    prev.position = content.style.position;
-                    prev.left = content.style.left;
-
-                    content.style.display = 'block';
-                    content.style.visibility = 'hidden';
-                    content.style.position = 'absolute';
-                    content.style.left = '-9999px';
-                }
-
-                const instance = new Splide(el, splideOptions);
-                instance.mount();
-
-                if (wasHidden) {
-                    content.style.display = prev.display || '';
-                    content.style.visibility = prev.visibility || '';
-                    content.style.position = prev.position || '';
-                    content.style.left = prev.left || '';
-                }
-
-                splides[tabName] = instance;
-
-                // 🔹 стрелки
-                const updateArrows = () => {
-                    if (!prevArrow || !nextArrow) return;
-                    const slidesCount = el.querySelectorAll('.splide__slide').length;
-                    const perPage = instance.options?.perPage || 1;
-
-                    prevArrow.classList.toggle('is-disabled', instance.index === 0);
-                    nextArrow.classList.toggle('is-disabled', instance.index >= slidesCount - perPage);
-
-                    if (slidesCount <= perPage) {
-                        prevArrow.style.display = 'none';
-                        nextArrow.style.display = 'none';
-                    } else {
-                        prevArrow.style.display = '';
-                        nextArrow.style.display = '';
-                    }
-                };
-
-                instance.on('mounted', updateArrows);
-                instance.on('moved', updateArrows);
-                instance.on('resized', updateArrows);
-
-                setTimeout(() => {
-                    try { instance.refresh(); updateArrows(); } catch (e) { }
-                }, 50);
-
-                return instance;
-            }
-
-            let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
-                || links[0].dataset.tab;
-
-            contents.forEach(c => {
-                if (c.dataset.tab === activeTab) {
-                    c.classList.add('active');
-                    c.style.display = '';
-                    mountSplideFor(activeTab);
-                } else {
-                    c.classList.remove('active');
-                    c.style.display = 'none';
-                }
-            });
-
-            // Переключение табов
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const tabName = this.dataset.tab;
-                    if (!tabName || tabName === activeTab) return;
-
-                    links.forEach(l => l.classList.remove('active'));
-                    contents.forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
-
-                    this.classList.add('active');
-                    const newContent = contentMap.get(tabName);
-                    if (newContent) {
-                        newContent.classList.add('active');
-                        newContent.style.display = '';
-                        mountSplideFor(tabName);
-                    }
-
-                    activeTab = tabName;
-                });
-            });
-
-            // Стрелки управляют текущим слайдером
-            if (prevArrow) prevArrow.addEventListener('click', () => {
-                const instance = splides[activeTab];
-                if (instance && !prevArrow.classList.contains('is-disabled')) instance.go('<');
-            });
-            if (nextArrow) nextArrow.addEventListener('click', () => {
-                const instance = splides[activeTab];
-                if (instance && !nextArrow.classList.contains('is-disabled')) instance.go('>');
-            });
+            this.initTabInstance(this.tabInstances[tabInstanceId]);
         });
     }
-
 
     // Инициализация конкретного экземпляра табов
     // initTabInstance(instance) {
@@ -387,164 +280,37 @@ class HouseVariationManager {
     //     instance.mountSplideFor = mountSplideFor;
     // }
 
-    //     initTabInstance(instance) {
-    //     const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
-
-
-    //     const mountSplideFor = (tabName) => {
-    //         if (!tabName) return null;
-    //         if (splides[tabName]) return splides[tabName];
-
-    //         const content = contentMap.get(tabName);
-    //         if (!content) return null;
-
-    //         const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-    //         if (!el) return null;
-
-    //         const computed = window.getComputedStyle(content);
-    //         const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-    //         const prev = {};
-    //         if (wasHidden) {
-    //             prev.display = content.style.display;
-    //             prev.visibility = content.style.visibility;
-    //             prev.position = content.style.position;
-    //             prev.left = content.style.left;
-
-    //             content.style.display = 'block';
-    //             content.style.visibility = 'hidden';
-    //             content.style.position = 'absolute';
-    //             content.style.left = '-9999px';
-    //         }
-
-    //         const splideOptions = {
-    //             type: 'slide', 
-    //             autoWidth: false,
-
-    //             speed: 600,
-    //             easing: 'ease',
-    //             gap: 20,
-    //             perMove: 1,
-    //             pagination: false,
-    //             arrows: false,
-    //             focus: 'start',
-    //             padding: { right: 15 },
-    //             breakpoints: {
-    //                 992: {
-    //                     gap: 10,
-    //                     padding: { right: 10 },
-    //                     drag: true,
-
-    //                 },
-    //                 700: {
-    //                     gap: 10,
-    //                     padding: { right: 10 },
-    //                     drag: true,
-    //                     // autoWidth: true,
-
-    //                 }
-    //             }
-    //         };
-
-    //         const splideInstance = new Splide(el, splideOptions);
-    //         splideInstance.mount();
-
-    //         if (wasHidden) {
-    //             content.style.display = prev.display || '';
-    //             content.style.visibility = prev.visibility || '';
-    //             content.style.position = prev.position || '';
-    //             content.style.left = prev.left || '';
-    //         }
-
-    //         splides[tabName] = splideInstance;
-
-
-    //         function updateArrows() {
-    //             if (!prevArrow || !nextArrow) return;
-    //             prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
-    //             nextArrow.classList.toggle(
-    //                 'is-disabled',
-    //                 splideInstance.index >= splideInstance.length - splideInstance.options.perPage
-    //             );
-    //         }
-
-    //         splideInstance.on('mounted', updateArrows);
-    //         splideInstance.on('moved', updateArrows);
-    //         splideInstance.on('resized', updateArrows);
-
-    //         setTimeout(() => {
-    //             try {
-    //                 splideInstance.refresh();
-    //                 updateArrows();
-    //             } catch (e) { /* ignore */ }
-    //         }, 50);
-
-    //         return splideInstance;
-    //     };
-
-
-    //     contents.forEach(c => {
-    //         if (c.dataset.tab === activeTab) {
-    //             c.classList.add('active');
-    //             c.style.display = '';
-    //             mountSplideFor(activeTab);
-    //         } else {
-    //             c.classList.remove('active');
-    //             c.style.display = 'none';
-    //         }
-    //     });
-
-
-    //     links.forEach(link => {
-    //         link.addEventListener('click', function (e) {
-    //             e.preventDefault();
-    //             const tabName = this.dataset.tab;
-    //             if (!tabName || tabName === instance.activeTab) return;
-
-
-    //             links.forEach(l => l.classList.remove('active'));
-    //             contents.forEach(c => {
-    //                 c.classList.remove('active');
-    //                 c.style.display = 'none';
-    //             });
-
-
-    //             this.classList.add('active');
-    //             const newContent = contentMap.get(tabName);
-    //             if (newContent) {
-    //                 newContent.classList.add('active');
-    //                 newContent.style.display = '';
-    //                 mountSplideFor(tabName);
-    //             }
-
-    //             instance.activeTab = tabName;
-    //         });
-    //     });
-
-
-    //     if (prevArrow) {
-    //         prevArrow.addEventListener('click', () => {
-    //             const activeSplide = splides[instance.activeTab];
-    //             if (!activeSplide) return;
-    //             if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
-    //         });
-    //     }
-
-    //     if (nextArrow) {
-    //         nextArrow.addEventListener('click', () => {
-    //             const activeSplide = splides[instance.activeTab];
-    //             if (!activeSplide) return;
-    //             if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
-    //         });
-    //     }
-
-    //     instance.mountSplideFor = mountSplideFor;
-    // }
     initTabInstance(instance) {
         const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
+        // Обновляет состояние глобальных стрелок на основе активного splide
+        function refreshArrows() {
+            if (!prevArrow || !nextArrow) return;
+
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide) {
+                prevArrow.classList.add('is-disabled');
+                nextArrow.classList.add('is-disabled');
+                return;
+            }
+
+            // вычислим perPage безопасно (возможно опции изменяются адаптивно)
+            const perPage = (activeSplide.options && activeSplide.options.perPage) || 1;
+
+            prevArrow.classList.toggle('is-disabled', activeSplide.index === 0);
+            nextArrow.classList.toggle(
+                'is-disabled',
+                activeSplide.index >= activeSplide.length - perPage
+            );
+        }
+
         const mountSplideFor = (tabName) => {
             if (!tabName) return null;
-            if (splides[tabName]) return splides[tabName];
+            if (splides[tabName]) {
+                // если уже смонтирован — обновим стрелки для него
+                refreshArrows();
+                return splides[tabName];
+            }
 
             const content = contentMap.get(tabName);
             if (!content) return null;
@@ -567,9 +333,10 @@ class HouseVariationManager {
                 content.style.left = '-9999px';
             }
 
-            const splideInstance = new Splide(el, {
+            const splideOptions = {
                 type: 'slide',
                 autoWidth: false,
+                perPage: 3,
                 speed: 600,
                 easing: 'ease',
                 gap: 20,
@@ -579,10 +346,29 @@ class HouseVariationManager {
                 focus: 'start',
                 padding: { right: 15 },
                 breakpoints: {
-                    992: { gap: 10, padding: { right: 10 }, drag: true },
-                    700: { gap: 10, padding: { right: 10 }, drag: true }
+                    992: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true,
+                        perPage: 2,
+                    },
+                    700: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true,
+                        perPage: 1,
+                    }
                 }
-            }).mount();
+            };
+
+            const splideInstance = new Splide(el, splideOptions);
+
+            // Подвесим события, чтобы при перемещении/resize обновлять глобальные стрелки
+            splideInstance.on('mounted', refreshArrows);
+            splideInstance.on('moved', refreshArrows);
+            splideInstance.on('resized', refreshArrows);
+
+            splideInstance.mount();
 
             if (wasHidden) {
                 content.style.display = prev.display || '';
@@ -593,44 +379,18 @@ class HouseVariationManager {
 
             splides[tabName] = splideInstance;
 
-            const getSlidesCount = () => el.querySelectorAll('.splide__slide').length;
-            const getPerPage = () => (typeof splideInstance.options?.perPage === 'number' ? splideInstance.options.perPage : 1);
-
-            const updateArrows = () => {
-                if (!prevArrow || !nextArrow) return;
-
-                const slidesCount = getSlidesCount();
-                const perPage = getPerPage();
-
-                const isStart = splideInstance.index === 0;
-                const lastIndex = Math.max(0, slidesCount - perPage);
-                const isEnd = splideInstance.index >= lastIndex;
-
-                prevArrow.classList.toggle('is-disabled', isStart);
-                nextArrow.classList.toggle('is-disabled', isEnd);
-
-                if (slidesCount <= perPage) {
-                    prevArrow.style.display = 'none';
-                    nextArrow.style.display = 'none';
-                } else {
-                    prevArrow.style.display = '';
-                    nextArrow.style.display = '';
-                }
-            };
-
-            // события Splide
-            splideInstance.on('mounted', updateArrows);
-            splideInstance.on('moved', updateArrows);
-            splideInstance.on('resized', updateArrows);
-
+            // маленькая задержка — чтобы точно корректно обновить размеры и стрелки
             setTimeout(() => {
-                try { splideInstance.refresh(); updateArrows(); } catch (e) { }
+                try {
+                    splideInstance.refresh();
+                    refreshArrows();
+                } catch (e) { /* ignore */ }
             }, 50);
 
             return splideInstance;
         };
 
-        // Активный таб
+        // Инициализация видимости контентов и монтирование активного слайда
         contents.forEach(c => {
             if (c.dataset.tab === activeTab) {
                 c.classList.add('active');
@@ -642,7 +402,7 @@ class HouseVariationManager {
             }
         });
 
-        // Навигация по вкладкам
+        // обработка кликов по табам — логика табов не меняется, просто после монтирования обновляем стрелки
         links.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -650,7 +410,10 @@ class HouseVariationManager {
                 if (!tabName || tabName === instance.activeTab) return;
 
                 links.forEach(l => l.classList.remove('active'));
-                contents.forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
+                contents.forEach(c => {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                });
 
                 this.classList.add('active');
                 const newContent = contentMap.get(tabName);
@@ -661,33 +424,35 @@ class HouseVariationManager {
                 }
 
                 instance.activeTab = tabName;
+
+                // обязательно обновляем состояние стрелок для нового активного splide
+                refreshArrows();
             });
         });
 
-        // Стрелки
-        if (prevArrow) prevArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide || prevArrow.classList.contains('is-disabled')) return;
-            activeSplide.go('<');
-        });
-        if (nextArrow) nextArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide || nextArrow.classList.contains('is-disabled')) return;
-            activeSplide.go('>');
-        });
-
-        // Resize
-        if (!instance._resizeHandler) {
-            instance._resizeHandler = () => {
-                // безопасно пересоздаём Splide для активного таба при смене ширины
-                mountSplideFor(instance.activeTab);
-            };
-            window.addEventListener('resize', instance._resizeHandler);
+        // стрелки: перемещаются по активному splide (проверяем is-disabled аналогично второму примеру)
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => {
+                const activeSplide = splides[instance.activeTab];
+                if (!activeSplide) return;
+                if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+            });
         }
 
-        instance.mountSplideFor = mountSplideFor;
-    }
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => {
+                const activeSplide = splides[instance.activeTab];
+                if (!activeSplide) return;
+                if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+            });
+        }
 
+        // экспортируем утилиту, если нужна извне
+        instance.mountSplideFor = mountSplideFor;
+
+        // сразу обновим стрелки на случай, если активный splide уже смонтирован
+        refreshArrows();
+    }
 
 
 

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			)?.nextElementSibling?.textContent;
 
 			if (floorValue) {
-				viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[1]
+				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[1]
 					?.querySelector(".detail-product__mainscreen-config__item-prop")
 					.textContent = floorValue;
 			}
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			);
 			if (selectedOption) {
 				const strongText = selectedOption.querySelector("strong")?.textContent;
-				viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[2]
+				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[2]
 					?.querySelector(".detail-product__mainscreen-config__item-prop")
 					.textContent = strongText || selectedOption.textContent;
 			}

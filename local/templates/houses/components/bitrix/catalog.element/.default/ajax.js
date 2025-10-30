@@ -81,7 +81,7 @@ class HouseVariationManager {
     /*  FRONT START */
     // Инициализация табов и слайдеров галереи
     initTabsAndSliders() {
-        const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
+        const tabHeads = document.querySelectorAll('.detail-product__preview');
         if (!tabHeads.length) return;
 
         tabHeads.forEach(head => {

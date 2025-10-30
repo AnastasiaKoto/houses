@@ -191,17 +191,21 @@ class HouseVariationManager {
             }
 
             const splideOptions = {
-                type: 'loop',
-                autoWidth: true,
+                type: 'slide', 
+                autoWidth: false,
+                perPage: 3,
                 speed: 600,
                 easing: 'ease',
                 gap: 20,
                 perMove: 1,
                 pagination: false,
                 arrows: false,
+                focus: 'start',
+                padding: { right: 15 },
                 breakpoints: {
                     992: {
                         gap: 10,
+                        padding: { right: 10 },
                         drag: true
                     }
                 }

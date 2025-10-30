@@ -727,28 +727,43 @@ if ($haveOffers) {
 				</a>
 			</div>
 		</div>
+		<?
+		$imageTabs = [
+			'FACADE_IMAGES' => [
+				'number' => 1,
+				'name' => 'Фасады'
+			],
+			'INTERJER_IMAGES' => [
+				'number' => 2,
+				'name' => 'Интерьеры'
+			],
+			'CUT_IMAGES' => [
+				'number' => 3,
+				'name' => 'Планировки'
+			]
+		];
+
+		$foundActive = false;
+		?>
 		<div class="container">
 			<div class="detail-product__preview-tabs">
 				<div class="detail-product__preview-tabs__head">
 					<div class="detail-product__preview-tabs__links">
-						<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
-							<a href="javascript:void(0)" class="detail-product__preview-tabs__link active" data-type="house"
-								data-tab="1">
-								<?= $currentOffer['PROPERTIES']['FACADE_IMAGES']['NAME']; ?>
-							</a>
-						<? endif; ?>
-						<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
-							<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house"
-								data-tab="2">
-								<?= $currentOffer['PROPERTIES']['INTERJER_IMAGES']['NAME']; ?>
-							</a>
-						<? endif; ?>
-						<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
-							<a href="javascript:void(0)" class="detail-product__preview-tabs__link" data-type="house"
-								data-tab="3">
-								<?= $currentOffer['PROPERTIES']['CUT_IMAGES']['NAME']; ?>
-							</a>
-						<? endif; ?>
+						<? foreach ($imageTabs as $property => $config): ?>
+							<? if (!empty($currentOffer['PROPERTIES'][$property])): ?>
+								<?
+								$isHidden = empty($currentOffer['PROPERTIES'][$property]['VALUE']);
+								$isActive = !$isHidden && !$foundActive;
+								
+								if ($isActive) {
+									$foundActive = true;
+								}
+								?>
+								<a href="javascript:void(0)" class="detail-product__preview-tabs__link <?= $isActive ? 'active' : ''; ?> <?= $isHidden ? 'hidden' : ''; ?>" data-type="house" data-tab="<?= $config['number']; ?>">
+									<?= $currentOffer['PROPERTIES'][$property]['NAME']; ?>
+								</a>
+							<? endif; ?>
+						<? endforeach; ?>
 					</div>
 					<div class="detail-product__preview-arrows" data-move-target=".arrows-anchor" data-move-break="992">
 						<div class="slider-arrow detail-product__preview-arrow detail-product__preview-arrow__prev">
@@ -772,61 +787,41 @@ if ($haveOffers) {
 				</div>
 			</div>
 		</div>
-		<!--<div class="detail-product__preview-tabs__tabs">-->
-		<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES'])): ?>
-			<div class="detail-product__preview-tabs__content active"
-				data-property="<?= $currentOffer['PROPERTIES']['FACADE_IMAGES']['CODE']; ?>" data-type="house" data-tab="1">
-				<div class="splide detail-product__preview-tabs__slider">
-					<div class="splide__track">
-						<? if (!empty($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'])): ?>
+
+		<? 
+		$foundActive = false; 
+		?>
+
+		<? foreach ($imageTabs as $property => $config): ?>
+			<? if (!empty($currentOffer['PROPERTIES'][$property])): ?>
+				<?
+				$isHidden = empty($currentOffer['PROPERTIES'][$property]['VALUE']);
+				$isActive = !$isHidden && !$foundActive;
+				
+				if ($isActive) {
+					$foundActive = true;
+				}
+				?>
+				<div class="detail-product__preview-tabs__content <?= $isActive ? 'active' : ''; ?> <?= $isHidden ? 'hidden' : ''; ?>"
+					data-property="<?= $currentOffer['PROPERTIES'][$property]['CODE']; ?>" data-type="house" data-tab="<?= $config['number']; ?>">
+					<div class="splide detail-product__preview-tabs__slider">
+						<div class="splide__track">
+							
 							<ul class="splide__list">
-								<? foreach ($currentOffer['PROPERTIES']['FACADE_IMAGES']['VALUE'] as $img): ?>
-									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
-										<img src="<?= $img['PATH']; ?>" alt="img">
-									</a>
-								<? endforeach; ?>
+								<? if (!empty($currentOffer['PROPERTIES'][$property]['VALUE'])): ?>
+									<? foreach ($currentOffer['PROPERTIES'][$property]['VALUE'] as $img): ?>
+										<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
+											<img src="<?= $img['PATH']; ?>" alt="img">
+										</a>
+									<? endforeach; ?>
+								<? endif; ?>
 							</ul>
-						<? endif; ?>
+							
+						</div>
 					</div>
 				</div>
-			</div>
-		<? endif; ?>
-		<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES'])): ?>
-			<div class="detail-product__preview-tabs__content"
-				data-property="<?= $currentOffer['PROPERTIES']['INTERJER_IMAGES']['CODE']; ?>" data-type="house" data-tab="2">
-				<div class="splide detail-product__preview-tabs__slider">
-					<div class="splide__track">
-						<? if (!empty($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'])): ?>
-							<ul class="splide__list">
-								<? foreach ($currentOffer['PROPERTIES']['INTERJER_IMAGES']['VALUE'] as $img): ?>
-									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
-										<img src="<?= $img['PATH']; ?>" alt="img">
-									</a>
-								<? endforeach; ?>
-							</ul>
-						<? endif; ?>
-					</div>
-				</div>
-			</div>
-		<? endif; ?>
-		<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES'])): ?>
-			<div class="detail-product__preview-tabs__content"
-				data-property="<?= $currentOffer['PROPERTIES']['CUT_IMAGES']['CODE']; ?>" data-type="house" data-tab="3">
-				<div class="splide detail-product__preview-tabs__slider">
-					<div class="splide__track">
-						<? if (!empty($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'])): ?>
-							<ul class="splide__list">
-								<? foreach ($currentOffer['PROPERTIES']['CUT_IMAGES']['VALUE'] as $img): ?>
-									<a href="<?= $img['PATH']; ?>" data-fancybox class="splide__slide">
-										<img src="<?= $img['PATH']; ?>" alt="img">
-									</a>
-								<? endforeach; ?>
-							</ul>
-						<? endif; ?>
-					</div>
-				</div>
-			</div>
-		<? endif; ?>
+			<? endif; ?>
+		<? endforeach; ?>
 		<div class="container">
 			<div class="arrows-anchor"></div>
 			<div class="btn-anchor"></div>
@@ -854,149 +849,89 @@ if ($haveOffers) {
 					</div>
 				</a>
 			</div>
+			<?
+			$tabs = [
+				'FUNDAMENT_CONFIG' => [
+					'number' => 1,
+					'img_property' => 'FUNDAMENT_IMG'
+				],
+				'WALLS_CONFIG' => [
+					'number' => 2,
+					'img_property' => 'WALLS_IMG'
+				],
+				'ROOF_CONFIG' => [
+					'number' => 3,
+					'img_property' => 'ROOF_IMG'
+				],
+				'INSULATION_CONFIG' => [
+					'number' => 4,
+					'img_property' => 'INSULATION_IMG'
+				],
+				'OUTER_FINISH_CONFIG' => [
+					'number' => 5,
+					'img_property' => 'OUTER_FINISH_IMG'
+				],
+				'DOORS_CONFIG' => [
+					'number' => 6,
+					'img_property' => 'DOORS_IMG'
+				],
+				'OTHER_CONFIG' => [
+					'number' => 7,
+					'img_property' => 'OTHER_IMG'
+				]
+			];
+
+			$foundActive = false;
+			?>
 			<div class="equipment-tabs">
 				<div class="equipment-tabs__links">
-					<? if (!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link active" data-type="house" data-tab="1">
-							<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="2">
-							<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="3">
-							<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="4">
-							<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="5">
-							<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="6">
-							<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
-					<? if (!empty($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE'])): ?>
-						<a href="javascript:void(0)" class="equipment-tabs__link" data-type="house" data-tab="7">
-							<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['NAME']; ?>
-						</a>
-					<? endif; ?>
+					<? foreach ($tabs as $property => $config): ?>
+						<? if (!empty($currentOffer['PROPERTIES'][$property])): ?>
+							<?
+							$isHidden = empty($currentOffer['PROPERTIES'][$property]['VALUE']);
+							$isActive = !$isHidden && !$foundActive;
+							
+							if ($isActive) {
+								$foundActive = true;
+							}
+							?>
+							<a href="javascript:void(0)" class="equipment-tabs__link <?= $isActive ? 'active' : ''; ?> <?= $isHidden ? 'hidden' : ''; ?>" data-type="house" data-tab="<?= $config['number']; ?>">
+								<?= $currentOffer['PROPERTIES'][$property]['NAME']; ?>
+							</a>
+						<? endif; ?>
+					<? endforeach; ?>
 				</div>
-				<? if (!empty($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['CODE']; ?>" data-tab="1">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['FUNDAMENT_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['FUNDAMENT_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['FUNDAMENT_IMG']['VALUE']; ?>" alt="img">
+
+				<? 
+				$foundActive = false; 
+				?>
+				
+				<? foreach ($tabs as $property => $config): ?>
+					<? if (!empty($currentOffer['PROPERTIES'][$property])): ?>
+						<?
+						$isHidden = empty($currentOffer['PROPERTIES'][$property]['VALUE']);
+						$isActive = !$isHidden && !$foundActive;
+						
+						if ($isActive) {
+							$foundActive = true;
+						}
+						?>
+						<div class="equipment-tabs__content <?= $isActive ? 'active' : ''; ?>" data-type="house"
+							data-property="<?= $currentOffer['PROPERTIES'][$property]['CODE']; ?>" data-tab="<?= $config['number']; ?>">
+							<div class="equipment-tabs__content-inner">
+								<div class="equipment-tabs__content-acc">
+									<?= htmlspecialcharsBack($currentOffer['PROPERTIES'][$property]['VALUE']); ?>
 								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['WALLS_CONFIG']['CODE']; ?>" data-tab="2">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['WALLS_CONFIG']['VALUE']); ?>
+								<? if (!empty($currentOffer['PROPERTIES'][$config['img_property']]['VALUE'])): ?>
+									<div class="equipment-tabs__content-image">
+										<img src="<?= $currentOffer['PROPERTIES'][$config['img_property']]['VALUE']; ?>" alt="img">
+									</div>
+								<? endif; ?>
 							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['WALLS_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['WALLS_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
 						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['ROOF_CONFIG']['CODE']; ?>" data-tab="3">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['ROOF_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['ROOF_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['ROOF_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['INSULATION_CONFIG']['CODE']; ?>" data-tab="4">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['INSULATION_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['INSULATION_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['INSULATION_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['CODE']; ?>" data-tab="5">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['OUTER_FINISH_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['OUTER_FINISH_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['OUTER_FINISH_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['DOORS_CONFIG']['CODE']; ?>" data-tab="6">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['DOORS_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['DOORS_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['DOORS_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE'])): ?>
-					<div class="equipment-tabs__content active" data-type="house"
-						data-property="<?= $currentOffer['PROPERTIES']['OTHER_CONFIG']['CODE']; ?>" data-tab="7">
-						<div class="equipment-tabs__content-inner">
-							<div class="equipment-tabs__content-acc">
-								<?= htmlspecialcharsBack($currentOffer['PROPERTIES']['OTHER_CONFIG']['VALUE']); ?>
-							</div>
-							<? if (!empty($currentOffer['PROPERTIES']['OTHER_IMG']['VALUE'])): ?>
-								<div class="equipment-tabs__content-image">
-									<img src="<?= $currentOffer['PROPERTIES']['OTHER_IMG']['VALUE']; ?>" alt="img">
-								</div>
-							<? endif; ?>
-						</div>
-					</div>
-				<? endif; ?>
+					<? endif; ?>
+				<? endforeach; ?>
+				
 				<div class="eq-ancho-link"></div>
 			</div>
 		</div>

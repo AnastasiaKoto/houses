@@ -1,3 +1,75 @@
+/*class HouseVariationManager {
+	constructor(offersMap, buildingsMap = {}) {
+		this.offersMap = offersMap || {};
+		this.buildingsMap = buildingsMap || {};
+		this.currentCombinationKey = null;
+		this.selectedBuildings = new Set();
+	}
+
+	// Устанавливаем текущую комбинацию по ключу
+	setCurrentCombinationByKey(key) {
+		this.currentCombinationKey = key;
+	}
+
+	// Обновляем одно свойство в комбинации и пересчитываем ключ
+	updateCombination(propertyCode, value) {
+		if (!this.currentCombinationKey) return;
+
+		const parts = this.currentCombinationKey.split('|');
+		const newParts = parts.map(part => {
+			const [prop] = part.split(':');
+			return prop === propertyCode ? `${propertyCode}:${value}` : part;
+		});
+		this.currentCombinationKey = newParts.sort().join('|');
+	}
+
+	// Получаем текущий оффер по ключу
+	getCurrentOffer() {
+        console.log("Key: " + this.currentCombinationKey);
+        console.log(this.offersMap);
+		return this.currentCombinationKey ? this.offersMap[this.currentCombinationKey] : null;
+	}
+
+	// Переключение доп. постройки по UF_XML_ID
+	toggleBuilding(xmlId) {
+		if (this.selectedBuildings.has(xmlId)) {
+			this.selectedBuildings.delete(xmlId);
+		} else {
+			this.selectedBuildings.add(xmlId);
+		}
+	}
+
+	// Получение итогового состояния: оффер + итоговая цена/срок
+	getCurrentState() {
+		const offer = this.getCurrentOffer();
+		if (!offer) return null;
+
+		let totalPrice = Number(offer.PROPERTIES.FORMATTED_PRICE.VALUE) || 0;
+		let totalDeadline = Number(offer.PROPERTIES.DEADLINE.VALUE) || 0;
+
+		this.selectedBuildings.forEach(xmlId => {
+			const building = this.buildingsMap[xmlId];
+			if (building) {
+				totalPrice += Number(building.UF_PRICE) || 0;
+				totalDeadline += Number(building.UF_DEADLINE) || 0;
+			}
+		});
+
+		return {
+			offer,
+			totalPrice,
+			totalDeadline,
+			selectedBuildings: Array.from(this.selectedBuildings)
+		};
+	}
+
+    //проверяет все доступные комбинации с кликнутым id
+    getAvailableCombinationsContaining(elementId) {
+		return Object.keys(this.offersMap).filter(key => key.includes(elementId));
+	}
+}
+*/
+
 class HouseVariationManager {
     constructor() {
         this.offersMap = window.OFFERS_DATA || {};
@@ -81,7 +153,7 @@ class HouseVariationManager {
     /*  FRONT START */
     // Инициализация табов и слайдеров галереи
     initTabsAndSliders() {
-        const tabHeads = document.querySelectorAll('.detail-product__preview');
+        const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
         if (!tabHeads.length) return;
 
         tabHeads.forEach(head => {
@@ -158,6 +230,8 @@ class HouseVariationManager {
 
             this.initTabInstance(this.tabInstances[tabInstanceId]);
         });
+        Fancybox.bind("[data-fancybox]", {
+	    });
     }
 
     // Инициализация конкретного экземпляра табов
@@ -289,153 +363,152 @@ class HouseVariationManager {
 
         instance.mountSplideFor = mountSplideFor;
     }
-
-    /*
+/*
     initTabInstance(instance) {
-        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+    const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
 
-        const mountSplideFor = (tabName) => {
-            if (!tabName) return null;
-            if (splides[tabName]) return splides[tabName];
+    const mountSplideFor = (tabName) => {
+        if (!tabName) return null;
+        if (splides[tabName]) return splides[tabName];
 
-            const content = contentMap.get(tabName);
-            if (!content) return null;
+        const content = contentMap.get(tabName);
+        if (!content) return null;
 
-            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-            if (!el) return null;
+        const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+        if (!el) return null;
 
-            const computed = window.getComputedStyle(content);
-            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-            const prev = {};
-            if (wasHidden) {
-                prev.display = content.style.display;
-                prev.visibility = content.style.visibility;
-                prev.position = content.style.position;
-                prev.left = content.style.left;
+        const computed = window.getComputedStyle(content);
+        const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+        const prev = {};
+        if (wasHidden) {
+            prev.display = content.style.display;
+            prev.visibility = content.style.visibility;
+            prev.position = content.style.position;
+            prev.left = content.style.left;
 
-                content.style.display = 'block';
-                content.style.visibility = 'hidden';
-                content.style.position = 'absolute';
-                content.style.left = '-9999px';
-            }
+            content.style.display = 'block';
+            content.style.visibility = 'hidden';
+            content.style.position = 'absolute';
+            content.style.left = '-9999px';
+        }
 
-            const splideOptions = {
-                type: 'slide', 
-                autoWidth: false,
-                perPage: 3,
-                speed: 600,
-                easing: 'ease',
-                gap: 20,
-                perMove: 1,
-                pagination: false,
-                arrows: false,
-                focus: 'start',
-                padding: { right: 15 },
-                breakpoints: {
-                    992: {
-                        gap: 10,
-                        padding: { right: 10 },
-                        drag: true
-                    }
+        const splideOptions = {
+            type: 'slide', 
+            autoWidth: false,
+            perPage: 3,
+            speed: 600,
+            easing: 'ease',
+            gap: 20,
+            perMove: 1,
+            pagination: false,
+            arrows: false,
+            focus: 'start',
+            padding: { right: 15 },
+            breakpoints: {
+                992: {
+                    gap: 10,
+                    padding: { right: 10 },
+                    drag: true
                 }
-            };
-
-            const splideInstance = new Splide(el, splideOptions);
-            splideInstance.mount();
-
-            if (wasHidden) {
-                content.style.display = prev.display || '';
-                content.style.visibility = prev.visibility || '';
-                content.style.position = prev.position || '';
-                content.style.left = prev.left || '';
             }
+        };
 
-            splides[tabName] = splideInstance;
+        const splideInstance = new Splide(el, splideOptions);
+        splideInstance.mount();
 
-        
-            function updateArrows() {
-                if (!prevArrow || !nextArrow) return;
-                prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
-                nextArrow.classList.toggle(
-                    'is-disabled',
-                    splideInstance.index >= splideInstance.length - splideInstance.options.perPage
-                );
-            }
+        if (wasHidden) {
+            content.style.display = prev.display || '';
+            content.style.visibility = prev.visibility || '';
+            content.style.position = prev.position || '';
+            content.style.left = prev.left || '';
+        }
 
-            splideInstance.on('mounted', updateArrows);
-            splideInstance.on('moved', updateArrows);
-            splideInstance.on('resized', updateArrows);
+        splides[tabName] = splideInstance;
 
-            setTimeout(() => {
-                try {
-                    splideInstance.refresh();
-                    updateArrows();
-                } catch (e) { /* ignore *//*  }
-}, 50);
+    
+        function updateArrows() {
+            if (!prevArrow || !nextArrow) return;
+            prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+            nextArrow.classList.toggle(
+                'is-disabled',
+                splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+            );
+        }
 
-return splideInstance;
-};
+        splideInstance.on('mounted', updateArrows);
+        splideInstance.on('moved', updateArrows);
+        splideInstance.on('resized', updateArrows);
 
+        setTimeout(() => {
+            try {
+                splideInstance.refresh();
+                updateArrows();
+            } catch (e) { /* ignore */ /* }
+        }, 50);
 
-contents.forEach(c => {
-if (c.dataset.tab === activeTab) {
-    c.classList.add('active');
-    c.style.display = '';
-    mountSplideFor(activeTab);
-} else {
-    c.classList.remove('active');
-    c.style.display = 'none';
-}
-});
+        return splideInstance;
+    };
 
 
-links.forEach(link => {
-link.addEventListener('click', function (e) {
-    e.preventDefault();
-    const tabName = this.dataset.tab;
-    if (!tabName || tabName === instance.activeTab) return;
-
- 
-    links.forEach(l => l.classList.remove('active'));
     contents.forEach(c => {
-        c.classList.remove('active');
-        c.style.display = 'none';
+        if (c.dataset.tab === activeTab) {
+            c.classList.add('active');
+            c.style.display = '';
+            mountSplideFor(activeTab);
+        } else {
+            c.classList.remove('active');
+            c.style.display = 'none';
+        }
     });
 
- 
-    this.classList.add('active');
-    const newContent = contentMap.get(tabName);
-    if (newContent) {
-        newContent.classList.add('active');
-        newContent.style.display = '';
-        mountSplideFor(tabName);
+
+    links.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const tabName = this.dataset.tab;
+            if (!tabName || tabName === instance.activeTab) return;
+
+        
+            links.forEach(l => l.classList.remove('active'));
+            contents.forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
+
+        
+            this.classList.add('active');
+            const newContent = contentMap.get(tabName);
+            if (newContent) {
+                newContent.classList.add('active');
+                newContent.style.display = '';
+                mountSplideFor(tabName);
+            }
+
+            instance.activeTab = tabName;
+        });
+    });
+
+
+    if (prevArrow) {
+        prevArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide) return;
+            if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+        });
     }
 
-    instance.activeTab = tabName;
-});
-});
+    if (nextArrow) {
+        nextArrow.addEventListener('click', () => {
+            const activeSplide = splides[instance.activeTab];
+            if (!activeSplide) return;
+            if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+        });
+    }
 
+    instance.mountSplideFor = mountSplideFor;
+} */
 
-if (prevArrow) {
-prevArrow.addEventListener('click', () => {
-    const activeSplide = splides[instance.activeTab];
-    if (!activeSplide) return;
-    if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
-});
-}
-
-if (nextArrow) {
-nextArrow.addEventListener('click', () => {
-    const activeSplide = splides[instance.activeTab];
-    if (!activeSplide) return;
-    if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
-});
-}
-
-instance.mountSplideFor = mountSplideFor;
-}
-*/
 
 
 
@@ -523,7 +596,7 @@ instance.mountSplideFor = mountSplideFor;
             drag: false,
             breakpoints: {
                 992: {
-                    drag: true,
+                    drag: true, 
                 }
             }
         }).mount();
@@ -1393,6 +1466,7 @@ instance.mountSplideFor = mountSplideFor;
         this.updateActiveTab(allTabLinks, allTabContents);
 
         this.reinitTabsAndSliders();
+        this.accInit();
     }
 
     // обертка для табов с галереей
@@ -1444,7 +1518,7 @@ instance.mountSplideFor = mountSplideFor;
                         tabWrapper.querySelector('.equipment-tabs__content-image img').src = contentData.imageProperty.VALUE;
                     }
                 }
-                this.accInit();
+                
             }
         });
         this.initEquipmentTabs();
@@ -1472,7 +1546,7 @@ instance.mountSplideFor = mountSplideFor;
                 image_path = image;
             }
             const slide = document.createElement('a');
-            slide.dataset.fancybox;
+            slide.setAttribute('data-fancybox', '');
             slide.setAttribute('href', image_path);
             slide.className = 'splide__slide';
 

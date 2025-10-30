@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			const areaItem = viewBlock.querySelector('[data-prop="area"] .detail-product__mainscreen-config__item-prop');
 			if (areaValue && areaItem) areaItem.textContent = areaValue;
 		};
-		
 
 		toggleBtn.addEventListener("click", () => {
 			const isEditing = editBlock.classList.contains("open");
@@ -49,18 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	}
-<<<<<<< HEAD
-	Fancybox.bind("[data-fancybox]", {
-	});
-	showMore();
-	showVideo();
-=======
 
 	showMore();
 	showVideo();
 	Fancybox.bind("[data-fancybox]", {});
 
->>>>>>> eea238b (fixes thu19)
+
 });
 const showMore = () => {
 	const desc = document.querySelector(".detail-product__layout-description");

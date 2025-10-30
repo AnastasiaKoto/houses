@@ -42,18 +42,18 @@ class HouseVariationManager {
 
     //вешает обработчики
     bindEvents() {
-        document.addEventListener('change', (e) => {
-            console.log('change');
-            if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
-                this.updateAvailability(e.target);
-            }
-        });
-        document.addEventListener('click', (e) => {
-            console.log('click');
-            if (e.target.className.includes('HOUSES_')) {
-                this.updateAvailability(e.target);
-            }
-        });
+        // document.addEventListener('change', (e) => {
+        //     console.log('change');
+        //     if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
+        //         this.updateAvailability(e.target);
+        //     }
+        // });
+        // document.addEventListener('click', (e) => {
+        //     console.log('click');
+        //     if (e.target.className.includes('HOUSES_')) {
+        //         this.updateAvailability(e.target);
+        //     }
+        // });
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 this.initializeComponents();

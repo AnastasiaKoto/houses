@@ -1246,7 +1246,7 @@
     margin-bottom: 20px;
   }
 
-  & .arrow-btn__light.moved {
+  & .arrow-btn__dark.moved {
     margin-top: 30px;
     max-width: 100%;
     justify-content: space-between;

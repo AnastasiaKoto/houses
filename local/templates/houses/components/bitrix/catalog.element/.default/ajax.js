@@ -272,7 +272,9 @@ class HouseVariationManager {
             });
         }
         if (nextArrow) {
+            console.log('next');
             nextArrow.addEventListener('click', () => {
+                console.log('next go');
                 splides[instance.activeTab]?.go('>');
             });
         }

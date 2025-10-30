@@ -297,7 +297,7 @@ if(!empty($arResult['PROPS']) && !empty($arResult['VARIATIONS'])) {
                 }
             }
             $offer['PROPERTIES'][$key] = $value;
-            if(strpos($key, 'HOUSES_') !== false) {
+            if(strpos($key, 'HOUSES_') !== false && !empty($value['VALUE'])) {
                 $value_id = $value['VALUE_ENUM_ID'] ? $value['VALUE_ENUM_ID'] : $value['VALUE'];
                 $offer['COMBINATION'][] = $key . ':' . $value_id; 
             }

@@ -312,7 +312,7 @@ class HouseVariationManager {
         const splideOptions = {
             type: 'slide', 
             autoWidth: false,
-            perPage: 3,
+ 
             speed: 600,
             easing: 'ease',
             gap: 20,
@@ -326,14 +326,14 @@ class HouseVariationManager {
                     gap: 10,
                     padding: { right: 10 },
                     drag: true,
-                    perPage: 2,
+              
                 },
                 700: {
                     gap: 10,
                     padding: { right: 10 },
                     drag: true,
-                    autoWidth: true,
-                    perPage: 1,
+                    // autoWidth: true,
+               
                 }
             }
         };

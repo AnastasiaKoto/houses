@@ -786,6 +786,7 @@ class HouseVariationManager {
                 const availableCombinations = Object.keys(this.offersMap).filter(comb =>
                     comb.includes(clickedId)
                 );
+                this.resetOtherSelections(clickedId);
                 const available = false;
                 this.blockAnavaibleBubles(available);
                 this.disableUnavailableElements(availableCombinations);
@@ -825,6 +826,32 @@ class HouseVariationManager {
 
         return matchingOffer;
     }
+
+    //сбрасывает выбор, если в комбинациях есть характеристики, но выбранной комбинации не найдено
+    resetOtherSelections(keepElementId) {
+		// Сброс радио-кнопок (кроме текущей)
+		document.querySelectorAll('input[type="radio"][name^="HOUSES_"]:checked').forEach(radio => {
+			if (radio.id !== keepElementId) {
+				radio.checked = false;
+			}
+		});
+
+		// Сброс активных площадей (кроме текущей)
+		document.querySelectorAll('li.HOUSES_OPTION.active').forEach(li => {
+			if (li.id !== keepElementId) {
+				li.classList.remove('active');
+				const select = li.closest('.custom-select-js');
+				if (select) {
+					const selectedEl = select.querySelector('.selected');
+					if (selectedEl && !select.querySelector('li.active')) {
+						selectedEl.textContent = 'Выберите площадь';
+					}
+					const input = select.querySelector('input[name="HOUSES_SQUARES"]');
+					if (input) input.value = '';
+				}
+			}
+		});
+	}
 
     //блокирует характеристики, недоступные в найденных комбинациях
     disableUnavailableElements(availableCombinations) {

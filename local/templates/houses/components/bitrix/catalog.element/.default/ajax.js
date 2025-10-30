@@ -161,125 +161,126 @@ class HouseVariationManager {
     }
 
     // Инициализация конкретного экземпляра табов
-    // initTabInstance(instance) {
-    //     const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
+    initTabInstance(instance) {
+        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
-    //     // Функция для инициализации Splide
-    //     const mountSplideFor = (tabName) => {
-    //         if (!tabName) return null;
-    //         if (splides[tabName]) return splides[tabName];
+        // Функция для инициализации Splide
+        const mountSplideFor = (tabName) => {
+            if (!tabName) return null;
+            if (splides[tabName]) return splides[tabName];
 
-    //         const content = contentMap.get(tabName);
-    //         if (!content) return null;
+            const content = contentMap.get(tabName);
+            if (!content) return null;
 
-    //         const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-    //         if (!el) return null;
+            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+            if (!el) return null;
 
-    //         const computed = window.getComputedStyle(content);
-    //         const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-    //         const prev = {};
-    //         if (wasHidden) {
-    //             prev.display = content.style.display;
-    //             prev.visibility = content.style.visibility;
-    //             prev.position = content.style.position;
-    //             prev.left = content.style.left;
+            const computed = window.getComputedStyle(content);
+            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+            const prev = {};
+            if (wasHidden) {
+                prev.display = content.style.display;
+                prev.visibility = content.style.visibility;
+                prev.position = content.style.position;
+                prev.left = content.style.left;
 
-    //             content.style.display = 'block';
-    //             content.style.visibility = 'hidden';
-    //             content.style.position = 'absolute';
-    //             content.style.left = '-9999px';
-    //         }
+                content.style.display = 'block';
+                content.style.visibility = 'hidden';
+                content.style.position = 'absolute';
+                content.style.left = '-9999px';
+            }
 
-    //         const splideOptions = {
-    //             type: 'loop',
-    //             autoWidth: true,
-    //             speed: 600,
-    //             easing: 'ease',
-    //             gap: 20,
-    //             perMove: 1,
-    //             pagination: false,
-    //             arrows: false,
-    //             breakpoints: {
-    //                 992: {
-    //                     gap: 10,
-    //                     drag: true
-    //                 }
-    //             }
-    //         };
+            const splideOptions = {
+                type: 'loop',
+                autoWidth: true,
+                speed: 600,
+                easing: 'ease',
+                gap: 20,
+                perMove: 1,
+                pagination: false,
+                arrows: false,
+                breakpoints: {
+                    992: {
+                        gap: 10,
+                        drag: true
+                    }
+                }
+            };
 
-    //         const splideInstance = new Splide(el, splideOptions);
-    //         splideInstance.mount();
+            const splideInstance = new Splide(el, splideOptions);
+            splideInstance.mount();
 
-    //         if (wasHidden) {
-    //             content.style.display = prev.display || '';
-    //             content.style.visibility = prev.visibility || '';
-    //             content.style.position = prev.position || '';
-    //             content.style.left = prev.left || '';
-    //         }
+            if (wasHidden) {
+                content.style.display = prev.display || '';
+                content.style.visibility = prev.visibility || '';
+                content.style.position = prev.position || '';
+                content.style.left = prev.left || '';
+            }
 
-    //         splides[tabName] = splideInstance;
-    //         setTimeout(() => {
-    //             try { splideInstance.refresh(); } catch (e) { /* ignore *//* }
-    //         }, 50);
+            splides[tabName] = splideInstance;
+            setTimeout(() => {
+                try { splideInstance.refresh(); } catch (e) { /* ignore */ }
+            }, 50);
 
-    //         return splideInstance;
-    //     };
+            return splideInstance;
+        };
 
-    //     // Инициализация активного таба
-    //     contents.forEach(c => {
-    //         if (c.dataset.tab === activeTab) {
-    //             c.classList.add('active');
-    //             c.style.display = '';
-    //             mountSplideFor(activeTab);
-    //         } else {
-    //             c.classList.remove('active');
-    //             c.style.display = 'none';
-    //         }
-    //     });
+        // Инициализация активного таба
+        contents.forEach(c => {
+            if (c.dataset.tab === activeTab) {
+                c.classList.add('active');
+                c.style.display = '';
+                mountSplideFor(activeTab);
+            } else {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            }
+        });
 
-    //     // Навешиваем обработчики на ссылки
-    //     links.forEach(link => {
-    //         link.addEventListener('click', function (e) {
-    //             e.preventDefault();
-    //             const tabName = this.dataset.tab;
-    //             if (!tabName || tabName === instance.activeTab) return;
+        // Навешиваем обработчики на ссылки
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const tabName = this.dataset.tab;
+                if (!tabName || tabName === instance.activeTab) return;
 
-    //             // Снимаем active у ссылок и контентов
-    //             links.forEach(l => l.classList.remove('active'));
-    //             contents.forEach(c => {
-    //                 c.classList.remove('active');
-    //                 c.style.display = 'none';
-    //             });
+                // Снимаем active у ссылок и контентов
+                links.forEach(l => l.classList.remove('active'));
+                contents.forEach(c => {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                });
 
-    //             // Активируем выбранные
-    //             this.classList.add('active');
-    //             const newContent = contentMap.get(tabName);
-    //             if (newContent) {
-    //                 newContent.classList.add('active');
-    //                 newContent.style.display = '';
-    //                 // Инициализируем / обновляем слайдер для этого таба
-    //                 mountSplideFor(tabName);
-    //             }
+                // Активируем выбранные
+                this.classList.add('active');
+                const newContent = contentMap.get(tabName);
+                if (newContent) {
+                    newContent.classList.add('active');
+                    newContent.style.display = '';
+                    // Инициализируем / обновляем слайдер для этого таба
+                    mountSplideFor(tabName);
+                }
 
-    //             instance.activeTab = tabName;
-    //         });
-    //     });
+                instance.activeTab = tabName;
+            });
+        });
 
-    //     // Стрелки управляют текущим активным слайдером
-    //     if (prevArrow) {
-    //         prevArrow.addEventListener('click', () => {
-    //             splides[instance.activeTab]?.go('<');
-    //         });
-    //     }
-    //     if (nextArrow) {
-    //         nextArrow.addEventListener('click', () => {
-    //             splides[instance.activeTab]?.go('>');
-    //         });
-    //     }
+        // Стрелки управляют текущим активным слайдером
+        if (prevArrow) {
+            prevArrow.addEventListener('click', () => {
+                splides[instance.activeTab]?.go('<');
+            });
+        }
+        if (nextArrow) {
+            nextArrow.addEventListener('click', () => {
+                splides[instance.activeTab]?.go('>');
+            });
+        }
 
-    //     instance.mountSplideFor = mountSplideFor;
-    // } test
+        instance.mountSplideFor = mountSplideFor;
+    }
 
+    /*
     initTabInstance(instance) {
         const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
@@ -360,71 +361,71 @@ class HouseVariationManager {
                 try {
                     splideInstance.refresh();
                     updateArrows();
-                } catch (e) { /* ignore */  }
-            }, 50);
+                } catch (e) { /* ignore *//*  }
+}, 50);
 
-            return splideInstance;
-        };
-
-
-        contents.forEach(c => {
-            if (c.dataset.tab === activeTab) {
-                c.classList.add('active');
-                c.style.display = '';
-                mountSplideFor(activeTab);
-            } else {
-                c.classList.remove('active');
-                c.style.display = 'none';
-            }
-        });
+return splideInstance;
+};
 
 
-        links.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const tabName = this.dataset.tab;
-                if (!tabName || tabName === instance.activeTab) return;
-
-            
-                links.forEach(l => l.classList.remove('active'));
-                contents.forEach(c => {
-                    c.classList.remove('active');
-                    c.style.display = 'none';
-                });
-
-            
-                this.classList.add('active');
-                const newContent = contentMap.get(tabName);
-                if (newContent) {
-                    newContent.classList.add('active');
-                    newContent.style.display = '';
-                    mountSplideFor(tabName);
-                }
-
-                instance.activeTab = tabName;
-            });
-        });
+contents.forEach(c => {
+if (c.dataset.tab === activeTab) {
+    c.classList.add('active');
+    c.style.display = '';
+    mountSplideFor(activeTab);
+} else {
+    c.classList.remove('active');
+    c.style.display = 'none';
+}
+});
 
 
-        if (prevArrow) {
-            prevArrow.addEventListener('click', () => {
-                const activeSplide = splides[instance.activeTab];
-                if (!activeSplide) return;
-                if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
-            });
-        }
+links.forEach(link => {
+link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const tabName = this.dataset.tab;
+    if (!tabName || tabName === instance.activeTab) return;
 
-        if (nextArrow) {
-            nextArrow.addEventListener('click', () => {
-                const activeSplide = splides[instance.activeTab];
-                if (!activeSplide) return;
-                if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
-            });
-        }
+ 
+    links.forEach(l => l.classList.remove('active'));
+    contents.forEach(c => {
+        c.classList.remove('active');
+        c.style.display = 'none';
+    });
 
-        instance.mountSplideFor = mountSplideFor;
+ 
+    this.classList.add('active');
+    const newContent = contentMap.get(tabName);
+    if (newContent) {
+        newContent.classList.add('active');
+        newContent.style.display = '';
+        mountSplideFor(tabName);
     }
 
+    instance.activeTab = tabName;
+});
+});
+
+
+if (prevArrow) {
+prevArrow.addEventListener('click', () => {
+    const activeSplide = splides[instance.activeTab];
+    if (!activeSplide) return;
+    if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+});
+}
+
+if (nextArrow) {
+nextArrow.addEventListener('click', () => {
+    const activeSplide = splides[instance.activeTab];
+    if (!activeSplide) return;
+    if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+});
+}
+
+instance.mountSplideFor = mountSplideFor;
+}
+*/
 
 
 
@@ -512,7 +513,7 @@ class HouseVariationManager {
             drag: false,
             breakpoints: {
                 992: {
-                    drag: true, 
+                    drag: true,
                 }
             }
         }).mount();

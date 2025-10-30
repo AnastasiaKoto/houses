@@ -9,18 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
 		".detail-product__mainscreen-config__items.edit"
 	);
 
-	if(editBlock && viewBlock && toggleBtn) {
+	if (editBlock && viewBlock && toggleBtn) {
 		const updateViewData = () => {
 			// === 1. Стиль постройки ===
 			const styleValue = editBlock.querySelector(
 				'input[name="HOUSES_STYLE"]:checked'
 			)?.nextElementSibling?.textContent;
 
+			// if (styleValue) {
+			// 	viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[0]
+			// 		.querySelector(".detail-product__mainscreen-config__item-prop")
+			// 		.textContent = styleValue;
+			// }
 			if (styleValue) {
-				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[0]
-					.querySelector(".detail-product__mainscreen-config__item-prop")
-					.textContent = styleValue;
+				const item = viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[0];
+
+				if (item) {
+					const prop = item.querySelector(".detail-product__mainscreen-config__item-prop");
+					if (prop) {
+						prop.textContent = styleValue;
+					}
+				}
 			}
+
 
 			// === 2. Этажность ===
 			const floorValue = editBlock.querySelector(
@@ -28,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			)?.nextElementSibling?.textContent;
 
 			if (floorValue) {
-				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[1]
-					.querySelector(".detail-product__mainscreen-config__item-prop")
+				viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[1]
+					?.querySelector(".detail-product__mainscreen-config__item-prop")
 					.textContent = floorValue;
 			}
 
@@ -39,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			);
 			if (selectedOption) {
 				const strongText = selectedOption.querySelector("strong")?.textContent;
-				viewBlock.querySelectorAll(".detail-product__mainscreen-config__item")[2]
-					.querySelector(".detail-product__mainscreen-config__item-prop")
+				viewBlock?.querySelectorAll(".detail-product__mainscreen-config__item")[2]
+					?.querySelector(".detail-product__mainscreen-config__item-prop")
 					.textContent = strongText || selectedOption.textContent;
 			}
 		};
@@ -290,59 +301,59 @@ document.addEventListener('DOMContentLoaded', function () {
 			splides[tabName] = instance;
 			setTimeout(() => {
 				try { instance.refresh(); } catch (e) { /* ignore *//* }
-			}, 50);
+}, 50);
 
-			return instance;
-		}
-
-
-		let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
-			|| links[0].dataset.tab;
+return instance;
+}
 
 
-		contents.forEach(c => {
-			if (c.dataset.tab === activeTab) {
-				c.classList.add('active');
-				c.style.display = '';
-				mountSplideFor(activeTab);
-			} else {
-				c.classList.remove('active');
-				c.style.display = 'none';
-			}
-		});
+let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
+|| links[0].dataset.tab;
 
-		// Навешиваем обработчики на ссылки
-		links.forEach(link => {
-			link.addEventListener('click', function (e) {
-				e.preventDefault();
-				const tabName = this.dataset.tab;
-				if (!tabName || tabName === activeTab) return;
 
-				// Снимаем active у ссылок и контентов
-				links.forEach(l => l.classList.remove('active'));
-				contents.forEach(c => {
-					c.classList.remove('active');
-					c.style.display = 'none';
-				});
+contents.forEach(c => {
+if (c.dataset.tab === activeTab) {
+c.classList.add('active');
+c.style.display = '';
+mountSplideFor(activeTab);
+} else {
+c.classList.remove('active');
+c.style.display = 'none';
+}
+});
 
-				// Активируем выбранные
-				this.classList.add('active');
-				const newContent = contentMap.get(tabName);
-				if (newContent) {
-					newContent.classList.add('active');
-					newContent.style.display = '';
-					// Инициализируем / обновляем слайдер для этого таба
-					mountSplideFor(tabName);
-				}
+// Навешиваем обработчики на ссылки
+links.forEach(link => {
+link.addEventListener('click', function (e) {
+e.preventDefault();
+const tabName = this.dataset.tab;
+if (!tabName || tabName === activeTab) return;
 
-				activeTab = tabName;
-			});
-		});
+// Снимаем active у ссылок и контентов
+links.forEach(l => l.classList.remove('active'));
+contents.forEach(c => {
+	c.classList.remove('active');
+	c.style.display = 'none';
+});
 
-		// Стрелки управляют текущим активным слайдером
-		if (prevArrow) prevArrow.addEventListener('click', () => { splides[activeTab]?.go('<'); });
-		if (nextArrow) nextArrow.addEventListener('click', () => { splides[activeTab]?.go('>'); });
-	});
+// Активируем выбранные
+this.classList.add('active');
+const newContent = contentMap.get(tabName);
+if (newContent) {
+	newContent.classList.add('active');
+	newContent.style.display = '';
+	// Инициализируем / обновляем слайдер для этого таба
+	mountSplideFor(tabName);
+}
+
+activeTab = tabName;
+});
+});
+
+// Стрелки управляют текущим активным слайдером
+if (prevArrow) prevArrow.addEventListener('click', () => { splides[activeTab]?.go('<'); });
+if (nextArrow) nextArrow.addEventListener('click', () => { splides[activeTab]?.go('>'); });
+});
 });
 */
 

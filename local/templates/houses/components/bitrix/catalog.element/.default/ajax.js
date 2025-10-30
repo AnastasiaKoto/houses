@@ -219,7 +219,7 @@ class HouseVariationManager {
 
     //         splides[tabName] = splideInstance;
     //         setTimeout(() => {
-    //             try { splideInstance.refresh(); } catch (e) { /* ignore */ }
+    //             try { splideInstance.refresh(); } catch (e) { /* ignore *//* }
     //         }, 50);
 
     //         return splideInstance;
@@ -278,39 +278,15 @@ class HouseVariationManager {
     //     }
 
     //     instance.mountSplideFor = mountSplideFor;
-    // }
+    // } test
 
     initTabInstance(instance) {
         const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
-        // Обновляет состояние глобальных стрелок на основе активного splide
-        function refreshArrows() {
-            if (!prevArrow || !nextArrow) return;
-
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide) {
-                prevArrow.classList.add('is-disabled');
-                nextArrow.classList.add('is-disabled');
-                return;
-            }
-
-            // вычислим perPage безопасно (возможно опции изменяются адаптивно)
-            const perPage = (activeSplide.options && activeSplide.options.perPage) || 1;
-
-            prevArrow.classList.toggle('is-disabled', activeSplide.index === 0);
-            nextArrow.classList.toggle(
-                'is-disabled',
-                activeSplide.index >= activeSplide.length - perPage
-            );
-        }
 
         const mountSplideFor = (tabName) => {
             if (!tabName) return null;
-            if (splides[tabName]) {
-                // если уже смонтирован — обновим стрелки для него
-                refreshArrows();
-                return splides[tabName];
-            }
+            if (splides[tabName]) return splides[tabName];
 
             const content = contentMap.get(tabName);
             if (!content) return null;
@@ -334,7 +310,7 @@ class HouseVariationManager {
             }
 
             const splideOptions = {
-                type: 'slide',
+                type: 'slide', 
                 autoWidth: false,
                 perPage: 3,
                 speed: 600,
@@ -349,25 +325,12 @@ class HouseVariationManager {
                     992: {
                         gap: 10,
                         padding: { right: 10 },
-                        drag: true,
-                        perPage: 2,
-                    },
-                    700: {
-                        gap: 10,
-                        padding: { right: 10 },
-                        drag: true,
-                        perPage: 1,
+                        drag: true
                     }
                 }
             };
 
             const splideInstance = new Splide(el, splideOptions);
-
-            // Подвесим события, чтобы при перемещении/resize обновлять глобальные стрелки
-            splideInstance.on('mounted', refreshArrows);
-            splideInstance.on('moved', refreshArrows);
-            splideInstance.on('resized', refreshArrows);
-
             splideInstance.mount();
 
             if (wasHidden) {
@@ -379,18 +342,31 @@ class HouseVariationManager {
 
             splides[tabName] = splideInstance;
 
-            // маленькая задержка — чтобы точно корректно обновить размеры и стрелки
+        
+            function updateArrows() {
+                if (!prevArrow || !nextArrow) return;
+                prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+                nextArrow.classList.toggle(
+                    'is-disabled',
+                    splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+                );
+            }
+
+            splideInstance.on('mounted', updateArrows);
+            splideInstance.on('moved', updateArrows);
+            splideInstance.on('resized', updateArrows);
+
             setTimeout(() => {
                 try {
                     splideInstance.refresh();
-                    refreshArrows();
-                } catch (e) { /* ignore */ }
+                    updateArrows();
+                } catch (e) { /* ignore */  }
             }, 50);
 
             return splideInstance;
         };
 
-        // Инициализация видимости контентов и монтирование активного слайда
+
         contents.forEach(c => {
             if (c.dataset.tab === activeTab) {
                 c.classList.add('active');
@@ -402,19 +378,21 @@ class HouseVariationManager {
             }
         });
 
-        // обработка кликов по табам — логика табов не меняется, просто после монтирования обновляем стрелки
+
         links.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const tabName = this.dataset.tab;
                 if (!tabName || tabName === instance.activeTab) return;
 
+            
                 links.forEach(l => l.classList.remove('active'));
                 contents.forEach(c => {
                     c.classList.remove('active');
                     c.style.display = 'none';
                 });
 
+            
                 this.classList.add('active');
                 const newContent = contentMap.get(tabName);
                 if (newContent) {
@@ -424,13 +402,10 @@ class HouseVariationManager {
                 }
 
                 instance.activeTab = tabName;
-
-                // обязательно обновляем состояние стрелок для нового активного splide
-                refreshArrows();
             });
         });
 
-        // стрелки: перемещаются по активному splide (проверяем is-disabled аналогично второму примеру)
+
         if (prevArrow) {
             prevArrow.addEventListener('click', () => {
                 const activeSplide = splides[instance.activeTab];
@@ -447,11 +422,7 @@ class HouseVariationManager {
             });
         }
 
-        // экспортируем утилиту, если нужна извне
         instance.mountSplideFor = mountSplideFor;
-
-        // сразу обновим стрелки на случай, если активный splide уже смонтирован
-        refreshArrows();
     }
 
 
@@ -541,7 +512,7 @@ class HouseVariationManager {
             drag: false,
             breakpoints: {
                 992: {
-                    drag: true,
+                    drag: true, 
                 }
             }
         }).mount();
@@ -809,13 +780,11 @@ class HouseVariationManager {
     updateAvailability(clickedElement) {
         const clickedId = clickedElement.id;
         const combination = this.findMatchingOffer();
-        console.log(combination);
         if (clickedId) {
             if (!combination) {
                 const availableCombinations = Object.keys(this.offersMap).filter(comb =>
                     comb.includes(clickedId)
                 );
-                this.resetOtherSelections(clickedId);
                 const available = false;
                 this.blockAnavaibleBubles(available);
                 this.disableUnavailableElements(availableCombinations);
@@ -854,32 +823,6 @@ class HouseVariationManager {
         const matchingOffer = this.offersMap[combinationKey];
 
         return matchingOffer;
-    }
-
-    //сбрасывает выбор, если в комбинациях есть характеристики, но выбранной комбинации не найдено
-    resetOtherSelections(keepElementId) {
-        // Сброс радио-кнопок (кроме текущей)
-        document.querySelectorAll('input[type="radio"][name^="HOUSES_"]:checked').forEach(radio => {
-            if (radio.id !== keepElementId) {
-                radio.checked = false;
-            }
-        });
-
-        // Сброс активных площадей (кроме текущей)
-        document.querySelectorAll('li.HOUSES_OPTION.active').forEach(li => {
-            if (li.id !== keepElementId) {
-                li.classList.remove('active');
-                const select = li.closest('.custom-select-js');
-                if (select) {
-                    const selectedEl = select.querySelector('.selected');
-                    if (selectedEl && !select.querySelector('li.active')) {
-                        selectedEl.textContent = 'Выберите площадь';
-                    }
-                    const input = select.querySelector('input[name="HOUSES_SQUARES"]');
-                    if (input) input.value = '';
-                }
-            }
-        });
     }
 
     //блокирует характеристики, недоступные в найденных комбинациях

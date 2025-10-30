@@ -435,7 +435,6 @@ class HouseVariationManager {
     initTabInstance(instance) {
         const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
 
-
         const mountSplideFor = (tabName) => {
             if (!tabName) return null;
             if (splides[tabName]) return splides[tabName];
@@ -446,6 +445,7 @@ class HouseVariationManager {
             const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
             if (!el) return null;
 
+            // Если элемент скрыт, делаем временно видимым для инициализации
             const computed = window.getComputedStyle(content);
             const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
             const prev = {};
@@ -495,15 +495,8 @@ class HouseVariationManager {
 
             splides[tabName] = splideInstance;
 
-
-            const getSlidesCount = () =>
-                el.querySelectorAll('.splide__slide').length;
-
-            const getPerPage = () => {
-                const pp = splideInstance.options?.perPage;
-                return typeof pp === 'number' && pp > 0 ? pp : 1;
-            };
-
+            const getSlidesCount = () => el.querySelectorAll('.splide__slide').length;
+            const getPerPage = () => (typeof splideInstance.options?.perPage === 'number' ? splideInstance.options.perPage : 1);
 
             const updateArrows = () => {
                 if (!prevArrow || !nextArrow) return;
@@ -518,6 +511,7 @@ class HouseVariationManager {
                 prevArrow.classList.toggle('is-disabled', isStart);
                 nextArrow.classList.toggle('is-disabled', isEnd);
 
+                // Скрываем стрелки, если мало слайдов
                 if (slidesCount <= perPage) {
                     prevArrow.style.display = 'none';
                     nextArrow.style.display = 'none';
@@ -527,25 +521,26 @@ class HouseVariationManager {
                 }
             };
 
-
+            // Подписка на события без рекурсий
             splideInstance.on('mounted', updateArrows);
             splideInstance.on('moved', updateArrows);
             splideInstance.on('resized', () => {
                 splideInstance.refresh();
                 updateArrows();
             });
-            splideInstance.on('updated', updateArrows);
 
-
+            // Форсируем один раз после mount
             setTimeout(() => {
-                splideInstance.refresh();
-                updateArrows();
+                try {
+                    splideInstance.refresh();
+                    updateArrows();
+                } catch (e) { }
             }, 50);
 
             return splideInstance;
         };
 
-
+        // Активируем текущий таб
         contents.forEach(c => {
             if (c.dataset.tab === activeTab) {
                 c.classList.add('active');
@@ -557,7 +552,7 @@ class HouseVariationManager {
             }
         });
 
-
+        // Навигация по вкладкам
         links.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -582,7 +577,7 @@ class HouseVariationManager {
             });
         });
 
-
+        // Стрелки
         if (prevArrow) {
             prevArrow.addEventListener('click', () => {
                 const activeSplide = splides[instance.activeTab];
@@ -590,7 +585,6 @@ class HouseVariationManager {
                 activeSplide.go('<');
             });
         }
-
         if (nextArrow) {
             nextArrow.addEventListener('click', () => {
                 const activeSplide = splides[instance.activeTab];
@@ -599,18 +593,23 @@ class HouseVariationManager {
             });
         }
 
-
+        // Resize — обновляем активный splide без рекурсии
         if (!instance._resizeHandler) {
             instance._resizeHandler = () => {
                 const activeSplide = splides[instance.activeTab];
                 if (activeSplide) {
-                    activeSplide.refresh();
-                    activeSplide.emit('updated');
+                    try { activeSplide.refresh(); } catch (e) { }
+                }
+                if (instance.activeTab) {
+                    // форсируем пересчёт стрелок
+                    const content = contentMap.get(instance.activeTab);
+                    const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+                    const inst = splides[instance.activeTab];
+                    if (inst) inst.emit('moved'); // безопасно обновляет стрелки
                 }
             };
             window.addEventListener('resize', instance._resizeHandler);
         }
-
 
         instance.mountSplideFor = mountSplideFor;
     }

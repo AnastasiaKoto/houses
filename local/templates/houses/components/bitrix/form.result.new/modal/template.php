@@ -109,8 +109,7 @@ if($arResult["isFormNote"] == "Y") {
 									stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
 						</span>
-						<span class="checkbox-text">Я согласен на обработку персональных данных и ознакомлен с <a
-								href="javascript:void(0)" target="_blank">политикой конфиденциальности</a></span>
+						<span class="checkbox-text">Даю <a href="/agreed.pdf" target="_blank">согласие</a> на обработку моих <a href="/policy.pdf" target="_blank" >персональных данных</a>	</span>
 					</label>
 				<? } ?>
 			<? } ?>

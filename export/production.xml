@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>18</id>
+		<name>Production</name>
+		<table_name>production</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>18</id>
+			<lid>ru</lid>
+			<name>Производство</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>97</id>
+			<entity_id>HLBLOCK_18</entity_id>
+			<field_name>UF_ICON</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Иконка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+		<field>
+			<id>98</id>
+			<entity_id>HLBLOCK_18</entity_id>
+			<field_name>UF_TITLE</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Название</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Название</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Название</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>99</id>
+			<entity_id>HLBLOCK_18</entity_id>
+			<field_name>UF_DESCR</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>3</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Описание</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_icon>uf/bda/4ir9q01cdk3taepdc01273vgh454bzmq.svg</uf_icon>
+			<uf_title>Без	наценок посредников</uf_title>
+			<uf_descr>Итоговая цена определяется ценой сырья, 	а не наценкой посредников</uf_descr>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_icon>uf/7d0/typndif04xfslchmagw8w6g98lsqbo0v.svg</uf_icon>
+			<uf_title>Качество	от партии к партии</uf_title>
+			<uf_descr>Стабильные свойства панелей домокомплектов и проверенные конструкционные решения</uf_descr>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_icon>uf/5be/0v0byk0k2i88xdzg1rbda8gy1n8fv651.svg</uf_icon>
+			<uf_title>Стройка	строго в срок</uf_title>
+			<uf_descr>Складская программа, материалы	отгружаются в соответствии с графиком строительства	без простоя и ожидания</uf_descr>
+		</item>
+	</items>
+</hiblock>

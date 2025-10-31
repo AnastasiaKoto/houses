@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("О компании");
+$APPLICATION->SetTitle("Title");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
@@ -12,7 +12,7 @@ $APPLICATION->SetTitle("О компании");
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"AJAX_MODE" => "N",
 		"IBLOCK_TYPE" => "content",
-		"IBLOCK_ID" => COMPANY_BANNERS_ID,
+		"IBLOCK_ID" => INDIVID_BANNERS_ID,
 		"NEWS_COUNT" => "3",
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_ORDER1" => "DESC",
@@ -69,6 +69,36 @@ $APPLICATION->SetTitle("О компании");
 	],
 	false
 );?>
+<? $APPLICATION->IncludeComponent(
+"bitrix:highloadblock.list",
+"",
+array(
+	"BLOCK_ID" => HL_START_ID,	// ID highload блока
+	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
+	"DETAIL_URL" => "",	// Путь к странице просмотра записи
+	"FILTER_NAME" => "",	// Идентификатор фильтра
+	"PAGEN_ID" => "",	// Идентификатор страницы
+	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
+	"SORT_FIELD" => "ID",	// Поле сортировки
+	"SORT_ORDER" => "ASC",	// Направление сортировки
+),
+false
+); ?>
+<? $APPLICATION->IncludeComponent(
+"bitrix:highloadblock.list",
+"",
+array(
+	"BLOCK_ID" => HL_WHY_WEARE,	// ID highload блока
+	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
+	"DETAIL_URL" => "",	// Путь к странице просмотра записи
+	"FILTER_NAME" => "",	// Идентификатор фильтра
+	"PAGEN_ID" => "",	// Идентификатор страницы
+	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
+	"SORT_FIELD" => "ID",	// Поле сортировки
+	"SORT_ORDER" => "ASC",	// Направление сортировки
+),
+false
+); ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
 	".default", 
@@ -79,8 +109,8 @@ $APPLICATION->SetTitle("О компании");
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"AJAX_MODE" => "N",
 		"IBLOCK_TYPE" => "content",
-		"IBLOCK_ID" => TEN_DOMOV_ID,
-		"NEWS_COUNT" => "3",
+		"IBLOCK_ID" => IB_STAGES_ID,
+		"NEWS_COUNT" => "20",
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_ORDER1" => "DESC",
 		"SORT_BY2" => "SORT",
@@ -136,61 +166,6 @@ $APPLICATION->SetTitle("О компании");
 	],
 	false
 );?>
-<? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_WEDO_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
-); ?>
-<? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_TECH_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
-); ?>
-<? $APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	"",
-	array(
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => "/include/general/blocks/unics.php"
-	)
-); ?>
-<? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_PRODUCTION_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
-); ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
 	"faq", 
@@ -229,7 +204,7 @@ false
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"PARENT_SECTION" => "17",
+		"PARENT_SECTION" => "16",
 		"PARENT_SECTION_CODE" => "",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"CACHE_TYPE" => "A",

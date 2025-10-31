@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>17</id>
+		<name>OurTechnologies</name>
+		<table_name>our_technologies</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>17</id>
+			<lid>ru</lid>
+			<name>Наши технологии и материал</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>94</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_ICON</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Иконка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+		<field>
+			<id>95</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_TITLE</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Заголовок</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Заголовок</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Заголовок</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>96</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_DESCR</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>3</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Описание</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_icon>uf/40d/vjket90qi2ewaduxuul67xv4d6ow2wdv.svg</uf_icon>
+			<uf_title>ФибропенобетонD500</uf_title>
+			<uf_descr>Легкий и прочный пористый бетон плотностью 500 кг/м3, в который добавлено 3D армирование для повышения прочности. Состав фибропенобетона и технология изготовления из него панелей запатентованы</uf_descr>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_icon>uf/588/ydytaxtrdiigwr9r2wg289kv1qnuustb.svg</uf_icon>
+			<uf_title>Мы производим панели всех типов</uf_title>
+			<uf_descr>Стеновые, перекрытия и элементы кровли —точная геометрия панелей позволяют собирать дом как конструктор</uf_descr>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_icon>uf/ba5/a3j53nb7w5tjj9nbukv38n0762xw4g1a.svg</uf_icon>
+			<uf_title>Поверхности стен</uf_title>
+			<uf_descr>Идеально гладкие, так как панели приходят готовыми под чистовую отделку (покраска, обои)</uf_descr>
+		</item>
+	</items>
+</hiblock>

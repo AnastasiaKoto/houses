@@ -3,7 +3,7 @@
 /upload/
 /.htaccess
 /debug.log
-/local/php_interface/config/
+/local/php_interface/
 /bitrix_old/*
 /docker-compose.yml
 /instruction.txt
@@ -15,3 +15,5 @@
 /robots.txt
 /sitemap.xml
 *sitemap*
+/local/templates/houses/components/bitrix/catalog.element/.default/ajax_copy.js
+/local/templates/houses/components/bitrix/catalog.element/.default/script_copy.js

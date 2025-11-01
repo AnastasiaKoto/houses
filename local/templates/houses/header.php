@@ -22,11 +22,15 @@
   if($APPLICATION->GetCurPage() == '/contacts/'): 
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/contacts.css');
   endif;
+  if($APPLICATION->GetCurPage() == '/tekhnologii/'): 
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/tech.css');
+  endif;
   
 	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/splide.min.js');
   Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/fancybox.umd.js');
 	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/homepage.js');
 	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/assets/js/main.js');
+
   $APPLICATION->ShowHead();
 	?>
 </head>

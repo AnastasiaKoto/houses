@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>14</id>
+		<name>WhyWeAre</name>
+		<table_name>why_we_are</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>14</id>
+			<lid>ru</lid>
+			<name>Почему стоит заказать проект у нас</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>92</id>
+			<entity_id>HLBLOCK_14</entity_id>
+			<field_name>UF_NAME</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Название</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Название</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Название</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>93</id>
+			<entity_id>HLBLOCK_14</entity_id>
+			<field_name>UF_DESCR</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>3</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Описание</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>94</id>
+			<entity_id>HLBLOCK_14</entity_id>
+			<field_name>UF_ICON</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Иконка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_name>Цена ниже  конкурентов</uf_name>
+			<uf_descr>За счет собственного производства и оптимизированных процессов дом «под ключ» у нас стоит дешевле, чем типовой	бетонный дом у других.</uf_descr>
+			<uf_icon>uf/d75/ube3cc1y14gszovcr81t1sr1cyficav7.svg</uf_icon>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_name>Быстрая  стройка</uf_name>
+			<uf_descr>Постройка дома в отделке 	Whitebox 	всего за 2 месяца. Тут нужно добавить дополнительно 1-2 предложения.</uf_descr>
+			<uf_icon>uf/cc1/0k6xh46r25vgr51wky14uotf8sjofs5k.svg</uf_icon>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_name>Свой штат архитекторов</uf_name>
+			<uf_descr>Не фрилансеры, а штатная 	команда, которая быстро и качественно решает 	задачи. Тут нужно добавить дополнительно 1-2 предложения.</uf_descr>
+			<uf_icon>uf/cde/9fub9skyhlzgwr1w006ilypr076su9i8.svg</uf_icon>
+		</item>
+		<item>
+			<id>4</id>
+			<uf_name>Персональный менеджер</uf_name>
+			<uf_descr> Всегда на связи от первого эскиза до сдачи дома. Тут нужно добавить дополнительно 1-2 предложения.</uf_descr>
+			<uf_icon>uf/5dd/x9tqcq126ooewkqe9jwfmxmubvzun59o.svg</uf_icon>
+		</item>
+		<item>
+			<id>5</id>
+			<uf_name>Проект бесплатно</uf_name>
+			<uf_descr>Вы платите только за строительство, а проект получаете в подарок. Тут нужно добавить дополнительно 1-2 предложения.</uf_descr>
+			<uf_icon>uf/e14/x6499ixhx1wi2ggxq331dppgv9olkv61.svg</uf_icon>
+		</item>
+	</items>
+</hiblock>

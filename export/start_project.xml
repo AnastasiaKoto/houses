@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>13</id>
+		<name>StartProject</name>
+		<table_name>start_project</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>13</id>
+			<lid>ru</lid>
+			<name>С чего можно начать проект</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>90</id>
+			<entity_id>HLBLOCK_13</entity_id>
+			<field_name>UF_ICON</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Иконка</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Иконка</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+		<field>
+			<id>91</id>
+			<entity_id>HLBLOCK_13</entity_id>
+			<field_name>UF_NAME</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Название</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Название</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Название</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_icon>uf/bd3/k61u9rsb6mcxsnhe07awiv2e1i2ub9bo.svg</uf_icon>
+			<uf_name>С ваших идей и устных пожеланий</uf_name>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_icon>uf/4e0/h45es30ho9039fmshybuzzsuhobq00p9.svg</uf_icon>
+			<uf_name>С понравившихся 	домов из нашего каталога</uf_name>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_icon>uf/643/p3ht4xjjm1rd7y4kg7hztouz8sh9qx7p.svg</uf_icon>
+			<uf_name>С эскизов, чертежей или даже рисунка от руки</uf_name>
+		</item>
+		<item>
+			<id>4</id>
+			<uf_icon>uf/12f/e2mi11lqipitbppw10ccm2i9u4ib78sw.svg</uf_icon>
+			<uf_name>С референсов – картинок или проектов из интернета</uf_name>
+		</item>
+		<item>
+			<id>5</id>
+			<uf_icon>uf/0d3/xvnuu0msrlnswezbixw5oqknkloeqn7n.svg</uf_icon>
+			<uf_name>С привязки дома к участку для обеспечения максимальной инсоляции</uf_name>
+		</item>
+	</items>
+</hiblock>

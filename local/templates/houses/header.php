@@ -22,7 +22,7 @@
   if($APPLICATION->GetCurPage() == '/contacts/'): 
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/contacts.css');
   endif;
-  if($APPLICATION->GetCurPage() == '/tekhnologii/'): 
+  if($APPLICATION->GetCurPage() == '/company/tekhnologii/'): 
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/assets/css/tech.css');
   endif;
   

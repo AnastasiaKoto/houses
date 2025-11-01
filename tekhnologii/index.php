@@ -4,10 +4,10 @@ $APPLICATION->SetTitle("Технологии");
 ?>
 <section class="section">
     <div class="container">
-        <h1>
+        <h1 class="section-title">
             <? $APPLICATION->ShowTitle(false); ?>
         </h1>
-        <div class="vacancy-subtitle">
+        <div class="section-subtitle">
             <? $APPLICATION->IncludeComponent(
                 "bitrix:main.include",
                 "",

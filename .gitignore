@@ -11,6 +11,7 @@
 /php/
 /www/
 .*
+/.top.menu.php
 !.gitignore
 /robots.txt
 /sitemap.xml

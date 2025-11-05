@@ -2393,18 +2393,10 @@
          color: #C7C9C9;
        }
      }
-     
+
    }
  }
 
- .noactive {
-   pointer-events: none;
-   color: #C7C9C9;
-
-   & * {
-     color: #C7C9C9;
-   }
- }
 
 
 
@@ -3158,6 +3150,15 @@
      line-height: 120%;
      letter-spacing: -0.14px;
      color: var(--dark-color);
+   }
+ }
+
+ .noactive {
+   pointer-events: none;
+   color: #C7C9C9;
+
+   & * {
+     color: #C7C9C9;
    }
  }
 

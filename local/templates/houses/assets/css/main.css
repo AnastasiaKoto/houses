@@ -2150,17 +2150,17 @@
    }
 
    & .checkbox-text {
-     color: #F05454!important;
+     color: #F05454 !important;
 
      & a {
-       color: #F05454!important;
-       border-color: #F05454!important;
+       color: #F05454 !important;
+       border-color: #F05454 !important;
      }
    }
 
 
    & .checkmark {
-     border-color: #F05454!important;
+     border-color: #F05454 !important;
 
 
    }
@@ -2453,6 +2453,15 @@
          color: #C7C9C9;
        }
      }
+   }
+ }
+
+ &.noactive {
+   pointer-events: none;
+   color: #C7C9C9;
+
+   & * {
+     color: #C7C9C9;
    }
  }
 

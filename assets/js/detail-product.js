@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  if(!editBlock || !viewBlock || !toggleBtn) return;
+  if (!editBlock || !viewBlock || !toggleBtn) return;
 
   const updateViewData = () => {
     // === 1. Стиль постройки ===
@@ -72,12 +72,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   sliders.forEach(slider => {
     const splide = new Splide(slider, {
-      type: 'slide',
+      type: 'fade',
       perPage: 1,
       gap: 0,
       pagination: true,
       arrows: false,
       drag: false,
+      speed: 600,
+      easing: 'ease',
+      breakpoints: {
+        992: {
+          drag: true,
+        }
+      }
     }).mount();
 
     const track = slider.querySelector('.splide__track');
@@ -126,177 +133,514 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
+//   if (!tabHeads.length) return;
+
+//   tabHeads.forEach(head => {
+//     const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
+
+//     // Собираем панели контента (сначала внутри root, иначе — последовательные siblings)
+//     let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
+//     if (!contents.length) {
+//       let node = root.nextElementSibling;
+//       while (node) {
+//         if (node.classList && node.classList.contains('detail-product__preview-tabs__content')) {
+//           contents.push(node);
+//           node = node.nextElementSibling;
+//           continue;
+//         }
+//         if (node.querySelector && node.querySelector('.detail-product__preview-tabs')) break;
+//         node = node.nextElementSibling;
+//       }
+//     }
+
+//     const links = Array.from(head.querySelectorAll('.detail-product__preview-tabs__link'));
+//     const prevArrow = head.querySelector('.detail-product__preview-arrow__prev');
+//     const nextArrow = head.querySelector('.detail-product__preview-arrow__next');
+
+//     if (!links.length || !contents.length) {
+//       console.warn('Tabs: missing links or contents for widget', head);
+//       return;
+//     }
+
+//     const maxLen = Math.max(links.length, contents.length);
+//     for (let i = 0; i < maxLen; i++) {
+//       const l = links[i];
+//       const c = contents[i];
+
+//       if (l && c) {
+//         if (!l.dataset.tab && c.dataset.tab) l.dataset.tab = c.dataset.tab;
+//         else if (l.dataset.tab && !c.dataset.tab) c.dataset.tab = l.dataset.tab;
+//         else if (!l.dataset.tab && !c.dataset.tab) {
+//           const gen = `tab-${Date.now().toString(36)}-${i}`;
+//           l.dataset.tab = gen;
+//           c.dataset.tab = gen;
+//         }
+//       } else if (l && !c) {
+//         // есть ссылка без контента (создаём namespace)
+//         if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+//       } else if (c && !l) {
+//         if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+//       }
+//     }
+
+
+//     const contentMap = new Map();
+//     contents.forEach(c => {
+//       if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
+//     });
+//     const linkMap = new Map();
+//     links.forEach(l => {
+//       if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
+//     });
+
+
+//     const splides = {};
+//     const splideOptions = {
+//       type: 'loop',
+//       autoWidth: true,
+//       gap: 20,
+//       perMove: 1,
+//       pagination: false,
+//       arrows: false,
+//       speed: 600,
+//       easing: 'ease',
+//       breakpoints: { 992: { gap: 10 } }
+//     };
+
+
+//     function mountSplideFor(tabName) {
+//       if (!tabName) return null;
+//       if (splides[tabName]) return splides[tabName];
+
+//       const content = contentMap.get(tabName);
+//       if (!content) return null;
+
+//       const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+//       if (!el) return null;
+
+
+//       const computed = window.getComputedStyle(content);
+//       const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+//       const prev = {};
+//       if (wasHidden) {
+//         prev.display = content.style.display;
+//         prev.visibility = content.style.visibility;
+//         prev.position = content.style.position;
+//         prev.left = content.style.left;
+
+//         content.style.display = 'block';
+//         content.style.visibility = 'hidden';
+//         content.style.position = 'absolute';
+//         content.style.left = '-9999px';
+//       }
+
+
+//       const instance = new Splide(el, splideOptions);
+//       instance.mount();
+
+
+//       if (wasHidden) {
+//         content.style.display = prev.display || '';
+//         content.style.visibility = prev.visibility || '';
+//         content.style.position = prev.position || '';
+//         content.style.left = prev.left || '';
+//       }
+
+
+//       splides[tabName] = instance;
+//       setTimeout(() => {
+//         try { instance.refresh(); } catch (e) { /* ignore */ }
+//       }, 50);
+
+//       return instance;
+//     }
+
+
+//     let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
+//       || links[0].dataset.tab;
+
+
+//     contents.forEach(c => {
+//       if (c.dataset.tab === activeTab) {
+//         c.classList.add('active');
+//         c.style.display = '';
+//         mountSplideFor(activeTab);
+//       } else {
+//         c.classList.remove('active');
+//         c.style.display = 'none';
+//       }
+//     });
+
+//     // Навешиваем обработчики на ссылки
+//     links.forEach(link => {
+//       link.addEventListener('click', function (e) {
+//         e.preventDefault();
+//         const tabName = this.dataset.tab;
+//         if (!tabName || tabName === activeTab) return;
+
+//         // Снимаем active у ссылок и контентов
+//         links.forEach(l => l.classList.remove('active'));
+//         contents.forEach(c => {
+//           c.classList.remove('active');
+//           c.style.display = 'none';
+//         });
+
+//         // Активируем выбранные
+//         this.classList.add('active');
+//         const newContent = contentMap.get(tabName);
+//         if (newContent) {
+//           newContent.classList.add('active');
+//           newContent.style.display = '';
+//           // Инициализируем / обновляем слайдер для этого таба
+//           mountSplideFor(tabName);
+//         }
+
+//         activeTab = tabName;
+//       });
+//     });
+
+//     // Стрелки управляют текущим активным слайдером
+//     if (prevArrow) prevArrow.addEventListener('click', () => { splides[activeTab]?.go('<'); });
+//     if (nextArrow) nextArrow.addEventListener('click', () => { splides[activeTab]?.go('>'); });
+//   });
+// });
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
+//   if (!tabHeads.length) return;
+
+//   tabHeads.forEach(head => {
+//     const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
+
+//     let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
+//     if (!contents.length) {
+//       let node = root.nextElementSibling;
+//       while (node) {
+//         if (node.classList && node.classList.contains('detail-product__preview-tabs__content')) {
+//           contents.push(node);
+//           node = node.nextElementSibling;
+//           continue;
+//         }
+//         if (node.querySelector && node.querySelector('.detail-product__preview-tabs')) break;
+//         node = node.nextElementSibling;
+//       }
+//     }
+
+//     const links = Array.from(head.querySelectorAll('.detail-product__preview-tabs__link'));
+//     const prevArrow = head.querySelector('.detail-product__preview-arrow__prev');
+//     const nextArrow = head.querySelector('.detail-product__preview-arrow__next');
+
+//     if (!links.length || !contents.length) {
+//       console.warn('Tabs: missing links or contents for widget', head);
+//       return;
+//     }
+
+//     const maxLen = Math.max(links.length, contents.length);
+//     for (let i = 0; i < maxLen; i++) {
+//       const l = links[i];
+//       const c = contents[i];
+
+//       if (l && c) {
+//         if (!l.dataset.tab && c.dataset.tab) l.dataset.tab = c.dataset.tab;
+//         else if (l.dataset.tab && !c.dataset.tab) c.dataset.tab = l.dataset.tab;
+//         else if (!l.dataset.tab && !c.dataset.tab) {
+//           const gen = `tab-${Date.now().toString(36)}-${i}`;
+//           l.dataset.tab = gen;
+//           c.dataset.tab = gen;
+//         }
+//       } else if (l && !c) {
+//         if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+//       } else if (c && !l) {
+//         if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
+//       }
+//     }
+
+//     const contentMap = new Map();
+//     contents.forEach(c => {
+//       if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
+//     });
+//     const linkMap = new Map();
+//     links.forEach(l => {
+//       if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
+//     });
+
+//     const splides = {};
+//     const splideOptions = {
+//       type: 'slide', // 🔹 теперь не бесконечный
+//       autoWidth: true,
+//       gap: 20,
+//       perMove: 1,
+//       pagination: false,
+//       arrows: false,
+//       speed: 600,
+//       easing: 'ease',
+//       focus: 'start',
+//       padding: { right: 15 }, // 🔹 добавлен отступ справа
+//       breakpoints: { 992: { gap: 10, padding: { right: 10 } } }
+//     };
+
+//     function mountSplideFor(tabName) {
+//       if (!tabName) return null;
+//       if (splides[tabName]) return splides[tabName];
+
+//       const content = contentMap.get(tabName);
+//       if (!content) return null;
+
+//       const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+//       if (!el) return null;
+
+//       const computed = window.getComputedStyle(content);
+//       const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+//       const prev = {};
+//       if (wasHidden) {
+//         prev.display = content.style.display;
+//         prev.visibility = content.style.visibility;
+//         prev.position = content.style.position;
+//         prev.left = content.style.left;
+
+//         content.style.display = 'block';
+//         content.style.visibility = 'hidden';
+//         content.style.position = 'absolute';
+//         content.style.left = '-9999px';
+//       }
+
+//       const instance = new Splide(el, splideOptions);
+//       instance.mount();
+
+//       if (wasHidden) {
+//         content.style.display = prev.display || '';
+//         content.style.visibility = prev.visibility || '';
+//         content.style.position = prev.position || '';
+//         content.style.left = prev.left || '';
+//       }
+
+//       // 🔹 Обновление стрелок при смене слайда (по аналогии с uniq-slider)
+//       function updateArrows() {
+//         if (!prevArrow || !nextArrow) return;
+//         prevArrow.classList.toggle('is-disabled', instance.index === 0);
+//         nextArrow.classList.toggle(
+//           'is-disabled',
+//           instance.index >= instance.length - instance.options.perPage
+//         );
+//       }
+
+//       instance.on('moved', updateArrows);
+//       instance.on('mounted', updateArrows);
+//       instance.on('resized', updateArrows);
+
+//       splides[tabName] = instance;
+
+//       setTimeout(() => {
+//         try { instance.refresh(); updateArrows(); } catch (e) { /* ignore */ }
+//       }, 50);
+
+//       return instance;
+//     }
+
+//     let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
+//       || links[0].dataset.tab;
+
+//     contents.forEach(c => {
+//       if (c.dataset.tab === activeTab) {
+//         c.classList.add('active');
+//         c.style.display = '';
+//         mountSplideFor(activeTab);
+//       } else {
+//         c.classList.remove('active');
+//         c.style.display = 'none';
+//       }
+//     });
+
+//     // Переключение табов
+//     links.forEach(link => {
+//       link.addEventListener('click', function (e) {
+//         e.preventDefault();
+//         const tabName = this.dataset.tab;
+//         if (!tabName || tabName === activeTab) return;
+
+//         links.forEach(l => l.classList.remove('active'));
+//         contents.forEach(c => {
+//           c.classList.remove('active');
+//           c.style.display = 'none';
+//         });
+
+//         this.classList.add('active');
+//         const newContent = contentMap.get(tabName);
+//         if (newContent) {
+//           newContent.classList.add('active');
+//           newContent.style.display = '';
+//           mountSplideFor(tabName);
+//         }
+
+//         activeTab = tabName;
+//       });
+//     });
+
+//     // 🔹 стрелки управляют текущим слайдером (и уважают is-disabled)
+//     if (prevArrow) {
+//       prevArrow.addEventListener('click', () => {
+//         const instance = splides[activeTab];
+//         if (instance && !prevArrow.classList.contains('is-disabled')) instance.go('<');
+//       });
+//     }
+//     if (nextArrow) {
+//       nextArrow.addEventListener('click', () => {
+//         const instance = splides[activeTab];
+//         if (instance && !nextArrow.classList.contains('is-disabled')) instance.go('>');
+//       });
+//     }
+//   });
+// });
 document.addEventListener('DOMContentLoaded', function () {
-  const tabHeads = document.querySelectorAll('.detail-product__preview-tabs');
-  if (!tabHeads.length) return;
 
-  tabHeads.forEach(head => {
+  function initSplideSliderForContent(content, prevArrow, nextArrow) {
+    const splideOptions = {
+      type: 'slide',
+      autoWidth: false,
+      gap: 20,
+      perPage: 3,
+      perMove: 1,
+      pagination: false,
+      arrows: false,
+      speed: 600,
+      easing: 'ease',
+      // focus: 0,
+      padding: { right: 15 },
+      breakpoints: {
+        992: { perPage: 2, gap: 10, perMove: 1, padding: { right: 10 } },
+        700: { perPage: 1,   gap: 10, perMove: 1, padding: { right: 10 } },
+      },
+    };
+
+    if (!content) return null;
+    const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+    if (!el) return null;
+
+    const wasHidden = content.offsetParent === null;
+    const prevStyles = {};
+
+    if (wasHidden) {
+      prevStyles.display = content.style.display;
+      prevStyles.visibility = content.style.visibility;
+      prevStyles.position = content.style.position;
+      prevStyles.left = content.style.left;
+
+      content.style.display = 'block';
+      content.style.visibility = 'hidden';
+      content.style.position = 'absolute';
+      content.style.left = '-9999px';
+    }
+
+    const instance = new Splide(el, splideOptions);
+    instance.mount();
+
+    if (wasHidden) {
+      content.style.display = prevStyles.display || '';
+      content.style.visibility = prevStyles.visibility || '';
+      content.style.position = prevStyles.position || '';
+      content.style.left = prevStyles.left || '';
+    }
+
+    function updateArrows() {
+      if (!prevArrow || !nextArrow) return;
+      prevArrow.classList.toggle('is-disabled', instance.index === 0);
+      nextArrow.classList.toggle(
+        'is-disabled',
+        instance.index >= instance.length - instance.options.perPage
+      );
+    }
+
+    instance.on('mounted', updateArrows);
+    instance.on('moved', updateArrows);
+    instance.on('resized', updateArrows);
+
+    if (prevArrow) prevArrow.addEventListener('click', () => { if (!prevArrow.classList.contains('is-disabled')) instance.go('<'); });
+    if (nextArrow) nextArrow.addEventListener('click', () => { if (!nextArrow.classList.contains('is-disabled')) instance.go('>'); });
+
+    setTimeout(() => { try { instance.refresh(); updateArrows(); } catch(e) {} }, 50);
+
+    return instance;
+  }
+
+  function initTabs(head) {
+    if (!head) return;
+
     const root = head.closest('.detail-product') || head.closest('.container') || head.parentElement;
+    const links = Array.from(head.querySelectorAll('.detail-product__preview-tabs__link'));
+    const prevArrow = head.querySelector('.detail-product__preview-arrow__prev');
+    const nextArrow = head.querySelector('.detail-product__preview-arrow__next');
 
-    // Собираем панели контента (сначала внутри root, иначе — последовательные siblings)
-    let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content') || []);
+    let contents = Array.from(root.querySelectorAll('.detail-product__preview-tabs__content'));
     if (!contents.length) {
       let node = root.nextElementSibling;
       while (node) {
-        if (node.classList && node.classList.contains('detail-product__preview-tabs__content')) {
-          contents.push(node);
-          node = node.nextElementSibling;
-          continue;
-        }
+        if (node.classList && node.classList.contains('detail-product__preview-tabs__content')) contents.push(node);
         if (node.querySelector && node.querySelector('.detail-product__preview-tabs')) break;
         node = node.nextElementSibling;
       }
     }
 
-    const links = Array.from(head.querySelectorAll('.detail-product__preview-tabs__link'));
-    const prevArrow = head.querySelector('.detail-product__preview-arrow__prev');
-    const nextArrow = head.querySelector('.detail-product__preview-arrow__next');
+    if (!links.length || !contents.length) return;
 
-    if (!links.length || !contents.length) {
-      console.warn('Tabs: missing links or contents for widget', head);
-      return;
-    }
-
+    const genBase = Date.now().toString(36);
     const maxLen = Math.max(links.length, contents.length);
     for (let i = 0; i < maxLen; i++) {
-      const l = links[i];
-      const c = contents[i];
-
+      const l = links[i], c = contents[i];
       if (l && c) {
         if (!l.dataset.tab && c.dataset.tab) l.dataset.tab = c.dataset.tab;
         else if (l.dataset.tab && !c.dataset.tab) c.dataset.tab = l.dataset.tab;
         else if (!l.dataset.tab && !c.dataset.tab) {
-          const gen = `tab-${Date.now().toString(36)}-${i}`;
-          l.dataset.tab = gen;
-          c.dataset.tab = gen;
+          const gen = `tab-${genBase}-${i}`;
+          l.dataset.tab = gen; c.dataset.tab = gen;
         }
-      } else if (l && !c) {
-        // есть ссылка без контента (создаём namespace)
-        if (!l.dataset.tab) l.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
-      } else if (c && !l) {
-        if (!c.dataset.tab) c.dataset.tab = `tab-${Date.now().toString(36)}-${i}`;
-      }
+      } else if (l && !c && !l.dataset.tab) l.dataset.tab = `tab-${genBase}-${i}`;
+      else if (c && !l && !c.dataset.tab) c.dataset.tab = `tab-${genBase}-${i}`;
     }
 
-
-    const contentMap = new Map();
-    contents.forEach(c => {
-      if (c.dataset.tab) contentMap.set(c.dataset.tab, c);
-    });
-    const linkMap = new Map();
-    links.forEach(l => {
-      if (l.dataset.tab) linkMap.set(l.dataset.tab, l);
-    });
-
+    const contentMap = new Map(); contents.forEach(c => { if (c.dataset.tab) contentMap.set(c.dataset.tab, c); });
+    const linkMap = new Map(); links.forEach(l => { if (l.dataset.tab) linkMap.set(l.dataset.tab, l); });
 
     const splides = {};
-    const splideOptions = {
-      type: 'loop',
-      autoWidth: true,
-      gap: 20,
-      perMove: 1,
-      pagination: false,
-      arrows: false,
-      breakpoints: { 992: { gap: 10 } }
-    };
+    let activeTab = links.find(l => l.classList.contains('active'))?.dataset.tab || links[0].dataset.tab;
 
+    function showTab(tabName) {
+      links.forEach(l => l.classList.remove('active'));
+      contents.forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
 
-    function mountSplideFor(tabName) {
-      if (!tabName) return null;
-      if (splides[tabName]) return splides[tabName];
-
-      const content = contentMap.get(tabName);
-      if (!content) return null;
-
-      const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-      if (!el) return null;
-
-
-      const computed = window.getComputedStyle(content);
-      const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-      const prev = {};
-      if (wasHidden) {
-        prev.display = content.style.display;
-        prev.visibility = content.style.visibility;
-        prev.position = content.style.position;
-        prev.left = content.style.left;
-
-        content.style.display = 'block';
-        content.style.visibility = 'hidden';
-        content.style.position = 'absolute';
-        content.style.left = '-9999px';
+      const link = linkMap.get(tabName), content = contentMap.get(tabName);
+      if (link) link.classList.add('active');
+      if (content) {
+        content.classList.add('active'); content.style.display = '';
+        // 🔹 ждем рендер, перед mount или refresh
+        requestAnimationFrame(() => {
+          if (!splides[tabName]) {
+            splides[tabName] = initSplideSliderForContent(content, prevArrow, nextArrow);
+          } else {
+            try { splides[tabName].refresh(); } catch(e) {}
+          }
+        });
       }
-
-
-      const instance = new Splide(el, splideOptions);
-      instance.mount();
-
-
-      if (wasHidden) {
-        content.style.display = prev.display || '';
-        content.style.visibility = prev.visibility || '';
-        content.style.position = prev.position || '';
-        content.style.left = prev.left || '';
-      }
-
-
-      splides[tabName] = instance;
-      setTimeout(() => {
-        try { instance.refresh(); } catch (e) { /* ignore */ }
-      }, 50);
-
-      return instance;
     }
 
+    showTab(activeTab);
 
-    let activeTab = head.querySelector('.detail-product__preview-tabs__link.active')?.dataset.tab
-      || links[0].dataset.tab;
+    links.forEach(link => link.addEventListener('click', e => {
+      e.preventDefault();
+      const tabName = link.dataset.tab;
+      if (tabName && tabName !== activeTab) { activeTab = tabName; showTab(tabName); }
+    }));
 
+    if (prevArrow) prevArrow.addEventListener('click', () => { const inst = splides[activeTab]; if (inst && !prevArrow.classList.contains('is-disabled')) inst.go('<'); });
+    if (nextArrow) nextArrow.addEventListener('click', () => { const inst = splides[activeTab]; if (inst && !nextArrow.classList.contains('is-disabled')) inst.go('>'); });
+  }
 
-    contents.forEach(c => {
-      if (c.dataset.tab === activeTab) {
-        c.classList.add('active');
-        c.style.display = '';
-        mountSplideFor(activeTab);
-      } else {
-        c.classList.remove('active');
-        c.style.display = 'none';
-      }
-    });
+  document.querySelectorAll('.detail-product__preview-tabs').forEach(initTabs);
 
-    // Навешиваем обработчики на ссылки
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const tabName = this.dataset.tab;
-        if (!tabName || tabName === activeTab) return;
-
-        // Снимаем active у ссылок и контентов
-        links.forEach(l => l.classList.remove('active'));
-        contents.forEach(c => {
-          c.classList.remove('active');
-          c.style.display = 'none';
-        });
-
-        // Активируем выбранные
-        this.classList.add('active');
-        const newContent = contentMap.get(tabName);
-        if (newContent) {
-          newContent.classList.add('active');
-          newContent.style.display = '';
-          // Инициализируем / обновляем слайдер для этого таба
-          mountSplideFor(tabName);
-        }
-
-        activeTab = tabName;
-      });
-    });
-
-    // Стрелки управляют текущим активным слайдером
-    if (prevArrow) prevArrow.addEventListener('click', () => { splides[activeTab]?.go('<'); });
-    if (nextArrow) nextArrow.addEventListener('click', () => { splides[activeTab]?.go('>'); });
-  });
 });
+
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -407,6 +751,8 @@ document.addEventListener('DOMContentLoaded', function () {
           pagination: false,
           arrows: false,
           gap: 20,
+          speed: 600,
+          easing: 'ease',
           breakpoints: {
             700: {
               gap: 10
@@ -444,7 +790,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const desc = document.querySelector(".detail-product__layout-description");
   const toggleBtn = document.querySelector(".desc-toggle");
 
-  if(!desc || desc) return;
+  if (!desc || desc) return;
 
   if (desc && toggleBtn) {
     // Показываем кнопку только на мобилке
@@ -464,10 +810,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-  document.querySelectorAll('.player-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('click', () => {
-      const videoId = wrapper.dataset.videoId;
-      wrapper.innerHTML = `
+document.querySelectorAll('.player-wrapper').forEach(wrapper => {
+  wrapper.addEventListener('click', () => {
+    const videoId = wrapper.dataset.videoId;
+    wrapper.innerHTML = `
         <iframe 
           width="100%" 
           height="100%" 
@@ -477,5 +823,5 @@ document.addEventListener("DOMContentLoaded", () => {
           allowfullscreen>
         </iframe>
       `;
-    });
   });
+});

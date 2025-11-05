@@ -191,7 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
 //     });
 //   });
 // });
-
 (() => {
   const INPUT_SELECTOR = 'input, textarea';
   const DEBUG = false;
@@ -323,9 +322,9 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     initAll();
   }
-  
 
 })();
+
 
 
 
@@ -559,7 +558,6 @@ function applyPhoneMaskToInput(phoneInput) {
 
 function applyPhoneMask() {
   const inputs = document.querySelectorAll('input[type="tel"]');
-  //console.log('Телефонные поля:', inputs);
   inputs.forEach(applyPhoneMaskToInput);
 }
 
@@ -701,15 +699,19 @@ class ProjectsSlider {
   init() {
     this.elements.forEach(sliderEl => {
       const splide = new Splide(sliderEl, {
-        type: 'slide',
+        type: 'fade',
         perPage: 1,
         pagination: true,
         arrows: false,
         drag: false,
+        speed: 600,
+        easing: 'ease',
       }).mount();
 
       const track = sliderEl.querySelector('.splide__track');
+
       const handleMouseMove = e => {
+        if (window.innerWidth < 992) return;
         const rect = track.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const width = rect.width;
@@ -723,14 +725,22 @@ class ProjectsSlider {
         splide.go(index);
       };
 
+      const handleMouseLeave = e => {
+        if (window.innerWidth < 992) return; 
+        splide.go(0); 
+      };
+
       track.addEventListener('mousemove', handleMouseMove);
-      this.sliders.push({ splide, track, handleMouseMove });
+      track.addEventListener('mouseleave', handleMouseLeave);
+
+      this.sliders.push({ splide, track, handleMouseMove, handleMouseLeave });
     });
   }
 
   destroy() {
-    this.sliders.forEach(({ splide, track, handleMouseMove }) => {
+    this.sliders.forEach(({ splide, track, handleMouseMove, handleMouseLeave }) => {
       track.removeEventListener('mousemove', handleMouseMove);
+      track.removeEventListener('mouseleave', handleMouseLeave);
       splide.destroy();
     });
     this.sliders = [];
@@ -742,11 +752,12 @@ class ProjectsSlider {
   }
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const projectsSlider = new ProjectsSlider('.projects-slider__images');
 
 
-    projectsSlider.reinit();
+  projectsSlider.reinit();
 });
 
 
@@ -758,7 +769,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const moveElements = () => {
     movableItems.forEach(item => {
       const targetSelector = item.dataset.moveTarget;
-      const breakpoint = parseInt(item.dataset.moveBreak) || 700; 
+      const breakpoint = parseInt(item.dataset.moveBreak) || 700;
       const target = document.querySelector(targetSelector);
       const originalParent = item.parentNode;
       const originalNext = item.nextElementSibling;
@@ -767,7 +778,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (window.innerWidth <= breakpoint) {
         if (!item.classList.contains("moved")) {
-          target.insertAdjacentElement("afterend", item); 
+          target.insertAdjacentElement("afterend", item);
           item.classList.add("moved");
         }
       } else {
@@ -789,3 +800,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  if(!anchorLinks) return;
+
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const targetId = link.getAttribute('href').substring(1); 
+      const targetEl = document.getElementById(targetId);
+
+      if (targetEl) {
+        e.preventDefault(); 
+
+        const offset = 100; 
+        const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: topPos,
+          behavior: 'smooth' 
+        });
+      }
+    });
+  });
+});

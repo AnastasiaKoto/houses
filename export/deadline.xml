@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>17</id>
+		<name>ProjectDeadline</name>
+		<table_name>project_deadline</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>17</id>
+			<lid>ru</lid>
+			<name>Прозрачная экономика и сроки проекта</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>101</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_NAME</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Название</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Название</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Название</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>102</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_DESCR</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>40</size>
+				<rows>3</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Описание</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Описание</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Описание</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>103</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_IMG</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Изображение</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Изображение</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Изображение</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_name>Цена на сайте —	окончательная для выбранной комплектации</uf_name>
+			<uf_descr>Без	«звёздочек» и скрытых доплат</uf_descr>
+			<uf_img>uf/e55/1wd9eq7t34o93odik3ts9lgfxx32j1se.png</uf_img>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_name>Фиксированные сроки в договоре</uf_name>
+			<uf_descr>План работ понятен заранее</uf_descr>
+			<uf_img>uf/e50/qjknyxuvt1a3fxst1eyv3dikut3r97ss.png</uf_img>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_name>Эскроу-модель</uf_name>
+			<uf_descr>Ваши	деньги	защищены
+Мы зарабатываем	только после сдачи	этапов</uf_descr>
+			<uf_img>uf/a5c/ceoksoozihcnu7f5ajtxpxq547owm8ie.png</uf_img>
+		</item>
+	</items>
+</hiblock>

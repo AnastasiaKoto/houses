@@ -1,0 +1,191 @@
+.individual-ms {
+
+  & .individual-ms__slider-wrap {
+
+    & .individual-ms__slider {
+      @media(min-width: 1100px) {
+        visibility: visible;
+      }
+
+      & .splide__list {
+        display: flex;
+        gap: 20px;
+
+        @media(max-width: 1100px) {
+          gap: 0;
+        }
+      }
+
+      & .splide__slide {
+        height: 503px;
+        max-width: 453px;
+        width: 100%;
+        min-width: initial;
+        flex: 1 1 100%;
+
+        @media(max-width: 1100px) {
+          max-width: 100%;
+          flex: 0 0 auto;
+          max-height: 505px;
+          height: auto;
+        }
+
+        &:first-child {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 40px;
+
+          & .individual-ms__image {
+            display: none;
+          }
+
+          @media(max-width: 1100px) {
+            padding: 20px;
+
+            & .individual-ms__image {
+              display: flex;
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              z-index: -1;
+            }
+          }
+        }
+
+        &:nth-child(3n+2) {
+          & .individual-ms__info {
+            margin-top: 10px;
+          }
+        }
+
+        &:nth-child(3n+3) {
+          & .individual-ms__info {
+            margin-bottom: 10px;
+          }
+        }
+
+        & .h1 {
+          color: var(--dark-color);
+          line-height: 151%;
+          max-width: 443px;
+
+          @media(max-width: 1450px) {
+            font-size: 40px;
+            line-height: 170%;
+          }
+
+          @media(max-width: 1310px) {
+            font-size: 33px;
+            line-height: 180%;
+          }
+
+          @media(max-width: 700px) {
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 180%;
+            /* 33.6px */
+            letter-spacing: -0.56px;
+          }
+
+          & span {
+            padding: 4px 12px 8px 12px;
+            background-color: var(--accent-color);
+            color: var(--light-color);
+            border-radius: 10px;
+
+          }
+
+          & b {
+            padding: 4px 12px 8px 12px;
+            color: var(--light-color);
+            background-color: var(--dark-color);
+            border-radius: 10px;
+          }
+        }
+
+        & .individual-ms__image {
+          width: 100%;
+          height: 342px;
+          border-radius: 40px;
+          overflow: hidden;
+
+          @media(max-width: 1310px) {
+            height: 320px;
+          }
+
+
+          & img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        & .individual-ms__info {
+          position: relative;
+          border-radius: 30px;
+          border: 1px solid #E7EAEB;
+          background: #F3F3F6;
+          padding: 20px;
+
+          & .individual-ms__info-title {
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 120%;
+            letter-spacing: -0.48px;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+          }
+
+          & .individual-ms__info-text {
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+            color: var(--darg-gray-color);
+          }
+
+          & .individual-ms__info-icon {
+            position: absolute;
+            right: 11px;
+            top: 11px;
+            height: 64px;
+
+            img {
+              object-fit: contain;
+              width: 100%;
+              height: 100%;
+              object-position: right top;
+            }
+          }
+        }
+      }
+
+      & .splide__pagination {
+        bottom: -22px;
+        gap: 10px;
+        flex-wrap: nowrap;
+        & li {
+          width: 100%;
+          & .splide__pagination__page {
+            width: 100%;
+            opacity: 1;
+            border-radius: 4px;
+            background: #F3F3F6;
+            height: 4px;
+
+            &.is-active {
+              transform: scale(1);
+              background: #C7C9C9;
+            }
+          }
+        }
+      }
+    }
+  }
+}

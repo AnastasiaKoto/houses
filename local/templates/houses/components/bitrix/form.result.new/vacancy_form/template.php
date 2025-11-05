@@ -92,7 +92,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 								<?= recreateTextField($FIELD_SID, $arQuestion, $arQuestion["STRUCTURE"][0]["FIELD_TYPE"]); ?>
 								<? //$arQuestion["HTML_CODE"]; ?>
 								<span class="checkmark"></span>
-								<span class="agreed-text"><?= $arQuestion['CAPTION']; ?></span>
+								<span class="agreed-text"><?= $arQuestion['~CAPTION']; ?></span>
 							</label>
 						</div>
 					<? }

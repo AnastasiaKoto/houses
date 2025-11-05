@@ -99,7 +99,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 								stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</span>
-					<span class="checkbox-text"><?= $arQuestion['CAPTION']; ?></span>
+					<span class="checkbox-text"><?= $arQuestion['~CAPTION']; ?></span>
 				</label>
 			<? }
 		} ?>

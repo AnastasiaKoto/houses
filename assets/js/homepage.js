@@ -3,18 +3,24 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderMainscreen) return;
 
   const splide = new Splide(sliderMainscreen, {
-    type: 'loop', // теперь бесконечный
+    type: 'loop',
     perPage: 1,
     gap: 0,
     perMove: 1,
     pagination: false,
-    arrows: false,
+    arrows: false, // отключаем стандартные стрелки Splide
     autoplay: true,
-    interval: 7000, // медленнее (7 секунд)
+    interval: 7000,
     pauseOnHover: false,
+    speed: 900,
+    easing: 'ease',
   });
 
-  const slidesCount = sliderMainscreen.querySelectorAll('.splide__slide').length;
+  // Реальные слайды
+  const realSlides = sliderMainscreen.querySelectorAll('.splide__slide:not(.is-clone)');
+  const slidesCount = realSlides.length;
+
+  // --- Story progress bars ---
   const progressWrapper = document.createElement('div');
   progressWrapper.classList.add('story-progress');
 
@@ -30,17 +36,26 @@ document.addEventListener('DOMContentLoaded', function () {
     bar.appendChild(fill);
     progressWrapper.appendChild(bar);
     fills.push(fill);
+
+    // Клик по бару → переход к нужному слайду
+    bar.addEventListener('click', () => {
+      splide.go(i);
+    });
   }
 
   sliderMainscreen.appendChild(progressWrapper);
 
+  // --- Обновление прогресс-бара ---
   function startFill(index) {
+    const realIndex = index % slidesCount;
+
     fills.forEach((f, i) => {
       f.style.transition = 'none';
-      f.style.width = i < index ? '100%' : '0%';
+      f.style.width = i < realIndex ? '100%' : '0%';
+      f.parentElement.classList.toggle('active', i === realIndex);
     });
 
-    const fill = fills[index];
+    const fill = fills[realIndex];
     if (!fill) return;
 
     setTimeout(() => {
@@ -49,17 +64,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 20);
   }
 
-  splide.on('mounted', () => {
-    startFill(0);
-  });
-
-  splide.on('move', (newIndex) => {
-    startFill(newIndex);
+  splide.on('mounted move', () => {
+    const currentIndex = splide.Components.Controller.getIndex(true);
+    startFill(currentIndex);
   });
 
   splide.mount();
-});
 
+  // --- Управление стрелками ---
+  const prevArrow = document.querySelector('.mainscreen-arrow__prev');
+  const nextArrow = document.querySelector('.mainscreen-arrow__next');
+
+  if (prevArrow && nextArrow) {
+    prevArrow.addEventListener('click', () => splide.go('<')); // предыдущий слайд
+    nextArrow.addEventListener('click', () => splide.go('>')); // следующий слайд
+  }
+});
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -69,26 +89,68 @@ document.addEventListener('DOMContentLoaded', function () {
   let splide;
 
   function initSplide() {
+    // Слайдер включается только при <= 1500px
     if (window.innerWidth <= 1500) {
       if (!splide) {
         splide = new Splide(sliderStyles, {
-          type: 'loop',
-          autoWidth: true,
+          type: 'slide',
+          perPage: 3,
           perMove: 1,
+          gap: 20,
+          speed: 600,
+          easing: 'ease',
           pagination: false,
           arrows: false,
-          gap: 20,
-          speed: 600,  
-          easing: 'ease', 
+          focus: 'start',
+          padding: { right: 15 },
           breakpoints: {
+            992: {
+              perPage: 2,
+              gap: 10,
+              padding: { right: 10 },
+            },
             700: {
-              gap: 10
-            }
-          }
+              perPage: 1,
+              padding: { right: 10 },
+            },
+          },
         });
+
         splide.mount();
+
+        // --- стрелки ---
+        const prevArrow = document.querySelector('.styles-arrow__prev');
+        const nextArrow = document.querySelector('.styles-arrow__next');
+
+        function updateArrows() {
+          if (!prevArrow || !nextArrow) return;
+
+          prevArrow.classList.toggle('is-disabled', splide.index === 0);
+
+          nextArrow.classList.toggle(
+            'is-disabled',
+            splide.index >= splide.length - splide.options.perPage
+          );
+        }
+
+        splide.on('moved', updateArrows);
+        splide.on('mounted', updateArrows);
+        splide.on('resized', updateArrows);
+
+        if (prevArrow) {
+          prevArrow.addEventListener('click', () => {
+            if (!prevArrow.classList.contains('is-disabled')) splide.go('<');
+          });
+        }
+
+        if (nextArrow) {
+          nextArrow.addEventListener('click', () => {
+            if (!nextArrow.classList.contains('is-disabled')) splide.go('>');
+          });
+        }
       }
     } else {
+      // Уничтожаем слайдер при >1500px
       if (splide) {
         splide.destroy();
         splide = null;
@@ -98,17 +160,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initSplide();
   window.addEventListener('resize', initSplide);
-
-  const prevArrow = document.querySelector('.styles-arrow__prev');
-  const nextArrow = document.querySelector('.styles-arrow__next');
-
-  if (prevArrow) {
-    prevArrow.addEventListener('click', () => splide?.go('<'));
-  }
-  if (nextArrow) {
-    nextArrow.addEventListener('click', () => splide?.go('>'));
-  }
 });
+
 
 
 
@@ -117,21 +170,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!sliderUniq) return;
 
   const splide = new Splide(sliderUniq, {
-    type: 'loop',
-    // perPage: 1,
-    autoWidth: true, 
-    gap: 20,
+    type: 'slide',
+    perPage: 4,
     perMove: 1,
+    gap: 20,
+    speed: 600,
+    easing: 'ease',
     pagination: false,
     arrows: false,
-    speed: 600, 
-    easing: 'ease',
+    focus: 'start',
+    padding: { right: 15 },
     breakpoints: {
       992: {
+        perPage: 2,
         gap: 10,
-        // type: 'loop',
-      }
-    }
+        padding: { right: 10 },
+      },
+    },
   });
 
   splide.mount();
@@ -139,15 +194,32 @@ document.addEventListener('DOMContentLoaded', function () {
   const prevArrow = document.querySelector('.uniq-arrow__prev');
   const nextArrow = document.querySelector('.uniq-arrow__next');
 
+  function updateArrows() {
+    if (!prevArrow || !nextArrow) return;
+
+
+    prevArrow.classList.toggle('is-disabled', splide.index === 0);
+
+    nextArrow.classList.toggle(
+      'is-disabled',
+      splide.index >= splide.length - splide.options.perPage
+    );
+  }
+
+  splide.on('moved', updateArrows);
+  splide.on('mounted', updateArrows);
+  splide.on('resized', updateArrows);
+
+  // стрелки
   if (prevArrow) {
     prevArrow.addEventListener('click', () => {
-      splide.go('<');
+      if (!prevArrow.classList.contains('is-disabled')) splide.go('<');
     });
   }
 
   if (nextArrow) {
     nextArrow.addEventListener('click', () => {
-      splide.go('>');
+      if (!nextArrow.classList.contains('is-disabled')) splide.go('>');
     });
   }
 });
@@ -190,33 +262,79 @@ document.addEventListener('DOMContentLoaded', function () {
   const prevArrow = document.querySelector('.projects-arrow__prev');
   const nextArrow = document.querySelector('.projects-arrow__next');
 
-
   const splides = Array.from(sliders).map(slider => {
     const s = new Splide(slider, {
       type: 'slide',
-      autoWidth: true,
-      gap: 20,
+      perPage: 3,
       perMove: 1,
+      gap: 20,
+      speed: 600,
+      easing: 'ease',
       pagination: false,
       arrows: false,
+      focus: 'start',
+      padding: { right: 15 },
+      breakpoints: {
+        992: {
+          perPage: 2,
+          gap: 10,
+          padding: { right: 10 },
+        },
+      },
     });
     s.mount();
     return s;
   });
 
-
   let currentIndex = 0;
 
+  function updateArrows() {
+    if (!prevArrow || !nextArrow) return;
 
-  if (prevArrow) prevArrow.addEventListener('click', () => splides[currentIndex].go('<'));
-  if (nextArrow) nextArrow.addEventListener('click', () => splides[currentIndex].go('>'));
+    const splide = splides[currentIndex];
+    prevArrow.classList.toggle('is-disabled', splide.index === 0);
+    nextArrow.classList.toggle(
+      'is-disabled',
+      splide.index >= splide.length - splide.options.perPage
+    );
+  }
 
+  // навигация по стрелкам
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => {
+      const splide = splides[currentIndex];
+      if (!prevArrow.classList.contains('is-disabled')) {
+        splide.go('<');
+      }
+    });
+  }
 
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => {
+      const splide = splides[currentIndex];
+      if (!nextArrow.classList.contains('is-disabled')) {
+        splide.go('>');
+      }
+    });
+  }
+
+  // обновление стрелок после каждого движения
+  splides.forEach(splide => {
+    splide.on('moved', updateArrows);
+    splide.on('mounted', updateArrows);
+    splide.on('resized', updateArrows);
+  });
+
+  // переключение текущего слайдера при наведении
   sliders.forEach((slider, i) => {
     slider.addEventListener('mouseenter', () => {
       currentIndex = i;
+      updateArrows(); // обновляем состояние стрелок для нового слайдера
     });
   });
+
+  // инициализация стрелок для первого слайдера
+  updateArrows();
 });
 
 

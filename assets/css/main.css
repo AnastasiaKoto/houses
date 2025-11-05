@@ -2396,6 +2396,16 @@
    }
  }
 
+ .noactive {
+   pointer-events: none;
+   color: #C7C9C9;
+
+   & * {
+     color: #C7C9C9;
+   }
+ }
+
+
 
  /* custom select without label */
  .custom-select-js {
@@ -2781,12 +2791,13 @@
 
                &:nth-child(3) {
                  & svg {
-                  & >path {
-                    stroke: var(--accent-color);
-                  }
+                   &>path {
+                     stroke: var(--accent-color);
+                   }
+
                    & g {
-                     & > path {
-                      fill: var(--accent-color);
+                     &>path {
+                       fill: var(--accent-color);
                      }
                    }
                  }

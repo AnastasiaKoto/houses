@@ -1145,6 +1145,7 @@ if ($haveOffers):
 	<script>
 		window.OFFERS_DATA = <?php echo json_encode($arResult['JS_OFFERS']); ?>;
 		window.BUILDINGS_DATA = <?php echo json_encode($arResult['PROPERTIES']['BUILDINGS']['VALUE_ITEMS']); ?>;
+		window.ACTIVE_COMBINATION_KEY = <?php echo json_encode($currentOffer['COMBINATION_KEY']); ?>;
 		//console.log(OFFERS_DATA);
 	</script>
 <? endif; ?>

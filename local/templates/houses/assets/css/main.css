@@ -3226,10 +3226,10 @@
 
   .noactive {
    pointer-events: none;
-   color: #C7C9C9;
+   color: #C7C9C9!important;
 
    & * {
-     color: #C7C9C9;
+     color: #C7C9C9!important;
    }
  }
 

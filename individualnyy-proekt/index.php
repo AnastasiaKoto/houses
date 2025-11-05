@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
-	".default", 
+	"individ_banners", 
 	[
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",
@@ -14,18 +14,19 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 		"IBLOCK_TYPE" => "content",
 		"IBLOCK_ID" => INDIVID_BANNERS_ID,
 		"NEWS_COUNT" => "3",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_ORDER1" => "DESC",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER2" => "ASC",
+		"SORT_BY1" => "SORT",
+		"SORT_ORDER1" => "ASC",
+		"SORT_BY2" => "ACTIVE_FROM",
+		"SORT_ORDER2" => "DESC",
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => [
 			0 => "ID",
 			1 => "",
 		],
 		"PROPERTY_CODE" => [
-			0 => "",
-			1 => "",
+			0 => "BTN_LINK",
+			1 => "BTN_TEXT",
+			2 => "ICON",
 		],
 		"CHECK_DATES" => "Y",
 		"DETAIL_URL" => "",
@@ -70,19 +71,19 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 	false
 );?>
 <? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_START_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
+	"bitrix:highloadblock.list", 
+	"start_project", 
+	[
+		"BLOCK_ID" => HL_START_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC"
+	],
+	false
 ); ?>
 <? $APPLICATION->IncludeComponent(
 "bitrix:highloadblock.list",

@@ -3,17 +3,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   slidersCatalog.forEach(slider => {
     const splide = new Splide(slider, {
-      type: 'slide',
+      type: 'fade',
       perPage: 1,
       gap: 0,
       pagination: true,
       arrows: false,
       drag: false,
+      breakpoints: {
+        992: {
+          drag: true, 
+        }
+      }
     }).mount();
 
     const track = slider.querySelector('.splide__track');
 
-    track.addEventListener('mousemove', e => {
+    const handleMouseMove = e => {
+      if (window.innerWidth < 992) return; 
       const rect = track.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const width = rect.width;
@@ -22,15 +28,22 @@ document.addEventListener('DOMContentLoaded', function () {
       const hoverZone = 15;
 
       let index = Math.floor((x / width) * slidesCount);
-
       if (x < hoverZone) index = 0;
       if (x > width - hoverZone) index = slidesCount - 1;
 
       splide.go(index);
-    });
-    
+    };
+
+    const handleMouseLeave = () => {
+      if (window.innerWidth < 992) return; 
+      splide.go(0); 
+    };
+
+    track.addEventListener('mousemove', handleMouseMove);
+    track.addEventListener('mouseleave', handleMouseLeave);
   });
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -103,3 +116,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+// class ProjectsSlider {
+//   constructor(selectorOrElement) {
+//     if (typeof selectorOrElement === 'string') {
+//       this.selector = selectorOrElement;
+//       this.elements = document.querySelectorAll(this.selector);
+//     } else if (selectorOrElement instanceof HTMLElement) {
+//       this.selector = null;
+//       this.elements = [selectorOrElement];
+//     } else {
+//       this.elements = [];
+//     }
+//     this.sliders = [];
+//     this.init();
+//   }
+
+//   init() {
+//     this.elements.forEach(sliderEl => {
+//       const splide = new Splide(sliderEl, {
+//         type: 'slide',
+//         perPage: 1,
+//         pagination: true,
+//         arrows: false,
+//         drag: false,
+//         speed: 600, 
+//         easing: 'ease',
+//         breakpoints: {
+//           992: {
+//             drag: true,
+//           }
+//         }
+
+//       }).mount();
+
+//       const track = sliderEl.querySelector('.splide__track');
+//       const handleMouseMove = e => {
+//         const rect = track.getBoundingClientRect();
+//         const x = e.clientX - rect.left;
+//         const width = rect.width;
+//         const slidesCount = splide.length;
+//         const hoverZone = 15;
+
+//         let index = Math.floor((x / width) * slidesCount);
+//         if (x < hoverZone) index = 0;
+//         if (x > width - hoverZone) index = slidesCount - 1;
+
+//         splide.go(index);
+//       };
+
+//       track.addEventListener('mousemove', handleMouseMove);
+//       this.sliders.push({ splide, track, handleMouseMove });
+//     });
+//   }
+
+//   destroy() {
+//     this.sliders.forEach(({ splide, track, handleMouseMove }) => {
+//       track.removeEventListener('mousemove', handleMouseMove);
+//       splide.destroy();
+//     });
+//     this.sliders = [];
+//   }
+
+//   reinit() {
+//     this.destroy();
+//     this.init();
+//   }
+// }

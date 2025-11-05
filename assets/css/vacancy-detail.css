@@ -5,6 +5,7 @@
     background: #A5B7BB;
     position: relative;
     overflow: hidden;
+
     @media(Max-width: 700px) {
       padding: 20px;
       border-radius: 20px;
@@ -32,6 +33,7 @@
       max-width: 246px;
       width: 100%;
       height: 170px;
+
       @media(max-width: 700px) {
         display: none;
       }
@@ -115,42 +117,71 @@
 
   & .vacancy-detail__content {
     margin-top: 40px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    color: #4A4A4A;
 
     @media(max-width: 700px) {
       margin-bottom: 30px;
     }
 
-    & .vacancy-detail__content-items {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+    & h2 {
+      margin-bottom: 30px;
+      color: var(--dark-color);
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 100%;
+      letter-spacing: -1.04px;
+      text-align: left;
 
-      & .vacancy-detail__content-item {
-        & .section-title {
-          margin-bottom: 30px;
-
-          @media(max-width: 700px) {
-            margin-bottom: 20px;
-          }
-        }
-
-        & ul {
-          list-style-type: disc;
-          padding-left: 25px;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-
-          & li {
-            font-size: 18px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 130%;
-            color: #4A4A4A;
-          }
-        }
+      @media (max-width: 992px) {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 100%;
+        letter-spacing: -0.6px;
       }
     }
+
+    @media(max-width: 700px) {
+      margin-bottom: 20px;
+    }
+
+    & ul {
+      list-style-type: disc;
+      padding-left: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 40px;
+
+      & li {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        color: #4A4A4A;
+      }
+    }
+
+    & ol {
+      list-style-type: disc;
+      padding-left: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 40px;
+
+      & li {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        color: #4A4A4A;
+      }
+    }
+
   }
 }
 

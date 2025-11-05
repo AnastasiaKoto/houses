@@ -1,0 +1,98 @@
+.compare {
+  & .section-title {
+    margin-bottom: 20px;
+  }
+
+  & .compare-tabs {
+    margin-top: 50px;
+
+    & .compare-tabs__links {
+      display: flex;
+      margin-bottom: 40px;
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 5px;
+
+      & li {
+        & button.compare-tabs__link {
+          font-size: 30px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 100%;
+          /* 30px */
+          letter-spacing: -0.6px;
+          color: #C7C9C9;
+          transition: all .3s ease-in;
+          padding-bottom: 10px;
+          border-bottom: 3px solid transparent;
+          white-space: nowrap;
+
+          @media(max-width: 700px) {
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%;
+            /* 22px */
+            letter-spacing: -0.44px;
+          }
+
+          &:hover {
+            transition: all .3s ease-in;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+          }
+
+          &.active {
+            border-bottom: 3px solid var(--dark-color);
+            color: var(--dark-color);
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+      }
+    }
+
+    & .compare-tabs__content {
+      display: none;
+
+      & .compare-tabs__images {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        @media(max-width: 700px) {
+          flex-direction: column;
+        }
+
+        & .compare-tabs__image {
+          max-height: 600px;
+          max-width: 690px;
+          width: 100%;
+          border-radius: 40px;
+          overflow: hidden;
+
+          @media(max-width: 700px) {
+            max-height: 343px;
+            max-width: 355px;
+          }
+
+          & img {
+            object-fit: contain;
+            object-position: top;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      &.active {
+        display: block;
+      }
+
+    }
+  }
+
+
+}

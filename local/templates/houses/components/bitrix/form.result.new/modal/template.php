@@ -55,7 +55,7 @@ if($arResult["isFormNote"] == "Y") {
 		</div>
 		<div class="modal-form">
 			<?= $arResult["FORM_HEADER"] ?>
-			<input type="hidden" name="web_form_submit">
+			<input type="hidden" name="web_form_submit" value="Y">
 			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { ?>
 				<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] != "checkbox") { ?>
 					<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") {  ?>

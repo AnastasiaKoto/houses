@@ -6,7 +6,7 @@
     <div class="modal-inner">
       <? $APPLICATION->IncludeComponent(
 				"bitrix:form.result.new",
-				"modal",
+				"",
 				array(
 					"AJAX_MODE" => "Y",
 					"AJAX_OPTION_SHADOW" => "N",

@@ -30,7 +30,7 @@ if(!empty($arResult['ITEMS'])):
 								<h1 class="h1">
 									<?= $arItem['DETAIL_TEXT']; ?>
 								</h1>
-								<a href="<?= $arItem['DISPLAY_PROPERTIES']['BTN_LINK']['VALUE'] ?? '' ?>" <?= !$arItem['DISPLAY_PROPERTIES']['BTN_LINK']['VALUE'] ? 'data-modal-target="#manager"' : ''; ?> class="arrow-btn__dark">
+								<a <?= !$arItem['DISPLAY_PROPERTIES']['BTN_LINK']['VALUE'] ? 'data-modal-target="#manager" href="javascript:void(0)"' : 'href="' . $arItem['DISPLAY_PROPERTIES']['BTN_LINK']['VALUE'] . '"'; ?> class="arrow-btn__dark">
 									<span>
 										<?= $arItem['DISPLAY_PROPERTIES']['BTN_TEXT']['VALUE'] ?>
 									</span>

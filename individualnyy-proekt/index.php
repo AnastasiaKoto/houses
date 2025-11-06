@@ -119,7 +119,7 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => [
 			0 => "ID",
-			1 => "",
+			1 => "DETAIL_PICTURE",
 		],
 		"PROPERTY_CODE" => [
 			0 => "LIGHT",

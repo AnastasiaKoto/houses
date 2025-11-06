@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("Технологии");
 ?>
 <section class="section">
 	<div class="container">
-		<h1 class="section-title">
+		<h1 class="section-title" style="margin-bottom:20px">
 			<? $APPLICATION->ShowTitle(false); ?>
 		</h1>
 		<div class="section-subtitle">

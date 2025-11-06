@@ -62,8 +62,11 @@
         }
 
         &:nth-child(3n+3) {
+          display: flex;
+          flex-direction: column-reverse;
           & .individual-ms__info {
             margin-bottom: 10px;
+
           }
         }
 

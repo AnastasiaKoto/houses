@@ -2393,11 +2393,8 @@
          color: #C7C9C9;
        }
      }
-
    }
  }
-
-
 
 
  /* custom select without label */
@@ -2784,13 +2781,12 @@
 
                &:nth-child(3) {
                  & svg {
-                   &>path {
-                     stroke: var(--accent-color);
-                   }
-
+                  & >path {
+                    stroke: var(--accent-color);
+                  }
                    & g {
-                     &>path {
-                       fill: var(--accent-color);
+                     & > path {
+                      fill: var(--accent-color);
                      }
                    }
                  }
@@ -3150,15 +3146,6 @@
      line-height: 120%;
      letter-spacing: -0.14px;
      color: var(--dark-color);
-   }
- }
-
- .noactive {
-   pointer-events: none;
-   color: #C7C9C9;
-
-   & * {
-     color: #C7C9C9;
    }
  }
 

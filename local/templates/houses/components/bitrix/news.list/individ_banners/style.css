@@ -74,6 +74,7 @@
           color: var(--dark-color);
           line-height: 151%;
           max-width: 443px;
+          word-break: break-word;
 
           @media(max-width: 1450px) {
             font-size: 40px;

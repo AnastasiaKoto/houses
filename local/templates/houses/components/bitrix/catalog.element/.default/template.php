@@ -627,7 +627,7 @@ if ($haveOffers) {
 						foreach ($planes as $plane): ?>
 							<div class="tab-pane <?= $count == 1 ? 'active' : ''; ?>" data-tab="<?= $count; ?>"
 								data-type="house">
-								<a class="detail-product__layout-tabs__image" data-fancybox href="<?= $plane['UF_FILE']; ?>">
+								<div class="detail-product__layout-tabs__image" data-fancybox href="<?= $plane['UF_FILE']; ?>">
 									<img src="<?= $plane['UF_FILE']; ?>" alt="<?= $plane['UF_NAME']; ?>">
 									<div class="detail-product__layout-tabs__image-view__icon">
 										<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -647,7 +647,7 @@ if ($haveOffers) {
 												stroke-linejoin="round" />
 										</svg>
 									</div>
-								</a>
+								</div>
 							</div>
 							<? $count++; endforeach; ?>
 						<? if (!$haveOffers && !empty($arResult['PROPERTIES']['BUILDINGS']['VALUE_ELEMENT'])): ?>

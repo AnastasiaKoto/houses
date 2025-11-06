@@ -34,7 +34,10 @@ if (!empty($arResult['ITEMS'])):
 					<li class="individual-steps__item <?= $light_text ? 'light' : ''; ?>">
 						<div class="individual-steps__item-image">
 							<?= $light_text ? '<div class="individual-steps__image-layer"></div>' : ''; ?>
-							<img src="<?= $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<?= $arItem['NAME']; ?>">
+							<picture>
+								<source srcset="<?= $arItem['DETAIL_PICTURE']['SRC']; ?>" media="(max-width: 768px)">
+								<img src="<?= $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<?= $arItem['NAME']; ?>">
+							</picture>
 						</div>
 						<div class="individual-steps__item-name">
 							<?= $arItem['NAME']; ?>

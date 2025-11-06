@@ -18,3 +18,4 @@
 *sitemap*
 /local/templates/houses/components/bitrix/catalog.element/.default/ajax_copy.js
 /local/templates/houses/components/bitrix/catalog.element/.default/script_copy.js
+*.log

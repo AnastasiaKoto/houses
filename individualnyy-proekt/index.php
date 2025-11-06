@@ -86,23 +86,23 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 	false
 ); ?>
 <? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_WHY_WEARE,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
+	"bitrix:highloadblock.list", 
+	"order_project", 
+	[
+		"BLOCK_ID" => HL_WHY_WEARE,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC"
+	],
+	false
 ); ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
-	".default", 
+	"individ_stages", 
 	[
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",
@@ -112,17 +112,17 @@ false
 		"IBLOCK_TYPE" => "content",
 		"IBLOCK_ID" => IB_STAGES_ID,
 		"NEWS_COUNT" => "20",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_ORDER1" => "DESC",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER2" => "ASC",
+		"SORT_BY1" => "SORT",
+		"SORT_ORDER1" => "ASC",
+		"SORT_BY2" => "ACTIVE_FROM",
+		"SORT_ORDER2" => "DESC",
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => [
 			0 => "ID",
 			1 => "",
 		],
 		"PROPERTY_CODE" => [
-			0 => "",
+			0 => "LIGHT",
 			1 => "",
 		],
 		"CHECK_DATES" => "Y",
@@ -205,7 +205,7 @@ false
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"PARENT_SECTION" => "16",
+		"PARENT_SECTION" => "18",
 		"PARENT_SECTION_CODE" => "",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"CACHE_TYPE" => "A",

@@ -143,7 +143,6 @@ if($arResult["isFormNote"] == "Y") {
 		</div>
 		<?if ($arResult["isFormErrors"] == "Y") {
 			$fields = [];
-			p($arResult['FORM_ERRORS']);
 			foreach($arResult['FORM_ERRORS'] as $key => $value) {
 				if(!empty($value)) {
 					$fields[] = $key;

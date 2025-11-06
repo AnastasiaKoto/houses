@@ -11,6 +11,7 @@
     display: flex;
     gap: 20px;
     position: relative;
+    
 
     & .catalog-filters {
       max-width: 217px;

@@ -55,7 +55,6 @@ if($arResult["isFormNote"] == "Y") {
 		</div>
 		<div class="modal-form">
 			<?= $arResult["FORM_HEADER"] ?>
-			<input type="hidden" name="web_form_submit">
 			<? foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) { ?>
 				<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] != "checkbox") { ?>
 					<? if($arQuestion["STRUCTURE"][0]["FIELD_TYPE"] == "hidden") {  ?>
@@ -114,7 +113,7 @@ if($arResult["isFormNote"] == "Y") {
 					</label>
 				<? } ?>
 			<? } ?>
-			<button type="submit" class="arrow-btn__dark modal-submit js-modal-form-submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
+			<button type="submit" class="arrow-btn__dark modal-submit js-modal-form-submit" name="web_form_submit" value="<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>">
 				<span>
 					<?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == "" ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?>
 				</span>

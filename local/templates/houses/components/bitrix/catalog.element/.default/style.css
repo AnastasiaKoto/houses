@@ -966,6 +966,7 @@
           background-blend-mode: darken, normal;
           overflow: hidden;
           position: relative;
+          min-width: 100px;
 
           @media(max-width: 700px) {
             height: 355px;
@@ -996,7 +997,7 @@
       & .detail-product__layout-tabs__links {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+       
 
         & .detail-product__layout-tabs__link {
           font-size: 20px;
@@ -1008,6 +1009,10 @@
           padding-bottom: 6px;
           border-bottom: 2px solid transparent;
           transition: color .3s ease-in;
+          cursor: pointer;
+          &:not(:last-child) {
+            margin-right: 20px;
+          }
 
           &:hover {
             color: #f6662a;

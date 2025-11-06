@@ -161,6 +161,23 @@
             </div>
           </div>
           <div class="mainscreen-slider">
+            <div class="mainscreen-arrows">
+              <div class="slider-arrow mainscreen-arrow mainscreen-arrow__prev">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.4167 10H5H15.4167ZM5 10L10 5L5 10ZM5 10L10 15Z" fill="#8E9293"></path>
+                  <path d="M5 10L10 15M15.4167 10H5H15.4167ZM5 10L10 5L5 10Z" stroke="#8E9293" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <div class="slider-arrow mainscreen-arrow mainscreen-arrow__next">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 10H15.4167H5ZM15.4167 10L10.4167 5L15.4167 10ZM15.4167 10L10.4167 15Z" fill="#8E9293">
+                  </path>
+                  <path d="M15.4167 10L10.4167 15M5 10H15.4167H5ZM15.4167 10L10.4167 5L15.4167 10Z" stroke="#8E9293"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </div>
             <div class="splide mainscreen-splide">
               <div class="splide__track">
                 <ul class="splide__list">
@@ -1534,12 +1551,12 @@
           </div>
           <!-- modified -->
           <a href="javascript:void(0)" class="show-more">Показать еще</a>
-          <a href="javascript:void(0)" class="ask-btn">Задать свой вопрос</a>
+          <a href="#questions" class="ask-btn">Задать свой вопрос</a>
           <!-- modified -->
         </div>
       </div>
     </section>
-    <section class="section question-form">
+    <section id="questions" class="section question-form">
       <div class="container">
         <div class="question-form__inner">
           <div class="section-title">

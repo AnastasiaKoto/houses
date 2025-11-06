@@ -35,7 +35,7 @@ if (!empty($arResult['ITEMS'])):
 						<div class="individual-steps__item-image">
 							<?= $light_text ? '<div class="individual-steps__image-layer"></div>' : ''; ?>
 							<picture>
-								<source srcset="<?= $arItem['DETAIL_PICTURE']['SRC'] ?? $arItem['PREVIEW_PICTURE']['SRC']; ?>" media="(max-width: 768px)">
+								<source srcset="<?= $arItem['DETAIL_PICTURE']['SRC'] ? $arItem['DETAIL_PICTURE']['SRC'] : $arItem['PREVIEW_PICTURE']['SRC']; ?>" media="(max-width: 768px)">
 								<img src="<?= $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<?= $arItem['NAME']; ?>">
 							</picture>
 						</div>

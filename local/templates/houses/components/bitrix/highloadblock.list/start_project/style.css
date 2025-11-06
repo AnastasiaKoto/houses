@@ -1,0 +1,121 @@
+.individual-start {
+  & .individual-start__inner {
+    display: flex;
+    gap: 20px;
+
+    & .individual-start__info {
+      max-width: 690px;
+
+      @media(max-width: 992px) {
+        max-width: 100%;
+      }
+
+      & .section-title {
+        margin-bottom: 20px;
+
+        @media(max-width: 1450px) {
+          font-size: 45px;
+        }
+
+        @media(max-width: 992px) {
+          font-size: 28px;
+          font-weight: 700;
+          line-height: 100%;
+          letter-spacing: -0.6px;
+        }
+      }
+
+      & .individual-start__info-items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+
+        @media(max-width: 1370px) {
+          gap: 12px;
+        }
+
+        @media(max-width: 992px) {
+          gap: 10px;
+        }
+
+        & .individual-start__info-item {
+          height: 189px;
+          border-radius: 20px;
+          border: 1px solid #E7EAEB;
+          background: #F3F3F6;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          padding: 20px;
+
+          @media(max-width: 992px) {
+            height: 10px;
+            height: auto;
+            justify-content: space-between;
+          }
+
+          &:last-child {
+            grid-column-end: span 2;
+          }
+
+          & .individual-start__info-item__icon {
+            height: 48px;
+
+            @media(max-width: 992px) {
+              height: 32px;
+            }
+
+            & img {
+              object-fit: contain;
+              width: 100%;
+              height: 100%;
+              object-position: left top;
+            }
+          }
+
+          & .individual-start__info-item__text {
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%;
+            letter-spacing: -0.48px;
+            color: var(--dark-color);
+
+            @media(max-width: 992px) {
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 120%;
+              /* 19.2px */
+              letter-spacing: -0.32px;
+            }
+          }
+        }
+      }
+    }
+
+    & .individual-start__image {
+      max-width: 690px;
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+      border: 1px solid #E7EAEB;
+      overflow: hidden;
+      display: flex;
+
+      @media(Max-width: 1370px) {
+        height: auto;
+      }
+
+      @media(Max-width: 992px) {
+        display: none;
+      }
+
+      & img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

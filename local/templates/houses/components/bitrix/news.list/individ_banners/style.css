@@ -135,6 +135,9 @@
           border: 1px solid #E7EAEB;
           background: #F3F3F6;
           padding: 20px;
+          @media(max-width: 700px) {
+            height: auto;
+          }
 
           & .individual-ms__info-title {
             font-size: 24px;

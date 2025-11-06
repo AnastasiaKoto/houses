@@ -21,26 +21,6 @@ $APPLICATION->SetTitle("Технологии");
 		</div>
 	</div>
 </section>
-<? $APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	"",
-	array(
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => "/include/general/blocks/features.php"
-	)
-); ?>
-<? $APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	"",
-	array(
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => "/include/general/blocks/unics.php"
-	)
-); ?>
 <section class="section compare">
 	<div class="container">
 		<div class="section-title">
@@ -136,6 +116,26 @@ $APPLICATION->SetTitle("Технологии");
 ); ?>
 	</div>
 </section>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	"",
+	array(
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_SUFFIX" => "",
+		"EDIT_TEMPLATE" => "standard.php",
+		"PATH" => "/include/general/blocks/features.php"
+	)
+); ?>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	"",
+	array(
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_SUFFIX" => "",
+		"EDIT_TEMPLATE" => "standard.php",
+		"PATH" => "/include/general/blocks/unics.php"
+	)
+); ?>
 <? $APPLICATION->IncludeComponent(
 	"bitrix:main.include",
 	"",

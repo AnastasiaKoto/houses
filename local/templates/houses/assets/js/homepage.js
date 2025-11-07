@@ -2,30 +2,30 @@ document.addEventListener('DOMContentLoaded', function () {
   const sliderMainscreen = document.querySelector('.mainscreen-splide');
   if (!sliderMainscreen) return;
 
+  const interval = 7000; 
+
   const splide = new Splide(sliderMainscreen, {
     type: 'loop',
     perPage: 1,
     gap: 0,
     perMove: 1,
     pagination: false,
-    arrows: false, 
-    autoplay: true,
-    interval: 7000,
-    pauseOnHover: false,
-    speed: 900,
+    arrows: false,
+    autoplay: false,
+    speed: 600,
     easing: 'ease',
   });
 
- 
   const realSlides = sliderMainscreen.querySelectorAll('.splide__slide:not(.is-clone)');
   const slidesCount = realSlides.length;
 
- 
+  realSlides.forEach((slide, i) => slide.dataset.index = i);
+
+  // --- Story progress bars ---
   const progressWrapper = document.createElement('div');
   progressWrapper.classList.add('story-progress');
 
   const fills = [];
-
   for (let i = 0; i < slidesCount; i++) {
     const bar = document.createElement('div');
     bar.classList.add('story-bar');
@@ -37,18 +37,22 @@ document.addEventListener('DOMContentLoaded', function () {
     progressWrapper.appendChild(bar);
     fills.push(fill);
 
-
-    bar.addEventListener('click', () => {
-      splide.go(i);
-    });
+    bar.addEventListener('click', () => goToSlide(i));
   }
-
   sliderMainscreen.appendChild(progressWrapper);
 
+  let timer;
 
-  function startFill(index) {
-    const realIndex = index % slidesCount;
+  function resetAllBars() {
+    fills.forEach(f => {
+      f.style.transition = 'none';
+      f.style.width = '0%';
+      f.parentElement.classList.remove('active');
+    });
+    if (timer) clearTimeout(timer);
+  }
 
+  function startFill(realIndex) {
     fills.forEach((f, i) => {
       f.style.transition = 'none';
       f.style.width = i < realIndex ? '100%' : '0%';
@@ -58,26 +62,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const fill = fills[realIndex];
     if (!fill) return;
 
-    setTimeout(() => {
-      fill.style.transition = `width ${splide.options.interval}ms linear`;
-      fill.style.width = '100%';
-    }, 20);
+    fill.style.transition = `width ${interval}ms linear`;
+    fill.style.width = '100%';
+
+    timer = setTimeout(() => {
+      goToSlide((realIndex + 1) % slidesCount);
+    }, interval);
   }
 
-  splide.on('mounted move', () => {
-    const currentIndex = splide.Components.Controller.getIndex(true);
-    startFill(currentIndex);
-  });
+  function goToSlide(index) {
+    resetAllBars();
+    splide.go(index);
+    startFill(index);
+  }
 
   splide.mount();
+
 
   const prevArrow = document.querySelector('.mainscreen-arrow__prev');
   const nextArrow = document.querySelector('.mainscreen-arrow__next');
 
-  if (prevArrow && nextArrow) {
-    prevArrow.addEventListener('click', () => splide.go('<')); 
-    nextArrow.addEventListener('click', () => splide.go('>')); 
-  }
+  if (prevArrow) prevArrow.addEventListener('click', () => {
+    const prevIndex = (splide.index - 1 + slidesCount) % slidesCount;
+    goToSlide(prevIndex);
+  });
+
+  if (nextArrow) nextArrow.addEventListener('click', () => {
+    const nextIndex = (splide.index + 1) % slidesCount;
+    goToSlide(nextIndex);
+  });
+
+  startFill(0);
 });
 
 

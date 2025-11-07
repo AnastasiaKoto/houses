@@ -179,9 +179,9 @@ $APPLICATION->SetTitle("Индивидуальный проектт");
 		"IBLOCK_TYPE" => "content",
 		"IBLOCK_ID" => "10",
 		"NEWS_COUNT" => "20",
-		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY1" => "SORT",
 		"SORT_ORDER1" => "ASC",
-		"SORT_BY2" => "SORT",
+		"SORT_BY2" => "ACTIVE_FROM",
 		"SORT_ORDER2" => "ASC",
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => array(

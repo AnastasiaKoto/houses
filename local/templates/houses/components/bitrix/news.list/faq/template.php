@@ -32,7 +32,7 @@ if(!empty($arResult['ITEMS'])):
 				<div class="question-acc__item">
 					<div class="questions-acc__title">
 						<div class="questions-acc__title-num">
-							<?= $count; ?>
+							<?= $count; ?>.
 						</div>
 						<div class="questions-acc__title-text">
 							<?= $arItem['NAME']; ?>

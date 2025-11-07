@@ -144,6 +144,51 @@
 			</help_message>
 			<base_type>file</base_type>
 		</field>
+		<field>
+			<id>107</id>
+			<entity_id>HLBLOCK_17</entity_id>
+			<field_name>UF_IMG_MOBILE</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id />
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>0</list_width>
+				<list_height>0</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>N</target_blank>
+				<default_view />
+			</settings>
+			<edit_form_label>
+				<en />
+				<ru>Картинка (мобильная версия)</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en />
+				<ru>Картинка (мобильная версия)</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en />
+				<ru>Картинка (мобильная версия)</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
 	</fields>
 	<items>
 		<item>
@@ -151,12 +196,14 @@
 			<uf_name>Цена на сайте —	окончательная для выбранной комплектации</uf_name>
 			<uf_descr>Без	«звёздочек» и скрытых доплат</uf_descr>
 			<uf_img>uf/e55/1wd9eq7t34o93odik3ts9lgfxx32j1se.png</uf_img>
+			<uf_img_mobile>uf/2cf/wwqw5p9x0dh23kv3qnm1t9gzsl2tjknl.png</uf_img_mobile>
 		</item>
 		<item>
 			<id>2</id>
 			<uf_name>Фиксированные сроки в договоре</uf_name>
 			<uf_descr>План работ понятен заранее</uf_descr>
 			<uf_img>uf/e50/qjknyxuvt1a3fxst1eyv3dikut3r97ss.png</uf_img>
+			<uf_img_mobile>uf/91c/y1dl3mgyn1i8614wxcqhqr63je2kdn1z.png</uf_img_mobile>
 		</item>
 		<item>
 			<id>3</id>
@@ -164,6 +211,7 @@
 			<uf_descr>Ваши	деньги	защищены
 Мы зарабатываем	только после сдачи	этапов</uf_descr>
 			<uf_img>uf/a5c/ceoksoozihcnu7f5ajtxpxq547owm8ie.png</uf_img>
+			<uf_img_mobile>uf/15d/uc1pom7kaa7jv0wicrf34ipafwcj9bzo.png</uf_img_mobile>
 		</item>
 	</items>
 </hiblock>

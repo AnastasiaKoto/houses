@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("О компании");
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
-	".default", 
+	"company_banners", 
 	[
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",
@@ -21,11 +21,13 @@ $APPLICATION->SetTitle("О компании");
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => [
 			0 => "ID",
-			1 => "",
+			1 => "DETAIL_TEXT",
 		],
 		"PROPERTY_CODE" => [
-			0 => "",
-			1 => "",
+			0 => "BTN_TEXT",
+			1 => "BTN_LINK",
+			2 => "PICTURE_TYPE",
+			3 => "MAIN_SLIDE"
 		],
 		"CHECK_DATES" => "Y",
 		"DETAIL_URL" => "",
@@ -71,7 +73,7 @@ $APPLICATION->SetTitle("О компании");
 );?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
-	".default", 
+	"why_10_houses", 
 	[
 		"DISPLAY_DATE" => "N",
 		"DISPLAY_NAME" => "Y",
@@ -79,19 +81,19 @@ $APPLICATION->SetTitle("О компании");
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"AJAX_MODE" => "N",
 		"IBLOCK_TYPE" => "content",
-		"IBLOCK_ID" => TEN_DOMOV_ID,
-		"NEWS_COUNT" => "3",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_ORDER1" => "DESC",
-		"SORT_BY2" => "SORT",
+		"IBLOCK_ID" => IB_STAGES_ID,
+		"NEWS_COUNT" => "20",
+		"SORT_BY1" => "SORT",
+		"SORT_ORDER1" => "ASC",
+		"SORT_BY2" => "ACTIVE_FROM",
 		"SORT_ORDER2" => "ASC",
 		"FILTER_NAME" => "",
 		"FIELD_CODE" => [
 			0 => "ID",
-			1 => "",
+			1 => "DETAIL_PICTURE",
 		],
 		"PROPERTY_CODE" => [
-			0 => "",
+			0 => "LIGHT",
 			1 => "",
 		],
 		"CHECK_DATES" => "Y",
@@ -106,7 +108,7 @@ $APPLICATION->SetTitle("О компании");
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"PARENT_SECTION" => "",
+		"PARENT_SECTION" => "21",
 		"PARENT_SECTION_CODE" => "",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"CACHE_TYPE" => "A",
@@ -137,34 +139,51 @@ $APPLICATION->SetTitle("О компании");
 	false
 );?>
 <? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_WEDO_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
+	"bitrix:highloadblock.list", 
+	"we_do", 
+	[
+		"BLOCK_ID" => HL_WEDO_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC"
+	],
+	false
 ); ?>
 <? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_TECH_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
+	"bitrix:highloadblock.list", 
+	"technologies", 
+	[
+		"BLOCK_ID" => HL_TECH_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC",
+		"BLOCK_TITLE" => "Наши технологии и материал",
+		"BLOCK_DESCR" => ""
+	],
+	false
+); ?>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:highloadblock.list", 
+	"deadline", 
+	[
+		"BLOCK_ID" => HL_DEADLINE_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC"
+	],
+	false
 ); ?>
 <? $APPLICATION->IncludeComponent(
 	"bitrix:main.include",
@@ -177,19 +196,22 @@ false
 	)
 ); ?>
 <? $APPLICATION->IncludeComponent(
-"bitrix:highloadblock.list",
-"",
-array(
-	"BLOCK_ID" => HL_PRODUCTION_ID,	// ID highload блока
-	"CHECK_PERMISSIONS" => "N",	// Проверять права доступа
-	"DETAIL_URL" => "",	// Путь к странице просмотра записи
-	"FILTER_NAME" => "",	// Идентификатор фильтра
-	"PAGEN_ID" => "",	// Идентификатор страницы
-	"ROWS_PER_PAGE" => "",	// Разбить по страницам количеством
-	"SORT_FIELD" => "ID",	// Поле сортировки
-	"SORT_ORDER" => "ASC",	// Направление сортировки
-),
-false
+	"bitrix:highloadblock.list", 
+	"technologies", 
+	[
+		"BLOCK_ID" => HL_PRODUCTION_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC",
+		"COMPONENT_TEMPLATE" => "technologies",
+		"BLOCK_TITLE" => "Собственное производство",
+		"BLOCK_DESCR" => "Мы контролируем весь путь от сырья до стены дома. Что это значит для вас:"
+	],
+	false
 ); ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
@@ -229,7 +251,7 @@ false
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"PARENT_SECTION" => "17",
+		"PARENT_SECTION" => "22",
 		"PARENT_SECTION_CODE" => "",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"CACHE_TYPE" => "A",

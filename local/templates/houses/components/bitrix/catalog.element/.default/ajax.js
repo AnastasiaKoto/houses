@@ -1351,28 +1351,118 @@ class HouseVariationManager {
         parameters.forEach(parameter => {
             parameter.textContent = '-';
 
-            if (parameter.classList.contains('square-value') && combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
-                parameter.textContent = combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION;
+            if (parameter.classList.contains('square-value')) {
+                if(combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
+                    parameter.textContent = combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION;
+
+                    if(parameter.closest('.hidden')) {
+                        parameter.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!parameter.closest('.hidden')) {
+                        parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
+                    }
+                }
+                
             }
-            if (parameter.classList.contains('size-value') && combination.PROPERTIES?.SIZES?.VALUE) {
-                parameter.textContent = combination.PROPERTIES?.SIZES?.VALUE;
+            if (parameter.classList.contains('size-value')) {
+                
+                if(combination.PROPERTIES?.SIZES?.VALUE) {
+                    parameter.textContent = combination.PROPERTIES?.SIZES?.VALUE;
+
+                    if(parameter.closest('.hidden')) {
+                        parameter.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!parameter.closest('.hidden')) {
+                        parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
+                    }
+                }
             }
-            if (parameter.classList.contains('height-value') && combination.PROPERTIES?.HEIGHT?.VALUE) {
-                parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
+            if (parameter.classList.contains('height-value')) {
+                
+                if(combination.PROPERTIES?.HEIGHT?.VALUE) {
+                    parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
+
+                    if(parameter.closest('.hidden')) {
+                        parameter.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!parameter.closest('.hidden')) {
+                        parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
+                    }
+                }
+            }
+            if (parameter.classList.contains('allsquare-value')) {
+                
+                if(combination.PROPERTIES?.ALL_SQUARE?.VALUE) {
+                    parameter.innerHTML = combination.PROPERTIES?.ALL_SQUARE?.VALUE + ' м<sup>2</sup>';
+
+                    if(parameter.closest('.hidden')) {
+                        parameter.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!parameter.closest('.hidden')) {
+                        parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
+                    }
+                }
             }
         })
         let rooms = document.querySelectorAll('.detail-product__layout-additional-option__component-value-house');
         rooms.forEach(room => {
             room.textContent = '-';
 
-            if (room.classList.contains('rooms-value') && combination.PROPERTIES?.ROOMS?.VALUE) {
-                room.textContent = combination.PROPERTIES?.ROOMS?.VALUE;
+            if (room.classList.contains('rooms-value')) {
+                
+                if(combination.PROPERTIES?.ROOMS?.VALUE) {
+                    room.textContent = combination.PROPERTIES?.ROOMS?.VALUE + ' шт';
+                    if(room.closest('.hidden')) {
+                        room.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!room.closest('.hidden')) {
+                        room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
+                    }
+                }
             }
-            if (room.classList.contains('storages-value') && combination.PROPERTIES?.STORAGE?.VALUE) {
-                room.textContent = combination.PROPERTIES?.STORAGE?.VALUE;
+            if (room.classList.contains('storages-value')) {
+               
+                if(combination.PROPERTIES?.STORAGE?.VALUE) {
+                    room.textContent = combination.PROPERTIES?.STORAGE?.VALUE + ' шт';
+                    if(room.closest('.hidden')) {
+                        room.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!room.closest('.hidden')) {
+                        room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
+                    }
+                }
             }
-            if (room.classList.contains('wcs-value') && combination.PROPERTIES?.WCS?.VALUE) {
-                room.textContent = combination.PROPERTIES?.WCS?.VALUE;
+            if (room.classList.contains('wcs-value')) {
+                
+                if(combination.PROPERTIES?.WCS?.VALUE) {
+                    room.textContent = combination.PROPERTIES?.WCS?.VALUE + ' шт';
+                    if(room.closest('.hidden')) {
+                        room.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!room.closest('.hidden')) {
+                        room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
+                    }
+                }
+            }
+            if (room.classList.contains('teracce-value')) {
+                if(combination.PROPERTIES?.TERACCE?.VALUE) {
+                    room.innerHTML = combination.PROPERTIES?.TERACCE?.VALUE + ' м<sup>2</sup>';
+                    if(room.closest('.hidden')) {
+                        room.closest('.hidden').classList.remove('hidden');
+                    }
+                } else {
+                    if(!room.closest('.hidden')) {
+                        room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
+                    }
+                }
+                
             }
         })
 

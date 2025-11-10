@@ -35,6 +35,7 @@ if ($haveOffers) {
 	$formatted_price = number_format($price, 0, ',', ' ') . ' ₽';
 	$deadline = $currentOffer['PROPERTIES']['DEADLINE']['VALUE'];
 	//планировка дома
+	$all_square = $currentOffer['PROPERTIES']['ALL_SQUARE']['VALUE'] ?? 0;
 	$square = $currentOffer['PROPERTIES']['HOUSES_SQUARES']['VALUE_ELEMENT']['UF_DESCRIPTION'] ?? 0;
 	$sizes = $currentOffer['PROPERTIES']['SIZES']['VALUE'] ?? 0;
 	$height = $currentOffer['PROPERTIES']['HEIGHT']['VALUE'] ?? 0;
@@ -42,6 +43,7 @@ if ($haveOffers) {
 	$rooms = $currentOffer['PROPERTIES']['ROOMS']['VALUE'] ?? '';
 	$storages = $currentOffer['PROPERTIES']['STORAGE']['VALUE'] ?? '';
 	$wcs = $currentOffer['PROPERTIES']['WCS']['VALUE'] ?? '';
+	$terace = $currentOffer['PROPERTIES']['TERACCE']['VALUE'] ?? '';
 	$planes = $currentOffer['PROPERTIES']['PLANE']['VALUE_ELEMENT'] ?? [];
 	$recomendations = $currentOffer['PROPERTIES']['PROJECTS']['VALUE_ELEMENTS'];
 } else {
@@ -52,6 +54,7 @@ if ($haveOffers) {
 	$formatted_price = !empty($price) ? number_format($price, 0, ',', ' ') . ' ₽' : '';
 	$deadline = $arResult['PROPERTIES']['DEADLINE']['VALUE'];
 	//планировка дома
+	$all_square = $arResult['PROPERTIES']['ALL_SQUARE']['VALUE'] ?? 0;
 	$square = $arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0] . ' м<sup>2</sup>' ?? 0;
 	$sizes = $arResult['PROPERTIES']['HOUSES_SIZES']['VALUE'][0] ?? 0;
 	$height = $arResult['PROPERTIES']['HEIGHT']['VALUE'] ?? 0;
@@ -59,6 +62,7 @@ if ($haveOffers) {
 	$rooms = $arResult['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] ?? '';
 	$storages = $arResult['PROPERTIES']['STORAGE']['VALUE'][0] ?? '';
 	$wcs = $arResult['PROPERTIES']['HOUSES_WC']['VALUE'][0] ?? '';
+	$terace = $arResult['PROPERTIES']['TERACCE']['VALUE'] ?? '';
 	$planes = $arResult['PROPERTIES']['PLANES']['VALUE_ELEMENT'] ?? [];
 	$recomendations = $arResult['PROPERTIES']['PROJECTS']['VALUE_ELEMENTS'];
 	//p($recomendations);
@@ -433,7 +437,7 @@ if ($haveOffers) {
 							<? if (!empty($arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE'])): ?>
 								<div class="detail-product__finished-config__item">
 									<div class="detail-product__finished-config__item-label">
-										Площадь дома
+										Жилая площадь
 									</div>
 									<div class="detail-product__finished-config__item-value">
 										<?= $arResult['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
@@ -508,18 +512,28 @@ if ($haveOffers) {
 					Планировка дома
 				</div>
 				<div class="detail-product__layout-spec">
-					<? if ($square): ?>
-						<div class="detail-product__layout-spec__item">
+					<? // if ($all_square): ?>
+						<div class="detail-product__layout-spec__item <?= !$all_square ? 'hidden' : ''; ?>">
 							<div class="detail-product__layout-spec__item-name">
-								Площадь дома
+								Общая площадь
+							</div>
+							<div class="detail-product__layout-spec__item-value allsquare-value">
+								<?= $all_square; ?> м<sup>2</sup>
+							</div>
+						</div>
+					<? //endif; ?>
+					<? // if ($square): ?>
+						<div class="detail-product__layout-spec__item <?= !$square ? 'hidden' : ''; ?>">
+							<div class="detail-product__layout-spec__item-name">
+								Жилая площадь
 							</div>
 							<div class="detail-product__layout-spec__item-value square-value">
 								<?= $square; ?>
 							</div>
 						</div>
-					<? endif; ?>
-					<? if ($sizes): ?>
-						<div class="detail-product__layout-spec__item">
+					<? // endif; ?>
+					<? //if ($sizes): ?>
+						<div class="detail-product__layout-spec__item <?= !$sizes ? 'hidden' : ''; ?>">
 							<div class="detail-product__layout-spec__item-name">
 								Габариты
 							</div>
@@ -527,9 +541,9 @@ if ($haveOffers) {
 								<?= $sizes; ?>
 							</div>
 						</div>
-					<? endif; ?>
-					<? if ($height): ?>
-						<div class="detail-product__layout-spec__item">
+					<? //endif; ?>
+					<? // if ($height): ?>
+						<div class="detail-product__layout-spec__item <?= !$height ? 'hidden' : ''; ?>">
 							<div class="detail-product__layout-spec__item-name">
 								Высота потолков
 							</div>
@@ -537,7 +551,7 @@ if ($haveOffers) {
 								<?= $height; ?>
 							</div>
 						</div>
-					<? endif; ?>
+					<? // endif; ?>
 				</div>
 				<div class="detail-product__layout-description">
 					<?= $detail_descr; ?>
@@ -549,7 +563,7 @@ if ($haveOffers) {
 							Наполнение дома
 						</div>
 						<div class="detail-product__layout-additional-option__components">
-							<div class="detail-product__layout-additional-option__component">
+							<div class="detail-product__layout-additional-option__component <?= $rooms == '' ? 'hidden' : ''; ?>">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
 										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/bed.svg" alt="img">
@@ -564,7 +578,7 @@ if ($haveOffers) {
 									<?= $rooms; ?> шт
 								</div>
 							</div>
-							<div class="detail-product__layout-additional-option__component">
+							<div class="detail-product__layout-additional-option__component <?= $storages == '' ? 'hidden' : ''; ?>">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
 										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/box.svg" alt="img">
@@ -579,7 +593,7 @@ if ($haveOffers) {
 									<?= $storages; ?> шт
 								</div>
 							</div>
-							<div class="detail-product__layout-additional-option__component">
+							<div class="detail-product__layout-additional-option__component <?= $wcs == '' ? 'hidden' : ''; ?>">
 								<div class="detail-product__layout-additional-option__component-name">
 									<div class="icon">
 										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/bath.svg" alt="img">
@@ -590,6 +604,19 @@ if ($haveOffers) {
 								<div
 									class="detail-product__layout-additional-option__component-value detail-product__layout-additional-option__component-value-house wcs-value">
 									<?= $wcs; ?> шт
+								</div>
+							</div>
+							<div class="detail-product__layout-additional-option__component <?= $terace == '' ? 'hidden' : ''; ?>">
+								<div class="detail-product__layout-additional-option__component-name">
+									<div class="icon">
+										<img src="<?= SITE_TEMPLATE_PATH; ?>/assets/img/teracce.svg" alt="img">
+									</div>
+									<span>Терасса</span>
+								</div>
+								<div class="detail-product__layout-additional-option__component-devider"></div>
+								<div
+									class="detail-product__layout-additional-option__component-value detail-product__layout-additional-option__component-value-house teracce-value">
+									<?= $terace; ?> м<sup>2</sup>
 								</div>
 							</div>
 						</div>
@@ -1087,7 +1114,7 @@ if ($haveOffers) {
 									<? if (!empty($recomendation['PROPERTY_HOUSES_SQUARES_VALUE'])): ?>
 										<div class="projects-item__spec">
 											<div class="projects-item__spec-name">
-												Площадь
+												Жилая площадь
 											</div>
 											<div class="projects-item__spec-value">
 												<?= $recomendation['PROPERTY_HOUSES_SQUARES_VALUE'][0]; ?> м<sup>2</sup>

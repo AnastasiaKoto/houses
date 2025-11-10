@@ -2,7 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Технологии");
 ?>
-<section class="section">
+<!--<section class="section">-->
 	<div class="container">
 		<h1 class="section-title" style="margin-bottom:20px">
 			<? $APPLICATION->ShowTitle(false); ?>
@@ -22,7 +22,7 @@ $APPLICATION->SetTitle("Технологии");
 		</div>
 		*/?>
 	</div>
-</section>
+<!--</section>-->
 <? $APPLICATION->IncludeComponent(
 	"bitrix:highloadblock.list", 
 	"technologies", 

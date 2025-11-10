@@ -2326,7 +2326,7 @@
 
  .modal.active {
    opacity: 1;
-   z-index: 12;
+   z-index: 21;
    pointer-events: auto;
    transition: all .3s ease-in;
  }
@@ -3248,7 +3248,7 @@
    background: var(--light-color);
    box-shadow: 0 4px 18.5px 0 rgba(0, 0, 0, 0.15);
    padding: 20px 40px;
-   z-index: 10;
+   z-index: 20;
 
    @media(max-width: 768px) {
      flex-direction: column;

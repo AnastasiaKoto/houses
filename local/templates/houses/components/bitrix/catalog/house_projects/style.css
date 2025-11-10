@@ -494,6 +494,7 @@
                 display: flex;
                 align-items: center;
                 gap: 4px;
+                
 
                 &:nth-child(odd) {
                   &::before {

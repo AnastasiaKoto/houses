@@ -494,14 +494,15 @@
                 display: flex;
                 align-items: center;
                 gap: 4px;
-                
+                position: relative;
+
 
                 &:nth-child(odd) {
                   &::before {
                     content: '';
                     position: absolute;
-                    width: 2px;
-                    height: 2px;
+                    width: 3px;
+                    height: 3px;
                     border-radius: 50%;
                     background-color: var(--darg-gray-color);
                     right: -15px;

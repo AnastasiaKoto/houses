@@ -129,24 +129,20 @@
               line-height: 130%;
               color: var(--light-color);
 
-               & a {
+              & a {
+                transition: all .3s ease-in;
+
+                &:hover {
+                  color: var(--accent-color);
                   transition: all .3s ease-in;
 
                   & span {
-                     transition: all .3s ease-in;
-                  }
-                }
-
-              &:hover {
-                & a {
-                  color: var(--accent-color);
-                   transition: all .3s ease-in;
-
-                  & span {
+                    transition: all .3s ease-in;
                     color: var(--accent-color);
-                     transition: all .3s ease-in;
                   }
                 }
+
+
               }
             }
           }

@@ -7,6 +7,7 @@ $APPLICATION->SetTitle("Технологии");
 		<h1 class="section-title" style="margin-bottom:20px">
 			<? $APPLICATION->ShowTitle(false); ?>
 		</h1>
+		<?/*
 		<div class="section-subtitle">
 			<? $APPLICATION->IncludeComponent(
 				"bitrix:main.include",
@@ -19,8 +20,26 @@ $APPLICATION->SetTitle("Технологии");
 				)
 			); ?>
 		</div>
+		*/?>
 	</div>
 </section>
+<? $APPLICATION->IncludeComponent(
+	"bitrix:highloadblock.list", 
+	"technologies", 
+	[
+		"BLOCK_ID" => HL_TECH_ID,
+		"CHECK_PERMISSIONS" => "N",
+		"DETAIL_URL" => "",
+		"FILTER_NAME" => "",
+		"PAGEN_ID" => "",
+		"ROWS_PER_PAGE" => "",
+		"SORT_FIELD" => "ID",
+		"SORT_ORDER" => "ASC",
+		"BLOCK_TITLE" => "",
+		"BLOCK_DESCR" => ""
+	],
+	false
+); ?>
 <section class="section compare">
 	<div class="container">
 		<div class="section-title">

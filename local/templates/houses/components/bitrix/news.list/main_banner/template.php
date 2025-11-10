@@ -36,7 +36,7 @@ echo '</pre>';
 							</h4>
 						</div>
 						<? if (!empty($arItem['DISPLAY_PROPERTIES']['BLACK_BTN_TXT']['DISPLAY_VALUE'])) { ?>
-							<a href="/proekty-domov/" class="arrow-btn__dark">
+							<a href="<?= $arItem['DISPLAY_PROPERTIES']['BLACK_BTN_LINK']['DISPLAY_VALUE'] ?? 'javascript:void(0)'; ?>" class="arrow-btn__dark">
 								<span>
 									<?= $arItem['DISPLAY_PROPERTIES']['BLACK_BTN_TXT']['DISPLAY_VALUE']; ?>
 								</span>
@@ -111,7 +111,7 @@ echo '</pre>';
 							</h4>
 							<?= $arItem['~DETAIL_TEXT']; ?>
 							<? if (!empty($arItem['DISPLAY_PROPERTIES']['TRANSPARENT_BTN_TXT']['DISPLAY_VALUE'])) { ?>
-								<a href="javascript:void(0)" class="arrow-btn__light">
+								<a href="<?= $arItem['DISPLAY_PROPERTIES']['TRANSPARENT_BTN_LINK']['DISPLAY_VALUE'] ?? 'javascript:void(0)' ?>" class="arrow-btn__light">
 									<span>
 										<?= $arItem['DISPLAY_PROPERTIES']['TRANSPARENT_BTN_TXT']['DISPLAY_VALUE']; ?>
 									</span>

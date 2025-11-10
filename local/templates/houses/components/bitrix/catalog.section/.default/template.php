@@ -89,13 +89,13 @@ $containerName = 'container-' . $navParams['NavNum'];
 								</div>
 							</div>
 							<? endif; ?>
-							<? if(!empty($item['PROPERTIES']['HOUSES_SIZES']['VALUE'])): ?>
+							<? if(!empty($item['PROPERTIES']['ALL_SQUARE']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
 									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp3.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									<?= $item['PROPERTIES']['HOUSES_SIZES']['VALUE'][0]; ?> м
+									<?= $item['PROPERTIES']['ALL_SQUARE']['VALUE']; ?> м<sup>2</sup>
 								</div>
 							</div>
 							<? endif; ?>

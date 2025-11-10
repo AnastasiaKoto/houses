@@ -43,7 +43,7 @@ if (!empty($arResult['ITEMS'])):
 				</div>
 				<div class="why-we__items">
 					<? foreach ($arResult['ITEMS'] as $arItem): ?>
-						<div class="why-we__item <?= $arItem['PROPERTIES']['DARK_TXT']['VALUE'] == 'Да' ? 'dark-text' : ''; ?>" onclick="window.location='<?= $arItem['PROPERTIES']['BTN_LINK']['VALUE']; ?>'">
+						<div class="why-we__item <?= $arItem['PROPERTIES']['DARK_TXT']['VALUE'] == 'Да' ? 'dark-text' : ''; ?>" onclick="window.location='<?= $arItem['PROPERTIES']['BTN_LINK']['VALUE'] ?? 'javascript:void(0)'; ?>'">
 							<div class="why-we__item-image">
 								<? if ($arItem['PROPERTIES']['DARK_TXT']['VALUE'] !== 'Да') : ?>
 									<div class="why-we__item-image__layer"></div>

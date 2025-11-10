@@ -115,7 +115,7 @@ $containerName = 'container-' . $navParams['NavNum'];
 								if($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 2) {
 									$wcs_string = ' санузел';
 								} elseif($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] >= 2 && $item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 5) {
-									$wcs_string = ' санзузла';
+									$wcs_string = ' санузла';
 								} else {
 									$wcs_string = ' санузлов';
 								}

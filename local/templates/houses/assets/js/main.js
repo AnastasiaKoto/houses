@@ -709,6 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.classList.remove("lock");
   }
 
+
   document.querySelectorAll("[data-modal-target]").forEach(btn => {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-modal-target");
@@ -717,20 +718,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+
+
+  document.querySelectorAll(".modal-close").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modal = btn.closest(".modal");
+      if (modal) closeModal(modal);
+    });
+  });
+
+
+  overlay?.addEventListener("click", () => {
+    document.querySelectorAll(".modal.active").forEach(modal => closeModal(modal));
+  });
+
   document.querySelectorAll(".modal").forEach(modal => {
-    const closeBtn = modal.querySelector(".modal-close");
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => closeModal(modal));
-    }
-
-    overlay.addEventListener("click", () => closeModal(modal));
-
     modal.addEventListener("click", e => {
       if (!e.target.closest(".modal-inner")) closeModal(modal);
     });
   });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -843,27 +851,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const cookieBlock = document.querySelector('.cookie');
-  const agreedBtn = document.querySelector('.cookie-agreed');
+  const cookieBlocks = document.querySelectorAll('.cookie');
 
-  if (!cookieBlock || !agreedBtn) return;
-
-  const cookieAccepted = localStorage.getItem('cookieAccepted');
-  const cookieExpire = localStorage.getItem('cookieExpire');
+  if (!cookieBlocks.length) return;
 
   const now = Date.now();
 
-  if (cookieAccepted === 'true' && cookieExpire && now < Number(cookieExpire)) {
-    cookieBlock.classList.add('inactive');
-  }
+  cookieBlocks.forEach(cookieBlock => {
+    const agreedBtns = cookieBlock.querySelectorAll('.cookie-agreed');
 
-  agreedBtn.addEventListener('click', () => {
-    cookieBlock.classList.add('inactive');
+    const cookieAccepted = localStorage.getItem('cookieAccepted');
+    const cookieExpire = localStorage.getItem('cookieExpire');
 
- 
-    const expireTime = now + 14 * 24 * 60 * 60 * 1000;
+    if (cookieAccepted === 'true' && cookieExpire && now < Number(cookieExpire)) {
+      cookieBlock.classList.add('inactive');
+    }
 
-    localStorage.setItem('cookieAccepted', 'true');
-    localStorage.setItem('cookieExpire', expireTime);
+    agreedBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        cookieBlock.classList.add('inactive');
+
+        const expireTime = now + 14 * 24 * 60 * 60 * 1000; 
+
+        localStorage.setItem('cookieAccepted', 'true');
+        localStorage.setItem('cookieExpire', expireTime);
+      });
+    });
   });
 });
+

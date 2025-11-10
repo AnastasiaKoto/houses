@@ -77,6 +77,11 @@
           не согласен на использование данного типа файлов, он должен соответствующим образом установить настройки
           браузера.
         </div>
+        <a href="javascript:void(0)" class="arrow-btn__dark cookie-agreed" style="margin-top: 15px;"  class="modal-close">
+          <span>
+            Понятно
+          </span>
+        </a>
       </div>
       <button type="button" class="modal-close">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -91,23 +91,41 @@ $containerName = 'container-' . $navParams['NavNum'];
 								</div>
 							</div>
 							<? endif; ?>
-							<? if(!empty($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'])): ?>
+							<? if(!empty($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'])): 
+							$rooms_string = '';
+							if($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] < 2) {
+								$rooms_string = ' комната';
+							} elseif($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] > 2 && $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] < 5) {
+								$rooms_string = ' комнаты';
+							} else {
+								$rooms_string = ' комнат';
+							}
+							?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
 									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp2.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									<?= $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0]; ?>
+									<?= $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] . $rooms_string; ?>
 								</div>
 							</div>
 							<? endif; ?>
-							<? if(!empty($item['PROPERTIES']['HOUSES_WC']['VALUE'])): ?>
+							<? if(!empty($item['PROPERTIES']['HOUSES_WC']['VALUE'])): 
+								$wcs_string = '';
+								if($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 2) {
+									$wcs_string = ' санузел';
+								} elseif($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] > 2 && $item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 5) {
+									$wcs_string = ' санзузла';
+								} else {
+									$wcs_string = ' санузлов';
+								}
+							?>
 							<div class="catalog-item__spec-item">
 								<div class="catalog-item__spec-item__icon">
 									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp4.svg" alt="img">
 								</div>
 								<div class="catalog-item__spec-item__text">
-									<?= $item['PROPERTIES']['HOUSES_WC']['VALUE'][0]; ?>
+									<?= $item['PROPERTIES']['HOUSES_WC']['VALUE'][0] . $wcs_string; ?>
 								</div>
 							</div>
 							<? endif; ?>

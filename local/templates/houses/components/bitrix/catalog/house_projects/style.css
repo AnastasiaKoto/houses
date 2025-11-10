@@ -484,8 +484,8 @@
             & .catalog-item__spec {
               display: grid;
               grid-template-columns: repeat(2, 1fr);
-              max-width: 220px;
-              gap: 10px;
+              max-width: 100%;
+              gap: 10px 15px;
 
               & .catalog-item__spec-item {
                 display: flex;

@@ -95,7 +95,7 @@ $containerName = 'container-' . $navParams['NavNum'];
 							$rooms_string = '';
 							if($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] < 2) {
 								$rooms_string = ' комната';
-							} elseif($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] > 2 && $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] < 5) {
+							} elseif($item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] >= 2 && $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0] < 5) {
 								$rooms_string = ' комнаты';
 							} else {
 								$rooms_string = ' комнат';
@@ -114,7 +114,7 @@ $containerName = 'container-' . $navParams['NavNum'];
 								$wcs_string = '';
 								if($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 2) {
 									$wcs_string = ' санузел';
-								} elseif($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] > 2 && $item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 5) {
+								} elseif($item['PROPERTIES']['HOUSES_WC']['VALUE'][0] >= 2 && $item['PROPERTIES']['HOUSES_WC']['VALUE'][0] < 5) {
 									$wcs_string = ' санзузла';
 								} else {
 									$wcs_string = ' санузлов';

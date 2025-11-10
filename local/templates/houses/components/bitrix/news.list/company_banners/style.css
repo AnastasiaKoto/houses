@@ -133,12 +133,12 @@
                 transition: all .3s ease-in;
 
                 &:hover {
-                  color: var(--accent-color);
+                  color: var(--accent-color)!important;
                   transition: all .3s ease-in;
 
                   & span {
                     transition: all .3s ease-in;
-                    color: var(--accent-color);
+                    color: var(--accent-color)!important;
                   }
                 }
 

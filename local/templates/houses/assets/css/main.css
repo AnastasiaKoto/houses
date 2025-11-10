@@ -2326,7 +2326,7 @@
 
  .modal.active {
    opacity: 1;
-   z-index: 12;
+   z-index: 21;
    pointer-events: auto;
    transition: all .3s ease-in;
  }

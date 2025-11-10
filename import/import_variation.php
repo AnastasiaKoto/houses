@@ -221,6 +221,8 @@ function importOffersSimple($csvFilePath) {
                     'SHOWED_NAME' => $row['Название для пользователя'],
                     'HEIGHT' => $row['Высота потолков'],
                     'SIZES' => $row['Габариты'],
+                    'TERACCE' => $row['Площадь терассы'],
+                    'ALL_SQUARE' => $row['Общая площадь'],
                     'GALLERY' => $gallery,
                     'OTHER_IMG' => $other_gallery,
                     'OTHER_CONFIG' => $row['Другое'],
@@ -283,10 +285,10 @@ function importOffersSimple($csvFilePath) {
 
                 
                 $variations = [];
-                logMessage(print_r($video, true));
                 $productProperties = [
                     'HOUSE_VARIABLES' => $variations,
                     'BUILDINGS' => $buildings,
+                    'ALL_SQUARE' => $row['Общая площадь'],
                     'VIDEO_POINT' => $video ?? null,
                     'HEIGHT' => $row['Высота потолков'] ?? null,
                     'GALLERY' => $gallery,
@@ -314,6 +316,10 @@ function importOffersSimple($csvFilePath) {
                         $variations = stringProjectsToArray($row['Вариации дома']);
                         $productProperties['HOUSE_VARIABLES'] = $variations;
                     }
+                }
+
+                if($row['TYPE'] !== 'variable_project') {
+                    $productProperties['TERACCE'] = $row['Площадь терассы'];
                 }
 
                 if($row['TYPE'] == 'simple_active') {

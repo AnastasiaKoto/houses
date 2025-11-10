@@ -269,7 +269,7 @@
       /* transform: translateY(-100%); */
       /* transform: translateY(-200%); */
       transition: all .3s ease-in;
-      height: 99.5vh;
+      height: 92.5vh;
       bottom: 0;
 
       & .catalog-filters__acc {

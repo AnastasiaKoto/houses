@@ -76,9 +76,9 @@
           Большинство интернет-браузеров изначально настроены на автоматический прием файлов cookie. Если пользователь
           не согласен на использование данного типа файлов, он должен соответствующим образом установить настройки
           браузера.
-          
+
         </div>
-        <a href="javascript:void(0)" class="arrow-btn__dark cookie-agreed" style="margin-top: 15px;"  class="modal-close">
+        <a href="javascript:void(0)" class="arrow-btn__dark cookie-agreed modal-close" style="margin-top: 15px; padding:5px 10px 5px 10px"  class="modal-close">
           <span>
             Понятно
           </span>

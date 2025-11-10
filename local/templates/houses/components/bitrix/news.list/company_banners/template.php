@@ -29,6 +29,7 @@ if (!empty($arResult['ITEMS'])):
 									<? if($arItem['PREVIEW_PICTURE']['SRC']): ?>
 									<div class="company-ms__image">
 										<img src="<?= $arItem['PREVIEW_PICTURE']['SRC']; ?>" alt="<?= $arItem['NAME']; ?>">
+										<div class="company-ms__image-layer"></div>
 									</div>
 									<? endif; ?>
 									<h1 class="h1">

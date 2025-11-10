@@ -494,6 +494,21 @@
                 display: flex;
                 align-items: center;
                 gap: 4px;
+                
+
+                &:nth-child(odd) {
+                  &::before {
+                    content: '';
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    border-radius: 50%;
+                    background-color: var(--darg-gray-color);
+                    right: -15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  }
+                }
 
                 & .catalog-item__spec-item__icon {
                   width: 24px;
@@ -578,6 +593,10 @@
               display: flex;
               align-items: center;
               gap: 10px;
+              max-width: 50%;
+              width: 100%;
+              justify-content: center;
+              align-items: center;
 
               & span {
                 font-size: 14px;

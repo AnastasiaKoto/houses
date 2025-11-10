@@ -840,3 +840,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cookieBlock = document.querySelector('.cookie');
+  const agreedBtn = document.querySelector('.cookie-agreed');
+
+  if (!cookieBlock || !agreedBtn) return;
+
+  const cookieAccepted = localStorage.getItem('cookieAccepted');
+  const cookieExpire = localStorage.getItem('cookieExpire');
+
+  const now = Date.now();
+
+  if (cookieAccepted === 'true' && cookieExpire && now < Number(cookieExpire)) {
+    cookieBlock.classList.add('inactive');
+  }
+
+  agreedBtn.addEventListener('click', () => {
+    cookieBlock.classList.add('inactive');
+
+ 
+    const expireTime = now + 14 * 24 * 60 * 60 * 1000;
+
+    localStorage.setItem('cookieAccepted', 'true');
+    localStorage.setItem('cookieExpire', expireTime);
+  });
+});

@@ -709,7 +709,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.classList.remove("lock");
   }
 
-
   document.querySelectorAll("[data-modal-target]").forEach(btn => {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-modal-target");
@@ -718,8 +717,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
-
+ 
   document.querySelectorAll(".modal-close").forEach(btn => {
     btn.addEventListener("click", () => {
       const modal = btn.closest(".modal");
@@ -737,7 +735,37 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!e.target.closest(".modal-inner")) closeModal(modal);
     });
   });
+
+  // --- Cookie ---
+  const cookieBlocks = document.querySelectorAll(".cookie");
+  const cookieBtns = document.querySelectorAll(".cookie-agreed");
+  const now = Date.now();
+
+  cookieBlocks.forEach(block => {
+    const cookieAccepted = localStorage.getItem("cookieAccepted");
+    const cookieExpire = localStorage.getItem("cookieExpire");
+
+    if (cookieAccepted === "true" && cookieExpire && now < Number(cookieExpire)) {
+      block.classList.add("inactive");
+    }
+  });
+
+  cookieBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+ 
+      cookieBlocks.forEach(block => block.classList.add("inactive"));
+
+    
+      const expireTime = Date.now() + 14 * 24 * 60 * 60 * 1000;
+      localStorage.setItem("cookieAccepted", "true");
+      localStorage.setItem("cookieExpire", expireTime);
+
+  
+      document.querySelectorAll(".modal.active").forEach(modal => closeModal(modal));
+    });
+  });
 });
+
 
 
 
@@ -850,33 +878,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const cookieBlocks = document.querySelectorAll('.cookie');
-
-  if (!cookieBlocks.length) return;
-
-  const now = Date.now();
-
-  cookieBlocks.forEach(cookieBlock => {
-    const agreedBtns = cookieBlock.querySelectorAll('.cookie-agreed');
-
-    const cookieAccepted = localStorage.getItem('cookieAccepted');
-    const cookieExpire = localStorage.getItem('cookieExpire');
-
-    if (cookieAccepted === 'true' && cookieExpire && now < Number(cookieExpire)) {
-      cookieBlock.classList.add('inactive');
-    }
-
-    agreedBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        cookieBlock.classList.add('inactive');
-
-        const expireTime = now + 14 * 24 * 60 * 60 * 1000; 
-
-        localStorage.setItem('cookieAccepted', 'true');
-        localStorage.setItem('cookieExpire', expireTime);
-      });
-    });
-  });
-});
 

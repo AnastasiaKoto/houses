@@ -78,7 +78,7 @@
           браузера.
 
         </div>
-        <a href="javascript:void(0)" class="arrow-btn__dark cookie-agreed modal-close cookie-agreed" style="margin-top: 15px; padding:5px 10px 5px 10px; position: relative; top: initial;"  class="modal-close">
+        <a href="javascript:void(0)" class="arrow-btn__dark cookie-agreed modal-close cookie-agreed modal-close" style="margin-top: 15px; padding: 12px 20px;; position: relative; top: initial;" >
           <span>
             Понятно
           </span>

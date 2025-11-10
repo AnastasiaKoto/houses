@@ -735,7 +735,7 @@
 
       & .detail-product__layout-spec {
         display: flex;
-        /* gap: 40px; */
+        gap: 40px;
 
         @media(max-width: 700px) {
           gap: 20px;

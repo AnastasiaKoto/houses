@@ -17,12 +17,12 @@ if (!empty($arResult['rows'])):
 	<section class="section icon-block">
 		<div class="container">
 			<? if(!empty($arParams['BLOCK_TITLE'])): ?>
-				<div class="equipment__head">
+				<div class="teches__head">
 					<div class="section-title">
 						<?= $arParams['BLOCK_TITLE']; ?>
 					</div>
 					<a href="/company/tekhnologii/" class="arrow-btn__dark"
-						data-move-target=".eq-ancho-link" data-move-break="700">
+						data-move-target=".icon-block__items" data-move-break="700">
 						<span>
 							Подробнее про наши технологии
 						</span>

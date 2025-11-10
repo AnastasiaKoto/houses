@@ -69,13 +69,25 @@ $containerName = 'container-' . $navParams['NavNum'];
 					</div>
 					<div class="catalog-item__body">
 						<div class="catalog-item__spec">
+							<? if(!empty($item['PROPERTIES']['ALL_SQUARE']['VALUE'])): ?>
+							<div class="catalog-item__spec-item">
+								<div class="catalog-item__spec-item__icon">
+									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp3.svg" alt="img">
+								</div>
+								<div class="catalog-item__spec-item__text">
+									Общая <?= $item['PROPERTIES']['ALL_SQUARE']['VALUE']; ?> м<sup>2</sup>
+								</div>
+							</div>
+							<? endif; ?>
 							<? if(!empty($item['PROPERTIES']['HOUSES_SQUARES']['VALUE'])): ?>
 							<div class="catalog-item__spec-item">
+								<?/*
 								<div class="catalog-item__spec-item__icon">
 									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp1.svg" alt="img">
 								</div>
+								*/?>
 								<div class="catalog-item__spec-item__text">
-									<?= $item['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
+									Жилая <?= $item['PROPERTIES']['HOUSES_SQUARES']['VALUE'][0]; ?> м<sup>2</sup>
 								</div>
 							</div>
 							<? endif; ?>
@@ -86,16 +98,6 @@ $containerName = 'container-' . $navParams['NavNum'];
 								</div>
 								<div class="catalog-item__spec-item__text">
 									<?= $item['PROPERTIES']['HOUSES_ROOMS']['VALUE'][0]; ?>
-								</div>
-							</div>
-							<? endif; ?>
-							<? if(!empty($item['PROPERTIES']['ALL_SQUARE']['VALUE'])): ?>
-							<div class="catalog-item__spec-item">
-								<div class="catalog-item__spec-item__icon">
-									<img src="<?=SITE_TEMPLATE_PATH?>/assets/img/sp3.svg" alt="img">
-								</div>
-								<div class="catalog-item__spec-item__text">
-									<?= $item['PROPERTIES']['ALL_SQUARE']['VALUE']; ?> м<sup>2</sup>
 								</div>
 							</div>
 							<? endif; ?>

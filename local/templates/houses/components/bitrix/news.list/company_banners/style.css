@@ -131,14 +131,27 @@
 
               & a {
                 transition: all .3s ease-in;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                letter-spacing: -0.4px;
+
+                & span {
+                  font-size: 20px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: 120%;
+                  letter-spacing: -0.4px;
+                }
 
                 &:hover {
-                  color: var(--accent-color)!important;
+                  color: var(--accent-color) !important;
                   transition: all .3s ease-in;
 
                   & span {
                     transition: all .3s ease-in;
-                    color: var(--accent-color)!important;
+                    color: var(--accent-color) !important;
                   }
                 }
 

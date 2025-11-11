@@ -22,7 +22,7 @@ if (!empty($arResult['rows'])):
 						<?= $arParams['BLOCK_TITLE']; ?>
 					</div>
 					<a href="/company/tekhnologii/" class="arrow-btn__dark"
-						data-move-target=".icon-block__items" data-move-break="700">
+						data-move-target=".tech_block" data-move-break="700">
 						<span>
 							Подробнее про наши технологии
 						</span>
@@ -40,7 +40,7 @@ if (!empty($arResult['rows'])):
 				<?= $arParams['BLOCK_DESCR']; ?>
 			</div>
 			<? endif; ?>
-			<ul class="icon-block__items">
+			<ul class="icon-block__items tech_block">
 				<? foreach($arResult['rows'] as $row): ?>
 				<li class="icon-block__item">
 					<div class="icon-block__item-icon">

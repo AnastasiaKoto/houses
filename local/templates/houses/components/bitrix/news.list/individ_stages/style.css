@@ -50,6 +50,9 @@
 
         &:nth-child(7n + 2) {
           justify-content: flex-start;
+           & .individual-steps__image-layer-light {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%);
+          }
 
           & .individual-steps__item-name {
             text-align: center;
@@ -116,6 +119,10 @@
 
         &:nth-child(7n + 6) {
           justify-content: flex-start;
+
+          & .individual-steps__image-layer-light {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%);
+          }
 
           & .individual-steps__item-name {
             text-align: center;

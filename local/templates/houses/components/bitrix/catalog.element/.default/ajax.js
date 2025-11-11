@@ -1240,6 +1240,7 @@ class HouseVariationManager {
         if (active) panel.classList.add(active);
         panel.setAttribute('data-tab', counter.toString());
         panel.setAttribute('data-type', type);
+        console.log('123');
         if (buildingId) panel.setAttribute('data-building-id', buildingId.toString());
 
         imgLink.appendChild(img);

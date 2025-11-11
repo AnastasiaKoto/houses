@@ -115,13 +115,11 @@ class HouseVariationManager {
     //вешает обработчики
     bindEvents() {
         document.addEventListener('change', (e) => {
-            console.log('change');
             if (e.target.type === 'radio' && e.target.name.startsWith('HOUSES_')) {
                 this.updateAvailability(e.target);
             }
         });
         document.addEventListener('click', (e) => {
-            console.log('click');
             if (e.target.className.includes('HOUSES_')) {
                 this.updateAvailability(e.target);
             }
@@ -354,9 +352,7 @@ class HouseVariationManager {
             });
         }
         if (nextArrow) {
-            console.log('next');
             nextArrow.addEventListener('click', () => {
-                console.log('next go');
                 splides[instance.activeTab]?.go('>');
             });
         }
@@ -873,6 +869,7 @@ class HouseVariationManager {
                 this.blockAnavaibleBubles(available);
                 this.disableUnavailableElements(availableCombinations);
             } else {
+                //console.log(combination);
                 const available = true;
                 this.blockAnavaibleBubles(available);
                 this.changeGallery(combination);
@@ -1155,7 +1152,6 @@ class HouseVariationManager {
             console.log('Планировки не найдены в комбинации');
             return;
         }
-
         this.resetPlaneTabs();
         const planes = combination.PROPERTIES.PLANE.VALUE_ELEMENT;
         let counter = 1;
@@ -1210,7 +1206,6 @@ class HouseVariationManager {
         let active = counter === 1 ? 'active' : '';
         let description = type === 'house' ? element.UF_DESCRIPTION : element.UF_NAME;
         let file = type === 'house' ? element.UF_FILE : element.UF_PLANE;
-
         link.classList.add('detail-product__layout-tabs__link');
         if (active) link.classList.add(active);
         link.textContent = description;
@@ -1244,6 +1239,7 @@ class HouseVariationManager {
         panel.classList.add('tab-pane');
         if (active) panel.classList.add(active);
         panel.setAttribute('data-tab', counter.toString());
+        panel.setAttribute('data-type', type);
         if (buildingId) panel.setAttribute('data-building-id', buildingId.toString());
 
         imgLink.appendChild(img);
@@ -1594,7 +1590,6 @@ class HouseVariationManager {
                 };
             },
             updateContent: (tabWrapper, contentData) => {
-                console.log(tabWrapper);
                 tabWrapper.querySelector('.equipment-tabs__content-inner .equipment-tabs__content-acc').innerHTML = contentData.content;
                 if (contentData.imageProperty && contentData.imageProperty?.VALUE) {
                     let tabsImg = tabWrapper.querySelector('.equipment-tabs__content-image img');
@@ -1603,7 +1598,6 @@ class HouseVariationManager {
                         tabsImgEl.classList.add('equipment-tabs__content-image');
                         tabsImgEl.innerHTML = `<img src="${contentData.imageProperty.VALUE}" alt="img">`;
                         tabWrapper.querySelector('.equipment-tabs__content-inner').appendChild(tabsImgEl);
-                        console.log(tabsImgEl);
                     } else {
                         tabWrapper.querySelector('.equipment-tabs__content-image img').src = contentData.imageProperty.VALUE;
                     }

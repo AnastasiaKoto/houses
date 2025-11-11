@@ -485,7 +485,7 @@
               display: grid;
               grid-template-columns: repeat(2, 1fr);
               max-width: 100%;
-              gap: 10px 15px;
+              gap: 10px 22px;
               display: flex;
               flex-wrap: wrap;
               max-width: 66%;
@@ -505,7 +505,7 @@
                     height: 3px;
                     border-radius: 50%;
                     background-color: var(--darg-gray-color);
-                    left: -5px;
+                    left: -9px;
                     top: 50%;
                     transform: translateY(-50%);
                   }

@@ -21,6 +21,7 @@ if (!empty($arResult['rows'])):
 					<div class="section-title">
 						<?= $arParams['BLOCK_TITLE']; ?>
 					</div>
+					<? if($arParams['HAVE_BTN']=='Y'): ?>
 					<a href="/company/tekhnologii/" class="arrow-btn__dark"
 						data-move-target=".tech_block" data-move-break="700">
 						<span>
@@ -33,6 +34,7 @@ if (!empty($arResult['rows'])):
 							</svg>
 						</div>
 					</a>
+					<?endif;?>
 				</div>
 			<? endif; ?>
 			<? if(!empty($arParams['BLOCK_DESCR'])): ?>

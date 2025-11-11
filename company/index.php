@@ -166,6 +166,7 @@ $APPLICATION->SetTitle("О компании");
 		"SORT_FIELD" => "ID",
 		"SORT_ORDER" => "ASC",
 		"BLOCK_TITLE" => "Наши технологии и материал",
+		"HAVE_BTN" => "Y",
 		"BLOCK_DESCR" => ""
 	],
 	false
@@ -209,7 +210,8 @@ $APPLICATION->SetTitle("О компании");
 		"SORT_ORDER" => "ASC",
 		"COMPONENT_TEMPLATE" => "technologies",
 		"BLOCK_TITLE" => "Собственное производство",
-		"BLOCK_DESCR" => "Мы контролируем весь путь от сырья до стены дома. Что это значит для вас:"
+		"BLOCK_DESCR" => "Мы контролируем весь путь от сырья до стены дома. Что это значит для вас:",
+		"HAVE_BTN" => "N"
 	],
 	false
 ); ?>

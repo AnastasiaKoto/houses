@@ -51,7 +51,7 @@
         &:nth-child(7n + 2) {
           justify-content: flex-start;
            & .individual-steps__image-layer-light {
-            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%);
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%)!important;
           }
 
           & .individual-steps__item-name {
@@ -121,7 +121,7 @@
           justify-content: flex-start;
 
           & .individual-steps__image-layer-light {
-            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%);
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 58.4%, rgba(255, 255, 255, 0.60) 80.81%)!important;
           }
 
           & .individual-steps__item-name {

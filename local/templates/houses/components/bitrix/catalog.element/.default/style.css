@@ -735,7 +735,7 @@
 
       & .detail-product__layout-spec {
         display: flex;
-        gap: 40px;
+        gap: 20px;
 
         @media(max-width: 700px) {
           gap: 20px;
@@ -748,6 +748,7 @@
         & .detail-product__layout-spec__item {
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
           max-width: fit-content;
   
           &.hidden {
@@ -771,15 +772,16 @@
           }
 
           & .detail-product__layout-spec__item-value {
-            font-size: 32px;
+            font-size: 28px;
             font-style: normal;
             font-weight: 700;
             line-height: 120%;
             letter-spacing: -0.64px;
             position: relative;
+            white-space: nowrap;
 
             @media(max-width: 700px) {
-              font-size: 26px;
+              font-size: 20px;
               font-style: normal;
               font-weight: 700;
               line-height: 120%;

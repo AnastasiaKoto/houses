@@ -1,72 +1,72 @@
 /*class HouseVariationManager {
-	constructor(offersMap, buildingsMap = {}) {
-		this.offersMap = offersMap || {};
-		this.buildingsMap = buildingsMap || {};
-		this.currentCombinationKey = null;
-		this.selectedBuildings = new Set();
-	}
+    constructor(offersMap, buildingsMap = {}) {
+        this.offersMap = offersMap || {};
+        this.buildingsMap = buildingsMap || {};
+        this.currentCombinationKey = null;
+        this.selectedBuildings = new Set();
+    }
 
-	// Устанавливаем текущую комбинацию по ключу
-	setCurrentCombinationByKey(key) {
-		this.currentCombinationKey = key;
-	}
+    // Устанавливаем текущую комбинацию по ключу
+    setCurrentCombinationByKey(key) {
+        this.currentCombinationKey = key;
+    }
 
-	// Обновляем одно свойство в комбинации и пересчитываем ключ
-	updateCombination(propertyCode, value) {
-		if (!this.currentCombinationKey) return;
+    // Обновляем одно свойство в комбинации и пересчитываем ключ
+    updateCombination(propertyCode, value) {
+        if (!this.currentCombinationKey) return;
 
-		const parts = this.currentCombinationKey.split('|');
-		const newParts = parts.map(part => {
-			const [prop] = part.split(':');
-			return prop === propertyCode ? `${propertyCode}:${value}` : part;
-		});
-		this.currentCombinationKey = newParts.sort().join('|');
-	}
+        const parts = this.currentCombinationKey.split('|');
+        const newParts = parts.map(part => {
+            const [prop] = part.split(':');
+            return prop === propertyCode ? `${propertyCode}:${value}` : part;
+        });
+        this.currentCombinationKey = newParts.sort().join('|');
+    }
 
-	// Получаем текущий оффер по ключу
-	getCurrentOffer() {
+    // Получаем текущий оффер по ключу
+    getCurrentOffer() {
         console.log("Key: " + this.currentCombinationKey);
         console.log(this.offersMap);
-		return this.currentCombinationKey ? this.offersMap[this.currentCombinationKey] : null;
-	}
+        return this.currentCombinationKey ? this.offersMap[this.currentCombinationKey] : null;
+    }
 
-	// Переключение доп. постройки по UF_XML_ID
-	toggleBuilding(xmlId) {
-		if (this.selectedBuildings.has(xmlId)) {
-			this.selectedBuildings.delete(xmlId);
-		} else {
-			this.selectedBuildings.add(xmlId);
-		}
-	}
+    // Переключение доп. постройки по UF_XML_ID
+    toggleBuilding(xmlId) {
+        if (this.selectedBuildings.has(xmlId)) {
+            this.selectedBuildings.delete(xmlId);
+        } else {
+            this.selectedBuildings.add(xmlId);
+        }
+    }
 
-	// Получение итогового состояния: оффер + итоговая цена/срок
-	getCurrentState() {
-		const offer = this.getCurrentOffer();
-		if (!offer) return null;
+    // Получение итогового состояния: оффер + итоговая цена/срок
+    getCurrentState() {
+        const offer = this.getCurrentOffer();
+        if (!offer) return null;
 
-		let totalPrice = Number(offer.PROPERTIES.FORMATTED_PRICE.VALUE) || 0;
-		let totalDeadline = Number(offer.PROPERTIES.DEADLINE.VALUE) || 0;
+        let totalPrice = Number(offer.PROPERTIES.FORMATTED_PRICE.VALUE) || 0;
+        let totalDeadline = Number(offer.PROPERTIES.DEADLINE.VALUE) || 0;
 
-		this.selectedBuildings.forEach(xmlId => {
-			const building = this.buildingsMap[xmlId];
-			if (building) {
-				totalPrice += Number(building.UF_PRICE) || 0;
-				totalDeadline += Number(building.UF_DEADLINE) || 0;
-			}
-		});
+        this.selectedBuildings.forEach(xmlId => {
+            const building = this.buildingsMap[xmlId];
+            if (building) {
+                totalPrice += Number(building.UF_PRICE) || 0;
+                totalDeadline += Number(building.UF_DEADLINE) || 0;
+            }
+        });
 
-		return {
-			offer,
-			totalPrice,
-			totalDeadline,
-			selectedBuildings: Array.from(this.selectedBuildings)
-		};
-	}
+        return {
+            offer,
+            totalPrice,
+            totalDeadline,
+            selectedBuildings: Array.from(this.selectedBuildings)
+        };
+    }
 
     //проверяет все доступные комбинации с кликнутым id
     getAvailableCombinationsContaining(elementId) {
-		return Object.keys(this.offersMap).filter(key => key.includes(elementId));
-	}
+        return Object.keys(this.offersMap).filter(key => key.includes(elementId));
+    }
 }
 */
 
@@ -229,7 +229,7 @@ class HouseVariationManager {
             this.initTabInstance(this.tabInstances[tabInstanceId]);
         });
         Fancybox.bind("[data-fancybox]", {
-	    });
+        });
     }
 
     // Инициализация конкретного экземпляра табов
@@ -263,7 +263,7 @@ class HouseVariationManager {
             }
 
             const splideOptions = {
-                type: 'slide', 
+                type: 'slide',
                 autoWidth: false,
                 perPage: 3,
                 speed: 600,
@@ -359,150 +359,150 @@ class HouseVariationManager {
 
         instance.mountSplideFor = mountSplideFor;
     }
-/*
-    initTabInstance(instance) {
-    const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
-
-
-    const mountSplideFor = (tabName) => {
-        if (!tabName) return null;
-        if (splides[tabName]) return splides[tabName];
-
-        const content = contentMap.get(tabName);
-        if (!content) return null;
-
-        const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
-        if (!el) return null;
-
-        const computed = window.getComputedStyle(content);
-        const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
-        const prev = {};
-        if (wasHidden) {
-            prev.display = content.style.display;
-            prev.visibility = content.style.visibility;
-            prev.position = content.style.position;
-            prev.left = content.style.left;
-
-            content.style.display = 'block';
-            content.style.visibility = 'hidden';
-            content.style.position = 'absolute';
-            content.style.left = '-9999px';
-        }
-
-        const splideOptions = {
-            type: 'slide', 
-            autoWidth: false,
-            perPage: 3,
-            speed: 600,
-            easing: 'ease',
-            gap: 20,
-            perMove: 1,
-            pagination: false,
-            arrows: false,
-            focus: 'start',
-            padding: { right: 15 },
-            breakpoints: {
-                992: {
-                    gap: 10,
-                    padding: { right: 10 },
-                    drag: true
-                }
-            }
-        };
-
-        const splideInstance = new Splide(el, splideOptions);
-        splideInstance.mount();
-
-        if (wasHidden) {
-            content.style.display = prev.display || '';
-            content.style.visibility = prev.visibility || '';
-            content.style.position = prev.position || '';
-            content.style.left = prev.left || '';
-        }
-
-        splides[tabName] = splideInstance;
-
+    /*
+        initTabInstance(instance) {
+        const { contents, links, contentMap, prevArrow, nextArrow, splides, activeTab } = instance;
     
-        function updateArrows() {
-            if (!prevArrow || !nextArrow) return;
-            prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
-            nextArrow.classList.toggle(
-                'is-disabled',
-                splideInstance.index >= splideInstance.length - splideInstance.options.perPage
-            );
-        }
-
-        splideInstance.on('mounted', updateArrows);
-        splideInstance.on('moved', updateArrows);
-        splideInstance.on('resized', updateArrows);
-
-        setTimeout(() => {
-            try {
-                splideInstance.refresh();
-                updateArrows();
-            } catch (e) { /* ignore */ /* }
-        }, 50);
-
-        return splideInstance;
-    };
-
-
-    contents.forEach(c => {
-        if (c.dataset.tab === activeTab) {
-            c.classList.add('active');
-            c.style.display = '';
-            mountSplideFor(activeTab);
-        } else {
-            c.classList.remove('active');
-            c.style.display = 'none';
-        }
-    });
-
-
-    links.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const tabName = this.dataset.tab;
-            if (!tabName || tabName === instance.activeTab) return;
-
-        
-            links.forEach(l => l.classList.remove('active'));
-            contents.forEach(c => {
-                c.classList.remove('active');
-                c.style.display = 'none';
-            });
-
-        
-            this.classList.add('active');
-            const newContent = contentMap.get(tabName);
-            if (newContent) {
-                newContent.classList.add('active');
-                newContent.style.display = '';
-                mountSplideFor(tabName);
+    
+        const mountSplideFor = (tabName) => {
+            if (!tabName) return null;
+            if (splides[tabName]) return splides[tabName];
+    
+            const content = contentMap.get(tabName);
+            if (!content) return null;
+    
+            const el = content.querySelector('.detail-product__preview-tabs__slider') || content.querySelector('.splide');
+            if (!el) return null;
+    
+            const computed = window.getComputedStyle(content);
+            const wasHidden = computed.display === 'none' || computed.visibility === 'hidden';
+            const prev = {};
+            if (wasHidden) {
+                prev.display = content.style.display;
+                prev.visibility = content.style.visibility;
+                prev.position = content.style.position;
+                prev.left = content.style.left;
+    
+                content.style.display = 'block';
+                content.style.visibility = 'hidden';
+                content.style.position = 'absolute';
+                content.style.left = '-9999px';
             }
+    
+            const splideOptions = {
+                type: 'slide', 
+                autoWidth: false,
+                perPage: 3,
+                speed: 600,
+                easing: 'ease',
+                gap: 20,
+                perMove: 1,
+                pagination: false,
+                arrows: false,
+                focus: 'start',
+                padding: { right: 15 },
+                breakpoints: {
+                    992: {
+                        gap: 10,
+                        padding: { right: 10 },
+                        drag: true
+                    }
+                }
+            };
+    
+            const splideInstance = new Splide(el, splideOptions);
+            splideInstance.mount();
+    
+            if (wasHidden) {
+                content.style.display = prev.display || '';
+                content.style.visibility = prev.visibility || '';
+                content.style.position = prev.position || '';
+                content.style.left = prev.left || '';
+            }
+    
+            splides[tabName] = splideInstance;
+    
+        
+            function updateArrows() {
+                if (!prevArrow || !nextArrow) return;
+                prevArrow.classList.toggle('is-disabled', splideInstance.index === 0);
+                nextArrow.classList.toggle(
+                    'is-disabled',
+                    splideInstance.index >= splideInstance.length - splideInstance.options.perPage
+                );
+            }
+    
+            splideInstance.on('mounted', updateArrows);
+            splideInstance.on('moved', updateArrows);
+            splideInstance.on('resized', updateArrows);
+    
+            setTimeout(() => {
+                try {
+                    splideInstance.refresh();
+                    updateArrows();
+                } catch (e) { /* ignore */ /* }
+}, 50);
 
-            instance.activeTab = tabName;
-        });
+return splideInstance;
+};
+
+
+contents.forEach(c => {
+if (c.dataset.tab === activeTab) {
+    c.classList.add('active');
+    c.style.display = '';
+    mountSplideFor(activeTab);
+} else {
+    c.classList.remove('active');
+    c.style.display = 'none';
+}
+});
+
+
+links.forEach(link => {
+link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const tabName = this.dataset.tab;
+    if (!tabName || tabName === instance.activeTab) return;
+
+ 
+    links.forEach(l => l.classList.remove('active'));
+    contents.forEach(c => {
+        c.classList.remove('active');
+        c.style.display = 'none';
     });
 
-
-    if (prevArrow) {
-        prevArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide) return;
-            if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
-        });
+ 
+    this.classList.add('active');
+    const newContent = contentMap.get(tabName);
+    if (newContent) {
+        newContent.classList.add('active');
+        newContent.style.display = '';
+        mountSplideFor(tabName);
     }
 
-    if (nextArrow) {
-        nextArrow.addEventListener('click', () => {
-            const activeSplide = splides[instance.activeTab];
-            if (!activeSplide) return;
-            if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
-        });
-    }
+    instance.activeTab = tabName;
+});
+});
 
-    instance.mountSplideFor = mountSplideFor;
+
+if (prevArrow) {
+prevArrow.addEventListener('click', () => {
+    const activeSplide = splides[instance.activeTab];
+    if (!activeSplide) return;
+    if (!prevArrow.classList.contains('is-disabled')) activeSplide.go('<');
+});
+}
+
+if (nextArrow) {
+nextArrow.addEventListener('click', () => {
+    const activeSplide = splides[instance.activeTab];
+    if (!activeSplide) return;
+    if (!nextArrow.classList.contains('is-disabled')) activeSplide.go('>');
+});
+}
+
+instance.mountSplideFor = mountSplideFor;
 } */
 
 
@@ -592,7 +592,7 @@ class HouseVariationManager {
             drag: false,
             breakpoints: {
                 992: {
-                    drag: true, 
+                    drag: true,
                 }
             }
         }).mount();
@@ -631,7 +631,9 @@ class HouseVariationManager {
         let splide;
 
         const initSplide = () => {
-            if (window.innerWidth <= 1500) {
+            const slides = this.sliderRecomendations.querySelectorAll('.splide__slide');
+            const hasEnoughSlides = slides.length > 3;
+            if (window.innerWidth <= 1500 && hasEnoughSlides) {
                 if (!splide) {
                     splide = new Splide(this.sliderRecomendations, {
                         type: 'splide',
@@ -1349,57 +1351,57 @@ class HouseVariationManager {
             parameter.textContent = '-';
 
             if (parameter.classList.contains('square-value')) {
-                if(combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
+                if (combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION) {
                     parameter.textContent = combination.PROPERTIES?.HOUSES_SQUARES?.VALUE_ELEMENT?.UF_DESCRIPTION;
 
-                    if(parameter.closest('.hidden')) {
+                    if (parameter.closest('.hidden')) {
                         parameter.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!parameter.closest('.hidden')) {
+                    if (!parameter.closest('.hidden')) {
                         parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
                     }
                 }
-                
+
             }
             if (parameter.classList.contains('size-value')) {
-                
-                if(combination.PROPERTIES?.SIZES?.VALUE) {
+
+                if (combination.PROPERTIES?.SIZES?.VALUE) {
                     parameter.textContent = combination.PROPERTIES?.SIZES?.VALUE;
 
-                    if(parameter.closest('.hidden')) {
+                    if (parameter.closest('.hidden')) {
                         parameter.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!parameter.closest('.hidden')) {
+                    if (!parameter.closest('.hidden')) {
                         parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
                     }
                 }
             }
             if (parameter.classList.contains('height-value')) {
-                
-                if(combination.PROPERTIES?.HEIGHT?.VALUE) {
+
+                if (combination.PROPERTIES?.HEIGHT?.VALUE) {
                     parameter.textContent = combination.PROPERTIES?.HEIGHT?.VALUE;
 
-                    if(parameter.closest('.hidden')) {
+                    if (parameter.closest('.hidden')) {
                         parameter.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!parameter.closest('.hidden')) {
+                    if (!parameter.closest('.hidden')) {
                         parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
                     }
                 }
             }
             if (parameter.classList.contains('allsquare-value')) {
-                
-                if(combination.PROPERTIES?.ALL_SQUARE?.VALUE) {
+
+                if (combination.PROPERTIES?.ALL_SQUARE?.VALUE) {
                     parameter.innerHTML = combination.PROPERTIES?.ALL_SQUARE?.VALUE + ' м<sup>2</sup>';
 
-                    if(parameter.closest('.hidden')) {
+                    if (parameter.closest('.hidden')) {
                         parameter.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!parameter.closest('.hidden')) {
+                    if (!parameter.closest('.hidden')) {
                         parameter.closest('.detail-product__layout-spec__item').classList.add('hidden');
                     }
                 }
@@ -1410,56 +1412,56 @@ class HouseVariationManager {
             room.textContent = '-';
 
             if (room.classList.contains('rooms-value')) {
-                
-                if(combination.PROPERTIES?.ROOMS?.VALUE) {
+
+                if (combination.PROPERTIES?.ROOMS?.VALUE) {
                     room.textContent = combination.PROPERTIES?.ROOMS?.VALUE + ' шт';
-                    if(room.closest('.hidden')) {
+                    if (room.closest('.hidden')) {
                         room.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!room.closest('.hidden')) {
+                    if (!room.closest('.hidden')) {
                         room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
                     }
                 }
             }
             if (room.classList.contains('storages-value')) {
-               
-                if(combination.PROPERTIES?.STORAGE?.VALUE) {
+
+                if (combination.PROPERTIES?.STORAGE?.VALUE) {
                     room.textContent = combination.PROPERTIES?.STORAGE?.VALUE + ' шт';
-                    if(room.closest('.hidden')) {
+                    if (room.closest('.hidden')) {
                         room.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!room.closest('.hidden')) {
+                    if (!room.closest('.hidden')) {
                         room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
                     }
                 }
             }
             if (room.classList.contains('wcs-value')) {
-                
-                if(combination.PROPERTIES?.WCS?.VALUE) {
+
+                if (combination.PROPERTIES?.WCS?.VALUE) {
                     room.textContent = combination.PROPERTIES?.WCS?.VALUE + ' шт';
-                    if(room.closest('.hidden')) {
+                    if (room.closest('.hidden')) {
                         room.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!room.closest('.hidden')) {
+                    if (!room.closest('.hidden')) {
                         room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
                     }
                 }
             }
             if (room.classList.contains('teracce-value')) {
-                if(combination.PROPERTIES?.TERACCE?.VALUE) {
+                if (combination.PROPERTIES?.TERACCE?.VALUE) {
                     room.innerHTML = combination.PROPERTIES?.TERACCE?.VALUE + ' м<sup>2</sup>';
-                    if(room.closest('.hidden')) {
+                    if (room.closest('.hidden')) {
                         room.closest('.hidden').classList.remove('hidden');
                     }
                 } else {
-                    if(!room.closest('.hidden')) {
+                    if (!room.closest('.hidden')) {
                         room.closest('.detail-product__layout-additional-option__component').classList.add('hidden');
                     }
                 }
-                
+
             }
         })
 
@@ -1603,7 +1605,7 @@ class HouseVariationManager {
                         tabWrapper.querySelector('.equipment-tabs__content-image img').src = contentData.imageProperty.VALUE;
                     }
                 }
-                
+
             }
         });
         this.initEquipmentTabs();

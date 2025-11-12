@@ -51,17 +51,18 @@
       }
 
       & .mobile-drag__line {
-        height: 15px;
-        width: 70px;
+        height: 30px;
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        margin-bottom: 12px;
+        margin-bottom: 7px;
+        padding-top: 8px;
 
         & .mobile-drag__line-inner {
-          width: 100%;
+          width: 70px;
           height: 4px;
           border-radius: 4px;
           background: #E7EAEB;
@@ -497,7 +498,7 @@
                 position: relative;
 
 
-                 &:nth-child(even) {
+                &:nth-child(even) {
                   &::before {
                     content: '';
                     position: absolute;
